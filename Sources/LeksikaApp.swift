@@ -43,9 +43,11 @@ struct WebView: UIViewRepresentable {
 
         let controller = WKUserContentController()
         controller.add(bridge, name: "native")
+        Store.keepLegacyCopyIfNeeded()
         let initial = Store.loadValidJSON() ?? "null"
+        let lessons = Store.loadLessonsJSON() ?? "null"
         controller.addUserScript(WKUserScript(
-            source: "window.__NATIVE_DATA=\(initial);",
+            source: "window.__NATIVE_DATA=\(initial);window.__NATIVE_LESSONS=\(lessons);",
             injectionTime: .atDocumentStart,
             forMainFrameOnly: true))
         config.userContentController = controller
@@ -101,7 +103,9 @@ final class LocalSchemeHandler: NSObject, WKURLSchemeHandler {
     func webView(_ webView: WKWebView, stop task: WKURLSchemeTask) {}
 }
 
-/// App data lives in Documents/leksika.json (visible in the Files app).
+/// App data lives in Documents (visible in the Files app):
+/// leksika.json — words, progress and stats; leksika.lessons.json — lesson texts,
+/// kept apart so that marking a word does not rewrite every text.
 enum Store {
     private static let queue = DispatchQueue(label: "leksika.store")
     private static var backedUp = false
@@ -112,6 +116,34 @@ enum Store {
     }
     static var prevURL: URL {
         url.deletingLastPathComponent().appendingPathComponent("leksika.prev.json")
+    }
+
+    static var lessonsURL: URL {
+        url.deletingLastPathComponent().appendingPathComponent("leksika.lessons.json")
+    }
+    /// One-time copy of the old single-file format, made before lessons are split out.
+    static var legacyURL: URL {
+        url.deletingLastPathComponent().appendingPathComponent("leksika.backup-v1.json")
+    }
+
+    static func keepLegacyCopyIfNeeded() {
+        let fm = FileManager.default
+        if fm.fileExists(atPath: url.path), !fm.fileExists(atPath: lessonsURL.path),
+           !fm.fileExists(atPath: legacyURL.path) {
+            try? fm.copyItem(at: url, to: legacyURL)
+        }
+    }
+
+    static func loadLessonsJSON() -> String? {
+        guard let data = try? Data(contentsOf: lessonsURL), isValid(data) else { return nil }
+        return String(data: data, encoding: .utf8)
+    }
+
+    static func saveLessons(_ text: String) {
+        queue.async {
+            guard let data = text.data(using: .utf8), isValid(data) else { return }
+            try? data.write(to: lessonsURL, options: .atomic)
+        }
     }
 
     private static func isValid(_ data: Data) -> Bool {
@@ -131,8 +163,11 @@ enum Store {
 
     static func save(_ text: String) {
         queue.async {
-            guard let data = text.data(using: .utf8), isValid(data) else { return }
+            guard let data = text.data(using: .utf8),
+                  let object = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] else { return }
             let fm = FileManager.default
+            // Never replace a file that still holds the lesson texts before they are saved separately.
+            if object["lessons"] == nil, !fm.fileExists(atPath: lessonsURL.path) { return }
             if !backedUp, fm.fileExists(atPath: url.path) {
                 try? fm.removeItem(at: prevURL)
                 try? fm.copyItem(at: url, to: prevURL)

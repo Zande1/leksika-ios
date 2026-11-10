@@ -209,7 +209,8 @@ textarea{min-height:160px;resize:vertical;font-family:var(--f-read);line-height:
 const $=(s,r=document)=>r.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}};
-const WORD_RE=/[A-Za-z]+(?:['’][A-Za-z]+)*/g;
+const LT='A-Za-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u024F';
+const WORD_RE=new RegExp('['+LT+']+(?:[\'’]['+LT+']+)*','g');
 const norm=w=>w.toLowerCase().replace(/’/g,"'");
 const phraseKey=t=>(t.match(WORD_RE)||[]).map(norm).join(' ');
 const reEsc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
@@ -227,7 +228,7 @@ let toastT;
 function toast(m,act,fn,ms){if(!m)return;const t=$('#toast');t.innerHTML='<span>'+esc(m)+'</span>'+(act?`<button type="button">${esc(act)}</button>`:'');t.hidden=false;if(act)t.querySelector('button').onclick=()=>{t.hidden=true;fn()};clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,ms||(act?6000:2600))}
 
 /* sentence splitter keeping every character */
-const ABBR=/(?:\b(?:Mr|Mrs|Ms|Dr|St|Jr|Sr|Prof|Mt|vs|etc|No|Vol|Ch|Fig|Gen|Col|Lt|Sgt|Capt|Gov|Rev)|\b[A-Z]|\be\.g|\bi\.e)\.$/;
+const ABBR=/(?:\b(?:Mr|Mrs|Ms|Dr|St|Jr|Sr|Prof|Mt|vs|etc|No|Vol|Ch|Fig|Gen|Col|Lt|Sgt|Capt|Gov|Rev)|\b[A-HJ-Z]|\be\.g|\bi\.e)\.$/;
 function splitSentences(p){
   const out=[];let start=0;const re=/[.!?…]+["'”’)\]]*(?=\s|$)/g;let m;
   while((m=re.exec(p))){
@@ -329,8 +330,8 @@ function setKn(keys,val){for(const k of keys)vocabWrite(k,undefined,val)}
 /* ---- lessons ---- */
 const chains=new Map();
 function queue(id,fn){const p=(chains.get(id)||Promise.resolve()).then(fn).catch(e=>{toast('Не сохранилось: '+(e&&(e.code||e.message)||'ошибка'))});chains.set(id,p);return p}
-function putLesson(id,obj){S.lessons.set(id,obj);changed();if(db)return queue('l'+id,()=>db.collection('lessons').doc(id).set(obj));persistLocal();return Promise.resolve()}
-function dropLesson(id){S.lessons.delete(id);changed();if(db)queue('l'+id,()=>db.collection('lessons').doc(id).delete());else persistLocal()}
+function putLesson(id,obj){lessonsDirty=true;S.lessons.set(id,obj);changed();if(db)return queue('l'+id,()=>db.collection('lessons').doc(id).set(obj));persistLocal();return Promise.resolve()}
+function dropLesson(id){lessonsDirty=true;S.lessons.delete(id);changed();if(db)queue('l'+id,()=>db.collection('lessons').doc(id).delete());else persistLocal()}
 
 /* ---- progress per lesson: meta/progress {l:{id:{done,reads,pos}}} ---- */
 const pendP=new Map();let progExists=false;const progTimers=new Map();
@@ -372,15 +373,25 @@ function saveDay(){
 }
 
 /* ---- local fallback ---- */
-let lsWarned=false;
+let lsWarned=false, lessonsDirty=true;
+/* native: lesson texts live in their own file and are rewritten only when a lesson changes */
+function persistNow(){
+  clearTimeout(persistLocal.t);persistLocal.t=null;
+  if(mode!=='local')return;
+  if(NATIVE){
+    if(lessonsDirty){lessonsDirty=false;NB.post('saveLessons',JSON.stringify(Object.fromEntries(S.lessons)))}
+    NB.post('save',JSON.stringify({v:3,words:Object.fromEntries(S.words),kn:Object.fromEntries(S.kn),prog:S.prog,days:S.days}));return}
+  const all={lessons:Object.fromEntries(S.lessons),words:Object.fromEntries(S.words),kn:Object.fromEntries(S.kn),prog:S.prog,days:S.days};
+  const ok=LS.set('lx2',all);
+  if(!ok&&!lsWarned){lsWarned=true;toast('Память браузера переполнена — сделай резервную копию во вкладке «Прогресс».')}
+}
 function persistLocal(){
   if(mode!=='local')return;
   clearTimeout(persistLocal.t);
-  persistLocal.t=setTimeout(()=>{const all={lessons:Object.fromEntries(S.lessons),words:Object.fromEntries(S.words),kn:Object.fromEntries(S.kn),prog:S.prog,days:S.days};
-    if(NATIVE){NB.post('save',JSON.stringify(all));return}
-    const ok=LS.set('lx2',all);
-    if(!ok&&!lsWarned){lsWarned=true;toast('Память браузера переполнена — сделай резервную копию во вкладке «Прогресс».')}},300);
+  persistLocal.t=setTimeout(persistNow,300);
 }
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&persistLocal.t)persistNow()});
+addEventListener('pagehide',()=>{if(persistLocal.t)persistNow()});
 
 /* ---- init ---- */
 async function init(){
@@ -397,7 +408,9 @@ function initLocal(){
   let data=NATIVE?(window.__NATIVE_DATA||null):LS.get('lx2',null);
   if(!data){const old=LS.get('lx-data',null);
     if(old){data={lessons:old.lessons||{},words:old.words||{},kn:Object.fromEntries((old.known||[]).map(k=>[k,1])),prog:{},days:(old.stats&&old.stats.days)||{}}}}
-  if(data){S.lessons=new Map(Object.entries(data.lessons||{}));S.words=new Map(Object.entries(data.words||{}));S.kn=new Map(Object.entries(data.kn||{}));S.prog=data.prog||{};S.days=data.days||{}}
+  const natL=NATIVE&&window.__NATIVE_LESSONS&&typeof window.__NATIVE_LESSONS==='object'?window.__NATIVE_LESSONS:null;
+  if(!data&&natL)data={};
+  if(data){S.lessons=new Map(Object.entries(natL||data.lessons||{}));S.words=new Map(Object.entries(data.words||{}));S.kn=new Map(Object.entries(data.kn||{}));S.prog=data.prog||{};S.days=data.days||{}}
   else S.lessons.set('sample',{title:SAMPLE.title,text:SAMPLE.text,created:Date.now()});
   dayRec();persistLocal();renderView();
 }
@@ -949,7 +962,7 @@ async function fetchLookup(){
   if(sheet===s)updateSheet();
 }
 function closeSheet(){if(!sheet)return;if(sheet.ctl)sheet.ctl.abort();sheet=null;$('#sheetRoot').innerHTML='';document.body.classList.remove('sheet-open');paintWords()}
-function markCtx(ctx,disp){const t=(disp||'').match(WORD_RE);if(!ctx)return '';if(!t)return esc(ctx);const re=new RegExp('\\b('+t.map(reEsc).join('[^A-Za-z]+')+')\\b','i');const m=ctx.match(re);if(!m)return esc(ctx);return esc(ctx.slice(0,m.index))+'<mark>'+esc(m[0])+'</mark>'+esc(ctx.slice(m.index+m[0].length))}
+function markCtx(ctx,disp){const t=(disp||'').match(WORD_RE);if(!ctx)return '';if(!t)return esc(ctx);const re=new RegExp('(^|[^'+LT+'])('+t.map(reEsc).join('[^'+LT+']+')+')(?!['+LT+'])','i');const m=ctx.match(re);if(!m)return esc(ctx);const a=m.index+m[1].length;return esc(ctx.slice(0,a))+'<mark>'+esc(m[2])+'</mark>'+esc(ctx.slice(a+m[2].length))}
 function buildSheet(){
   const s=sheet;
   $('#sheetRoot').innerHTML=`<div class="sheet" id="sheet" role="dialog" aria-label="${s.phrase?'Фраза':'Слово'}"><div class="wrap">
@@ -1125,7 +1138,7 @@ function renderCards(){
   const w=S.words.get(q[i]);if(!w){ss.i++;renderCards();return}
   if(!ss.cur||ss.cur.k!==w.k){
     const st=w.status||1;let mode=st<=2?'choice':'recall';let opts=null;
-    if(mode==='choice'){opts=buildChoice(w,dir);if(!opts)mode='recall'}
+    if(mode==='choice'){opts=buildChoice(w,dir==='ru'&&w.tr?'ru':'en');if(!opts)mode='recall'}
     ss.cur={k:w.k,mode,opts,answered:null,revealed:false};
   }
   const c=ss.cur;const ru=dir==='ru'&&!!w.tr;

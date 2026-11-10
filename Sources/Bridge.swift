@@ -28,6 +28,9 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
         case "save":
             if let text = body["data"] as? String { Store.save(text) }
 
+        case "saveLessons":
+            if let text = body["data"] as? String { Store.saveLessons(text) }
+
         case "voices":
             reply(id, true, speaker.voices())
 
@@ -85,7 +88,7 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
 
     private func translateWord(_ text: String, context: String, isPhrase: Bool) async throws -> [String: Any] {
         let lemma = isPhrase ? "" : Lemma.of(text, in: context)
-        async let apple: String? = try? await withTimeout(8) { try await self.translator.translate(text) }
+        async let apple: String? = try? await withTimeout(4) { try await self.translator.translate(text) }
         async let google: GoogleResult? = try? await Google.translate(text, dictionary: !isPhrase)
         let a = await apple
         let g = await google
@@ -318,15 +321,36 @@ enum Lemma {
 
 // MARK: - Helpers
 
+/// Returns the operation's result, or throws `.timedOut` after `seconds`, whichever comes first.
+/// It does not wait for a stuck operation to finish (a task group would), so callers can fall back.
 func withTimeout<T: Sendable>(_ seconds: Double, _ operation: @escaping @Sendable () async throws -> T) async throws -> T {
-    try await withThrowingTaskGroup(of: T.self) { group in
-        group.addTask { try await operation() }
-        group.addTask {
-            try await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
-            throw URLError(.timedOut)
+    let gate = OnceGate<T>()
+    return try await withCheckedThrowingContinuation { (c: CheckedContinuation<T, Error>) in
+        gate.arm(c)
+        Task {
+            do { gate.finish(.success(try await operation())) } catch { gate.finish(.failure(error)) }
         }
-        defer { group.cancelAll() }
-        guard let first = try await group.next() else { throw URLError(.timedOut) }
-        return first
+        Task {
+            try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
+            gate.finish(.failure(URLError(.timedOut)))
+        }
+    }
+}
+
+/// Resumes a continuation exactly once; later results are dropped.
+final class OnceGate<T: Sendable>: @unchecked Sendable {
+    private let lock = NSLock()
+    private var continuation: CheckedContinuation<T, Error>?
+
+    func arm(_ c: CheckedContinuation<T, Error>) {
+        lock.lock(); continuation = c; lock.unlock()
+    }
+
+    func finish(_ result: Result<T, Error>) {
+        lock.lock()
+        let c = continuation
+        continuation = nil
+        lock.unlock()
+        c?.resume(with: result)
     }
 }
