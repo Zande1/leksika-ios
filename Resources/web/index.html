@@ -1,0 +1,1229 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><title>Лексика</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Лексика">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one-column reading app — sticky top bar, fixed bottom tab bar, non-modal bottom sheet for words */
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --ink:#181B22; --muted:#5F6676; --line:#E1E5EB;
+  --accent:#0D7A6B; --accent-ink:#FFFFFF; --accent-soft:#DDF1EC;
+  --new:#D8E4FF; --l1:#FFD25E; --l2:#FFE08C; --l3:#FFEDB9; --l4:#FFF6DC;
+  --play:#C9EEE6; --danger:#B93D29; --good:#2F8A3B; --shadow:rgba(16,20,28,.14);
+  --f-read:"Literata", Georgia, "Times New Roman", serif;
+  --f-ui:"Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --nav-h:60px; --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111317; --surface:#1A1D23; --ink:#E8EAEF; --muted:#9AA1AE; --line:#2A2E36;
+  --accent:#3CC4AE; --accent-ink:#04211C; --accent-soft:#163631;
+  --new:rgba(112,152,255,.26); --l1:rgba(255,196,40,.46); --l2:rgba(255,196,40,.32); --l3:rgba(255,196,40,.2); --l4:rgba(255,196,40,.1);
+  --play:rgba(60,196,174,.24); --danger:#F0806B; --good:#6CCB78; --shadow:rgba(0,0,0,.5); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111317; --surface:#1A1D23; --ink:#E8EAEF; --muted:#9AA1AE; --line:#2A2E36;
+  --accent:#3CC4AE; --accent-ink:#04211C; --accent-soft:#163631;
+  --new:rgba(112,152,255,.26); --l1:rgba(255,196,40,.46); --l2:rgba(255,196,40,.32); --l3:rgba(255,196,40,.2); --l4:rgba(255,196,40,.1);
+  --play:rgba(60,196,174,.24); --danger:#F0806B; --good:#6CCB78; --shadow:rgba(0,0,0,.5); color-scheme:dark}
+
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:15px;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+button,input,textarea,select{font:inherit;color:inherit}
+button,a.btn{cursor:pointer;touch-action:manipulation}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:10px;min-height:54px;padding-block:6px}
+header.top h1{font-size:20px;font-weight:800;letter-spacing:-.01em;margin:0;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+main{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 24px)}
+body.sheet-open main{padding-bottom:58vh}
+main .wrap{padding-block:16px;display:flex;flex-direction:column;gap:14px}
+.banner{background:var(--l3);color:var(--ink);border-radius:10px;padding:8px 12px;font-size:13px}
+
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--surface);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+nav.tabs .in{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);height:var(--nav-h)}
+nav.tabs button{background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);font-size:10.5px;font-weight:600;position:relative;min-width:0}
+nav.tabs button svg{width:22px;height:22px}
+nav.tabs button[aria-current="page"]{color:var(--accent)}
+nav.tabs .badge{position:absolute;top:7px;left:calc(50% + 6px);background:var(--danger);color:#fff;border-radius:9px;font-size:10px;min-width:17px;height:17px;line-height:17px;padding:0 4px;text-align:center}
+
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 14px;font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--muted)}
+.btn.danger{color:var(--danger)}
+.btn.sm{padding:7px 11px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:default}
+.icon-btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;flex:none;font-weight:700}
+.icon-btn svg{width:20px;height:20px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.note{font-size:13px;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:10px 12px}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px}
+.panel h2{margin:0;font-size:16px;font-weight:800}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label,.label{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+input[type=text],input[type=search],textarea,select{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;box-sizing:border-box;font-size:16px}
+textarea{min-height:160px;resize:vertical;font-family:var(--f-read);line-height:1.5}
+.parts{margin:0;padding-left:20px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:2px}
+
+/* library */
+.lesson{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;text-align:left;width:100%}
+.lesson h3{margin:0;font-family:var(--f-read);font-weight:600;font-size:18px;min-width:0;overflow-wrap:anywhere}
+.lesson .meta{grid-column:1;font-size:13px;color:var(--muted)}
+.lesson .pct{grid-row:1/3;grid-column:2;font-variant-numeric:tabular-nums;text-align:right}
+.lesson .pct b{display:block;font-size:20px}
+.bar{grid-column:1/3;height:5px;border-radius:3px;background:var(--new);overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.lesson-wrap{display:flex;flex-direction:column;gap:6px}
+.lesson-actions{display:flex;justify-content:flex-end;gap:4px;flex-wrap:wrap}
+.course-parts{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.part{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;padding:11px 14px;border:0;border-bottom:1px solid var(--line);background:none;text-align:left;width:100%}
+.part:last-child{border-bottom:0}
+.part .t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.part .p{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.part .ok{color:var(--accent);font-weight:800}
+
+/* reader */
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:14px;height:14px;border-radius:4px;display:inline-block;border:1px solid var(--line)}
+.text{font-family:var(--f-read);font-size:var(--fs,20px);line-height:1.8;overflow-wrap:break-word;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.text p{margin:0 0 1em}
+.sent{border-radius:6px;transition:background .2s}
+.sent.playing{background:var(--play)}
+.w{border-radius:5px;padding:0 1px;cursor:pointer}
+.s0{background:var(--new)} .s1{background:var(--l1)} .s2{background:var(--l2)} .s3{background:var(--l3)} .s4{background:var(--l4)}
+.w.ph{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:5px}
+.w.sel{outline:2px solid var(--accent);outline-offset:1px}
+.w.pick{background:var(--accent);color:var(--accent-ink)}
+.endbox{display:flex;flex-direction:column;gap:10px;align-items:flex-start;border-top:1px solid var(--line);padding-top:14px}
+.stats{display:flex;gap:18px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.stats div{display:flex;flex-direction:column}
+.stats b{font-size:20px}
+.stats span{font-size:12px;color:var(--muted)}
+
+/* sheet (non-modal) */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;background:var(--surface);border-radius:18px 18px 0 0;border-top:1px solid var(--line);
+  max-height:55vh;max-height:55dvh;overflow:auto;overscroll-behavior:contain;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 14px);box-shadow:0 -10px 30px var(--shadow)}
+.sheet .wrap{display:flex;flex-direction:column;gap:11px;padding-block:6px 0}
+.grab{padding:6px 0 2px;display:flex;justify-content:center;touch-action:none}
+.grab i{width:40px;height:5px;border-radius:3px;background:var(--line)}
+.sw-head{display:flex;align-items:center;gap:8px}
+.sw-word{font-family:var(--f-read);font-size:24px;font-weight:600;flex:1;min-width:0;overflow-wrap:anywhere;line-height:1.25}
+.sw-ipa{font-size:14px;color:var(--muted)}
+.sw-tr{font-size:18px;font-weight:600}
+.ctx{font-family:var(--f-read);font-size:15px;line-height:1.5;background:var(--bg);border-radius:10px;padding:10px 12px}
+.ctx mark{background:var(--l2);color:inherit;border-radius:4px;padding:0 2px}
+.explain{font-size:14px;line-height:1.5;white-space:pre-wrap;background:var(--accent-soft);border-radius:10px;padding:10px 12px}
+.levels{display:grid;grid-template-columns:repeat(5,1fr) 1.3fr;gap:6px}
+.levels button{border:1px solid var(--line);border-radius:10px;padding:9px 0;background:var(--bg);font-weight:700;font-variant-numeric:tabular-nums;font-size:14px}
+.levels button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.lvl-cap{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.inph{display:flex;flex-direction:column;gap:6px}
+.inph button{text-align:left;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 12px}
+
+/* words */
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:6px 12px;font-size:13px;font-weight:600}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.wlist{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.wrow{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:11px 14px;border:0;border-bottom:1px solid var(--line);background:none;text-align:left;width:100%}
+.wrow:last-child{border-bottom:0}
+.dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--line);flex:none}
+.wrow .tx{min-width:0}
+.wrow .tx b{font-family:var(--f-read);font-size:17px;font-weight:600}
+.wrow .tx div{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wrow .lv{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px 18px;min-height:280px;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;justify-content:center}
+.card .big{font-family:var(--f-read);font-size:32px;font-weight:600;overflow-wrap:anywhere}
+.card .ans{display:flex;flex-direction:column;gap:6px;align-items:center}
+.card hr{width:60%;border:0;border-top:1px solid var(--line);margin:4px 0}
+.grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.grades button{border:1px solid var(--line);border-radius:12px;padding:10px 4px;background:var(--surface);font-weight:700;display:flex;flex-direction:column;gap:2px}
+.grades button span{font-size:11px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
+.grades .g0{color:var(--danger)} .grades .g3{color:var(--good)}
+.progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent)}
+.big-num{font-size:46px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.02em}
+
+/* progress */
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.tile b{font-size:24px;font-variant-numeric:tabular-nums}
+.tile span{font-size:12px;color:var(--muted)}
+.dist{display:flex;flex-direction:column;gap:8px}
+.dist .r{display:grid;grid-template-columns:70px 1fr 54px;gap:10px;align-items:center;font-size:13px;font-variant-numeric:tabular-nums}
+.dist .r .t{height:10px;border-radius:5px;background:var(--bg);overflow:hidden}
+.dist .r .t i{display:block;height:100%}
+.dist .r .n{text-align:right}
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font-size:11px;font-family:var(--f-ui)}
+.steps{display:flex;gap:4px}
+.steps i{flex:1;height:8px;border-radius:4px;background:var(--line)}
+.steps i.on{background:var(--accent)}
+
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 12px);z-index:60;background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:12px;font-size:14px;max-width:calc(100% - 32px);box-sizing:border-box;display:flex;gap:12px;align-items:center}
+.toast button{background:none;border:0;color:var(--accent);font-weight:800;padding:2px 4px}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:sp .8s linear infinite;vertical-align:-2px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.spin{animation:none}.sent{transition:none}}
+.empty{text-align:center;padding:30px 10px;color:var(--muted)}
+</style>
+
+<header class="top"><div class="wrap"><h1 id="title">Лексика</h1><div class="row" id="topActions"></div></div></header>
+<main><div class="wrap" id="view"></div></main>
+<nav class="tabs" aria-label="Разделы"><div class="in">
+  <button data-go="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M13 4h5.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H13z"/></svg>Тексты</button>
+  <button data-go="read"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 6h14M5 10h14M5 14h9M5 18h6"/></svg>Чтение</button>
+  <button data-go="words"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h3M4 12h3M4 17h3M10 7h10M10 12h10M10 17h10"/></svg>Слова</button>
+  <button data-go="cards"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="7" width="14" height="13" rx="2"/><path d="M7 4h12a2 2 0 0 1 2 2v11"/></svg>Карточки<span class="badge" id="dueBadge" hidden></span></button>
+  <button data-go="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Прогресс</button>
+</div></nav>
+<input type="file" id="fileIn" accept=".txt,.md,.srt,.vtt,.html,.htm,.xhtml,.epub,.docx,.pdf,text/plain,application/pdf,application/epub+zip" hidden>
+<input type="file" id="backupIn" accept=".json,application/json" hidden>
+<div id="sheetRoot"></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+"use strict";
+/* ================= helpers ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}};
+const WORD_RE=/[A-Za-z]+(?:['’][A-Za-z]+)*/g;
+const norm=w=>w.toLowerCase().replace(/’/g,"'");
+const phraseKey=t=>(t.match(WORD_RE)||[]).map(norm).join(' ');
+const reEsc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+const fmtN=n=>Number(n||0).toLocaleString('ru-RU');
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const NATIVE=!!(window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.native);
+const NB={seq:0,cb:new Map(),
+  call(type,data,ms){return new Promise((res,rej)=>{const id=++this.seq;this.cb.set(id,{res,rej});if(ms)setTimeout(()=>{if(this.cb.delete(id))rej({code:'timeout'})},ms);try{window.webkit.messageHandlers.native.postMessage({id,type,data})}catch(e){this.cb.delete(id);rej({code:'bridge'})}})},
+  post(type,data){try{window.webkit.messageHandlers.native.postMessage({id:0,type,data})}catch(e){}}};
+window.__nb=(id,ok,val)=>{const c=NB.cb.get(id);if(!c)return;NB.cb.delete(id);ok?c.res(val):c.rej(val||{})};
+const IS_IOS=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const SPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
+function today(d=new Date()){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+let toastT;
+function toast(m,act,fn,ms){if(!m)return;const t=$('#toast');t.innerHTML='<span>'+esc(m)+'</span>'+(act?`<button type="button">${esc(act)}</button>`:'');t.hidden=false;if(act)t.querySelector('button').onclick=()=>{t.hidden=true;fn()};clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,ms||(act?6000:2600))}
+
+/* sentence splitter keeping every character */
+const ABBR=/(?:\b(?:Mr|Mrs|Ms|Dr|St|Jr|Sr|Prof|Mt|vs|etc|No|Vol|Ch|Fig|Gen|Col|Lt|Sgt|Capt|Gov|Rev)|\b[A-Z]|\be\.g|\bi\.e)\.$/;
+function splitSentences(p){
+  const out=[];let start=0;const re=/[.!?…]+["'”’)\]]*(?=\s|$)/g;let m;
+  while((m=re.exec(p))){
+    const end=m.index+m[0].length;
+    if(m[0]==='.'&&ABBR.test(p.slice(start,end)))continue;
+    let e=end;while(e<p.length&&/\s/.test(p[e]))e++;
+    out.push(p.slice(start,e));start=e;
+  }
+  if(start<p.length)out.push(p.slice(start));
+  return out.filter(s=>s.trim());
+}
+/* rough English stemmer: groups help/helps/helped/helping for an approximate count */
+function stem(w){
+  w=w.replace(/n't$/,'').replace(/'(s|re|ll|ve|d|m)$/,'').replace(/s'$/,'s');
+  if(w.length>4&&/ies$/.test(w))return w.slice(0,-3)+'y';
+  if(w.length>4&&/(ss|x|z|ch|sh)es$/.test(w))return w.slice(0,-2);
+  const undbl=x=>/([b-df-hj-np-tv-z])\1$/.test(x)&&!/(ll|ss|ff|zz)$/.test(x)?x.slice(0,-1):x;
+  if(w.length>5&&/ing$/.test(w))return undbl(w.slice(0,-3)).replace(/e$/,'');
+  if(w.length>4&&/ied$/.test(w))return w.slice(0,-3)+'y';
+  if(w.length>4&&/ed$/.test(w))return undbl(w.slice(0,-2)).replace(/e$/,'');
+  if(w.length>3&&/[^sui]s$/.test(w)&&!/^(news|series|species|means|always|perhaps|towards|afterwards|whereas|lens|bus|gas|yes|this|thus|was|has|does|goes|less|unless)$/.test(w))w=w.slice(0,-1);
+  if(w.length>5&&/(er|est)$/.test(w)&&/^(bigg|hott|fatt|thinn|wett|sadd|redd|fitt)/.test(w))return w.replace(/(er|est)$/,'').slice(0,-1);
+  return w.length>3?w.replace(/e$/,''):w;
+}
+
+const SAMPLE={title:'Пример: A Rainy Saturday',text:`On Saturday morning it was raining, so Anna decided to stay at home. She made a big cup of coffee and sat by the window. The street outside was empty, and the only sound was the rain on the roof.
+
+She opened a book she had bought last month but never started. It was about a man who travels across Canada by train. After a few pages, she forgot about the weather completely.
+
+In the afternoon, her brother called. He wanted to borrow her car because his was at the garage. Anna agreed, but she asked him to fill up the tank before bringing it back.
+
+By evening the rain had stopped. The air smelled fresh, and the streets were shining under the lights. Anna put on her jacket and went out for a short walk. She felt calm and a little proud: she had read almost half of the book in one day.`};
+
+/* ================= state ================= */
+// S.words: lingqs (status 1-5), S.kn: plain marks (1 = known, 2 = ignored)
+const S={lessons:new Map(),words:new Map(),kn:new Map(),prog:{},days:{}};
+let db=null, sample=null, downloads=null, sampleOff=false, mode='loading', loadErr='', offline=false;
+
+function statusOf(k){const w=S.words.get(k);if(w)return w.status||1;const v=S.kn.get(k);return v===1?5:v===2?-1:0}
+function knownKeys(){const out=[];for(const w of S.words.values())if(!w.phrase&&w.status===5)out.push(w.k);for(const [k,v] of S.kn)if(v===1&&!S.words.has(k))out.push(k);return out}
+function knownCount(){let n=0;for(const w of S.words.values())if(!w.phrase&&w.status===5)n++;for(const [k,v] of S.kn)if(v===1&&!S.words.has(k))n++;return n}
+function learningCount(){let n=0;for(const w of S.words.values())if((w.status||1)<5)n++;return n}
+let vocabVer=0, famCache={v:-1,n:0};
+/* irregular forms -> base word */
+const IRR=(()=>{const m=new Map();`be:am,is,are,was,were,been,being,isn't,aren't,wasn't,weren't|have:has,had,having,hasn't,haven't,hadn't|do:does,did,done,doing,doesn't,didn't|go:goes,went,gone,going|say:says,said|get:got,gotten|make:made|know:knew,known|think:thought|take:took,taken|see:saw,seen|come:came|give:gave,given|find:found|tell:told|become:became|leave:left|feel:felt|bring:brought|begin:began,begun|keep:kept|hold:held|write:wrote,written|stand:stood|hear:heard|mean:meant|meet:met|run:ran|pay:paid|sit:sat|speak:spoke,spoken|lie:lay,lain|lead:led|grow:grew,grown|lose:lost|fall:fell,fallen|send:sent|build:built|understand:understood|draw:drew,drawn|break:broke,broken|spend:spent|rise:rose,risen|drive:drove,driven|buy:bought|wear:wore,worn|choose:chose,chosen|seek:sought|throw:threw,thrown|catch:caught|deal:dealt|win:won|forget:forgot,forgotten|sell:sold|fight:fought|teach:taught|eat:ate,eaten|sing:sang,sung|drink:drank,drunk|swim:swam,swum|fly:flew,flown|freeze:froze,frozen|hide:hid,hidden|ride:rode,ridden|shake:shook,shaken|steal:stole,stolen|wake:woke,woken|bite:bit,bitten|blow:blew,blown|feed:fed|fly:flies|forgive:forgave,forgiven|hang:hung|light:lit|sleep:slept|sweep:swept|weep:wept|bend:bent|lend:lent|shoot:shot|slide:slid|stick:stuck|strike:struck|swing:swung|dig:dug|bleed:bled|breed:bred|flee:fled|kneel:knelt|dream:dreamt|learn:learnt|burn:burnt|smell:smelt|spell:spelt|spill:spilt|tear:tore,torn|bear:bore,born,borne|beat:beaten|arise:arose,arisen|shine:shone|withdraw:withdrew,withdrawn|undertake:undertook,undertaken|overcome:overcame|child:children|man:men|woman:women|person:people|foot:feet|tooth:teeth|mouse:mice|goose:geese|life:lives|wife:wives|knife:knives|leaf:leaves|half:halves|wolf:wolves|shelf:shelves|thief:thieves|good:better,best|bad:worse,worst|far:further,farther,furthest,farthest|little:less,least|many:more,most|i:me,my,mine,myself|you:your,yours,yourself,yourselves|he:him,his,himself|she:her,hers,herself|it:its,itself|we:us,our,ours,ourselves|they:them,their,theirs,themselves|can:could,can't,couldn't,cannot|will:would,won't,wouldn't|shall:should,shouldn't|may:might`.split('|').forEach(g=>{const [b,f]=g.split(':');for(const x of f.split(','))m.set(x,b)});return m})();
+function lemmaKey(k){
+  const w=S.words.get(k);
+  if(w&&!w.phrase&&w.lemma){const l=norm(w.lemma.trim().split(/[\s,;(]/)[0]||'');if(/^[a-z']+$/.test(l))return stem(IRR.get(l)||l)}
+  const base=k.replace(/n't$/,'').replace(/'(s|re|ll|ve|d|m)$/,'');
+  return stem(IRR.get(k)||IRR.get(base)||base);
+}
+function famCount(){if(famCache.v!==vocabVer)famCache={v:vocabVer,n:new Set(knownKeys().map(lemmaKey)).size};return famCache.n}
+/* CEFR thresholds: Milton & Alexiou (2009), known words among the 5000 most frequent (X-Lex) */
+const CEFR=[['A1',0],['A2',1500],['B1',2750],['B2',3250],['C1',3750],['C2',4500]];
+function cefrOf(n){let i=0;for(let j=0;j<CEFR.length;j++)if(n>=CEFR[j][1])i=j;return i}
+
+/* ---- vocab store: buckets vocab/<b> = {w:{key:obj|null}, k:{key:0|1|2}} ---- */
+const bucketOf=k=>{const a=k[0]||'_',b=k[1]||'_';return (/[a-z]/.test(a)?a:'_')+(/[a-z]/.test(b)?b:'_')};
+const serverB=new Map(), bucketExists=new Set();
+const pendW=new Map(), pendK=new Map(); let gen=0;
+const dirtyB=new Map(); let flushT=null, flushing=false;
+function vocabWrite(k,wVal,kVal){
+  const g=++gen;vocabVer++;
+  if(wVal!==undefined){pendW.set(k,{v:wVal,g});if(wVal===null)S.words.delete(k);else S.words.set(k,wVal)}
+  if(kVal!==undefined){pendK.set(k,{v:kVal,g});if(kVal)S.kn.set(k,kVal);else S.kn.delete(k)}
+  if(db){const b=bucketOf(k);let p=dirtyB.get(b);if(!p){p={w:{},k:{},keys:[]};dirtyB.set(b,p)}
+    if(wVal!==undefined)p.w[k]=wVal;if(kVal!==undefined)p.k[k]=kVal;p.keys.push([k,g]);
+    clearTimeout(flushT);flushT=setTimeout(flush,60)}
+  else persistLocal();
+  changed();
+}
+async function flush(){
+  if(flushing)return;flushing=true;
+  try{
+    while(dirtyB.size){
+      const [b,p]=dirtyB.entries().next().value;dirtyB.delete(b);
+      const patch={};if(Object.keys(p.w).length)patch.w=p.w;if(Object.keys(p.k).length)patch.k=p.k;
+      const ref=db.collection('vocab').doc(b);
+      try{if(bucketExists.has(b))await ref.update(patch);else{await ref.set(patch);bucketExists.add(b)}}
+      catch(e){if(e&&e.code==='unavailable'){await sleep(800+Math.random()*800);try{bucketExists.has(b)?await ref.update(patch):await ref.set(patch)}catch(e2){toast('Не сохранилось: '+(e2.code||'ошибка'))}}else toast('Не сохранилось: '+(e&&(e.code||e.message)||'ошибка'))}
+      for(const [k,g] of p.keys){if(pendW.get(k)&&pendW.get(k).g===g)pendW.delete(k);if(pendK.get(k)&&pendK.get(k).g===g)pendK.delete(k)}
+    }
+  }finally{flushing=false;if(dirtyB.size)flush()}
+}
+function rebuildVocab(){
+  const W=new Map(),K=new Map();
+  for(const d of serverB.values()){
+    for(const [k,v] of Object.entries(d.w||{}))if(v&&typeof v==='object'&&v.k)W.set(k,v);
+    for(const [k,v] of Object.entries(d.k||{}))if(v===1||v===2)K.set(k,v);
+  }
+  for(const [k,{v}] of pendW){if(v===null)W.delete(k);else W.set(k,v)}
+  for(const [k,{v}] of pendK){if(v)K.set(k,v);else K.delete(k)}
+  S.words=W;S.kn=K;vocabVer++;
+}
+function saveWord(obj){vocabWrite(obj.k,obj,S.kn.has(obj.k)?0:undefined)}
+function removeWord(k){vocabWrite(k,null,undefined)}
+function setKn(keys,val){for(const k of keys)vocabWrite(k,undefined,val)}
+
+/* ---- lessons ---- */
+const chains=new Map();
+function queue(id,fn){const p=(chains.get(id)||Promise.resolve()).then(fn).catch(e=>{toast('Не сохранилось: '+(e&&(e.code||e.message)||'ошибка'))});chains.set(id,p);return p}
+function putLesson(id,obj){S.lessons.set(id,obj);changed();if(db)return queue('l'+id,()=>db.collection('lessons').doc(id).set(obj));persistLocal();return Promise.resolve()}
+function dropLesson(id){S.lessons.delete(id);changed();if(db)queue('l'+id,()=>db.collection('lessons').doc(id).delete());else persistLocal()}
+
+/* ---- progress per lesson: meta/progress {l:{id:{done,reads,pos}}} ---- */
+const pendP=new Map();let progExists=false;const progTimers=new Map();
+function setProg(id,patch,delay=0){
+  S.prog[id]={...(S.prog[id]||{}),...patch};const g=++gen;pendP.set(id,g);
+  if(!db){persistLocal();return}
+  clearTimeout(progTimers.get(id));
+  progTimers.set(id,setTimeout(()=>queue('prog',async()=>{const body={l:{[id]:S.prog[id]}};const ref=db.doc('meta/progress');if(progExists)await ref.update(body);else{await ref.set(body);progExists=true}if(pendP.get(id)===g)pendP.delete(id)}),delay));
+}
+function isDone(id){const p=S.prog[id];if(p&&p.done!==undefined)return !!p.done;const l=S.lessons.get(id);return !!(l&&l.done)}
+
+/* ---- stats per day: days/<date> ---- */
+let dayDirty=0, dayTimer=null;
+function dayRec(){const d=today();return S.days[d]||(S.days[d]={startKnown:knownCount(),startFam:famCount()})}
+function bump(field,n=1){if(mode==='loading')return;const r=dayRec();r[field]=Math.max(0,(r[field]||0)+n);saveDay()}
+function snapStats(){if(mode==='loading')return;const r=dayRec();const k=knownCount(),l=learningCount(),f=famCount();if(r.known!==k||r.lingqs!==l||r.fam!==f){r.known=k;r.lingqs=l;r.fam=f;saveDay()}}
+/* pace from the last 14 days of real data */
+function pace(famNow,knownNow){
+  const t=today();const ratio=knownNow?famNow/knownNow:1;
+  const lim=new Date();lim.setDate(lim.getDate()-13);const limK=today(lim);
+  const ds=Object.keys(S.days).filter(d=>d>=limK&&d<=t).sort();if(!ds.length)return null;
+  const first=ds[0],r0=S.days[first];
+  const base=r0.startFam??(r0.startKnown!=null?Math.round(r0.startKnown*ratio):(r0.fam??null));if(base==null)return null;
+  const dd=(a,b)=>Math.round((new Date(b+'T12:00')-new Date(a+'T12:00'))/864e5);
+  const span=dd(first,t)+1;let read=0,active=0;for(const d of ds){const r=S.days[d];read+=r.read||0;if((r.read||0)+(r.reviews||0)+(r.created||0)>0)active++}
+  const gain=famNow-base;
+  return {span,gain,perDay:gain/span,readPerDay:read/span,per1000:read?gain/read*1000:null,active,reliable:span>=2&&first<t}
+}
+function etaText(need,perDay){
+  if(need<=0)return 'уже достигнут';if(!(perDay>0))return '—';
+  const days=Math.ceil(need/perDay);const d=new Date();d.setDate(d.getDate()+days);
+  const when=days<45?`${days} дн`:days<730?`${(days/30).toFixed(days<300?1:0).replace('.',',')} мес`:`${(days/365).toFixed(1).replace('.',',')} г`;
+  return `≈ ${when} (к ${d.toLocaleDateString('ru-RU',{day:'numeric',month:'short',year:days>300?'numeric':undefined})})`;
+}
+function saveDay(){
+  if(!db){persistLocal();return}
+  const g=++dayDirty;const d=today();clearTimeout(dayTimer);
+  dayTimer=setTimeout(()=>queue('day',async()=>{await db.collection('days').doc(d).set({...S.days[d]});if(dayDirty===g)dayDirty=0}),2000);
+}
+
+/* ---- local fallback ---- */
+let lsWarned=false;
+function persistLocal(){
+  if(mode!=='local')return;
+  clearTimeout(persistLocal.t);
+  persistLocal.t=setTimeout(()=>{const all={lessons:Object.fromEntries(S.lessons),words:Object.fromEntries(S.words),kn:Object.fromEntries(S.kn),prog:S.prog,days:S.days};
+    if(NATIVE){NB.post('save',JSON.stringify(all));return}
+    const ok=LS.set('lx2',all);
+    if(!ok&&!lsWarned){lsWarned=true;toast('Память браузера переполнена — сделай резервную копию во вкладке «Прогресс».')}},300);
+}
+
+/* ---- init ---- */
+async function init(){
+  renderView();
+  const c=window.claude;
+  if(c&&c.use){
+    const r=await Promise.allSettled([c.use('db'),c.use('sample'),c.use('downloads')]);
+    db=r[0].status==='fulfilled'?r[0].value:null;sample=r[1].status==='fulfilled'?r[1].value:null;downloads=r[2].status==='fulfilled'?r[2].value:null;
+  }
+  if(db)initDb();else initLocal();
+}
+function initLocal(){
+  mode='local';
+  let data=NATIVE?(window.__NATIVE_DATA||null):LS.get('lx2',null);
+  if(!data){const old=LS.get('lx-data',null);
+    if(old){data={lessons:old.lessons||{},words:old.words||{},kn:Object.fromEntries((old.known||[]).map(k=>[k,1])),prog:{},days:(old.stats&&old.stats.days)||{}}}}
+  if(data){S.lessons=new Map(Object.entries(data.lessons||{}));S.words=new Map(Object.entries(data.words||{}));S.kn=new Map(Object.entries(data.kn||{}));S.prog=data.prog||{};S.days=data.days||{}}
+  else S.lessons.set('sample',{title:SAMPLE.title,text:SAMPLE.text,created:Date.now()});
+  dayRec();persistLocal();renderView();
+}
+function initDb(){
+  const got={},conf={};const names=['lessons','vocab','prog','days'];let ready=false;
+  const tryReady=()=>{
+    if(names.every(n=>conf[n])){offline=false;if(!ready)becomeReady();else changed();return}
+    if(ready)changed();
+  };
+  const becomeReady=()=>{ready=true;clearTimeout(t1);loadErr='';mode='db';rebuildVocab();dayRec();renderView();snapStats();migrateOld()};
+  const t1=setTimeout(()=>{if(ready)return;if(names.every(n=>got[n])){offline=true;becomeReady()}else{loadErr='Не удаётся связаться с хранилищем — проверь интернет. Данные появятся, как только связь восстановится.';renderView()}},7000);
+  const mark=(n,snap)=>{got[n]=1;if(!(snap.metadata&&snap.metadata.fromCache))conf[n]=1;tryReady()};
+  const fail=n=>e=>{toast('Связь с хранилищем прервана ('+(e&&e.code||'ошибка')+')');if(!ready){loadErr='Хранилище недоступно.';renderView()}};
+  db.collection('lessons').onSnapshot(s=>{S.lessons=new Map(s.docs.map(d=>[d.id,d.data()]));mark('lessons',s)},fail('lessons'));
+  db.collection('vocab').onSnapshot(s=>{for(const ch of s.docChanges()){const id=ch.doc.id;if(ch.type==='removed'){serverB.delete(id);bucketExists.delete(id)}else{serverB.set(id,ch.doc.data()||{});bucketExists.add(id)}}rebuildVocab();mark('vocab',s)},fail('vocab'));
+  db.doc('meta/progress').onSnapshot(d=>{progExists=!!d.exists;const l=(d.exists&&d.data().l)||{};const next={};for(const [k,v] of Object.entries(l))next[k]={...v};for(const id of pendP.keys())if(S.prog[id])next[id]=S.prog[id];S.prog=next;mark('prog',d)},fail('prog'));
+  db.collection('days').onSnapshot(s=>{const t=today();for(const d of s.docs){if(d.id===t&&dayDirty)continue;S.days[d.id]={...d.data()}}mark('days',s)},fail('days'));
+}
+async function migrateOld(){
+  if(serverB.size||LS.get('lx-migrated',false))return;
+  try{
+    const [w,k,st]=await Promise.all([db.collection('words').get(),db.doc('meta/known').get(),db.doc('meta/stats').get()]);
+    let n=0;
+    for(const d of w.docs){const v=d.data();if(v&&v.k){vocabWrite(v.k,{...v},undefined);n++}}
+    if(k.exists)for(const key of (k.data().words||[]))if(!S.words.has(key)){vocabWrite(key,undefined,1);n++}
+    if(st.exists){const days=st.data().days||{};for(const [d,r] of Object.entries(days)){S.days[d]={...r,...(S.days[d]||{})};await queue('day',()=>db.collection('days').doc(d).set(S.days[d]))}}
+    for(const [id,l] of S.lessons)if(l.done&&!S.prog[id])setProg(id,{done:true,reads:1});
+    LS.set('lx-migrated',true);if(n)toast(`Перенесено слов из прошлой версии: ${n}`);
+  }catch(e){}
+}
+
+/* ================= speech ================= */
+let voice=null, voices=[], rate=LS.get('lx-rate',0.9), reading=null, spkTok=0, curUtter=null;
+const NOVELTY=/^(Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Good News|Jester|Organ|Superstar|Trinoids|Whisper|Wobble|Zarvox|Fred|Junior|Kathy|Ralph|Grandma|Grandpa|Rocko|Shelley|Eddy|Flo|Reed|Sandy)\b/i;
+const vScore=v=>{const s=v.name+' '+v.voiceURI;return /premium/i.test(s)?3:/enhanced/i.test(s)?2:/natural|neural|google/i.test(s)?1:0};
+const vLabel=v=>{const q=vScore(v);return v.name.replace(/\s*\((Premium|Enhanced)\)/i,'')+' · '+v.lang.replace('_','-')+(q===3?' · Premium':q===2?' · Enhanced':'')};
+function pickVoice(){
+  if(NATIVE){NB.call('voices',null,5000).then(list=>{voices=(list||[]).filter(v=>!NOVELTY.test(v.name)).map(v=>({voiceURI:v.id,name:v.name+(v.q===3?' (Premium)':v.q===2?' (Enhanced)':''),lang:v.lang})).sort((a,b)=>vScore(b)-vScore(a)||(/US/i.test(b.lang)-/US/i.test(a.lang))||a.name.localeCompare(b.name));const saved=LS.get('lx-voice',null);voice=voices.find(v=>v.voiceURI===saved)||voices[0]||null;const sel=$('#voiceSel');if(sel){sel.outerHTML=voiceSelectHtml();bindVoiceSel()}}).catch(()=>{});return}
+  try{
+    voices=speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang)&&!NOVELTY.test(v.name)).sort((a,b)=>vScore(b)-vScore(a)||(/US/i.test(b.lang)-/US/i.test(a.lang))||a.name.localeCompare(b.name));
+    const saved=LS.get('lx-voice',null);voice=voices.find(v=>v.voiceURI===saved)||voices[0]||null;
+    const sel=$('#voiceSel');if(sel){sel.outerHTML=voiceSelectHtml();bindVoiceSel()}
+  }catch(e){}
+}
+function voiceSelectHtml(){if(!voices.length)return '<span id="voiceSel" class="small muted">Голоса загружаются…</span>';return `<select id="voiceSel" aria-label="Голос" style="width:auto;max-width:100%;font-size:14px;padding:8px 10px">${voices.map(v=>`<option value="${esc(v.voiceURI)}" ${voice&&v.voiceURI===voice.voiceURI?'selected':''}>${esc(vLabel(v))}</option>`).join('')}</select>`}
+function bindVoiceSel(){const sel=$('#voiceSel');if(!sel||sel.tagName!=='SELECT')return;sel.onchange=()=>{voice=voices.find(v=>v.voiceURI===sel.value)||voice;LS.set('lx-voice',sel.value);stopReading();speak('This is how I sound when I read your texts.')}}
+if(NATIVE)pickVoice();else try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice;[300,1200,3000].forEach(ms=>setTimeout(()=>{if(!voices.length)pickVoice()},ms));addEventListener('pointerdown',()=>{if(!voices.length)pickVoice()},{once:true})}catch(e){}
+function speak(text,onend){
+  if(NATIVE){const tok=++spkTok;NB.call('speak',{text,rate,voice:voice&&voice.voiceURI}).then(()=>{if(tok===spkTok&&onend)onend()}).catch(()=>{});return}
+  const ss=window.speechSynthesis;if(!ss){toast('Озвучка недоступна на этом устройстве');return}
+  const tok=++spkTok;
+  if(ss.speaking||ss.pending)ss.cancel();
+  setTimeout(()=>{
+    if(tok!==spkTok)return;
+    const u=new SpeechSynthesisUtterance(text);u.lang=voice?voice.lang.replace('_','-'):'en-US';u.rate=rate;if(voice)u.voice=voice;
+    curUtter=u;let done=false,wd=null;
+    const fin=ev=>{if(done)return;if(ev&&ev.error&&/interrupted|canceled/.test(ev.error))return;done=true;clearTimeout(wd);if(tok===spkTok&&onend)onend()};
+    u.onend=fin;u.onerror=fin;
+    try{ss.speak(u)}catch(e){toast('Озвучка недоступна');return}
+    const est=Math.max(3000,text.length*85/rate+2500);
+    const chk=()=>{if(done||tok!==spkTok)return;if(ss.speaking){wd=setTimeout(chk,1000);return}fin()};
+    wd=setTimeout(chk,est);
+  },40);
+}
+function stopReading(){if(!reading)return;reading=null;spkTok++;if(NATIVE)NB.post('stop');else try{speechSynthesis.cancel()}catch(e){}document.querySelectorAll('.sent.playing').forEach(x=>x.classList.remove('playing'));const b=$('#readBtn');if(b)b.textContent='▶ Слушать'}
+function readFrom(i){
+  const sents=[...document.querySelectorAll('#text .sent')];
+  if(i>=sents.length){stopReading();return}
+  const token={};reading=token;const b=$('#readBtn');if(b)b.textContent='■ Стоп';
+  sents.forEach(x=>x.classList.remove('playing'));sents[i].classList.add('playing');
+  const r=sents[i].getBoundingClientRect();if(r.top<70||r.bottom>innerHeight*0.6)sents[i].scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  speak(sents[i].textContent,()=>{if(reading===token)readFrom(i+1)});
+}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopReading()});
+
+/* ================= Claude ================= */
+function sampleError(e){
+  const c=e&&e.code;
+  if(['not_granted','sampling_disabled','not_declared','capability_disabled','capability_removed'].includes(c)){sampleOff=true;return 'Автоперевод отключён — впиши перевод сам.'}
+  if(c==='rate_limited')return 'Слишком много запросов, попробуй чуть позже.';
+  if(c==='session_expired')return 'Нужно заново войти в Claude.';
+  if(c==='cancelled')return '';
+  return 'Не получилось, попробуй ещё раз.';
+}
+const canAI=()=>sample&&!sampleOff;
+const canTr=()=>NATIVE||canAI();
+const lookCache=new Map();
+function lookup(text,ctx,isPhrase){
+  if(NATIVE)return NB.call('translate',{text,ctx,isPhrase},25000);
+  const what=isPhrase?`Фраза (несколько слов, выделенных вместе): "${text}"`:`Слово: "${text}"`;
+  return sample.json(`Ты — англо-русский словарь для ученика уровня A2–B1. ${what}. Предложение, где это встретилось: "${ctx||'—'}".
+Ответь только JSON: {"tr":"перевод на русский именно в этом контексте, 1–3 варианта через запятую","lemma":"${isPhrase?'словарная форма фразы, если это устойчивое выражение/фразовый глагол, иначе пустая строка':'словарная форма (инфинитив, ед. число)'}","ipa":"${isPhrase?'':'транскрипция IPA словарной формы, без слешей'}","note":"очень коротко по-русски: идиома, фразовый глагол, особая форма — иначе пустая строка"}`,{modelTier:'quick'});
+}
+
+/* ================= tokenizer ================= */
+function parseText(text){
+  const paras=text.replace(/\r/g,'').split(/\n\s*\n|\n/).map(p=>p.trim()).filter(Boolean);
+  const sentences=[];let n=0;
+  const html=paras.map(p=>'<p>'+splitSentences(p).map(s=>{
+    const i=sentences.length;sentences.push(s.trim());
+    let out='',last=0,m;WORD_RE.lastIndex=0;
+    while((m=WORD_RE.exec(s))){out+=esc(s.slice(last,m.index))+`<span class="w" data-n="${n++}" data-k="${esc(norm(m[0]))}">${esc(m[0])}</span>`;last=m.index+m[0].length}
+    out+=esc(s.slice(last));
+    return `<span class="sent" data-i="${i}">${out}</span>`;
+  }).join('')+'</p>').join('');
+  return {html,sentences};
+}
+const lessonCache=new Map();
+function lessonInfo(id){
+  const l=S.lessons.get(id);const text=(l&&l.text)||'';
+  let c=lessonCache.get(id);if(c&&c.text===text)return c;
+  const toks=text.match(WORD_RE)||[];
+  c={text,keys:new Set(toks.map(norm)),total:toks.length};lessonCache.set(id,c);return c;
+}
+function keyStats(keys){let known=0,learn=0,ign=0;for(const k of keys){const s=statusOf(k);if(s===5)known++;else if(s===-1)ign++;else if(s>0)learn++}const n=keys.size-ign;return{n,known,learn,fresh:n-known-learn}}
+
+/* ================= import parsers ================= */
+function loadScript(src){return new Promise((res,rej)=>{if(document.querySelector(`script[src="${src}"]`)&&(window.JSZip||window.pdfjsLib)){res();return}const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>rej(new Error('Не удалось загрузить модуль чтения файла. Проверь интернет.'));document.head.appendChild(s)})}
+const JSZIP='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+const PDFJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+const PDFW='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+function decodeText(buf){
+  const b=new Uint8Array(buf);let t;
+  if(b[0]===0xFF&&b[1]===0xFE)t=new TextDecoder('utf-16le').decode(buf);
+  else if(b[0]===0xFE&&b[1]===0xFF)t=new TextDecoder('utf-16be').decode(buf);
+  else{t=new TextDecoder('utf-8').decode(buf);if((t.match(/\uFFFD/g)||[]).length>3)try{t=new TextDecoder('windows-1252').decode(buf)}catch(e){}}
+  return t.replace(/^\uFEFF/,'');
+}
+const clean=s=>s.replace(/[ \t ]+/g,' ').replace(/ *\n */g,'\n').replace(/\n{3,}/g,'\n\n').trim();
+const wc=s=>(s.match(WORD_RE)||[]).length;
+function unwrapHard(t){
+  const lines=t.replace(/\r/g,'').split('\n');const ne=lines.filter(l=>l.trim());
+  const wrapped=ne.filter(l=>l.length>=45&&l.length<=85).length;
+  if(ne.length>20&&wrapped/ne.length>0.55)return t.replace(/\r/g,'').split(/\n\s*\n/).map(b=>b.replace(/-\n(?=[a-z])/g,'').replace(/\s*\n\s*/g,' ')).join('\n\n');
+  return t;
+}
+function parseSubs(t){
+  const cues=t.replace(/\r/g,'').split(/\n\s*\n/).map(block=>{
+    let lines=block.split('\n').map(l=>l.trim());const ti=lines.findIndex(l=>l.includes('-->'));if(ti>=0)lines=lines.slice(ti+1);
+    return lines.filter(l=>l&&!/^\d+$/.test(l)&&!/^WEBVTT/i.test(l)&&!/^(NOTE|STYLE|REGION)\b/.test(l))
+      .map(l=>l.replace(/<[^>]+>/g,'').replace(/\{[^}]*\}/g,'').replace(/^-\s*/,'').replace(/\[[^\]]*\]|\([A-Z ]+\)|♪/g,'').trim()).filter(Boolean).join(' ');
+  }).filter(Boolean);
+  const paras=[];for(let i=0;i<cues.length;i+=6)paras.push(cues.slice(i,i+6).join(' '));
+  return paras.join('\n\n');
+}
+const BLK=new Set(['p','div','h1','h2','h3','h4','h5','h6','li','blockquote','pre','dd','dt','td','th','section','article','body','figcaption','caption','header','footer','main','aside','table','tr','ul','ol']);
+function blocksFromDoc(doc){
+  const root=doc.body||doc.getElementsByTagName('body')[0]||doc.documentElement;if(!root)return '';
+  for(const sel of ['script','style','nav','noscript'])for(const e of [...root.getElementsByTagName(sel)])e.remove();
+  for(const e of [...root.getElementsByTagName('br')])e.replaceWith(doc.createTextNode('\n'));
+  const groups=[];let lastEl=null;
+  const walker=doc.createTreeWalker(root,4);let node;
+  while((node=walker.nextNode())){
+    let el=node.parentNode;while(el&&el!==root&&!BLK.has((el.localName||'').toLowerCase()))el=el.parentNode;
+    if(el!==lastEl){groups.push('');lastEl=el}
+    groups[groups.length-1]+=node.nodeValue;
+  }
+  return groups.flatMap(g=>g.split('\n')).map(s=>s.replace(/\s+/g,' ').trim()).filter(Boolean).join('\n\n');
+}
+async function parseEpub(buf){
+  await loadScript(JSZIP);
+  const zip=await JSZip.loadAsync(buf);
+  const P=new DOMParser();
+  const cf=zip.file('META-INF/container.xml');if(!cf)throw new Error('Это не похоже на EPUB: нет файла container.xml.');
+  const rf=P.parseFromString(await cf.async('string'),'application/xml').getElementsByTagNameNS('*','rootfile')[0];if(!rf)throw new Error('EPUB повреждён: не найдено описание книги.');
+  const opfPath=rf.getAttribute('full-path');
+  const dir=p=>p.includes('/')?p.slice(0,p.lastIndexOf('/')+1):'';
+  const resolve=(base,h)=>{const segs=(base+decodeURIComponent(h.split('#')[0])).split('/');const out=[];for(const s of segs){if(s==='..')out.pop();else if(s&&s!=='.')out.push(s)}return out.join('/')};
+  const opf=P.parseFromString(await zip.file(opfPath).async('string'),'application/xml');
+  const base=dir(opfPath);
+  const title=((opf.getElementsByTagNameNS('*','title')[0]||{}).textContent||'').trim();
+  const items={};let navHref=null,ncxHref=null;
+  for(const it of opf.getElementsByTagNameNS('*','item')){items[it.getAttribute('id')]=it.getAttribute('href');if(/\bnav\b/.test(it.getAttribute('properties')||''))navHref=it.getAttribute('href');if((it.getAttribute('media-type')||'').includes('ncx'))ncxHref=it.getAttribute('href')}
+  // chapter titles from table of contents
+  const toc={};
+  try{
+    if(navHref){const np=resolve(base,navHref);const nd=P.parseFromString(await zip.file(np).async('string'),'application/xhtml+xml');for(const a of nd.getElementsByTagName('a')){const h=a.getAttribute('href');if(!h)continue;const p=resolve(dir(np),h);const t=a.textContent.replace(/\s+/g,' ').trim();if(t&&!toc[p])toc[p]=t}}
+    else if(ncxHref){const np=resolve(base,ncxHref);const nd=P.parseFromString(await zip.file(np).async('string'),'application/xml');for(const pt of nd.getElementsByTagNameNS('*','navPoint')){const c=pt.getElementsByTagNameNS('*','content')[0];const l=pt.getElementsByTagNameNS('*','text')[0];if(!c||!l)continue;const p=resolve(dir(np),c.getAttribute('src'));const t=l.textContent.replace(/\s+/g,' ').trim();if(t&&!toc[p])toc[p]=t}}
+  }catch(e){}
+  const sections=[];let n=0;
+  for(const ref of opf.getElementsByTagNameNS('*','itemref')){
+    if(ref.getAttribute('linear')==='no')continue;
+    const href=items[ref.getAttribute('idref')];if(!href)continue;
+    const path=resolve(base,href);const f=zip.file(path);if(!f)continue;
+    const src=await f.async('string');
+    let doc=P.parseFromString(src,'application/xhtml+xml');if(doc.getElementsByTagName('parsererror').length)doc=P.parseFromString(src,'text/html');
+    const h=doc.querySelector('h1,h2,h3');n++;
+    const text=blocksFromDoc(doc);
+    if(text)sections.push({title:(toc[path]||(h&&h.textContent.replace(/\s+/g,' ').trim())||('Раздел '+n)).slice(0,90),text});
+  }
+  return {title,sections};
+}
+async function parseDocx(buf){
+  await loadScript(JSZIP);
+  const zip=await JSZip.loadAsync(buf);const df=zip.file('word/document.xml');if(!df)throw new Error('Это не похоже на документ Word (.docx).');
+  const W='http://schemas.openxmlformats.org/wordprocessingml/2006/main';
+  const xml=new DOMParser().parseFromString(await df.async('string'),'application/xml');
+  const sections=[{title:'',text:''}];
+  for(const p of xml.getElementsByTagNameNS(W,'p')){
+    let anc=p.parentNode,skip=false;while(anc){if(anc.localName==='txbxContent'){skip=true;break}anc=anc.parentNode}if(skip)continue;
+    let s='';for(const node of p.getElementsByTagNameNS(W,'*')){if(node.localName==='t')s+=node.textContent;else if(node.localName==='tab'||node.localName==='br')s+=' '}
+    s=s.trim();if(!s)continue;
+    const st=p.getElementsByTagNameNS(W,'pStyle')[0];const sv=st?(st.getAttributeNS(W,'val')||st.getAttribute('w:val')||''):'';
+    if(/^(heading|title|заголовок)\s*1?$/i.test(sv)||/^Heading1$|^Title$/i.test(sv)){sections.push({title:s.slice(0,90),text:''});continue}
+    const cur=sections[sections.length-1];cur.text+=(cur.text?'\n\n':'')+s;
+  }
+  return {title:'',sections:sections.filter(x=>x.text)};
+}
+async function parsePdf(buf,onProgress){
+  await loadScript(PDFJS);await loadScript(PDFW);
+  const lib=window.pdfjsLib;try{lib.GlobalWorkerOptions.workerSrc=PDFW}catch(e){}
+  const pdf=await lib.getDocument({data:new Uint8Array(buf),isEvalSupported:false}).promise;
+  let title='';try{const m=await pdf.getMetadata();title=(m&&m.info&&m.info.Title)||''}catch(e){}
+  const pages=[];
+  for(let p=1;p<=pdf.numPages;p++){
+    onProgress&&onProgress(`Страница ${p} из ${pdf.numPages}…`);
+    const tc=await (await pdf.getPage(p)).getTextContent();
+    const lines=[];let line='',prevEnd=null,prevY=null;
+    for(const it of tc.items){
+      if(typeof it.str!=='string')continue;
+      const x=it.transform[4],y=it.transform[5],fsz=Math.hypot(it.transform[2],it.transform[3])||it.height||10;
+      if(prevY!==null&&Math.abs(y-prevY)>fsz*0.5&&line){lines.push(line.trim());line='';prevEnd=null}
+      if(prevEnd!==null&&it.str&&x-prevEnd>fsz*0.15&&!/\s$/.test(line)&&!/^\s/.test(it.str))line+=' ';
+      line+=it.str;if(it.str)prevEnd=x+(it.width||0);prevY=y;
+      if(it.hasEOL){lines.push(line.trim());line='';prevEnd=null}
+    }
+    if(line.trim())lines.push(line.trim());
+    pages.push(lines);
+    await sleep(0);
+  }
+  try{pdf.destroy()}catch(e){}
+  // drop running headers/footers repeated across pages
+  const freq=new Map();for(const ls of pages){const ne=ls.filter(Boolean);for(const l of [...ne.slice(0,2),...ne.slice(-2)]){const k=l.replace(/\d+/g,'#');freq.set(k,(freq.get(k)||0)+1)}}
+  const rep=new Set([...freq].filter(([,c])=>c>=3&&c>=pages.length*0.3).map(([k])=>k));
+  const paras=[];let cur='';
+  for(const ls of pages){
+    const maxLen=Math.max(1,...ls.map(l=>l.length));
+    for(const l of ls){
+      if(!l){if(cur){paras.push(cur);cur=''}continue}
+      if(/^\d+$/.test(l)||rep.has(l.replace(/\d+/g,'#')))continue;
+      cur=cur?(/[a-z]-$/.test(cur)?cur.slice(0,-1)+l:cur+' '+l):l;
+      if(/[.!?:"”]$/.test(l)&&l.length<maxLen*0.75){paras.push(cur);cur=''}
+    }
+  }
+  if(cur)paras.push(cur);
+  return {title,sections:[{title:'',text:paras.join('\n\n')}]};
+}
+async function parseFile(file,onProgress){
+  const name=file.name;const ext=(name.split('.').pop()||'').toLowerCase();const base=name.replace(/\.[^.]+$/,'');
+  const buf=await file.arrayBuffer();let r;
+  if(ext==='epub')r=await parseEpub(buf);
+  else if(ext==='docx')r=await parseDocx(buf);
+  else if(ext==='pdf')r=await parsePdf(buf,onProgress);
+  else if(ext==='srt'||ext==='vtt')r={title:'',sections:[{title:'',text:parseSubs(decodeText(buf))}]};
+  else if(ext==='html'||ext==='htm'||ext==='xhtml')r={title:'',sections:[{title:'',text:blocksFromDoc(new DOMParser().parseFromString(decodeText(buf),'text/html'))}]};
+  else if(ext==='txt'||ext==='md'||(file.type||'').startsWith('text/'))r={title:'',sections:[{title:'',text:unwrapHard(decodeText(buf)).replace(/^#+\s*/gm,'').replace(/[*_`]{1,3}/g,'')}]};
+  else throw new Error('Этот формат пока не поддерживается.');
+  r.title=(r.title||base).trim();
+  r.sections=r.sections.map(s=>({title:s.title,text:clean(s.text)}));
+  return r;
+}
+function splitText(text,max=1800){
+  const paras=text.split(/\n\s*\n/);const out=[];let cur=[],n=0;
+  const flush=()=>{if(cur.length){out.push(cur.join('\n\n'));cur=[];n=0}};
+  for(const p of paras){
+    const c=wc(p);
+    if(c>max){flush();let s='',sn=0;for(const x of splitSentences(p)){const xc=wc(x);if(sn+xc>max&&s){out.push(s.trim());s='';sn=0}s+=x;sn+=xc}if(s.trim())out.push(s.trim());continue}
+    if(n+c>max)flush();cur.push(p);n+=c;
+  }
+  flush();return out.filter(t=>wc(t)>0);
+}
+function buildParts(r){
+  let secs=r.sections.filter(s=>wc(s.text)>=30);if(!secs.length)secs=r.sections.filter(s=>wc(s.text)>0);
+  const raw=[];for(const s of secs){const chunks=splitText(s.text);chunks.forEach((t,i)=>raw.push({sec:s.title,idx:i,cnt:chunks.length,text:t}))}
+  return raw.map((p,k)=>({title:p.sec?p.sec+(p.cnt>1?` (${p.idx+1}/${p.cnt})`:''):(raw.length>1?`Часть ${k+1}`:r.title),text:p.text,words:wc(p.text)}));
+}
+
+/* ================= routing / render ================= */
+const VIEWS=['library','read','words','cards','progress'];
+let view=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):'library';
+let curLesson=LS.get('lx-lesson',null), parsed=null, session=null;
+addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(VIEWS.includes(v)&&v!==view){if(view==='read')savePos(true);view=v;stopReading();closeSheet();session=null;renderView();if(view!=='read')scrollTo(0,0)}});
+document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>{location.hash=b.dataset.go});
+
+let pend=false;
+function changed(){if(pend)return;pend=true;requestAnimationFrame(()=>{pend=false;if(mode==='loading')return;updateBadge();snapStats();
+  const bn=$('#offBanner');if(bn)bn.hidden=!offline;
+  if(view==='read'){paintWords();renderReaderStats()}
+  else if(view==='library'){if(!importState&&!libForm)renderView()}
+  else if(view==='words')renderWordList();
+  else if(view==='progress'&&!$('#view .keep-open'))renderView();
+  else if(view==='cards'&&!session)renderView();
+  if(sheet)updateSheet();})}
+
+function dueKeys(){const now=Date.now();return [...S.words.values()].filter(w=>(w.status||1)<5&&(w.due||0)<=now).sort((a,b)=>(a.due||0)-(b.due||0)).map(w=>w.k)}
+function updateBadge(){const n=mode==='loading'?0:dueKeys().length;const b=$('#dueBadge');b.hidden=!n;b.textContent=n>99?'99+':n}
+
+function renderView(){
+  document.querySelectorAll('nav.tabs button').forEach(b=>{if(b.dataset.go===view)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+  $('#topActions').innerHTML='';
+  const v=$('#view');
+  if(mode==='loading'){$('#title').textContent='Лексика';v.innerHTML=`<div class="empty">${loadErr?esc(loadErr):'<span class="spin"></span> Загружаю тексты и слова…'}</div>`;return}
+  updateBadge();
+  ({library:renderLibrary,read:renderReader,words:renderWords,cards:renderCards,progress:renderProgress})[view]();
+  if(offline)v.insertAdjacentHTML('afterbegin','<div class="banner" id="offBanner">Нет связи — показаны сохранённые данные. Изменения отправятся, когда интернет вернётся.</div>');
+}
+
+/* ================= library ================= */
+let libForm=null, delArm=null, importState=null;
+const openCourses=new Set(LS.get('lx-open',[]));
+function renderLibrary(){
+  $('#title').textContent='Тексты';
+  let h=`<div class="row"><button class="btn primary" id="impBtn">Импорт файла</button><button class="btn" id="addBtn">Вставить текст</button>${canAI()?'<button class="btn" id="genBtn">Сгенерировать</button>':''}</div>`;
+  if(importState){
+    const s=importState;
+    if(s.busy)h+=`<div class="panel"><div id="impMsg"><span class="spin"></span> ${esc(s.msg||'Читаю файл…')}</div></div>`;
+    else if(s.err)h+=`<div class="panel"><div style="color:var(--danger)">${esc(s.err)}</div><div class="row"><button class="btn" id="impCancel">Закрыть</button></div></div>`;
+    else{const total=s.parts.reduce((a,p)=>a+p.words,0);
+      h+=`<form class="panel" id="impForm"><h2>${esc(s.file)}</h2>
+        <div class="field"><label for="impTitle">Название</label><input type="text" id="impTitle" value="${esc(s.title)}"></div>
+        <div class="small muted">${s.parts.length>1?`${s.parts.length} уроков по ~${fmtN(Math.round(total/s.parts.length))} слов`:'1 урок'} · всего ${fmtN(total)} слов</div>
+        ${s.parts.length>1?`<ol class="parts">${s.parts.slice(0,6).map(p=>`<li>${esc(p.title)} — ${fmtN(p.words)} сл.</li>`).join('')}${s.parts.length>6?`<li>… и ещё ${s.parts.length-6}</li>`:''}</ol>`:''}
+        <div class="row"><button class="btn primary" type="submit" id="impGo">Импортировать</button><button class="btn ghost" type="button" id="impCancel">Отмена</button></div></form>`}
+  }
+  if(libForm==='add')h+=`<form class="panel" id="addForm"><div class="field"><label for="fTitle">Название</label><input type="text" id="fTitle" placeholder="Например: Shadow Slave, глава 12" required></div>
+    <div class="field"><label for="fText">Текст на английском</label><textarea id="fText" placeholder="Вставь сюда текст — статью, главу, субтитры…" required></textarea></div>
+    <div class="row"><button class="btn primary" type="submit" id="addGo">Сохранить</button><button class="btn ghost" type="button" id="cancelF">Отмена</button></div></form>`;
+  if(libForm==='gen')h+=`<form class="panel" id="genForm"><div class="field"><label for="gTopic">О чём текст</label><input type="text" id="gTopic" placeholder="Например: первый день на новой работе" required></div>
+    <div class="field"><label for="gLevel">Уровень</label><select id="gLevel"><option>A2</option><option selected>B1</option><option>B2</option></select></div>
+    <div class="row"><button class="btn primary" type="submit" id="gGo">Сгенерировать</button><button class="btn ghost" type="button" id="cancelF">Отмена</button><span class="small muted" id="gStatus"></span></div></form>`;
+  if(!importState&&!libForm)h+=`<div class="small muted">Форматы: TXT, MD, SRT, VTT (субтитры), HTML, EPUB, DOCX, PDF с текстовым слоем. Длинные тексты делятся на уроки по ~1 800 слов.</div>`;
+  if(mode==='local'&&NATIVE&&!LS.get('lx-native-tip',false))h+=`<div class="note" id="natTip">Данные хранятся на этом iPhone. Чтобы перенести слова из веб-версии: там «Прогресс» → «Резервная копия», здесь «Прогресс» → «Восстановить из копии». <button class="btn ghost sm" id="natTipOff">Понятно</button></div>`;
+  else if(mode==='local'&&!NATIVE)h+=`<div class="note">Сейчас всё сохраняется только в этом браузере. Открой страницу через Claude, чтобы прогресс синхронизировался между устройствами.</div>`;
+
+  const items=[];const courses=new Map();
+  for(const [id,l] of S.lessons){if(l.courseId){let c=courses.get(l.courseId);if(!c){c={id:l.courseId,title:l.course||'Курс',created:l.created||0,lessons:[]};courses.set(l.courseId,c);items.push({c})}c.lessons.push([id,l]);c.created=Math.max(c.created,l.created||0)}else items.push({id,l})}
+  const lastOpen=LS.get('lx-recent',{});
+  const when=it=>it.c?Math.max(it.c.created,...it.c.lessons.map(([id])=>lastOpen[id]||0)):Math.max(it.l.created||0,lastOpen[it.id]||0);
+  items.sort((a,b)=>when(b)-when(a));
+  if(!items.length)h+=`<div class="empty">Пока нет текстов. Импортируй файл, вставь текст или сгенерируй.</div>`;
+  for(const it of items){
+    if(!it.c){
+      const inf=lessonInfo(it.id);const st=keyStats(inf.keys);const pr=S.prog[it.id]||{};
+      h+=`<div class="lesson-wrap">${lessonCard(it.id,it.l.title,`${fmtN(inf.total)} слов · ${st.fresh} новых · ${st.learn} изучаю${isDone(it.id)?` · пройден${pr.reads>1?' ×'+pr.reads:''}`:''}`,st)}
+        <div class="lesson-actions"><button class="btn ghost sm danger" data-del="${esc(it.id)}">${delArm===it.id?'Точно удалить?':'Удалить'}</button></div></div>`;
+    }else{
+      const c=it.c;c.lessons.sort((a,b)=>(a[1].order||0)-(b[1].order||0));
+      const keys=new Set();let total=0,done=0;for(const [id] of c.lessons){const inf=lessonInfo(id);for(const k of inf.keys)keys.add(k);total+=inf.total;if(isDone(id))done++}
+      const st=keyStats(keys);const open=openCourses.has(c.id);
+      h+=`<div class="lesson-wrap">${lessonCard('c:'+c.id,c.title,`${c.lessons.length} уроков · ${fmtN(total)} слов · пройдено ${done}`,st)}`;
+      if(open)h+=`<div class="course-parts">`+c.lessons.map(([id,l],i)=>{const s2=keyStats(lessonInfo(id).keys);const d=isDone(id);return `<button class="part" data-open="${esc(id)}"><span class="${d?'ok':'muted'}">${d?'✓':i+1}</span><span class="t">${esc(l.title)}</span><span class="p">${s2.n?Math.round(s2.known/s2.n*100):0}%</span></button>`}).join('')+`</div>`;
+      h+=`<div class="lesson-actions"><button class="btn ghost sm" data-cont="${esc(c.id)}">Продолжить</button><button class="btn ghost sm danger" data-delc="${esc(c.id)}">${delArm==='c:'+c.id?'Удалить все уроки?':'Удалить'}</button></div></div>`;
+    }
+  }
+  $('#view').innerHTML=h;
+  $('#natTipOff')&&($('#natTipOff').onclick=()=>{LS.set('lx-native-tip',true);$('#natTip').remove()});
+  $('#impBtn').onclick=()=>{$('#fileIn').value='';$('#fileIn').click()};
+  $('#addBtn').onclick=()=>{libForm=libForm==='add'?null:'add';renderView();$('#fTitle')&&$('#fTitle').focus()};
+  $('#genBtn')&&($('#genBtn').onclick=()=>{libForm=libForm==='gen'?null:'gen';renderView();$('#gTopic')&&$('#gTopic').focus()});
+  $('#cancelF')&&($('#cancelF').onclick=()=>{libForm=null;renderView()});
+  $('#impCancel')&&($('#impCancel').onclick=()=>{importState=null;renderView()});
+  const imf=$('#impForm');if(imf)imf.onsubmit=async e=>{e.preventDefault();await saveParts(importState.parts,$('#impTitle').value.trim()||importState.title)};
+  const af=$('#addForm');if(af)af.onsubmit=async e=>{e.preventDefault();const t=$('#fTitle').value.trim()||'Без названия';const parts=buildParts({title:t,sections:[{title:'',text:clean($('#fText').value)}]});if(!parts.length){toast('В тексте нет английских слов.');return}$('#addGo').disabled=true;await saveParts(parts,t)};
+  const gf=$('#genForm');if(gf)gf.onsubmit=async e=>{e.preventDefault();const go=$('#gGo');go.disabled=true;$('#gStatus').innerHTML='<span class="spin"></span> Пишу текст…';
+    try{const r=await sample.json(`Write an original English reading text for a learner at CEFR level ${$('#gLevel').value} on this topic (topic given in Russian or English): "${$('#gTopic').value}". 180–260 words, 3–5 short paragraphs separated by a blank line, natural everyday language, a small story or clear structure. Reply with only JSON: {"title":"short English title","text":"the text"}`,{cache:false});
+      if(!r||!r.text)throw {code:'invalid_json'};const id='l'+Date.now().toString(36);await putLesson(id,{title:String(r.title||'Новый текст'),text:String(r.text),created:Date.now()});libForm=null;openLesson(id)}
+    catch(err){go.disabled=false;$('#gStatus').textContent=sampleError(err)||''}};
+  document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{const id=b.dataset.open;if(id.startsWith('c:')){const c=id.slice(2);openCourses.has(c)?openCourses.delete(c):openCourses.add(c);LS.set('lx-open',[...openCourses]);renderView()}else openLesson(id)});
+  document.querySelectorAll('[data-cont]').forEach(b=>b.onclick=()=>{const ls=[...S.lessons.entries()].filter(([,l])=>l.courseId===b.dataset.cont).sort((a,b)=>(a[1].order||0)-(b[1].order||0));const nx=ls.find(([id])=>!isDone(id))||ls[0];if(nx)openLesson(nx[0])});
+  document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{const id=b.dataset.del;if(delArm===id){delArm=null;dropLesson(id);if(curLesson===id)curLesson=null}else{delArm=id;renderView()}});
+  document.querySelectorAll('[data-delc]').forEach(b=>b.onclick=()=>{const cid=b.dataset.delc;if(delArm==='c:'+cid){delArm=null;for(const [id,l] of [...S.lessons])if(l.courseId===cid){dropLesson(id);if(curLesson===id)curLesson=null}}else{delArm='c:'+cid;renderView()}});
+}
+function lessonCard(id,title,meta,st){
+  const pk=st.n?Math.round(st.known/st.n*100):0;
+  return `<button class="lesson" data-open="${esc(id)}"><h3>${esc(title)}</h3><div class="meta">${meta}</div>
+    <div class="pct"><b>${pk}%</b><span class="small muted">знаю</span></div>
+    <div class="bar"><i style="width:${st.n?st.known/st.n*100:0}%;background:var(--accent)"></i><i style="width:${st.n?st.learn/st.n*100:0}%;background:var(--l1)"></i></div></button>`;
+}
+$('#fileIn').onchange=async e=>{
+  const f=e.target.files&&e.target.files[0];if(!f)return;
+  libForm=null;importState={busy:true,msg:'Читаю файл…',file:f.name};if(view!=='library')location.hash='library';renderView();
+  try{
+    const r=await parseFile(f,m=>{importState.msg=m;const el=$('#impMsg');if(el)el.innerHTML='<span class="spin"></span> '+esc(m)});
+    const parts=buildParts(r);
+    if(!parts.length)throw new Error('В файле не нашлось английского текста. Если это скан PDF, текстового слоя в нём нет.');
+    importState={file:f.name,title:r.title,parts};
+  }catch(err){importState={file:f.name,err:(err&&err.message)||'Не удалось прочитать файл.'}}
+  renderView();
+};
+async function saveParts(parts,title){
+  const now=Date.now();const btn=$('#impGo')||$('#addGo');if(btn)btn.disabled=true;
+  if(parts.length===1){const id='l'+now.toString(36);await putLesson(id,{title,text:parts[0].text,created:now});importState=null;libForm=null;openLesson(id);return}
+  const cid='c'+now.toString(36);
+  for(let i=0;i<parts.length;i++){if(btn)btn.textContent=`Сохраняю ${i+1}/${parts.length}…`;await putLesson(cid+'-'+i,{title:parts[i].title,text:parts[i].text,created:now,course:title,courseId:cid,order:i})}
+  importState=null;libForm=null;openCourses.add(cid);LS.set('lx-open',[...openCourses]);toast(`Сохранено уроков: ${parts.length}`);openLesson(cid+'-0');
+}
+function openLesson(id){
+  if(view==='read')savePos(true);
+  curLesson=id;LS.set('lx-lesson',id);const rec=LS.get('lx-recent',{});rec[id]=Date.now();LS.set('lx-recent',rec);
+  if(view==='read'){renderView()}else location.hash='read';
+}
+
+/* ================= reader ================= */
+let fs=LS.get('lx-fs',20), spans=[], posTimer=null, lastPos=-1;
+function nextLessonId(){const l=S.lessons.get(curLesson);if(!l||!l.courseId)return null;const ls=[...S.lessons.entries()].filter(([,x])=>x.courseId===l.courseId).sort((a,b)=>(a[1].order||0)-(b[1].order||0));const i=ls.findIndex(([id])=>id===curLesson);return ls[i+1]?ls[i+1][0]:null}
+function firstVisibleSpan(){
+  if(!spans.length)return 0;const top=70;let lo=0,hi=spans.length-1;
+  while(lo<hi){const mid=(lo+hi)>>1;if(spans[mid].getBoundingClientRect().bottom<top)lo=mid+1;else hi=mid}
+  return lo;
+}
+function savePos(now){
+  if(view!=='read'||!curLesson||!spans.length)return;
+  const n=firstVisibleSpan();if(n===lastPos&&!now)return;lastPos=n;
+  const all=LS.get('lx-pos',{});all[curLesson]=n;LS.set('lx-pos',all);
+  if(S.lessons.has(curLesson)&&(S.prog[curLesson]||{}).pos!==n)setProg(curLesson,{pos:n},now?0:5000);
+}
+addEventListener('scroll',()=>{if(view!=='read')return;clearTimeout(posTimer);posTimer=setTimeout(()=>savePos(false),500)},{passive:true});
+function renderReader(){
+  stopReading();
+  const l=curLesson&&S.lessons.get(curLesson);
+  if(!l){$('#title').textContent='Чтение';$('#view').innerHTML='<div class="empty">Выбери текст во вкладке «Тексты».</div>';spans=[];return}
+  $('#title').textContent=l.title;
+  $('#topActions').innerHTML=`<button class="icon-btn" id="fsDown" aria-label="Мельче">A−</button><button class="icon-btn" id="fsUp" aria-label="Крупнее">A+</button>`;
+  parsed=parseText(l.text||'');
+  const nx=nextLessonId();
+  $('#view').innerHTML=`${l.course?`<div class="small muted">${esc(l.course)}</div>`:''}
+    <div class="toolbar"><button class="btn primary" id="readBtn">▶ Слушать</button><button class="btn" id="rateBtn">Скорость ${rate}×</button>${voiceSelectHtml()}</div>
+    ${IS_IOS&&!NATIVE&&voices.length&&vScore(voices[0])<2&&!LS.get('lx-tts-tip-off',false)?'<div class="note" id="ttsTip">Нужен живой голос (Ava Premium)? iOS не даёт его веб-страницам, но можно слушать через систему: включи «Проговаривание экрана» в Настройки → Универсальный доступ → Устный контент, выбери там Ava (Premium) и проведи двумя пальцами вниз от верхнего края экрана. <button class="btn ghost sm" id="ttsTipOff">Понятно</button></div>':''}
+    <div class="legend"><span><i style="background:var(--new)"></i>новое</span><span><i style="background:var(--l1)"></i>изучаю</span><span><i></i>знаю</span><span>Зажми слово и веди пальцем — выделится фраза</span></div>
+    <div class="text" id="text" style="--fs:${fs}px">${parsed.html}</div>
+    <div class="endbox"><div class="stats" id="rStats"></div>
+      <div class="row"><button class="btn primary" id="finish"></button>${nx?`<button class="btn" id="nextL">Следующий урок →</button>`:''}</div>
+      <span class="small muted">«Завершить урок» отмечает оставшиеся синие слова как известные и засчитывает прочитанные слова. Это можно отменить.</span></div>`;
+  spans=[...document.querySelectorAll('#text .w')];
+  paintWords();renderReaderStats();bindVoiceSel();
+  $('#fsUp').onclick=()=>{fs=Math.min(30,fs+2);LS.set('lx-fs',fs);$('#text').style.setProperty('--fs',fs+'px')};
+  $('#fsDown').onclick=()=>{fs=Math.max(14,fs-2);LS.set('lx-fs',fs);$('#text').style.setProperty('--fs',fs+'px')};
+  $('#readBtn').onclick=()=>{if(reading)stopReading();else{closeSheet();const n=firstVisibleSpan();const s=spans[n]&&spans[n].closest('.sent');readFrom(s?+s.dataset.i:0)}};
+  $('#rateBtn').onclick=e=>{rate=rate>=1?0.7:rate>=0.9?1:0.9;LS.set('lx-rate',rate);e.currentTarget.textContent=`Скорость ${rate}×`};
+  $('#finish').onclick=finishLesson;
+  $('#ttsTipOff')&&($('#ttsTipOff').onclick=()=>{LS.set('lx-tts-tip-off',true);$('#ttsTip').remove()});
+  $('#nextL')&&($('#nextL').onclick=()=>openLesson(nx));
+  attachSelection($('#text'));
+  // restore position
+  const pos=(S.prog[curLesson]||{}).pos??LS.get('lx-pos',{})[curLesson];lastPos=-1;
+  if(pos>0&&spans[pos]){requestAnimationFrame(()=>{const y=spans[pos].getBoundingClientRect().top+scrollY-90;scrollTo(0,Math.max(0,y))})}else scrollTo(0,0);
+}
+function finishLesson(){
+  const id=curLesson;const keys=[...lessonInfo(id).keys].filter(k=>statusOf(k)===0);
+  const total=lessonInfo(id).total;const prev={...(S.prog[id]||{})};
+  if(keys.length)setKn(keys,1);
+  bump('read',total);bump('lessons');setProg(id,{done:true,reads:(prev.reads||0)+1});
+  toast(keys.length?`Урок пройден · +${keys.length} известных`:'Урок пройден · +'+fmtN(total)+' прочитано','Отменить',()=>{if(keys.length)setKn(keys,0);bump('read',-total);bump('lessons',-1);setProg(id,{done:!!prev.done,reads:prev.reads||0})});
+}
+function paintWords(){
+  const box=$('#text');if(!box||!spans.length)return;
+  const phr=[];for(const w of S.words.values())if(w.phrase&&w.k.includes(' '))phr.push(w.k);
+  const byFirst=new Map();for(const p of phr){const t=p.split(' ');const a=byFirst.get(t[0])||[];a.push(t);byFirst.set(t[0],a)}
+  const inPh=new Array(spans.length);
+  if(byFirst.size){const keys=spans.map(s=>s.dataset.k);
+    for(let i=0;i<keys.length;i++){const cands=byFirst.get(keys[i]);if(!cands)continue;
+      for(const t of cands){let ok=true;for(let j=1;j<t.length;j++)if(keys[i+j]!==t[j]){ok=false;break}
+        if(ok){const pk=t.join(' ');for(let j=0;j<t.length;j++)(inPh[i+j]||(inPh[i+j]=[])).push(pk)}}}}
+  const selK=sheet&&!sheet.phrase?sheet.k:null;
+  spans.forEach((el,i)=>{const s=statusOf(el.dataset.k);const c='w s'+s+(inPh[i]?' ph':'')+(selK===el.dataset.k?' sel':'')+(el.classList.contains('pick')?' pick':'');
+    if(el.className!==c)el.className=c;const ph=inPh[i]?inPh[i].join('|'):'';if((el.dataset.ph||'')!==ph){if(ph)el.dataset.ph=ph;else delete el.dataset.ph}});
+}
+function renderReaderStats(){
+  const l=curLesson&&S.lessons.get(curLesson);const box=$('#rStats');if(!l||!box)return;
+  const st=keyStats(lessonInfo(curLesson).keys);
+  box.innerHTML=`<div><b>${st.fresh}</b><span>новых</span></div><div><b>${st.learn}</b><span>изучаю</span></div><div><b>${st.known}</b><span>знаю</span></div><div><b>${st.n?Math.round(st.known/st.n*100):0}%</b><span>известно</span></div>`;
+  const b=$('#finish');const d=isDone(curLesson);b.textContent=d?(st.fresh?`Пройти ещё раз (+${st.fresh} в известные)`:'Пройти ещё раз'):`Завершить урок${st.fresh?` (+${st.fresh} в известные)`:''}`;
+}
+
+/* ---- tap / long-press selection ---- */
+let winUp=null;
+function rangeInfo(i,j){
+  const a=spans[i],b=spans[j];const si=+a.closest('.sent').dataset.i,sj=+b.closest('.sent').dataset.i;
+  const ctx=parsed.sentences.slice(si,sj+1).join(' ');
+  if(i===j)return {k:a.dataset.k,disp:a.textContent,ctx,si,phrase:false,range:[i,j],ph:a.dataset.ph};
+  const r=document.createRange();r.setStartBefore(a);r.setEndAfter(b);
+  const disp=r.toString().replace(/\s+/g,' ').trim();
+  return {k:phraseKey(disp),disp,ctx,si,phrase:true,range:[i,j]};
+}
+function openRange(i,j){const r=rangeInfo(i,j);openSheet(r.k,r.disp,r.ctx,r.si,r.phrase,r.ph,r.range)}
+function attachSelection(box){
+  let press=null, suppress=false;
+  const clearPick=()=>{for(const s of box.querySelectorAll('.w.pick'))s.classList.remove('pick')};
+  const pickRange=(a,b)=>{let i=+a.dataset.n,j=+b.dataset.n;if(i>j)[i,j]=[j,i];if(j-i>11)j=i+11;clearPick();for(let k=i;k<=j;k++)spans[k].classList.add('pick');press.range=[i,j]};
+  const cancel=()=>{if(press){clearTimeout(press.timer);clearPick();press=null}};
+  const finish=()=>{const [i,j]=press.range;clearPick();openRange(i,j)};
+  box.addEventListener('touchstart',e=>{
+    if(press)cancel();
+    if(e.touches.length>1)return;
+    const w=e.target.closest('.w');if(!w)return;const t=e.touches[0];
+    press={start:w,x:t.clientX,y:t.clientY,active:false,range:null};
+    press.timer=setTimeout(()=>{if(!press)return;press.active=true;pickRange(w,w)},380)},{passive:true});
+  box.addEventListener('touchmove',e=>{
+    if(!press)return;if(e.touches.length>1){cancel();return}
+    const t=e.touches[0];
+    if(!press.active){if(Math.hypot(t.clientX-press.x,t.clientY-press.y)>10)cancel();return}
+    if(e.cancelable)e.preventDefault();
+    const el=document.elementFromPoint(t.clientX,t.clientY);const w=el&&el.closest&&el.closest('#text .w');if(w)pickRange(press.start,w)},{passive:false});
+  box.addEventListener('touchend',e=>{if(!press)return;clearTimeout(press.timer);if(press.active){if(e.cancelable)e.preventDefault();finish()}press=null});
+  box.addEventListener('touchcancel',cancel);
+  box.addEventListener('contextmenu',e=>e.preventDefault());
+  box.addEventListener('mousedown',e=>{if(e.button||e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;const w=e.target.closest('.w');if(!w)return;press={start:w,active:false,range:null,mouse:true};
+    press.timer=setTimeout(()=>{if(press&&!press.active){press.active=true;pickRange(w,w)}},450)});
+  box.addEventListener('mousemove',e=>{if(!press||!press.mouse)return;const w=e.target.closest('.w');if(w&&(w!==press.start||press.active)){press.active=true;clearTimeout(press.timer);pickRange(press.start,w)}});
+  if(winUp)removeEventListener('mouseup',winUp);
+  winUp=()=>{if(!press||!press.mouse)return;clearTimeout(press.timer);if(press.active){suppress=true;setTimeout(()=>suppress=false,300);finish()}press=null};
+  addEventListener('mouseup',winUp);
+  box.addEventListener('click',e=>{
+    if(suppress){suppress=false;return}
+    const w=e.target.closest('.w');if(!w){if(sheet)closeSheet();return}
+    const n=+w.dataset.n;openRange(n,n);
+  });
+}
+
+/* ================= word / phrase sheet (non-modal, patched in place) ================= */
+let sheet=null;
+function openSheet(k,display,ctx,si,isPhrase,phList,range){
+  if(!k)return;
+  if(sheet&&sheet.ctl)sheet.ctl.abort();
+  stopReading();
+  sheet={k,display:display||k,ctx:ctx||'',si,phrase:!!isPhrase,phList:phList?phList.split('|'):[],range:range||null,loading:false,err:'',lookup:lookCache.get(k)||null,sentTr:null,sentLoading:false,explain:null,expLoading:false,ctl:null};
+  const w=S.words.get(k);
+  if(!w&&!sheet.lookup&&canTr())fetchLookup();
+  else if(!w&&statusOf(k)===0)createLingq(sheet.lookup||{});
+  buildSheet();paintWords();
+  if(LS.get('lx-autospeak',true))speak(sheet.display);
+}
+function createLingq(extra,s=sheet){
+  if(S.words.has(s.k))return;
+  const now=Date.now();
+  saveWord({k:s.k,w:s.display,tr:'',lemma:'',ipa:'',note:'',ctx:s.ctx,status:1,interval:0,ease:2.5,due:now,reps:0,created:now,...(s.phrase?{phrase:true}:{}),...extra});
+  bump('created');
+}
+async function fetchLookup(){
+  const s=sheet;if(!s)return;s.loading=true;s.err='';updateSheet();
+  try{
+    const r=await lookup(s.display,s.ctx,s.phrase);
+    const data={tr:String(r.tr||''),lemma:String(r.lemma||''),ipa:String(r.ipa||'').replace(/^\/|\/$/g,''),note:String(r.note||'')};
+    lookCache.set(s.k,data);s.lookup=data;s.loading=false;
+    const cur=S.words.get(s.k);
+    if(!cur&&statusOf(s.k)===0)createLingq(data,s);
+    else if(cur&&!cur.tr){saveWord({...cur,...data,tr:cur.tr||data.tr})}
+  }catch(e){s.loading=false;s.err=sampleError(e);if(!S.words.get(s.k)&&statusOf(s.k)===0)createLingq({},s)}
+  if(sheet===s)updateSheet();
+}
+function closeSheet(){if(!sheet)return;if(sheet.ctl)sheet.ctl.abort();sheet=null;$('#sheetRoot').innerHTML='';document.body.classList.remove('sheet-open');paintWords()}
+function markCtx(ctx,disp){const t=(disp||'').match(WORD_RE);if(!ctx)return '';if(!t)return esc(ctx);const re=new RegExp('\\b('+t.map(reEsc).join('[^A-Za-z]+')+')\\b','i');const m=ctx.match(re);if(!m)return esc(ctx);return esc(ctx.slice(0,m.index))+'<mark>'+esc(m[0])+'</mark>'+esc(ctx.slice(m.index+m[0].length))}
+function buildSheet(){
+  const s=sheet;
+  $('#sheetRoot').innerHTML=`<div class="sheet" id="sheet" role="dialog" aria-label="${s.phrase?'Фраза':'Слово'}"><div class="wrap">
+    <div class="grab" id="grab"><i></i></div>
+    <div class="sw-head"><div class="sw-word">${esc(s.display)}</div><button class="icon-btn" data-act="speak" aria-label="Озвучить">${SPK}</button><button class="icon-btn" data-act="close" aria-label="Закрыть">✕</button></div>
+    <div id="shMeta"></div>
+    <div class="field"><label for="trInput">Перевод</label><input type="text" id="trInput" autocomplete="off"></div>
+    <div id="shDyn" style="display:flex;flex-direction:column;gap:10px"></div>
+    <div class="field"><label>Уровень</label><div class="levels" id="shLv">${[1,2,3,4,5].map(n=>`<button data-lv="${n}">${n===5?'✓':n}</button>`).join('')}<button data-lv="-1" title="Имя, число, не учить">Игнор</button></div>
+      <div class="lvl-cap"><span>1 — только встретил</span><span>✓ знаю · игнор — имена</span></div></div>
+    <div class="row" id="shFoot"></div>
+  </div></div>`;
+  document.body.classList.add('sheet-open');
+  const sh=$('#sheet');
+  sh.addEventListener('click',onSheetClick);
+  const inp=$('#trInput');
+  inp.addEventListener('change',()=>{const v=inp.value.trim();const s=sheet;const cur=S.words.get(s.k);if(cur){if(cur.tr!==v)saveWord({...cur,tr:v})}else if(v){s.lookup={...(s.lookup||{}),tr:v};createLingq({...s.lookup},s)}});
+  // swipe down to close
+  let y0=null;const g=$('#grab');
+  g.addEventListener('touchstart',e=>{y0=e.touches[0].clientY},{passive:true});
+  g.addEventListener('touchend',e=>{if(y0!==null&&e.changedTouches[0].clientY-y0>50)closeSheet();y0=null});
+  sheet.htm={};updateSheet();fitSheetToKeyboard();
+}
+function setHtml(id,html){const s=sheet;if(s.htm[id]===html)return;s.htm[id]=html;const el=document.getElementById(id);if(el)el.innerHTML=html}
+function updateSheet(){
+  const s=sheet;if(!s||!$('#sheet'))return;
+  const w=S.words.get(s.k);const st=statusOf(s.k);const d=w||s.lookup||{};
+  const ctx=s.ctx||(w&&w.ctx)||'';
+  setHtml('shMeta',`${s.phrase?'<div class="small muted">Фраза</div>':''}${(d.ipa||d.lemma)?`<div class="sw-ipa">${d.ipa?'['+esc(d.ipa)+']':''}${d.lemma&&norm(d.lemma)!==s.k?`${d.ipa?' · ':''}словарная форма: <b>${esc(d.lemma)}</b>`:''}</div>`:''}${s.loading?'<div class="muted small"><span class="spin"></span> Перевожу…</div>':''}${s.err?`<div class="small" style="color:var(--danger)">${esc(s.err)}</div>`:''}`);
+  const inp=$('#trInput');if(document.activeElement!==inp){const v=d.tr||'';if(inp.value!==v)inp.value=v;inp.placeholder=s.loading?'…':'Впиши свой перевод'}
+  const phs=s.phList.map(pk=>S.words.get(pk)).filter(Boolean);
+  setHtml('shDyn',`${d.note?`<div class="small muted">${esc(d.note)}</div>`:''}
+    ${phs.length?`<div class="inph"><span class="label">Входит во фразу</span>${phs.map(p=>`<button data-act="phrase" data-k="${esc(p.k)}"><b>${esc(p.w)}</b> — ${esc(p.tr||'без перевода')}</button>`).join('')}</div>`:''}
+    ${ctx?`<div class="ctx">${markCtx(ctx,s.display)}${s.sentTr?`<div class="small muted" style="margin-top:6px;font-family:var(--f-ui)">${esc(s.sentTr)}</div>`:''}</div>`:''}
+    ${s.explain?`<div class="explain">${esc(s.explain)}</div>`:''}
+    <div class="row">${ctx?'<button class="btn sm" data-act="sent">▶ Предложение</button>':''}${s.si!=null&&view==='read'?'<button class="btn sm" data-act="readfrom">▶ Читать отсюда</button>':''}
+      ${canTr()&&ctx&&!s.sentTr?`<button class="btn sm" data-act="senttr" ${s.sentLoading?'disabled':''}>${s.sentLoading?'<span class="spin"></span> ':''}Перевод предложения</button>`:''}
+      ${canAI()&&ctx&&!s.explain?`<button class="btn sm" data-act="explain" ${s.expLoading?'disabled':''}>${s.expLoading?'<span class="spin"></span> ':''}Объяснить</button>`:''}</div>
+    ${s.range?`<div class="row"><span class="small muted">Фраза:</span><button class="btn sm" data-act="ext" data-d="-1" ${s.range[0]===0?'disabled':''}>＋ слово слева</button><button class="btn sm" data-act="ext" data-d="1" ${s.range[1]>=spans.length-1?'disabled':''}>＋ слово справа</button>${s.phrase?'<button class="btn sm" data-act="shrink">Только первое слово</button>':''}</div>`:''}`);
+  for(const b of $('#shLv').children)b.setAttribute('aria-pressed',String(+b.dataset.lv===st));
+  setHtml('shFoot',`${w?'<button class="btn ghost sm danger" data-act="del">Убрать из моих слов</button>':''}${!w&&!s.lookup&&!s.loading&&canTr()?'<button class="btn sm" data-act="look">Перевести</button>':''}
+    <a class="btn ghost sm" href="https://translate.google.com/?sl=en&tl=ru&text=${encodeURIComponent(s.display)}" target="_blank" rel="noopener">Google ↗</a>
+    <a class="btn ghost sm" href="https://dictionary.cambridge.org/dictionary/english-russian/${encodeURIComponent((d.lemma||s.display).toLowerCase())}" target="_blank" rel="noopener">Cambridge ↗</a>`);
+}
+async function onSheetClick(e){
+  const b=e.target.closest('button');if(!b)return;const s=sheet;if(!s)return;
+  const ctx=s.ctx||((S.words.get(s.k)||{}).ctx)||'';
+  if(b.dataset.lv!==undefined){setLevel(+b.dataset.lv);return}
+  switch(b.dataset.act){
+    case 'close':closeSheet();break;
+    case 'speak':speak(s.display);break;
+    case 'sent':speak(ctx);break;
+    case 'readfrom':{const si=s.si;closeSheet();readFrom(si);break}
+    case 'look':fetchLookup();break;
+    case 'phrase':{const p=S.words.get(b.dataset.k);if(p)openSheet(p.k,p.w,p.ctx||ctx,s.si,true,null,null);break}
+    case 'del':removeWord(s.k);closeSheet();break;
+    case 'ext':{const d=+b.dataset.d;let [i,j]=s.range;if(d<0)i=Math.max(0,i-1);else j=Math.min(spans.length-1,j+1);if(j-i<=11)openRange(i,j);break}
+    case 'shrink':openRange(s.range[0],s.range[0]);break;
+    case 'senttr':{s.sentLoading=true;updateSheet();s.ctl=new AbortController();
+      try{if(NATIVE){const r=await NB.call('translateSentence',{text:ctx},25000);s.sentTr=String(r&&r.tr||'')}else{const r=await sample(`Переведи на русский естественно, без пояснений, только перевод:\n\n${ctx}`,{modelTier:'quick',signal:s.ctl.signal});s.sentTr=r.text.trim()}}catch(err){const m=sampleError(err);if(m)toast(m)}
+      s.sentLoading=false;if(sheet===s)updateSheet();break}
+    case 'explain':{s.expLoading=true;updateSheet();s.ctl=new AbortController();
+      try{const r=await sample(`Ты объясняешь английский русскоязычному ученику уровня A2–B1. Предложение: "${ctx}". Выделенное: "${s.display}".
+Коротко по-русски (до 6 строк, без markdown): 1) что значит выделенное здесь; 2) какая грамматика в предложении (время, конструкция) и почему так; 3) если есть — устойчивое выражение или подвох. Без вступлений.`,{signal:s.ctl.signal});s.explain=r.text.trim()}catch(err){const m=sampleError(err);if(m)toast(m)}
+      s.expLoading=false;if(sheet===s)updateSheet();break}
+  }
+}
+function setLevel(n){
+  const s=sheet;const cur=S.words.get(s.k);const inp=$('#trInput');const tr=inp?inp.value.trim():'';const now=Date.now();
+  if(n===-1){if(cur)vocabWrite(s.k,null,2);else setKn([s.k],2);if(view==='read')setTimeout(closeSheet,120);return}
+  if(cur){
+    const upd={...cur,tr:tr||cur.tr,status:n};
+    if(n===5)upd.due=now+30*864e5;else if((cur.status||1)===5||n<(cur.status||1)){upd.due=now;upd.interval=0}
+    saveWord(upd);
+  }
+  else if(n===5&&!tr&&!s.phrase)setKn([s.k],1);
+  else createLingq({...(s.lookup||{}),tr:tr||(s.lookup&&s.lookup.tr)||'',status:n,...(n===5?{due:now+30*864e5}:{})});
+  if(n===5&&view==='read')setTimeout(closeSheet,150);
+}
+function fitSheetToKeyboard(){
+  const vv=window.visualViewport;if(!vv)return;
+  const f=()=>{const sh=$('#sheet');if(!sh)return;const off=Math.max(0,innerHeight-vv.height-vv.offsetTop);sh.style.bottom=off+'px'};
+  vv.onresize=f;vv.onscroll=f;f();
+}
+
+/* ================= words ================= */
+let wFilter='learn', wQuery='', wLimit=300;
+function renderWords(){
+  $('#title').textContent='Мои слова';
+  $('#view').innerHTML=`<input type="search" id="wq" placeholder="Поиск по слову или переводу" value="${esc(wQuery)}">
+    <div class="chips">${[['learn','Изучаю'],['due','К повторению'],['phr','Фразы'],['done','Выучено'],['ign','Игнор'],['all','Все']].map(([k,t])=>`<button class="chip" data-f="${k}" aria-pressed="${wFilter===k}">${t}</button>`).join('')}</div>
+    <div id="wl"></div>`;
+  $('#wq').oninput=e=>{wQuery=e.target.value;wLimit=300;renderWordList()};
+  document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{wFilter=c.dataset.f;wLimit=300;document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));renderWordList()});
+  renderWordList();
+}
+function renderWordList(){
+  const box=$('#wl');if(!box)return;const q=wQuery.trim().toLowerCase();const now=Date.now();
+  let arr;
+  if(wFilter==='ign')arr=[...S.kn].filter(([k,v])=>v===2&&(!q||k.includes(q))).map(([k])=>({k,w:k,tr:'',status:-1}));
+  else arr=[...S.words.values()].filter(w=>{const s=w.status||1;
+    if(wFilter==='learn'&&s===5)return false;if(wFilter==='done'&&s!==5)return false;if(wFilter==='due'&&(s===5||(w.due||0)>now))return false;if(wFilter==='phr'&&!w.phrase)return false;
+    return !q||w.k.includes(q)||(w.tr||'').toLowerCase().includes(q)}).sort((a,b)=>(b.created||0)-(a.created||0));
+  if(!arr.length){box.innerHTML=`<div class="empty">${S.words.size?'Ничего не найдено.':'Здесь появятся слова и фразы, на которые ты нажмёшь при чтении.'}</div>`;return}
+  box.innerHTML=`<div class="small muted" style="margin-bottom:8px">${fmtN(arr.length)} записей</div><div class="wlist">`+arr.slice(0,wLimit).map(w=>{const s=w.status||1;
+    return `<button class="wrow" data-k="${esc(w.k)}"><span class="dot" style="background:${s===5?'var(--accent)':s===-1?'var(--line)':'var(--l'+s+')'}"></span><span class="tx"><b>${esc(w.w||w.k)}</b><div>${s===-1?'игнорируется':esc(w.tr||'— без перевода')}</div></span><span class="lv">${s===5?'✓':s===-1?'—':s+'/4'}</span></button>`}).join('')+'</div>'+
+    (arr.length>wLimit?`<button class="btn" id="wMore" style="margin-top:10px">Показать ещё ${fmtN(Math.min(300,arr.length-wLimit))}</button>`:'');
+  box.querySelectorAll('.wrow').forEach(r=>r.onclick=()=>{const w=S.words.get(r.dataset.k);if(w)openSheet(w.k,w.w||w.k,w.ctx||'',null,!!w.phrase);else openSheet(r.dataset.k,r.dataset.k,'',null,false)});
+  $('#wMore')&&($('#wMore').onclick=()=>{wLimit+=300;renderWordList()});
+}
+
+/* ================= cards (SRS) ================= */
+function schedule(w,g,now=Date.now()){
+  let {interval=0,ease=2.5,status=1,reps=0,due=now,last=0}=w;status=status||1;
+  let next;
+  if(g===0){interval=0;ease=Math.max(1.3,ease-0.2);status=Math.max(1,status-1);next=now+10*60e3}
+  else{
+    const early=due>now+36e5&&last;const elapsed=last?(now-last)/864e5:0;
+    if(g===1){interval=interval?Math.max(1,(early?Math.max(elapsed,interval*0.5):interval)*1.2):1;ease=Math.max(1.3,ease-0.15)}
+    else if(g===2){interval=interval?(early?Math.max(interval,elapsed*ease):interval*ease):1;status=Math.min(4,status+1)}
+    else{interval=interval?(early?Math.max(interval,elapsed*ease*1.3):interval*ease*1.3):4;ease=Math.min(3.2,ease+0.15);status=Math.min(4,status+2)}
+    if(interval>2)interval*=0.95+Math.random()*0.1;
+    if(interval>=21)status=5;
+    next=now+interval*864e5;reps++;
+  }
+  return {...w,interval,ease,status,due:next,reps,last:now};
+}
+const fmtInt=w=>{const i=w.interval;if(!i)return'10 мин';const d=Math.round(i);return d<31?d+' дн':Math.round(d/30)+' мес'};
+let gradeLock=0;
+function renderCards(){
+  $('#title').textContent='Карточки';
+  const auto=LS.get('lx-autospeak',true);const dir=LS.get('lx-dir','en');
+  if(!session){
+    const due=dueKeys();const learning=learningCount();
+    $('#view').innerHTML=`<div class="panel" style="align-items:flex-start"><div class="big-num">${due.length}</div><div class="muted">карточек к повторению сейчас</div>
+      <div class="row"><button class="btn primary" id="startDue" ${due.length?'':'disabled'}>Начать повторение</button>
+      ${!due.length&&learning?'<button class="btn" id="startAhead">Повторить заранее</button>':''}</div></div>
+      <div class="panel"><div class="chips"><button class="chip" data-dir="en" aria-pressed="${dir==='en'}">Английский → русский</button><button class="chip" data-dir="ru" aria-pressed="${dir==='ru'}">Русский → английский</button></div>
+      <label class="row small"><input type="checkbox" id="autoSp" ${auto?'checked':''}> Автоматически озвучивать слово</label>
+      <div class="row small">Голос: ${voiceSelectHtml()}</div></div>
+      <div class="small muted">Слово считается выученным (✓), когда интервал повторения дорастает до 21 дня.</div>
+      ${!S.words.size?'<div class="empty">Карточки появляются из слов и фраз, которые ты отмечаешь при чтении.</div>':''}`;
+    $('#autoSp').onchange=e=>LS.set('lx-autospeak',e.target.checked);
+    document.querySelectorAll('[data-dir]').forEach(b=>b.onclick=()=>{LS.set('lx-dir',b.dataset.dir);renderCards()});
+    bindVoiceSel();
+    $('#startDue').onclick=()=>startSession(due.slice(0,40));
+    $('#startAhead')&&($('#startAhead').onclick=()=>startSession([...S.words.values()].filter(w=>(w.status||1)<5).sort((a,b)=>(a.due||0)-(b.due||0)).slice(0,20).map(w=>w.k)));
+    return;
+  }
+  const {q,i,flipped,total,done}=session;
+  if(i>=q.length){$('#view').innerHTML=`<div class="panel" style="align-items:flex-start"><div class="big-num">${done}</div><div class="muted">ответов за сессию. Готово!</div><button class="btn primary" id="endS">Хорошо</button></div>`;$('#endS').onclick=()=>{session=null;renderView()};return}
+  const w=S.words.get(q[i]);if(!w){session.i++;renderCards();return}
+  const word=esc(w.w||w.k);const ctxH=w.ctx?`<div class="ctx" style="text-align:left">${markCtx(w.ctx,w.w||w.k)}</div>`:'';
+  const ruFront=dir==='ru'&&w.tr;
+  const front=ruFront?`<div class="big" style="font-family:var(--f-ui);font-size:24px">${esc(w.tr)}</div>`:`<div class="row" style="justify-content:center"><div class="big">${word}</div><button class="icon-btn" id="cSpk" aria-label="Озвучить">${SPK}</button></div>${ctxH}`;
+  const back=ruFront?`<hr><div class="ans"><div class="row" style="justify-content:center"><div class="big">${word}</div><button class="icon-btn" id="cSpk" aria-label="Озвучить">${SPK}</button></div>${w.ipa?`<div class="sw-ipa">[${esc(w.ipa)}]</div>`:''}</div>${ctxH}`
+    :`<hr><div class="ans">${w.ipa?`<div class="sw-ipa">[${esc(w.ipa)}]</div>`:''}<div class="sw-tr">${esc(w.tr||'— перевод не добавлен')}</div>${w.note?`<div class="small muted">${esc(w.note)}</div>`:''}</div>`;
+  $('#view').innerHTML=`<div class="progress"><i style="width:${Math.min(100,done/total*100)}%"></i></div>
+    <div class="card">${front}${flipped?back:''}</div>
+    ${flipped?`<div class="grades">${[['Снова',0],['Трудно',1],['Хорошо',2],['Легко',3]].map(([t,g])=>`<button class="g${g}" data-g="${g}">${t}<span>${fmtInt(schedule(w,g))}</span></button>`).join('')}</div>`
+      :`<button class="btn primary" id="flip" style="justify-content:center;padding:14px">Показать ответ</button>`}
+    <div class="row"><button class="btn ghost" id="quit">Закончить</button><span class="small muted">Уровень ${w.status||1}/4 · ${done+1} из ${total}</span></div>`;
+  $('#cSpk')&&($('#cSpk').onclick=()=>speak(w.w||w.k));
+  $('#quit').onclick=()=>{session=null;renderView()};
+  $('#flip')&&($('#flip').onclick=()=>{if(Date.now()<gradeLock)return;session.flipped=true;renderCards();if(ruFront&&LS.get('lx-autospeak',true))speak(w.w||w.k)});
+  document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{
+    if(Date.now()<gradeLock)return;gradeLock=Date.now()+350;
+    const g=+b.dataset.g;const cur=S.words.get(q[i]);if(!cur)return;saveWord(schedule(cur,g));bump('reviews');
+    session.done++;if(g===0&&!session.again.has(cur.k)){session.again.add(cur.k);q.push(cur.k);session.total++}
+    session.i++;session.flipped=false;renderCards();
+    const nx=S.words.get(q[session.i]);if(nx&&LS.get('lx-autospeak',true)&&LS.get('lx-dir','en')!=='ru')speak(nx.w||nx.k);
+  });
+}
+function startSession(keys){if(!keys.length)return;session={q:keys,i:0,flipped:false,total:keys.length,done:0,again:new Set()};renderCards();const w=S.words.get(keys[0]);if(w&&LS.get('lx-autospeak',true)&&LS.get('lx-dir','en')!=='ru')speak(w.w||w.k)}
+
+/* ================= progress (real data only) ================= */
+const STEPS=[0,250,500,1000,2000,3000,5000,8000,12000,16000,20000];
+let restoreArm=false;
+function renderProgress(){
+  $('#title').textContent='Прогресс';
+  const known=knownCount();const fam=famCount();
+  const ci=cefrOf(fam);const nextC=CEFR[ci+1];const pc=pace(fam,known);
+  const cefrPct=nextC?(fam-CEFR[ci][1])/(nextC[1]-CEFR[ci][1])*100:100;
+  let step=0;for(let i=0;i<STEPS.length;i++)if(known>=STEPS[i])step=i;
+  const next=STEPS[step+1],prev=STEPS[step];const pct=next?(known-prev)/(next-prev)*100:100;
+  const days=S.days||{};const t=today();const tr=days[t]||{};
+  const gained=known-(tr.startKnown??known);
+  const lv=[0,0,0,0];let phrases=0;for(const w of S.words.values()){if(w.phrase)phrases++;const s=(w.status||1);if(s<5)lv[s-1]++}
+  let ign=0;for(const v of S.kn.values())if(v===2)ign++;
+  const lingqs=lv[0]+lv[1]+lv[2]+lv[3];const dmax=Math.max(1,...lv,known);
+  let read=0,reviews=0,active=0;
+  for(const r of Object.values(days)){read+=r.read||0;reviews+=r.reviews||0;if((r.read||0)+(r.reviews||0)+(r.created||0)>0)active++}
+  let streak=0;{const d=new Date();for(let n=0;n<3650;n++){const r=days[today(d)];const act=r&&((r.read||0)+(r.reviews||0)+(r.created||0)>0);if(act)streak++;else if(today(d)!==t)break;d.setDate(d.getDate()-1)}}
+  $('#view').innerHTML=`<div class="panel">
+      <span class="label">Знаю слов</span><div class="big-num">${fmtN(known)}</div>
+      <div class="small muted">≈ ${fmtN(fam)} без учёта форм (help, helps, helped считаются одним словом; подсчёт приблизительный)</div>
+      <div class="steps" aria-hidden="true">${STEPS.slice(1).map(s=>`<i class="${known>=s?'on':''}"></i>`).join('')}</div>
+      <div class="small"><b>Ступень ${step+1} из ${STEPS.length}</b>${next?` · до ${fmtN(next)} осталось ${fmtN(next-known)}`:' · максимальная'}</div>
+      <div class="progress"><i style="width:${pct}%"></i></div>
+      <div class="small muted">Считаются слова, которые ты отметил «✓», «Завершить урок» или которые выучены в карточках (интервал от 21 дня). Фразы и игнор не считаются.</div>
+    </div>
+    <div class="panel"><span class="label">Примерный уровень по словарному запасу</span>
+      <div class="row" style="align-items:baseline;gap:12px"><div class="big-num">${CEFR[ci][0]}</div><div class="small">${nextC?`до <b>${nextC[0]}</b> (${fmtN(nextC[1])}) осталось ${fmtN(nextC[1]-fam)} слов`:'верхняя ступень шкалы'}</div></div>
+      <div class="steps" aria-hidden="true">${CEFR.map((c,i)=>`<i class="${i<=ci?'on':''}" title="${c[0]}"></i>`).join('')}</div>
+      <div class="progress"><i style="width:${cefrPct}%"></i></div>
+      ${pc&&pc.reliable&&pc.perDay>0?`<div class="small">Твой темп за ${pc.span} дн: <b>+${pc.perDay.toFixed(1).replace('.',',')} слова в день</b>${pc.readPerDay?` · читаешь ~${fmtN(Math.round(pc.readPerDay))} слов в день`:''}${pc.per1000!=null?` · ~${pc.per1000.toFixed(0)} новых на 1 000 прочитанных`:''}</div>
+        <div class="dist">${CEFR.slice(ci+1).map(c=>`<div class="r" style="grid-template-columns:40px 1fr"><b>${c[0]}</b><span>${etaText(c[1]-fam,pc.perDay)}</span></div>`).join('')}</div>`
+       :`<div class="small muted">${pc&&pc.reliable?'За последние дни число известных слов не выросло — прогноз появится, когда начнёшь отмечать новые слова.':'Прогноз времени появится после двух дней занятий: он считается по твоему реальному темпу за последние 14 дней.'}</div>`}
+      <div class="small muted">Пороги — по исследованию Milton & Alexiou (2009): сколько слов из 5 000 самых частых знают ученики на каждом уровне CEFR (A2 от 1 500, B1 от 2 750, B2 от 3 250, C1 от 3 750, C2 от 4 500). Здесь используется счёт без учёта форм. Учитываются только слова, которые ты отметил, поэтому в начале реальный уровень выше показанного. Уровень по словам не заменяет экзамен: грамматику, аудирование и письмо он не измеряет. С ростом запаса новые слова встречаются реже, так что дальние прогнозы оптимистичны.</div>
+    </div>
+    <span class="label">Сегодня</span>
+    <div class="tiles">
+      <div class="tile"><b>${gained>=0?'+':''}${fmtN(gained)}</b><span>известных слов</span></div>
+      <div class="tile"><b>${fmtN(tr.created||0)}</b><span>новых слов и фраз в изучении</span></div>
+      <div class="tile"><b>${fmtN(tr.reviews||0)}</b><span>ответов в карточках</span></div>
+      <div class="tile"><b>${fmtN(tr.read||0)}</b><span>слов прочитано</span></div>
+    </div>
+    <div class="panel"><h2>Известные слова по дням</h2>${chartKnown(days,known)}</div>
+    <div class="panel"><h2>Мои слова по уровням</h2><div class="dist">
+      ${[1,2,3,4].map(n=>`<div class="r"><span>Уровень ${n}</span><span class="t"><i style="width:${lv[n-1]/dmax*100}%;background:var(--l${n});${n>2?'box-shadow:inset 0 0 0 1px var(--l1)':''}"></i></span><span class="n">${fmtN(lv[n-1])}</span></div>`).join('')}
+      <div class="r"><span>Знаю ✓</span><span class="t"><i style="width:${known/dmax*100}%;background:var(--accent)"></i></span><span class="n">${fmtN(known)}</span></div>
+    </div><div class="small muted">В изучении: ${fmtN(lingqs)}, из них фраз: ${fmtN(phrases)}. Игнорируется: ${fmtN(ign)}. К повторению сейчас: ${fmtN(dueKeys().length)}.</div></div>
+    <span class="label">За всё время</span>
+    <div class="tiles">
+      <div class="tile"><b>${fmtN(read)}</b><span>слов прочитано (с повторными прочтениями)</span></div>
+      <div class="tile"><b>${fmtN(reviews)}</b><span>ответов в карточках</span></div>
+      <div class="tile"><b>${fmtN(active)}</b><span>активных дней</span></div>
+      <div class="tile"><b>${fmtN(streak)}</b><span>дней подряд</span></div>
+    </div>
+    <div class="panel"><h2>Данные</h2>
+      ${downloads||NATIVE?`<div class="row"><button class="btn" id="expCsv">Слова в CSV (для Anki)</button><button class="btn" id="expJson">Резервная копия</button></div>`:'<div class="small muted">Сохранение файлов недоступно в этом окне.</div>'}
+      <div class="row"><button class="btn ${restoreArm?'danger':''}" id="impJson">${restoreArm?'Выбрать файл копии':'Восстановить из копии'}</button>${restoreArm?'<span class="small muted">Данные из копии добавятся к текущим.</span>':''}</div>
+    </div>
+    <div class="small muted">Статистика по дням ведётся с первого запуска. Ступени — шкала приложения по числу известных слов, а не уровень CEFR или LingQ.</div>`;
+  $('#expCsv')&&($('#expCsv').onclick=exportCsv);
+  $('#expJson')&&($('#expJson').onclick=exportJson);
+  $('#impJson').onclick=()=>{if(!restoreArm){restoreArm=true;renderProgress();return}restoreArm=false;$('#backupIn').value='';$('#backupIn').click();renderProgress()};
+}
+function chartKnown(days,known){
+  const keys=Object.keys(days).filter(k=>days[k].known!=null||days[k].startKnown!=null).sort();
+  if(keys.length<2)return `<div class="small muted">График появится, когда наберётся хотя бы два дня занятий. Сейчас: ${fmtN(known)} слов.</div>`;
+  const pts=keys.slice(-60).map(k=>[k,days[k].known??days[k].startKnown]);
+  const W=340,H=150,pl=44,pr=10,pt=10,pb=24;
+  const max=Math.max(...pts.map(p=>p[1])),min=Math.min(...pts.map(p=>p[1]));
+  const lo=Math.max(0,Math.floor(min*0.95)),hi=Math.max(lo+10,Math.ceil(max*1.02));
+  const x=i=>pl+(i/(pts.length-1))*(W-pl-pr);const y=v=>pt+(1-(v-lo)/(hi-lo))*(H-pt-pb);
+  const line=pts.map((p,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(p[1]).toFixed(1)}`).join('');
+  const area=line+`L${x(pts.length-1).toFixed(1)},${H-pb}L${pl},${H-pb}Z`;
+  const fd=k=>k.slice(8,10)+'.'+k.slice(5,7);const last=pts[pts.length-1];
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Известные слова по дням">
+    ${[lo,Math.round((lo+hi)/2),hi].map(v=>`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${pl-6}" y="${y(v)+4}" text-anchor="end">${fmtN(v)}</text>`).join('')}
+    <path d="${area}" fill="var(--accent-soft)"/><path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linejoin="round"/>
+    <circle cx="${x(pts.length-1)}" cy="${y(last[1])}" r="4" fill="var(--accent)"/>
+    <text x="${pl}" y="${H-6}">${fd(pts[0][0])}</text><text x="${W-pr}" y="${H-6}" text-anchor="end">${fd(last[0])}</text></svg>`;
+}
+async function saveFile(filename,data){
+  if(NATIVE){try{await NB.call('share',{filename,data});toast('Готово')}catch(e){}return}
+  if(!downloads){toast('Сохранение файлов недоступно здесь');return}
+  try{await downloads.save({filename,data});toast('Готово')}catch(e){if(e&&e.code!=='declined')toast('Не удалось сохранить файл ('+(e.code||'ошибка')+')')}
+}
+function exportCsv(){
+  const q=s=>'"'+String(s||'').replace(/"/g,'""')+'"';
+  const rows=[['word','translation','transcription','context','level'].join(',')];
+  for(const w of S.words.values())rows.push([w.w||w.k,w.tr,w.ipa,w.ctx,w.status===5?'known':w.status].map(q).join(','));
+  saveFile('leksika-words-'+today()+'.csv','\uFEFF'+rows.join('\n'));
+}
+function exportJson(){
+  saveFile('leksika-backup-'+today()+'.json',JSON.stringify({app:'leksika',v:2,lessons:Object.fromEntries(S.lessons),words:Object.fromEntries(S.words),kn:Object.fromEntries(S.kn),prog:S.prog,days:S.days}));
+}
+$('#backupIn').onchange=async e=>{
+  const f=e.target.files&&e.target.files[0];if(!f)return;
+  try{
+    const d=JSON.parse(decodeText(await f.arrayBuffer()));if(!d||d.app!=='leksika')throw new Error('Это не резервная копия «Лексики».');
+    toast('Восстанавливаю…');
+    for(const [id,l] of Object.entries(d.lessons||{}))if(!S.lessons.has(id))await putLesson(id,l);
+    for(const [k,w] of Object.entries(d.words||{}))if(w&&w.k&&!S.words.has(k))vocabWrite(k,w,undefined);
+    for(const [k,v] of Object.entries(d.kn||{}))if(!S.kn.has(k)&&!S.words.has(k))vocabWrite(k,undefined,v);
+    for(const [id,p] of Object.entries(d.prog||{}))if(!S.prog[id])setProg(id,p,0);
+    for(const [day,r] of Object.entries(d.days||{}))if(!S.days[day]){S.days[day]=r;if(db)await queue('day',()=>db.collection('days').doc(day).set(r))}
+    persistLocal();toast('Копия восстановлена');renderView();
+  }catch(err){toast((err&&err.message)||'Не удалось прочитать копию')}
+};
+
+/* ================= misc ================= */
+addEventListener('keydown',e=>{if(e.key==='Escape'&&sheet)closeSheet()});
+init();
+</script>
+</body></html>
