@@ -147,6 +147,17 @@ textarea{min-height:160px;resize:vertical;font-family:var(--f-read);line-height:
 .card .ans{display:flex;flex-direction:column;gap:6px;align-items:center}
 .card hr{width:60%;border:0;border-top:1px solid var(--line);margin:4px 0}
 .grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.grades2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grades2 button{border:1px solid var(--line);border-radius:14px;padding:16px 8px;background:var(--surface);font-weight:800;font-size:16px}
+.grades2 .g0{color:var(--danger)} .grades2 .g3{color:var(--good)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--surface);font-size:16px;line-height:1.35;color:var(--ink)}
+.opt:disabled{opacity:1;cursor:default}
+.opt.right{border-color:var(--good);box-shadow:inset 0 0 0 2px var(--good);font-weight:700}
+.opt.wrong{border-color:var(--danger);box-shadow:inset 0 0 0 2px var(--danger)}
+.result{font-weight:800;font-size:15px}.result.ok{color:var(--good)}.result.bad{color:var(--danger)}
+.big-btn{justify-content:center;padding:14px;font-size:16px}
+#trInput{min-height:0;resize:none;overflow:hidden;font-family:var(--f-ui);line-height:1.4;display:block}
 .grades button{border:1px solid var(--line);border-radius:12px;padding:10px 4px;background:var(--surface);font-weight:700;display:flex;flex-direction:column;gap:2px}
 .grades button span{font-size:11px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
 .grades .g0{color:var(--danger)} .grades .g3{color:var(--good)}
@@ -945,7 +956,7 @@ function buildSheet(){
     <div class="grab" id="grab"><i></i></div>
     <div class="sw-head"><div class="sw-word">${esc(s.display)}</div><button class="icon-btn" data-act="speak" aria-label="Озвучить">${SPK}</button><button class="icon-btn" data-act="close" aria-label="Закрыть">✕</button></div>
     <div id="shMeta"></div>
-    <div class="field"><label for="trInput">Перевод</label><input type="text" id="trInput" autocomplete="off"></div>
+    <div class="field"><label for="trInput">Перевод</label><textarea id="trInput" rows="1" autocomplete="off" enterkeyhint="done"></textarea></div>
     <div id="shDyn" style="display:flex;flex-direction:column;gap:10px"></div>
     <div class="field"><label>Уровень</label><div class="levels" id="shLv">${[1,2,3,4,5].map(n=>`<button data-lv="${n}">${n===5?'✓':n}</button>`).join('')}<button data-lv="-1" title="Имя, число, не учить">Игнор</button></div>
       <div class="lvl-cap"><span>1 — только встретил</span><span>✓ знаю · игнор — имена</span></div></div>
@@ -955,6 +966,8 @@ function buildSheet(){
   const sh=$('#sheet');
   sh.addEventListener('click',onSheetClick);
   const inp=$('#trInput');
+  inp.addEventListener('input',()=>fitTr(inp));
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();inp.blur()}});
   inp.addEventListener('change',()=>{const v=inp.value.trim();const s=sheet;const cur=S.words.get(s.k);if(cur){if(cur.tr!==v)saveWord({...cur,tr:v})}else if(v){s.lookup={...(s.lookup||{}),tr:v};createLingq({...s.lookup},s)}});
   // swipe down to close
   let y0=null;const g=$('#grab');
@@ -962,13 +975,14 @@ function buildSheet(){
   g.addEventListener('touchend',e=>{if(y0!==null&&e.changedTouches[0].clientY-y0>50)closeSheet();y0=null});
   sheet.htm={};updateSheet();fitSheetToKeyboard();
 }
+function fitTr(el){if(!el)return;el.style.height='auto';el.style.height=el.scrollHeight+2+'px'}
 function setHtml(id,html){const s=sheet;if(s.htm[id]===html)return;s.htm[id]=html;const el=document.getElementById(id);if(el)el.innerHTML=html}
 function updateSheet(){
   const s=sheet;if(!s||!$('#sheet'))return;
   const w=S.words.get(s.k);const st=statusOf(s.k);const d=w||s.lookup||{};
   const ctx=s.ctx||(w&&w.ctx)||'';
   setHtml('shMeta',`${s.phrase?'<div class="small muted">Фраза</div>':''}${(d.ipa||d.lemma)?`<div class="sw-ipa">${d.ipa?'['+esc(d.ipa)+']':''}${d.lemma&&norm(d.lemma)!==s.k?`${d.ipa?' · ':''}словарная форма: <b>${esc(d.lemma)}</b>`:''}</div>`:''}${s.loading?'<div class="muted small"><span class="spin"></span> Перевожу…</div>':''}${s.err?`<div class="small" style="color:var(--danger)">${esc(s.err)}</div>`:''}`);
-  const inp=$('#trInput');if(document.activeElement!==inp){const v=d.tr||'';if(inp.value!==v)inp.value=v;inp.placeholder=s.loading?'…':'Впиши свой перевод'}
+  const inp=$('#trInput');if(document.activeElement!==inp){const v=d.tr||'';if(inp.value!==v)inp.value=v;inp.placeholder=s.loading?'…':'Впиши свой перевод'}fitTr(inp);
   const phs=s.phList.map(pk=>S.words.get(pk)).filter(Boolean);
   setHtml('shDyn',`${d.note?`<div class="small muted">${esc(d.note)}</div>`:''}
     ${phs.length?`<div class="inph"><span class="label">Входит во фразу</span>${phs.map(p=>`<button data-act="phrase" data-k="${esc(p.k)}"><b>${esc(p.w)}</b> — ${esc(p.tr||'без перевода')}</button>`).join('')}</div>`:''}
@@ -1010,7 +1024,7 @@ function setLevel(n){
   const s=sheet;const cur=S.words.get(s.k);const inp=$('#trInput');const tr=inp?inp.value.trim():'';const now=Date.now();
   if(n===-1){if(cur)vocabWrite(s.k,null,2);else setKn([s.k],2);if(view==='read')setTimeout(closeSheet,120);return}
   if(cur){
-    const upd={...cur,tr:tr||cur.tr,status:n};
+    const upd={...cur,tr:tr||cur.tr,status:n,streak:0};
     if(n===5)upd.due=now+30*864e5;else if((cur.status||1)===5||n<(cur.status||1)){upd.due=now;upd.interval=0}
     saveWord(upd);
   }
@@ -1050,23 +1064,38 @@ function renderWordList(){
   $('#wMore')&&($('#wMore').onclick=()=>{wLimit+=300;renderWordList()});
 }
 
-/* ================= cards (SRS) ================= */
-function schedule(w,g,now=Date.now()){
-  let {interval=0,ease=2.5,status=1,reps=0,due=now,last=0}=w;status=status||1;
-  let next;
-  if(g===0){interval=0;ease=Math.max(1.3,ease-0.2);status=Math.max(1,status-1);next=now+10*60e3}
-  else{
-    const early=due>now+36e5&&last;const elapsed=last?(now-last)/864e5:0;
-    if(g===1){interval=interval?Math.max(1,(early?Math.max(elapsed,interval*0.5):interval)*1.2):1;ease=Math.max(1.3,ease-0.15)}
-    else if(g===2){interval=interval?(early?Math.max(interval,elapsed*ease):interval*ease):1;status=Math.min(4,status+1)}
-    else{interval=interval?(early?Math.max(interval,elapsed*ease*1.3):interval*ease*1.3):4;ease=Math.min(3.2,ease+0.15);status=Math.min(4,status+2)}
-    if(interval>2)interval*=0.95+Math.random()*0.1;
-    if(interval>=21)status=5;
-    next=now+interval*864e5;reps++;
+/* ================= cards (SRS) =================
+   Two correct answers in a row, on separate reviews, move a word up one level.
+   Intervals expand with the level (spacing effect); a mistake moves it down one level.
+   Levels 1-2: multiple choice (recognition). Levels 3-4: recall first, then "remembered / not". */
+const LV_DAYS={1:1,2:3,3:7,4:14};
+function grade(w,ok,counted,now=Date.now()){
+  let {status=1,streak=0,lapses=0,reps=0}=w;status=status||1;
+  let due,leveled=false;
+  if(ok){
+    if(counted){streak++;reps++;if(streak>=2){streak=0;status++;leveled=true}}
+    if(status>=5){status=5;due=now+60*864e5}
+    else{
+      const days=LV_DAYS[status]*(lapses>=3?0.7:1)*(0.95+Math.random()*0.1);
+      due=now+days*864e5;
+      if(!counted)due=Math.max(due,w.due||0);
+    }
+  }else{
+    streak=0;lapses++;status=Math.max(1,status-1);due=now+10*60e3;
   }
-  return {...w,interval,ease,status,due:next,reps,last:now};
+  return {w:{...w,status,streak,lapses,reps,due,last:now,interval:Math.max(0,(due-now)/864e5)},leveled};
 }
-const fmtInt=w=>{const i=w.interval;if(!i)return'10 мин';const d=Math.round(i);return d<31?d+' дн':Math.round(d/30)+' мес'};
+const shortTr=t=>{t=String(t||'').trim();return t.length>70?t.slice(0,68)+'…':t};
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function buildChoice(w,dir){
+  const ans=x=>dir==='ru'?(x.w||x.k):shortTr(x.tr);
+  const right=ans(w);if(!right||(dir!=='ru'&&!w.tr))return null;
+  const seen=new Set([right.toLowerCase()]);const out=[];
+  const pools=[[...S.words.values()].filter(x=>x.k!==w.k&&x.tr&&!!x.phrase===!!w.phrase),[...S.words.values()].filter(x=>x.k!==w.k&&x.tr)];
+  for(const pool of pools){for(const x of shuffle(pool)){const a=ans(x);if(!a||seen.has(a.toLowerCase()))continue;seen.add(a.toLowerCase());out.push(a);if(out.length===3)break}if(out.length===3)break}
+  if(out.length<3)return null;
+  return shuffle([right,...out]).map(t=>({t,ok:t===right}));
+}
 let gradeLock=0;
 function renderCards(){
   $('#title').textContent='Карточки';
@@ -1079,40 +1108,68 @@ function renderCards(){
       <div class="panel"><div class="chips"><button class="chip" data-dir="en" aria-pressed="${dir==='en'}">Английский → русский</button><button class="chip" data-dir="ru" aria-pressed="${dir==='ru'}">Русский → английский</button></div>
       <label class="row small"><input type="checkbox" id="autoSp" ${auto?'checked':''}> Автоматически озвучивать слово</label>
       <div class="row small">Голос: ${voiceSelectHtml()}</div></div>
-      <div class="small muted">Слово считается выученным (✓), когда интервал повторения дорастает до 21 дня.</div>
+      <div class="note">Как растёт уровень: два правильных ответа подряд (в разные дни) — уровень выше. После уровня 4 слово становится известным ✓. Ошибка — уровень ниже, и слово вернётся через 10 минут. На уровнях 1–2 выбираешь перевод из четырёх, на 3–4 сначала вспоминаешь сам.</div>
       ${!S.words.size?'<div class="empty">Карточки появляются из слов и фраз, которые ты отмечаешь при чтении.</div>':''}`;
     $('#autoSp').onchange=e=>LS.set('lx-autospeak',e.target.checked);
     document.querySelectorAll('[data-dir]').forEach(b=>b.onclick=()=>{LS.set('lx-dir',b.dataset.dir);renderCards()});
     bindVoiceSel();
-    $('#startDue').onclick=()=>startSession(due.slice(0,40));
-    $('#startAhead')&&($('#startAhead').onclick=()=>startSession([...S.words.values()].filter(w=>(w.status||1)<5).sort((a,b)=>(a.due||0)-(b.due||0)).slice(0,20).map(w=>w.k)));
+    $('#startDue').onclick=()=>startSession(due.slice(0,40),false);
+    $('#startAhead')&&($('#startAhead').onclick=()=>startSession([...S.words.values()].filter(w=>(w.status||1)<5).sort((a,b)=>(a.due||0)-(b.due||0)).slice(0,20).map(w=>w.k),true));
     return;
   }
-  const {q,i,flipped,total,done}=session;
-  if(i>=q.length){$('#view').innerHTML=`<div class="panel" style="align-items:flex-start"><div class="big-num">${done}</div><div class="muted">ответов за сессию. Готово!</div><button class="btn primary" id="endS">Хорошо</button></div>`;$('#endS').onclick=()=>{session=null;renderView()};return}
-  const w=S.words.get(q[i]);if(!w){session.i++;renderCards();return}
+  const ss=session;const {q,i,total,done}=ss;
+  if(i>=q.length){
+    $('#view').innerHTML=`<div class="panel" style="align-items:flex-start"><div class="big-num">${ss.right}/${ss.right+ss.wrong}</div><div class="muted">правильных ответов${ss.up?` · уровень вырос у ${ss.up}`:''}${ss.learned?` · выучено ✓: ${ss.learned}`:''}</div>${ss.ahead?'<div class="small muted">Это было повторение заранее — уровни за него не растут.</div>':''}<button class="btn primary" id="endS">Готово</button></div>`;
+    $('#endS').onclick=()=>{session=null;renderView()};return;
+  }
+  const w=S.words.get(q[i]);if(!w){ss.i++;renderCards();return}
+  if(!ss.cur||ss.cur.k!==w.k){
+    const st=w.status||1;let mode=st<=2?'choice':'recall';let opts=null;
+    if(mode==='choice'){opts=buildChoice(w,dir);if(!opts)mode='recall'}
+    ss.cur={k:w.k,mode,opts,answered:null,revealed:false};
+  }
+  const c=ss.cur;const ru=dir==='ru'&&!!w.tr;
   const word=esc(w.w||w.k);const ctxH=w.ctx?`<div class="ctx" style="text-align:left">${markCtx(w.ctx,w.w||w.k)}</div>`:'';
-  const ruFront=dir==='ru'&&w.tr;
-  const front=ruFront?`<div class="big" style="font-family:var(--f-ui);font-size:24px">${esc(w.tr)}</div>`:`<div class="row" style="justify-content:center"><div class="big">${word}</div><button class="icon-btn" id="cSpk" aria-label="Озвучить">${SPK}</button></div>${ctxH}`;
-  const back=ruFront?`<hr><div class="ans"><div class="row" style="justify-content:center"><div class="big">${word}</div><button class="icon-btn" id="cSpk" aria-label="Озвучить">${SPK}</button></div>${w.ipa?`<div class="sw-ipa">[${esc(w.ipa)}]</div>`:''}</div>${ctxH}`
-    :`<hr><div class="ans">${w.ipa?`<div class="sw-ipa">[${esc(w.ipa)}]</div>`:''}<div class="sw-tr">${esc(w.tr||'— перевод не добавлен')}</div>${w.note?`<div class="small muted">${esc(w.note)}</div>`:''}</div>`;
+  const wordBlock=`<div class="row" style="justify-content:center"><div class="big">${word}</div><button class="icon-btn" id="cSpk" aria-label="Озвучить">${SPK}</button></div>`;
+  const trBlock=`<div class="ans">${w.ipa?`<div class="sw-ipa">[${esc(w.ipa)}]</div>`:''}<div class="sw-tr">${esc(w.tr||'— перевод не добавлен')}</div>${w.note?`<div class="small muted">${esc(w.note)}</div>`:''}</div>`;
+  const shown=c.answered!==null||c.revealed;
+  let front=ru?`<div class="big" style="font-family:var(--f-ui);font-size:24px">${esc(w.tr)}</div>`:wordBlock+ctxH;
+  let back=ru?`<hr>${wordBlock}${ctxH}`:(c.mode==='recall'?`<hr>${trBlock}`:'');
+  let actions='';
+  if(c.mode==='choice'){
+    actions=`<div class="opts">${c.opts.map((o,n)=>{let cls='opt';if(c.answered!==null){if(o.ok)cls+=' right';else if(n===c.answered)cls+=' wrong'}return `<button class="${cls}" data-o="${n}" ${c.answered!==null?'disabled':''}>${esc(o.t)}</button>`}).join('')}</div>`;
+    if(c.answered!==null)actions+=`<div class="result ${c.result.ok?'ok':'bad'}">${c.result.ok?(c.result.leveled?`Верно! Уровень ${c.result.status===5?'✓ — слово выучено':c.result.status}`:'Верно!'):'Неверно — повторим через 10 минут'}</div><button class="btn primary big-btn" id="next">Дальше</button>`;
+  }else{
+    if(!c.revealed)actions=`<button class="btn primary big-btn" id="reveal">Показать ${ru?'слово':'перевод'}</button>`;
+    else if(c.answered===null)actions=`<div class="grades2"><button class="g0" data-r="0">Не помню</button><button class="g3" data-r="1">Помню</button></div>`;
+    else actions=`<div class="result ${c.result.ok?'ok':'bad'}">${c.result.ok?(c.result.leveled?`Уровень ${c.result.status===5?'✓ — слово выучено':c.result.status}`:'Отлично'):'Повторим через 10 минут'}</div><button class="btn primary big-btn" id="next">Дальше</button>`;
+  }
+  const lv=w.status||1;
   $('#view').innerHTML=`<div class="progress"><i style="width:${Math.min(100,done/total*100)}%"></i></div>
-    <div class="card">${front}${flipped?back:''}</div>
-    ${flipped?`<div class="grades">${[['Снова',0],['Трудно',1],['Хорошо',2],['Легко',3]].map(([t,g])=>`<button class="g${g}" data-g="${g}">${t}<span>${fmtInt(schedule(w,g))}</span></button>`).join('')}</div>`
-      :`<button class="btn primary" id="flip" style="justify-content:center;padding:14px">Показать ответ</button>`}
-    <div class="row"><button class="btn ghost" id="quit">Закончить</button><span class="small muted">Уровень ${w.status||1}/4 · ${done+1} из ${total}</span></div>`;
+    <div class="card">${front}${shown?back:''}</div>
+    ${actions}
+    <div class="row"><button class="btn ghost" id="quit">Закончить</button><span class="small muted">Уровень ${lv===5?'✓':lv+'/4'} · ${Math.min(done+1,total)} из ${total}</span>${c.answered===null&&!c.revealed?`<button class="btn ghost sm" id="knowIt" style="margin-left:auto">Знаю ✓</button>`:''}</div>`;
   $('#cSpk')&&($('#cSpk').onclick=()=>speak(w.w||w.k));
   $('#quit').onclick=()=>{session=null;renderView()};
-  $('#flip')&&($('#flip').onclick=()=>{if(Date.now()<gradeLock)return;session.flipped=true;renderCards();if(ruFront&&LS.get('lx-autospeak',true))speak(w.w||w.k)});
-  document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{
-    if(Date.now()<gradeLock)return;gradeLock=Date.now()+350;
-    const g=+b.dataset.g;const cur=S.words.get(q[i]);if(!cur)return;saveWord(schedule(cur,g));bump('reviews');
-    session.done++;if(g===0&&!session.again.has(cur.k)){session.again.add(cur.k);q.push(cur.k);session.total++}
-    session.i++;session.flipped=false;renderCards();
-    const nx=S.words.get(q[session.i]);if(nx&&LS.get('lx-autospeak',true)&&LS.get('lx-dir','en')!=='ru')speak(nx.w||nx.k);
-  });
+  const answer=ok=>{
+    if(Date.now()<gradeLock)return;gradeLock=Date.now()+300;
+    const cur=S.words.get(c.k);if(!cur)return;
+    const counted=!ss.ahead&&!ss.again.has(cur.k);
+    const r=grade(cur,ok,counted);saveWord(r.w);bump('reviews');
+    c.result={ok,leveled:r.leveled,status:r.w.status};
+    if(ok)ss.right++;else ss.wrong++;
+    if(r.leveled)ss.up++;if(r.w.status===5&&r.leveled)ss.learned++;
+    if(!ok&&!ss.again.has(cur.k)){ss.again.add(cur.k);q.push(cur.k);ss.total++}
+    if(LS.get('lx-autospeak',true)&&(c.mode==='choice'||ru))speak(cur.w||cur.k);
+  };
+  document.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{if(c.answered!==null)return;const n=+b.dataset.o;c.answered=n;answer(c.opts[n].ok);renderCards()});
+  $('#reveal')&&($('#reveal').onclick=()=>{c.revealed=true;renderCards();if(ru&&LS.get('lx-autospeak',true))speak(w.w||w.k)});
+  document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{if(c.answered!==null)return;c.answered=+b.dataset.r;answer(b.dataset.r==='1');renderCards()});
+  $('#next')&&($('#next').onclick=()=>{if(Date.now()<gradeLock)return;gradeLock=Date.now()+250;ss.i++;ss.done++;ss.cur=null;renderCards();speakCurrent()});
+  $('#knowIt')&&($('#knowIt').onclick=()=>{const cur=S.words.get(c.k);if(!cur)return;saveWord({...cur,status:5,streak:0,due:Date.now()+60*864e5});ss.learned++;ss.i++;ss.done++;ss.cur=null;renderCards();speakCurrent()});
 }
-function startSession(keys){if(!keys.length)return;session={q:keys,i:0,flipped:false,total:keys.length,done:0,again:new Set()};renderCards();const w=S.words.get(keys[0]);if(w&&LS.get('lx-autospeak',true)&&LS.get('lx-dir','en')!=='ru')speak(w.w||w.k)}
+function speakCurrent(){const s=session;if(!s||s.i>=s.q.length||LS.get('lx-dir','en')==='ru'||!LS.get('lx-autospeak',true))return;const w=S.words.get(s.q[s.i]);if(w)speak(w.w||w.k)}
+function startSession(keys,ahead){if(!keys.length)return;session={q:keys,i:0,total:keys.length,done:0,again:new Set(),ahead:!!ahead,right:0,wrong:0,up:0,learned:0,cur:null};renderCards();speakCurrent()}
 
 /* ================= progress (real data only) ================= */
 const STEPS=[0,250,500,1000,2000,3000,5000,8000,12000,16000,20000];
@@ -1138,7 +1195,7 @@ function renderProgress(){
       <div class="steps" aria-hidden="true">${STEPS.slice(1).map(s=>`<i class="${known>=s?'on':''}"></i>`).join('')}</div>
       <div class="small"><b>Ступень ${step+1} из ${STEPS.length}</b>${next?` · до ${fmtN(next)} осталось ${fmtN(next-known)}`:' · максимальная'}</div>
       <div class="progress"><i style="width:${pct}%"></i></div>
-      <div class="small muted">Считаются слова, которые ты отметил «✓», «Завершить урок» или которые выучены в карточках (интервал от 21 дня). Фразы и игнор не считаются.</div>
+      <div class="small muted">Считаются слова, которые ты отметил «✓», «Завершить урок» или которые прошли уровень 4 в карточках. Фразы и игнор не считаются.</div>
     </div>
     <div class="panel"><span class="label">Примерный уровень по словарному запасу</span>
       <div class="row" style="align-items:baseline;gap:12px"><div class="big-num">${CEFR[ci][0]}</div><div class="small">${nextC?`до <b>${nextC[0]}</b> (${fmtN(nextC[1])}) осталось ${fmtN(nextC[1]-fam)} слов`:'верхняя ступень шкалы'}</div></div>
