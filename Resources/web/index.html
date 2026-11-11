@@ -711,7 +711,7 @@ function changed(){if(pend)return;pend=true;requestAnimationFrame(()=>{pend=fals
   else if(view==='cards'&&!session)renderView();
   if(sheet)updateSheet();})}
 
-function dueKeys(){const now=Date.now();return [...S.words.values()].filter(w=>(w.status||1)<5&&(w.due||0)<=now).sort((a,b)=>(a.due||0)-(b.due||0)).map(w=>w.k)}
+function dueKeys(){const now=Date.now();return [...S.words.values()].filter(w=>(w.status||1)<5&&isDue(w,now)).sort((a,b)=>(a.due||0)-(b.due||0)).map(w=>w.k)}
 function updateBadge(){const n=mode==='loading'?0:dueKeys().length;const b=$('#dueBadge');b.hidden=!n;b.textContent=n>99?'99+':n}
 
 function renderView(){
@@ -1147,7 +1147,7 @@ function renderWordList(){
   let arr;
   if(wFilter==='ign')arr=[...S.kn].filter(([k,v])=>v===2&&(!q||k.includes(q))).map(([k])=>({k,w:k,tr:'',status:-1}));
   else arr=[...S.words.values()].filter(w=>{const s=w.status||1;
-    if(wFilter==='learn'&&s===5)return false;if(wFilter==='done'&&s!==5)return false;if(wFilter==='due'&&(s===5||(w.due||0)>now))return false;if(wFilter==='phr'&&!w.phrase)return false;
+    if(wFilter==='learn'&&s===5)return false;if(wFilter==='done'&&s!==5)return false;if(wFilter==='due'&&(s===5||!isDue(w,now)))return false;if(wFilter==='phr'&&!w.phrase)return false;
     return !q||w.k.includes(q)||(w.tr||'').toLowerCase().includes(q)}).sort((a,b)=>(b.created||0)-(a.created||0));
   if(!arr.length){box.innerHTML=`<div class="empty">${S.words.size?'Ничего не найдено.':'Здесь появятся слова и фразы, на которые ты нажмёшь при чтении.'}</div>`;return}
   box.innerHTML=`<div class="small muted" style="margin-bottom:8px">${fmtN(arr.length)} записей</div><div class="wlist">`+arr.slice(0,wLimit).map(w=>{const s=w.status||1;
@@ -1162,6 +1162,10 @@ function renderWordList(){
    Intervals expand with the level (spacing effect); a mistake moves it down one level.
    Levels 1-2: multiple choice (recognition). Levels 3-4: recall first, then "remembered / not". */
 const LV_DAYS={1:1,2:3,3:7,4:14};
+/* the learning day starts at 04:00, so a session after midnight still belongs to the evening */
+function dayStart(t,plus=0){const d=new Date(t);if(d.getHours()<4)d.setDate(d.getDate()-1);d.setHours(4,0,0,0);d.setDate(d.getDate()+plus);return d.getTime()}
+/* a short retry (10 minutes after a mistake) keeps its exact time; everything else is due for the whole day */
+function isDue(w,now){const due=w.due||0;return due-(w.last||0)<12*36e5?due<=now:due<dayStart(now,1)}
 function grade(w,ok,counted,now=Date.now()){
   let {status=1,streak=0,lapses=0,reps=0}=w;status=status||1;
   let due,leveled=false;
@@ -1169,8 +1173,9 @@ function grade(w,ok,counted,now=Date.now()){
     if(counted){streak++;reps++;if(streak>=2){streak=0;status++;leveled=true}}
     if(status>=5){status=5;due=now+60*864e5}
     else{
-      const days=LV_DAYS[status]*(lapses>=3?0.7:1)*(0.95+Math.random()*0.1);
-      due=now+days*864e5;
+      /* due by calendar day, not by the clock: a card answered in the evening is back the next morning */
+      const days=Math.max(1,Math.round(LV_DAYS[status]*(lapses>=3?0.7:1)));
+      due=dayStart(now,days);
       if(!counted)due=Math.max(due,w.due||0);
     }
   }else{

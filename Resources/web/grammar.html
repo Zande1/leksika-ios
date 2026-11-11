@@ -1082,6 +1082,15 @@ function save(){clearTimeout(saveT);saveT=setTimeout(saveNow,300)}
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&saveT)saveNow()});
 addEventListener('pagehide',()=>{if(saveT)saveNow()});
 
+/* ---- active time: every second spent in the trainer (theory, exercises, statistics) while something happens.
+   It stops a minute after the last touch, when the app is in the background, and when Лексика covers the trainer. ---- */
+let lastAct=Date.now(),pendAct=0;
+['touchstart','scroll','click','keydown','input'].forEach(ev=>addEventListener(ev,()=>{lastAct=Date.now()},{passive:true,capture:true}));
+function shownNow(){if(document.hidden)return false;try{if(EMB){const f=window.frameElement;if(f&&f.parentElement&&f.parentElement.hidden)return false;if(PARENT.document.hidden)return false}}catch(e){}return true}
+function flushAct(){if(pendAct>0){const d=dayRec();d.act=(d.act||0)+pendAct;pendAct=0;save()}}
+setInterval(()=>{if(!shownNow()||Date.now()-lastAct>60000){flushAct();return}pendAct++;if(pendAct>=20)flushAct()},1000);
+document.addEventListener('visibilitychange',()=>{if(document.hidden){flushAct();if(saveT)saveNow()}});
+const fmtTime=sec=>{const m=Math.round((sec||0)/60);return m<60?m+' мин':Math.floor(m/60)+' ч '+(m%60)+' мин'};
 const stepsDone=u=>Math.min(S.steps[u.id]||0,u.steps.length);
 const unitDone=u=>stepsDone(u)>=u.steps.length;
 const unlocked=u=>u.n===1||unitDone(UNITS[u.n-2]);
@@ -1237,16 +1246,20 @@ function renderReview(){
 
 function renderStats(){
   $('#title').textContent='Статистика';
-  let n=0,ok=0,sec=0;Object.values(S.days).forEach(d=>{n+=d.n||0;ok+=d.ok||0;sec+=d.sec||0});
+  flushAct();
+  let n=0,ok=0,sec=0,act=0;Object.values(S.days).forEach(d=>{n+=d.n||0;ok+=d.ok||0;sec+=d.sec||0;act+=Math.max(d.act||0,d.sec||0)});
   const seen=Object.keys(S.items).filter(id=>ITEMS.has(id)),mast=seen.filter(id=>S.items[id].b>=MASTER).length;
-  const day=S.days[dayKey()]||{n:0},st=streak(),mins=Math.round(sec/60);
+  const day=S.days[dayKey()]||{n:0},st=streak();
   let h=`<div class="grid2">
     <div class="stat"><div class="v">${coursePct()}%</div><div class="l">курса пройдено · осталось ${100-coursePct()}%</div></div>
     <div class="stat"><div class="v">${st}</div><div class="l">${plural(st,'день','дня','дней')} подряд</div></div>
     <div class="stat"><div class="v">${day.n} / ${S.goal}</div><div class="l">ответов сегодня</div></div>
     <div class="stat"><div class="v">${n?Math.round(100*ok/n)+'%':'—'}</div><div class="l">верных с первой попытки</div></div>
     <div class="stat"><div class="v">${mast} / ${ITEMS.size}</div><div class="l">заданий освоено</div></div>
-    <div class="stat"><div class="v">${mins<60?mins+' мин':(mins/60).toFixed(1)+' ч'}</div><div class="l">времени в упражнениях</div></div></div>`;
+    <div class="stat"><div class="v">${fmtTime(Math.max(day.act||0,day.sec||0))}</div><div class="l">в грамматике сегодня</div></div>
+    <div class="stat"><div class="v">${fmtTime(act)}</div><div class="l">в грамматике всего</div></div>
+    <div class="stat"><div class="v">${fmtTime(sec)}</div><div class="l">из них над заданиями</div></div></div>
+    <div class="small muted">Время идёт, пока ты читаешь теорию, делаешь задания или пишешь текст. Через минуту без касаний счёт останавливается; свёрнутое приложение и другие вкладки Лексики не считаются.</div>`;
   const ds=[];for(let i=13;i>=0;i--){const k=addDays(-i);ds.push({k,n:(S.days[k]||{}).n||0})}
   const mx=Math.max(1,...ds.map(d=>d.n));
   h+=`<div class="panel"><h2>Ответы за 14 дней</h2><div class="days">${ds.map(d=>`<i class="${d.n?'':'zero'}" style="height:${d.n?Math.max(6,Math.round(100*d.n/mx)):2}%" title="${d.k}: ${d.n}"></i>`).join('')}</div>
@@ -1288,7 +1301,7 @@ function renderSettings(){
   document.querySelectorAll('.seg [data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render()});
   document.querySelectorAll('.seg [data-s]').forEach(b=>b.onclick=()=>{S.sound=b.dataset.s==='1';save();render()});
   $('#goal').onchange=e=>{S.goal=+e.target.value;save()};
-  $('#reset').onclick=e=>{const b=e.currentTarget;if(b.dataset.arm){S.items={};S.steps={};S.days={};S.log=[];delete S.cur;saveNow();go('course')}else{b.dataset.arm=1;b.textContent='Нажми ещё раз, чтобы удалить всё'}};
+  $('#reset').onclick=e=>{const b=e.currentTarget;if(b.dataset.arm){pendAct=0;S.items={};S.steps={};S.days={};S.log=[];delete S.cur;saveNow();go('course')}else{b.dataset.arm=1;b.textContent='Нажми ещё раз, чтобы удалить всё'}};
 }
 
 /* ================= sessions ================= */
