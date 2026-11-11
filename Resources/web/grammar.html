@@ -798,7 +798,10 @@ const SECTIONS=[
  ['fix','I were reading a book.','I was reading a book.','a'],
  ['fix','What you were doing?','What were you doing?','b'],
  ['tr','В тот момент мы смотрели фильм.','At that moment we were watching a film.|We were watching a film at that moment.|At that moment we were watching a movie.|We were watching a movie at that moment.','c'],
- ['dict','It was raining and people were running.','a']],
+ ['dict','It was raining and people were running.','a'],
+ ['gap',"At nine o'clock we ___ breakfast. (have)",'were having','a'],
+ ['fix','She was cook when I called.','She was cooking when I called.','a'],
+ ['tr','Я не спал в полночь. (Past Continuous)','I was not sleeping at midnight.|At midnight I was not sleeping.','b']],
  fw:{ru:"Вспомни вчерашний вечер и опиши, что происходило в 8 часов: что делал ты, что делали другие. 4–5 предложений.",en:"Think of yesterday evening and describe what was happening at 8 o'clock: what you were doing, what others were doing. 4–5 sentences."}},
 
 {id:'pastcs',ru:"Прошедшее длительное или простое",en:"Past Continuous or Past Simple?",
@@ -844,7 +847,10 @@ const SECTIONS=[
  ['gap','What ___ when you heard the news? (you / do)','were you doing','a'],
  ['fix','I was knowing the answer.','I knew the answer.','d'],
  ['tr','Когда я вышел, шёл дождь.','It was raining when I went out.|When I went out, it was raining.|It was raining when I left.|When I left, it was raining.','a'],
- ['dict','I was having a shower when the phone rang.','a']],
+ ['dict','I was having a shower when the phone rang.','a'],
+ ['mc','We ___ dinner when the lights went out.',['were having','had','have'],0,'a'],
+ ['gap','I ___ my phone while I was running. (lose)','lost','a'],
+ ['fix','I was wanting to call you.','I wanted to call you.','d']],
  fw:{ru:"Расскажи короткую историю из прошлого: что происходило вокруг (was / were doing) и что вдруг случилось (Past Simple). 5–6 предложений.",en:"Tell a short story from the past: what was going on around you (was / were doing) and what suddenly happened (Past Simple). 5–6 sentences."}}
 ]},
 {ru:'Настоящее совершённое',en:'Present Perfect',units:[
@@ -898,7 +904,10 @@ const SECTIONS=[
  ['fix','She have done it.','She has done it.','a'],
  ['fix','I have saw this film.','I have seen this film.','b'],
  ['tr','Ты сделал домашнее задание? (Present Perfect)','Have you done your homework?|Have you done the homework?','c'],
- ['dict','I have lost my phone and I have not found it.','a']],
+ ['dict','I have lost my phone and I have not found it.','a'],
+ ['mc','They ___ a new car.',['have bought','has bought','buyed'],0,'a'],
+ ['gap','She ___ her keys. (find)','has found','a'],
+ ['fix','Have you saw my bag?','Have you seen my bag?','b']],
  fw:{ru:"Напиши 5 предложений о том, что ты уже сделал сегодня или на этой неделе и чего ещё не сделал (I have… / I haven't…).",en:"Write 5 sentences about what you have done today or this week and what you haven't done yet (I have… / I haven't…)."}},
 
 {id:'pp2',ru:"Совершённое или прошедшее простое",en:"Present Perfect or Past Simple?",
@@ -947,7 +956,10 @@ const SECTIONS=[
  ['fix','I have seen him yesterday.','I saw him yesterday.','a'],
  ['fix','Did you ever been to Spain?','Have you ever been to Spain?','b'],
  ['tr','Я никогда не был в Америке.','I have never been to America.|I have never been to the USA.|I have never been to the US.|I have never been to the United States.','b'],
- ['dict','I have just finished but she has not started yet.','c']],
+ ['dict','I have just finished but she has not started yet.','c'],
+ ['mc','___ you see the match last night?',['Did','Have','Were'],0,'a'],
+ ['gap','I have ___ had lunch. (уже)','already','c'],
+ ['fix','I have been to London last year.','I went to London last year.|I was in London last year.','a']],
  fw:{ru:"Напиши 3 предложения о своём опыте (I have been to… / I have never…) и 3 предложения о том, когда именно что-то произошло (Past Simple с датой).",en:"Write 3 sentences about your experience (I have been to… / I have never…) and 3 sentences saying exactly when something happened (Past Simple with a date)."}}
 ]},
 {ru:'Будущее время',en:'Future',units:[
@@ -989,7 +1001,10 @@ const SECTIONS=[
  ['fix','I going to visit my parents.','I am going to visit my parents.','a'],
  ['fix','She is going to buys a car.','She is going to buy a car.','a'],
  ['tr','Что ты собираешься делать завтра?','What are you going to do tomorrow?','b'],
- ['dict','We are going to visit them next week.','a']],
+ ['dict','We are going to visit them next week.','a'],
+ ['mc','They are going to ___ married.',['get','getting','gets'],0,'a'],
+ ['gap','___ you going to watch the match?','Are','b'],
+ ['tr','Я не собираюсь это покупать.','I am not going to buy it.|I am not going to buy this.|I am not going to buy that.','b']],
  fw:{ru:"Напиши 5 предложений о своих планах на выходные или на следующий год с be going to.",en:"Write 5 sentences about your plans for the weekend or for next year with be going to."}},
 
 {id:'will',ru:"Будущее с will: решения, обещания, прогнозы",en:"will",
@@ -1033,7 +1048,10 @@ const SECTIONS=[
  ['fix','She will comes tomorrow.','She will come tomorrow.','a'],
  ['fix','I will to help you.','I will help you.','a'],
  ['tr','Ты будешь дома завтра?','Will you be at home tomorrow?|Will you be home tomorrow?','b'],
- ['dict','I will call you when I get home.','a']],
+ ['dict','I will call you when I get home.','a'],
+ ['mc','I am sure you ___ like this film.',['will','are','do'],0,'c'],
+ ['gap',"We ___ be late. Don't worry. (not)",'will not','b'],
+ ['tr','Я позвоню тебе завтра.','I will call you tomorrow.|I will phone you tomorrow.|I will ring you tomorrow.','c']],
  fw:{ru:"Напиши 3 прогноза о своём будущем через пять лет (I think I will…) и 2 обещания самому себе (I will… / I won't…).",en:"Write 3 predictions about your life in five years (I think I will…) and 2 promises to yourself (I will… / I won't…)."}}
 ]},
 {ru:'Модальные глаголы',en:'Modal verbs',units:[
@@ -1076,7 +1094,10 @@ const SECTIONS=[
  ['fix','He cans play chess.','He can play chess.','a'],
  ['fix','I can to help you.','I can help you.','a'],
  ['tr','Вы не могли бы мне помочь?','Could you help me?|Could you help me please?|Can you help me?|Can you help me please?','d'],
- ['dict','I can read English but I cannot speak it well.','a']],
+ ['dict','I can read English but I cannot speak it well.','a'],
+ ['mc','___ I use your phone?',['Can','Am','Do'],0,'d'],
+ ['gap','She ___ ride a bike when she was four.','could','c'],
+ ['fix','Can you to swim?','Can you swim?','a']],
  fw:{ru:"Напиши 3 предложения о том, что ты умеешь, 2 о том, чего не умеешь, и 1 о том, что умел в детстве (could).",en:"Write 3 sentences about things you can do, 2 about things you can't do, and 1 about something you could do as a child."}},
 
 {id:'must',ru:'Должен, нужно: must и have to',en:'must / have to',
@@ -1120,7 +1141,10 @@ const SECTIONS=[
  ['fix','She must to go.','She must go.','a'],
  ['fix','He have to work today.','He has to work today.','b'],
  ['tr','Я должен идти.','I must go.|I have to go.','a'],
- ['dict','You must not be late and you have to bring your passport.','c']],
+ ['dict','You must not be late and you have to bring your passport.','c'],
+ ['mc','I ___ finish this today. My boss needs it.',['have to','has to','having to'],0,'b'],
+ ['gap','You ___ touch that. It is dangerous. (not)','must not','c'],
+ ['fix',"You don't must park here.","You mustn't park here.",'c']],
  fw:{ru:"Напиши 3 предложения о том, что тебе нужно делать на работе или учёбе (have to), 2 о том, чего делать нельзя (mustn't), и 1 о том, что делать не обязательно (don't have to).",en:"Write 3 sentences about things you have to do at work or in your studies, 2 about things you mustn't do, and 1 about something you don't have to do."}},
 
 {id:'should',ru:'Совет: should',en:'should',
@@ -1161,7 +1185,10 @@ const SECTIONS=[
  ['fix','You should to study more.','You should study more.','a'],
  ['fix','He shoulds call his mother.','He should call his mother.','a'],
  ['tr','Что мне надеть?','What should I wear?|What should I put on?','b'],
- ['dict','You should not worry. Everything will be fine.','b']],
+ ['dict','You should not worry. Everything will be fine.','b'],
+ ['mc','You ___ see this film. It is great.',['should','should to','shoulding'],0,'c'],
+ ['gap','___ we take a taxi?','Should','b'],
+ ['fix',"You don't should smoke.","You shouldn't smoke.",'b']],
  fw:{ru:"Друг хочет выучить английский за год. Дай ему 5 советов: что стоит делать и чего не стоит (should / shouldn't).",en:"A friend wants to learn English in a year. Give 5 pieces of advice: what they should and shouldn't do."}}
 ]},
 {ru:'Существительные и артикли',en:'Nouns and articles',units:[
@@ -1204,7 +1231,10 @@ const SECTIONS=[
  ['fix','There is three books on the shelf.','There are three books on the shelf.','a'],
  ['fix','It is a cat under the bed.','There is a cat under the bed.','d'],
  ['tr','Здесь есть ресторан?','Is there a restaurant here?|Is there a restaurant near here?','b'],
- ['dict','There is a small shop and there are two cafes.','a']],
+ ['dict','There is a small shop and there are two cafes.','a'],
+ ['mc','___ any students in the room?',['Are there','Is there','There are'],0,'b'],
+ ['gap','There ___ two cinemas here in 2010.','were','c'],
+ ['tr','В холодильнике нет молока.','There is no milk in the fridge.|There is not any milk in the fridge.','b']],
  fw:{ru:"Опиши свою комнату или своё рабочее место: что там есть и чего нет. 5–6 предложений с there is / there are.",en:"Describe your room or your workplace: what there is and what there isn't. 5–6 sentences with there is / there are."}},
 
 {id:'art',ru:'Артикли a / an / the',en:'a / an / the',
@@ -1249,7 +1279,10 @@ const SECTIONS=[
  ['fix','I am student.','I am a student.','a'],
  ['fix','The life is beautiful.','Life is beautiful.','c'],
  ['tr','Он учитель.','He is a teacher.','a'],
- ['dict','I bought a book and an umbrella. The book was cheap.','b']],
+ ['dict','I bought a book and an umbrella. The book was cheap.','b'],
+ ['mc','It is ___ interesting book.',['an','a','—'],0,'a'],
+ ['gap','Please close ___ door.','the','b'],
+ ['fix','I go to the work by bus.','I go to work by bus.','c']],
  fw:{ru:"Напиши короткий рассказ из 5–6 предложений о том, что ты купил или увидел: при первом упоминании a / an, дальше the.",en:"Write a short story of 5–6 sentences about something you bought or saw: a / an at first mention, then the."}},
 
 {id:'some',ru:'Количество: some, any, much, many',en:'some / any, much / many',
@@ -1297,7 +1330,10 @@ const SECTIONS=[
  ['fix','I need an information.','I need some information.|I need information.','c'],
  ['fix','How much apples do you want?','How many apples do you want?','b'],
  ['tr','У меня нет денег.','I do not have any money.|I have no money.|I have not got any money.|I do not have money.','a'],
- ['dict','We have a lot of time but not much money.','d']],
+ ['dict','We have a lot of time but not much money.','d'],
+ ['mc','There are not ___ people here.',['many','much','a lot'],0,'b'],
+ ['gap','Do you have ___ brothers or sisters?','any','a'],
+ ['fix','I have many money.','I have a lot of money.|I have much money.','d']],
  fw:{ru:"Опиши, что есть у тебя в холодильнике или на рабочем месте: что есть (some, a lot of) и чего мало или нет (not much, not many, not any). 5 предложений.",en:"Describe what is in your fridge or at your workplace: what there is (some, a lot of) and what there is little or none of (not much, not many, not any). 5 sentences."}}
 ]},
 {ru:'Местоимения и предлоги',en:'Pronouns and prepositions',units:[
@@ -1349,7 +1385,10 @@ const SECTIONS=[
  ['fix','This is mine book.','This is my book.','b'],
  ['fix','She gave he a present.','She gave him a present.','a'],
  ['tr','Позвони мне завтра.','Call me tomorrow.|Phone me tomorrow.|Ring me tomorrow.','a'],
- ['dict','Their house is bigger than ours.','c']],
+ ['dict','Their house is bigger than ours.','c'],
+ ['mc','Is this bag ___?',['yours','your','you'],0,'c'],
+ ['gap','We are late. Wait for ___!','us','a'],
+ ['fix','I love me family.','I love my family.','b']],
  fw:{ru:"Опиши свою семью или друзей: кто они, что у них есть, что ты для них делаешь. Используй him, her, them, my, his, their. 5 предложений.",en:"Describe your family or friends: who they are, what they have, what you do for them. Use him, her, them, my, his, their. 5 sentences."}},
 
 {id:'prep',ru:'Предлоги времени и места: in, on, at',en:'in / on / at',
@@ -1397,10 +1436,386 @@ const SECTIONS=[
  ['fix','See you on next Monday.','See you next Monday.','b'],
  ['fix','I was in home yesterday.','I was at home yesterday.','c'],
  ['tr','Он на работе.','He is at work.','c'],
- ['dict','I will see you on Sunday at six in the evening.','a']],
+ ['dict','I will see you on Sunday at six in the evening.','a'],
+ ['mc','We go on holiday ___ summer.',['in','on','at'],0,'a'],
+ ['gap','The shop opens ___ nine.','at','a'],
+ ['fix','I was born at 2005.','I was born in 2005.','a']],
  fw:{ru:"Опиши свою обычную неделю: что, когда и где ты делаешь. Используй at, on, in для времени и места. 5–6 предложений.",en:"Describe your usual week: what you do, when and where. Use at, on, in for time and place. 5–6 sentences."}}
+]},
+{ru:'Прилагательные и наречия',en:'Adjectives and adverbs',units:[
+{id:'comp',ru:'Сравнительная степень: старше, дороже',en:'Comparatives: older, more expensive',
+ th:{ru:`<p>Сравниваем два предмета: «больше, чем», «интереснее, чем».</p>
+<table><tr><th>короткие слова: + -er</th><th>длинные слова: more + слово</th></tr>
+<tr><td>old → <b>older</b>, cheap → <b>cheaper</b></td><td>expensive → <b>more expensive</b></td></tr>
+<tr><td>big → <b>bigger</b>, hot → <b>hotter</b> (удвоение)</td><td>interesting → <b>more interesting</b></td></tr>
+<tr><td>easy → <b>easier</b>, happy → <b>happier</b> (y → i)</td><td>difficult → <b>more difficult</b></td></tr></table>
+<p>Исключения: good → <b>better</b>, bad → <b>worse</b>, far → <b>further</b>.</p>
+<p>«Чем» — это <b>than</b>:</p>
+<ul><li><span class="en">My brother is older than me.</span></li><li><span class="en">This phone is more expensive than that one.</span></li></ul>
+<p>Нельзя использовать оба способа сразу: <span class="bad">more older</span>, <span class="bad">more tall</span>.</p>`,
+ en:`<p>We compare two things.</p>
+<table><tr><th>short words: + -er</th><th>long words: more + word</th></tr>
+<tr><td>old → <b>older</b>, cheap → <b>cheaper</b></td><td>expensive → <b>more expensive</b></td></tr>
+<tr><td>big → <b>bigger</b>, hot → <b>hotter</b> (double consonant)</td><td>interesting → <b>more interesting</b></td></tr>
+<tr><td>easy → <b>easier</b>, happy → <b>happier</b> (y → i)</td><td>difficult → <b>more difficult</b></td></tr></table>
+<p>Irregular: good → <b>better</b>, bad → <b>worse</b>, far → <b>further</b>.</p>
+<p>Use <b>than</b> after the comparative:</p>
+<ul><li><span class="en">My brother is older than me.</span></li><li><span class="en">This phone is more expensive than that one.</span></li></ul>
+<p>Never use both patterns together: <span class="bad">more older</span>, <span class="bad">more tall</span>.</p>`},
+ rules:{a:{ru:'Короткие слова: + -er (older, bigger, easier).',en:'Short words: + -er (older, bigger, easier).'},
+  b:{ru:'Длинные слова: more + прилагательное (more expensive).',en:'Long words: more + adjective (more expensive).'},
+  c:{ru:'Исключения: good → better, bad → worse.',en:'Irregular: good → better, bad → worse.'},
+  d:{ru:'«Чем» = than.',en:'Use than after a comparative.'}},
+ items:[
+ ['mc','My brother is ___ than me.',['older','more old','oldest'],0,'a'],
+ ['mc','This phone is ___ than that one.',['more expensive','expensiver','expensive'],0,'b'],
+ ['mc','Today the weather is ___ than yesterday.',['better','gooder','more good'],0,'c'],
+ ['mc','A car is faster ___ a bike.',['than','then','that'],0,'d'],
+ ['mc','big →',['biger','bigger','more big'],1,'a'],
+ ['mc','This exercise is ___ than the last one.',['easier','easyer','more easy'],0,'a'],
+ ['gap!','Moscow is ___ than Kazan. (big)','bigger','a'],
+ ['gap!','English is ___ than Chinese. (easy)','easier','a'],
+ ['gap','This film is ___ than the book. (interesting)','more interesting','b'],
+ ['gap','My result is ___ than yours. (bad)','worse','c'],
+ ['build','Этот дом больше, чем наш.','This house is bigger than ours.','d',['more']],
+ ['tr','Она моложе меня.','She is younger than me.|She is younger than I am.','a'],
+ '|',
+ ['mc','Trains are ___ than buses.',['more comfortable','comfortabler','comfortable'],0,'b'],
+ ['gap','It is ___ today than yesterday. (cold)','colder','a'],
+ ['gap','I feel ___ today. (good)','better','c'],
+ ['gap','The second question was ___ than the first. (difficult)','more difficult','b'],
+ ['fix','He is more tall than his father.','He is taller than his father.','a'],
+ ['fix','This bag is cheaper that mine.','This bag is cheaper than mine.','d'],
+ ['tr','Эта книга интереснее.','This book is more interesting.','b'],
+ ['dict','My new job is better and more interesting than the old one.','c']],
+ fw:{ru:"Сравни два города, два телефона или две работы: 5 предложений со сравнительной степенью и than.",en:"Compare two cities, two phones or two jobs: 5 sentences with comparatives and than."}},
+
+{id:'sup',ru:'Превосходная степень: самый старый, самый дорогой',en:'Superlatives: the oldest, the most expensive',
+ th:{ru:`<p>Выделяем один предмет из всех: «самый».</p>
+<table><tr><th>короткие слова: the + -est</th><th>длинные слова: the most + слово</th></tr>
+<tr><td>old → <b>the oldest</b></td><td>expensive → <b>the most expensive</b></td></tr>
+<tr><td>big → <b>the biggest</b>, hot → <b>the hottest</b></td><td>interesting → <b>the most interesting</b></td></tr>
+<tr><td>happy → <b>the happiest</b></td><td>difficult → <b>the most difficult</b></td></tr></table>
+<p>Исключения: good → <b>the best</b>, bad → <b>the worst</b>.</p>
+<p>Перед превосходной степенью всегда стоит <b>the</b>. После неё место обозначается через <b>in</b>:</p>
+<ul><li><span class="en">It is the tallest building in the city.</span></li><li><span class="en">She is the best student in the class.</span></li><li><span class="en">This is the best film I have ever seen.</span></li></ul>`,
+ en:`<p>We pick one thing out of all the others.</p>
+<table><tr><th>short words: the + -est</th><th>long words: the most + word</th></tr>
+<tr><td>old → <b>the oldest</b></td><td>expensive → <b>the most expensive</b></td></tr>
+<tr><td>big → <b>the biggest</b>, hot → <b>the hottest</b></td><td>interesting → <b>the most interesting</b></td></tr>
+<tr><td>happy → <b>the happiest</b></td><td>difficult → <b>the most difficult</b></td></tr></table>
+<p>Irregular: good → <b>the best</b>, bad → <b>the worst</b>.</p>
+<p>A superlative always takes <b>the</b>. The place after it uses <b>in</b>:</p>
+<ul><li><span class="en">It is the tallest building in the city.</span></li><li><span class="en">She is the best student in the class.</span></li><li><span class="en">This is the best film I have ever seen.</span></li></ul>`},
+ rules:{a:{ru:'Короткие слова: the + -est (the oldest, the biggest).',en:'Short words: the + -est (the oldest, the biggest).'},
+  b:{ru:'Длинные слова: the most + прилагательное.',en:'Long words: the most + adjective.'},
+  c:{ru:'Исключения: good → the best, bad → the worst.',en:'Irregular: good → the best, bad → the worst.'},
+  d:{ru:'Перед превосходной степенью нужен the; место — через in.',en:'A superlative needs the; the place takes in.'}},
+ items:[
+ ['mc','It is ___ building in the city.',['the tallest','the most tall','taller'],0,'a'],
+ ['mc','This is ___ film I have ever seen.',['the best','the goodest','the most good'],0,'c'],
+ ['mc','She is ___ student in the class.',['the most intelligent','the intelligentest','most intelligent'],0,'b'],
+ ['mc','What is ___ river in the world?',['the longest','longest','the most long'],0,'d'],
+ ['mc','Monday is ___ day of the week.',['the worst','the baddest','worse'],0,'c'],
+ ['mc','It is the best restaurant ___ the city.',['in','than','at'],0,'d'],
+ ['gap','January is ___ month of the year. (cold)','the coldest','a'],
+ ['gap','This is ___ hotel in town. (expensive)','the most expensive','b'],
+ ['gap','Who is ___ person in your family? (old)','the oldest','a'],
+ ['gap!','It was ___ day of my life. (happy)','the happiest','a'],
+ ['build','Это самая интересная книга.','It is the most interesting book.','b',['more']],
+ ['tr','Он лучший игрок в команде.','He is the best player in the team.|He is the best player on the team.','c'],
+ '|',
+ ['mc','Which is ___: a car, a bus or a train?',['the fastest','the faster','most fast'],0,'a'],
+ ['gap','That was ___ exam of all. (difficult)','the most difficult','b'],
+ ['gap','This is the ___ pizza in Moscow. (good)','best','c'],
+ ['gap!','Yesterday was the ___ day of the year. (hot)','hottest','a'],
+ ['fix','She is most beautiful girl in the school.','She is the most beautiful girl in the school.','d'],
+ ['fix','It is the most big city in Russia.','It is the biggest city in Russia.','a'],
+ ['tr','Это самый короткий путь.','This is the shortest way.|It is the shortest way.|This is the shortest route.|It is the shortest route.','a'],
+ ['dict','It is the biggest and the most beautiful park in the city.','b']],
+ fw:{ru:"Напиши 5 предложений о «самом-самом» в твоей жизни: лучший фильм, самый трудный экзамен, самый интересный человек.",en:"Write 5 sentences about the «most» things in your life: the best film, the most difficult exam, the most interesting person."}},
+
+{id:'adv',ru:'Прилагательное или наречие: быстрый или быстро',en:'Adjectives and adverbs: quick / quickly',
+ th:{ru:`<p><b>Прилагательное</b> описывает предмет («какой?»), <b>наречие</b> — действие («как?»).</p>
+<ul><li><span class="en">She is a careful driver.</span> — какой водитель?</li><li><span class="en">She drives carefully.</span> — как водит?</li></ul>
+<p>Наречие обычно = прилагательное + <b>-ly</b>:</p>
+<table><tr><td>slow → slowly</td><td>quick → quickly</td><td>beautiful → beautifully</td></tr>
+<tr><td>easy → eas<b>ily</b></td><td>happy → happ<b>ily</b></td><td>bad → badly</td></tr></table>
+<p>Исключения:</p>
+<ul><li>good → <b>well</b>: <span class="en">You speak English well.</span></li><li><b>fast, hard, late, early</b> не меняются: <span class="en">He works hard.</span> <span class="en">She runs fast.</span></li></ul>
+<p>После <b>be, look, feel, sound, smell</b> стоит прилагательное, а не наречие: <span class="en">You look happy.</span> <span class="en">It smells good.</span></p>`,
+ en:`<p>An <b>adjective</b> describes a thing; an <b>adverb</b> describes an action.</p>
+<ul><li><span class="en">She is a careful driver.</span></li><li><span class="en">She drives carefully.</span></li></ul>
+<p>An adverb is usually adjective + <b>-ly</b>:</p>
+<table><tr><td>slow → slowly</td><td>quick → quickly</td><td>beautiful → beautifully</td></tr>
+<tr><td>easy → eas<b>ily</b></td><td>happy → happ<b>ily</b></td><td>bad → badly</td></tr></table>
+<p>Irregular:</p>
+<ul><li>good → <b>well</b>: <span class="en">You speak English well.</span></li><li><b>fast, hard, late, early</b> do not change: <span class="en">He works hard.</span> <span class="en">She runs fast.</span></li></ul>
+<p>After <b>be, look, feel, sound, smell</b> use an adjective, not an adverb: <span class="en">You look happy.</span> <span class="en">It smells good.</span></p>`},
+ rules:{a:{ru:'Прилагательное описывает предмет, наречие — действие.',en:'An adjective describes a thing, an adverb describes an action.'},
+  b:{ru:'Наречие: + -ly; -y → -ily (easy → easily).',en:'Adverb: + -ly; -y → -ily (easy → easily).'},
+  c:{ru:'good → well; fast, hard, late, early не меняются.',en:'good → well; fast, hard, late, early do not change.'},
+  d:{ru:'После be, look, feel, sound, smell — прилагательное.',en:'After be, look, feel, sound, smell use an adjective.'}},
+ items:[
+ ['mc','He drives very ___.',['carefully','careful','care'],0,'a'],
+ ['mc','She is a ___ driver.',['careful','carefully','care'],0,'a'],
+ ['mc','You speak English very ___.',['well','good','goodly'],0,'c'],
+ ['mc','He works ___.',['hard','hardly','harder'],0,'c'],
+ ['mc','You look ___ today.',['happy','happily','happiness'],0,'d'],
+ ['mc','easy →',['easily','easyly','easly'],0,'b'],
+ ['gap','Please speak ___. (slow)','slowly','b'],
+ ['gap!','They live ___. (happy)','happily','b'],
+ ['gap','She sings ___. (beautiful)','beautifully','b'],
+ ['gap','He runs very ___. (fast)','fast','c'],
+ ['build','Он говорит очень тихо.','He speaks very quietly.','a',['quiet']],
+ ['tr','Я плохо спал.','I slept badly.|I did not sleep well.','b'],
+ '|',
+ ['mc','The soup smells ___.',['good','well','goodly'],0,'d'],
+ ['mc','The train arrived ___.',['late','lately','latest'],0,'c'],
+ ['gap','She learns languages ___. (quick)','quickly','b'],
+ ['gap','He plays the guitar ___. (good)','well','c'],
+ ['fix','She speaks English very good.','She speaks English very well.','c'],
+ ['fix','He drives too fastly.','He drives too fast.','c'],
+ ['tr','Она быстро учится.','She learns quickly.|She learns fast.|She is a fast learner.|She is a quick learner.','a'],
+ ['dict','He speaks slowly and clearly.','b']],
+ fw:{ru:"Опиши, как ты делаешь разные вещи: водишь, готовишь, говоришь по-английски, работаешь. 5 предложений с наречиями.",en:"Describe how you do different things: drive, cook, speak English, work. 5 sentences with adverbs."}}
+]},
+{ru:'Вопросы',en:'Questions',units:[
+{id:'wh',ru:'Вопросительные слова: кто, что, где, как',en:'Question words: who, what, where, how',
+ th:{ru:`<p>Вопросительные слова: <b>who</b> (кто), <b>what</b> (что), <b>where</b> (где, куда), <b>when</b> (когда), <b>why</b> (почему), <b>whose</b> (чей), <b>which</b> (который), <b>how</b> (как).</p>
+<p>Обычный порядок: <b>вопросительное слово + вспомогательный глагол + подлежащее + глагол</b>.</p>
+<ul><li><span class="en">Where do you live?</span></li><li><span class="en">Why are you late?</span></li><li><span class="en">What did she say?</span></li></ul>
+<p><b>Вопрос к подлежащему.</b> Если who или what — это тот, кто действует, do / did не нужны, порядок как в утверждении:</p>
+<ul><li><span class="en">Who lives here?</span> <span class="bad">Who does live here?</span></li><li><span class="en">What happened?</span></li><li><span class="en">Who called you?</span> — Кто тебе звонил? Сравни: <span class="en">Who did you call?</span> — Кому ты звонил?</li></ul>
+<p>Сочетания с how: <b>how much</b> (сколько, цена), <b>how many</b> (сколько штук), <b>how old</b>, <b>how long</b>, <b>how often</b>.</p>
+<p>Предлог уходит в конец: <span class="en">Where are you from?</span> <span class="en">What are you waiting for?</span></p>`,
+ en:`<p>Question words: <b>who, what, where, when, why, whose, which, how</b>.</p>
+<p>Normal order: <b>question word + auxiliary + subject + verb</b>.</p>
+<ul><li><span class="en">Where do you live?</span></li><li><span class="en">Why are you late?</span></li><li><span class="en">What did she say?</span></li></ul>
+<p><b>Subject questions.</b> When who or what is the one doing the action, there is no do / did and the order is like a statement:</p>
+<ul><li><span class="en">Who lives here?</span> <span class="bad">Who does live here?</span></li><li><span class="en">What happened?</span></li><li><span class="en">Who called you?</span> Compare: <span class="en">Who did you call?</span></li></ul>
+<p>With how: <b>how much, how many, how old, how long, how often</b>.</p>
+<p>The preposition goes to the end: <span class="en">Where are you from?</span> <span class="en">What are you waiting for?</span></p>`},
+ rules:{a:{ru:'Вопросительное слово + вспомогательный глагол + подлежащее + глагол.',en:'Question word + auxiliary + subject + verb.'},
+  b:{ru:'Вопрос к подлежащему (Who…? What…?) — без do / did: Who lives here?',en:'Subject questions (Who…? What…?) take no do / did: Who lives here?'},
+  c:{ru:'how much — цена и неисчисляемое; how many — штуки; how old, how long, how often.',en:'how much for price and uncountables; how many for countables; how old, how long, how often.'},
+  d:{ru:'Предлог ставится в конец вопроса: Where are you from?',en:'The preposition goes to the end: Where are you from?'}},
+ items:[
+ ['mc','___ do you live?',['Where','What','Who'],0,'a'],
+ ['mc','___ is your birthday?',['When','Who','How many'],0,'a'],
+ ['mc','___ old are you?',['How','What','Which'],0,'c'],
+ ['mc','Who ___ in this house?',['lives','does live','live'],0,'b'],
+ ['mc','___ are you late?',['Why','What','Who'],0,'a'],
+ ['mc','Where are you ___?',['from','of','at'],0,'d'],
+ ['gap','How ___ does it cost?','much','c'],
+ ['gap','___ is that man? — He is my uncle.','Who','a'],
+ ['gap','What ___ yesterday? (happen)','happened','b'],
+ ['gap','How ___ brothers do you have?','many','c'],
+ ['build','Кто тебе звонил?','Who called you?','b',['did']],
+ ['tr','Откуда ты?','Where are you from?|Where do you come from?','d'],
+ '|',
+ ['mc','___ book is this? — It is mine.',['Whose','Who','Which is'],0,'a'],
+ ['gap','How ___ do you go to the gym? — Twice a week.','often','c'],
+ ['gap','Who ___ this picture? (paint)','painted','b'],
+ ['gap','What are you waiting ___?','for','d'],
+ ['fix','Who did break the window?','Who broke the window?','b'],
+ ['fix','What you are looking at?','What are you looking at?','a'],
+ ['tr','Сколько тебе лет?','How old are you?','c'],
+ ['dict','Where do you work and what do you do?','a']],
+ fw:{ru:"Представь, что берёшь интервью у известного человека. Напиши 6 вопросов с разными вопросительными словами.",en:"Imagine you are interviewing a famous person. Write 6 questions with different question words."}}
+]},
+{ru:'Другие конструкции',en:'More structures',units:[
+{id:'poss',ru:"Чей и какой: 's, this, that, these, those",en:"Possessive 's, this / that / these / those",
+ th:{ru:`<p><b>Принадлежность.</b> У людей и животных — имя + <b>'s</b>:</p>
+<ul><li><span class="en">Tom's car</span> — машина Тома</li><li><span class="en">my mother's name</span> — имя моей мамы</li><li><span class="en">my parents' house</span> — после множественного -s только апостроф</li></ul>
+<p>По-русски порядок обратный («машина Тома»), поэтому частая ошибка — <span class="bad">the car of Tom</span>.</p>
+<p>У предметов чаще <b>of</b>: <span class="en">the end of the film</span>, <span class="en">the name of this street</span>.</p>
+<p><b>Указательные слова:</b></p>
+<table><tr><th></th><th>близко</th><th>далеко</th></tr>
+<tr><th>один</th><td><span class="en">this book</span></td><td><span class="en">that book</span></td></tr>
+<tr><th>несколько</th><td><span class="en">these books</span></td><td><span class="en">those books</span></td></tr></table>
+<p>Число должно совпадать: <span class="bad">this books</span>.</p>`,
+ en:`<p><b>Possession.</b> For people and animals use name + <b>'s</b>:</p>
+<ul><li><span class="en">Tom's car</span></li><li><span class="en">my mother's name</span></li><li><span class="en">my parents' house</span> — after a plural -s, just the apostrophe</li></ul>
+<p>A common mistake: <span class="bad">the car of Tom</span>.</p>
+<p>For things we usually use <b>of</b>: <span class="en">the end of the film</span>, <span class="en">the name of this street</span>.</p>
+<p><b>Demonstratives:</b></p>
+<table><tr><th></th><th>near</th><th>far</th></tr>
+<tr><th>one</th><td><span class="en">this book</span></td><td><span class="en">that book</span></td></tr>
+<tr><th>several</th><td><span class="en">these books</span></td><td><span class="en">those books</span></td></tr></table>
+<p>The number must agree: <span class="bad">this books</span>.</p>`},
+ rules:{a:{ru:"У людей: имя + 's (Tom's car); после множественного -s — только апостроф (my parents' house).",en:"For people: name + 's (Tom's car); after a plural -s just the apostrophe (my parents' house)."},
+  b:{ru:'this / these — близко (один / несколько); that / those — далеко.',en:'this / these for near (one / several); that / those for far.'},
+  c:{ru:'У предметов — of: the end of the film.',en:'For things use of: the end of the film.'}},
+ items:[
+ ['mc','This is ___ car.',["Tom's",'Tom','of Tom'],0,'a'],
+ ['mc','___ shoes are new.',['These','This','That'],0,'b'],
+ ['mc','Look at ___ bird over there!',['that','this','these'],0,'b'],
+ ['mc','What is the name ___ this street?',['of',"'s",'from'],0,'c'],
+ ['mc','___ is my friend Anna.',['This','These','Those'],0,'b'],
+ ['mc','Who are ___ people near the door?',['those','that','this'],0,'b'],
+ ['gap!','Anna is ___ sister. (Tom)',"Tom's",'a'],
+ ['gap!','My ___ name is Olga. (mother)',"mother's",'a'],
+ ['gap','How much are ___ apples here? (this)','these','b'],
+ ['gap','I like ___ shoes in the window over there. (that)','those','b'],
+ ['build','Это телефон моего брата.',"This is my brother's phone.",'a',['of']],
+ ['tr','Эти книги мои.','These books are mine.','b'],
+ '|',
+ ['mc','Where is ___ office?',["the manager's",'the manager','manager'],0,'a'],
+ ['mc','My ___ names are Tom and Ann.',["brothers'","brother's",'brother'],0,'a'],
+ ['gap!','This is my ___ room. (sister)',"sister's",'a'],
+ ['gap','Who is ___ man over there? (this / that)','that','b'],
+ ['fix','This is the car of my father.',"This is my father's car.",'a'],
+ ['fix','This books are interesting.','These books are interesting.','b'],
+ ['tr','Как зовут твою собаку?',"What is your dog's name?|What is the name of your dog?",'a'],
+ ['dict',"These are my friend's keys and those are mine.",'b']],
+ fw:{ru:"Опиши вещи вокруг себя и чьи они: 5 предложений с 's и this / that / these / those.",en:"Describe the things around you and whose they are: 5 sentences with 's and this / that / these / those."}},
+
+{id:'inf',ru:'Инфинитив или -ing: хочу сделать, люблю делать',en:'to do or doing?',
+ th:{ru:`<p>Когда два глагола идут подряд, форма второго зависит от первого.</p>
+<table><tr><th>+ to + глагол</th><th>+ глагол с -ing</th></tr>
+<tr><td>want, need, decide, hope, plan, would like</td><td>enjoy, finish, mind, stop</td></tr>
+<tr><td><span class="en">I want to go.</span></td><td><span class="en">I enjoy cooking.</span></td></tr>
+<tr><td><span class="en">We decided to stay.</span></td><td><span class="en">Have you finished eating?</span></td></tr>
+<tr><td><span class="en">I would like to ask you.</span></td><td><span class="en">It stopped raining.</span></td></tr></table>
+<p><b>like, love, hate</b> — обычно с -ing, но to тоже возможно: <span class="en">I like reading.</span> <span class="en">I like to read.</span></p>
+<p>После <b>can, must, should, will</b> — глагол без to: <span class="en">You should sleep more.</span></p>
+<p>Ошибки: <span class="bad">I want go.</span> <span class="bad">She enjoys to read.</span></p>`,
+ en:`<p>When two verbs come together, the form of the second depends on the first.</p>
+<table><tr><th>+ to + verb</th><th>+ verb-ing</th></tr>
+<tr><td>want, need, decide, hope, plan, would like</td><td>enjoy, finish, mind, stop</td></tr>
+<tr><td><span class="en">I want to go.</span></td><td><span class="en">I enjoy cooking.</span></td></tr>
+<tr><td><span class="en">We decided to stay.</span></td><td><span class="en">Have you finished eating?</span></td></tr>
+<tr><td><span class="en">I would like to ask you.</span></td><td><span class="en">It stopped raining.</span></td></tr></table>
+<p><b>like, love, hate</b> usually take -ing, but to is also possible: <span class="en">I like reading.</span> <span class="en">I like to read.</span></p>
+<p>After <b>can, must, should, will</b> the verb has no to: <span class="en">You should sleep more.</span></p>
+<p>Mistakes: <span class="bad">I want go.</span> <span class="bad">She enjoys to read.</span></p>`},
+ rules:{a:{ru:'want, need, decide, hope, plan, would like + to + глагол.',en:'want, need, decide, hope, plan, would like + to + verb.'},
+  b:{ru:'enjoy, finish, mind, stop + глагол с -ing.',en:'enjoy, finish, mind, stop + verb-ing.'},
+  c:{ru:'like, love, hate — обычно с -ing, возможно и с to.',en:'like, love, hate usually take -ing; to is also possible.'},
+  d:{ru:'После can, must, should, will — глагол без to.',en:'After can, must, should, will the verb has no to.'}},
+ items:[
+ ['mc','I want ___ a new phone.',['to buy','buying','buy'],0,'a'],
+ ['mc','She enjoys ___.',['cooking','to cook','cook'],0,'b'],
+ ['mc','We decided ___ at home.',['to stay','staying','stay'],0,'a'],
+ ['mc','Have you finished ___?',['eating','to eat','eat'],0,'b'],
+ ['mc','I would like ___ you a question.',['to ask','asking','ask'],0,'a'],
+ ['mc','You should ___ more.',['sleep','to sleep','sleeping'],0,'d'],
+ ['gap','I hope ___ you soon. (see)','to see','a'],
+ ['gap','Do you mind ___ the window? (open)','opening','b'],
+ ['gap','He needs ___ harder. (work)','to work','a'],
+ ['gap','I like ___ books. (read)','reading|to read','c'],
+ ['build','Я хочу выучить английский.','I want to learn English.','a',['learning']],
+ ['tr','Она любит танцевать.','She likes dancing.|She loves dancing.|She likes to dance.|She loves to dance.','c'],
+ '|',
+ ['mc','They plan ___ a house.',['to buy','buying','buy'],0,'a'],
+ ['gap','It stopped ___. (rain)','raining','b'],
+ ['gap','Would you like ___ with us? (come)','to come','a'],
+ ['gap','I hate ___ up early. (get)','getting|to get','c'],
+ ['fix','I want go home.','I want to go home.','a'],
+ ['fix','She enjoys to read.','She enjoys reading.','b'],
+ ['tr','Я решил остаться.','I decided to stay.|I have decided to stay.','a'],
+ ['dict','I enjoy cooking but I want to learn more.','b']],
+ fw:{ru:"Напиши 3 предложения о том, что ты хочешь или планируешь сделать (to + глагол), и 3 о том, что тебе нравится или не нравится делать (-ing).",en:"Write 3 sentences about what you want or plan to do (to + verb) and 3 about what you like or don't like doing (-ing)."}},
+
+{id:'pass',ru:'Страдательный залог: сделано, построено',en:'Passive: is made, was built',
+ th:{ru:`<p><b>Пассив</b> нужен, когда важно само действие или его результат, а не тот, кто это сделал.</p>
+<table><tr><th>Настоящее</th><th>Прошедшее</th></tr>
+<tr><td>am / is / are + третья форма</td><td>was / were + третья форма</td></tr>
+<tr><td><span class="en">This car is made in Germany.</span></td><td><span class="en">The house was built in 1990.</span></td></tr>
+<tr><td><span class="en">English is spoken here.</span></td><td><span class="en">The letters were sent yesterday.</span></td></tr></table>
+<p>Кто сделал — через <b>by</b>: <span class="en">The book was written by Tolstoy.</span></p>
+<p>Отрицание и вопрос — как у be: <span class="en">I wasn't invited.</span> <span class="en">Where are these phones made?</span></p>
+<p>Третьи формы из этой темы:</p>
+<table><tr><td>make → <b>made</b></td><td>build → <b>built</b></td><td>speak → <b>spoken</b></td></tr>
+<tr><td>write → <b>written</b></td><td>send → <b>sent</b></td><td>steal → <b>stolen</b></td></tr>
+<tr><td>grow → <b>grown</b></td><td>break → <b>broken</b></td><td>sing → <b>sung</b></td></tr></table>`,
+ en:`<p>The <b>passive</b> is used when the action or its result matters more than who did it.</p>
+<table><tr><th>Present</th><th>Past</th></tr>
+<tr><td>am / is / are + past participle</td><td>was / were + past participle</td></tr>
+<tr><td><span class="en">This car is made in Germany.</span></td><td><span class="en">The house was built in 1990.</span></td></tr>
+<tr><td><span class="en">English is spoken here.</span></td><td><span class="en">The letters were sent yesterday.</span></td></tr></table>
+<p>The doer is added with <b>by</b>: <span class="en">The book was written by Tolstoy.</span></p>
+<p>Negatives and questions work like be: <span class="en">I wasn't invited.</span> <span class="en">Where are these phones made?</span></p>
+<p>Participles used in this unit:</p>
+<table><tr><td>make → <b>made</b></td><td>build → <b>built</b></td><td>speak → <b>spoken</b></td></tr>
+<tr><td>write → <b>written</b></td><td>send → <b>sent</b></td><td>steal → <b>stolen</b></td></tr>
+<tr><td>grow → <b>grown</b></td><td>break → <b>broken</b></td><td>sing → <b>sung</b></td></tr></table>`},
+ rules:{a:{ru:'Настоящее: am / is / are + третья форма (is made).',en:'Present: am / is / are + past participle (is made).'},
+  b:{ru:'Прошедшее: was / were + третья форма (was built).',en:'Past: was / were + past participle (was built).'},
+  c:{ru:'Кто сделал — через by.',en:'The doer is added with by.'},
+  d:{ru:'Пассив — когда важно действие, а не тот, кто его совершил.',en:'Use the passive when the action matters more than the doer.'}},
+ items:[
+ ['mc','This car ___ in Germany.',['is made','makes','is making'],0,'a'],
+ ['mc','The house ___ in 1990.',['was built','built','is built'],0,'b'],
+ ['mc','English ___ all over the world.',['is spoken','speaks','is speaking'],0,'a'],
+ ['mc','The book was written ___ Tolstoy.',['by','from','with'],0,'c'],
+ ['mc','These cars ___ in Japan.',['are made','is made','made'],0,'a'],
+ ['mc','My bike ___ last week.',['was stolen','stole','is stolen'],0,'b'],
+ ['gap','The room ___ every day. (clean)','is cleaned','a'],
+ ['gap','The letters ___ yesterday. (send)','were sent','b'],
+ ['gap','Coffee ___ in Brazil. (grow)','is grown','a'],
+ ['gap','I ___ to the party. (not / invite)','was not invited','b'],
+ ['build','Этот мост был построен в 2010 году.','This bridge was built in 2010.','b',['is']],
+ ['tr','Здесь говорят по-английски.','English is spoken here.','d'],
+ '|',
+ ['mc','Where ___ these phones made?',['are','is','do'],0,'a'],
+ ['gap','The film ___ in 2015. (make)','was made','b'],
+ ['gap','Cheese ___ from milk. (make)','is made','a'],
+ ['gap','When ___ this house built?','was','b'],
+ ['fix','The window was broke yesterday.','The window was broken yesterday.','b'],
+ ['fix','This song is sing by children.','This song is sung by children.','a'],
+ ['tr','Меня не пригласили.','I was not invited.','b'],
+ ['dict','The bridge was built in two years.','b']],
+ fw:{ru:"Опиши вещь, которой пользуешься на работе или дома: где она сделана, из чего, когда куплена или построена. 5 предложений с пассивом.",en:"Describe something you use at work or at home: where it is made, what it is made of, when it was bought or built. 5 sentences with the passive."}},
+
+{id:'if1',ru:'Условные предложения: если и когда',en:'if and when: first conditional',
+ th:{ru:`<p>Говорим о реальном будущем: «если будет дождь, мы останемся дома».</p>
+<table><tr><th>часть с if / when</th><th>главная часть</th></tr>
+<tr><td>настоящее время (Present Simple)</td><td>will + глагол</td></tr>
+<tr><td><span class="en">If it rains,</span></td><td><span class="en">we will stay at home.</span></td></tr>
+<tr><td><span class="en">When I get home,</span></td><td><span class="en">I will call you.</span></td></tr></table>
+<p>По-русски после «если» и «когда» стоит будущее («если <b>будет</b> дождь»), по-английски — настоящее. Это главная ловушка:</p>
+<ul><li><span class="bad">If it will rain, …</span></li><li><span class="bad">When I will finish, …</span></li></ul>
+<p>Части можно менять местами: <span class="en">We will stay at home if it rains.</span></p>
+<p><b>if</b> — может случиться, а может нет. <b>when</b> — случится точно, вопрос только во времени.</p>`,
+ en:`<p>We talk about a real possibility in the future.</p>
+<table><tr><th>the if / when part</th><th>the main part</th></tr>
+<tr><td>Present Simple</td><td>will + verb</td></tr>
+<tr><td><span class="en">If it rains,</span></td><td><span class="en">we will stay at home.</span></td></tr>
+<tr><td><span class="en">When I get home,</span></td><td><span class="en">I will call you.</span></td></tr></table>
+<p>After if and when we use the present, not will:</p>
+<ul><li><span class="bad">If it will rain, …</span></li><li><span class="bad">When I will finish, …</span></li></ul>
+<p>The two parts can change places: <span class="en">We will stay at home if it rains.</span></p>
+<p><b>if</b>: it may or may not happen. <b>when</b>: it will certainly happen.</p>`},
+ rules:{a:{ru:'После if и when — настоящее время, даже если речь о будущем.',en:'After if and when use the present, even when talking about the future.'},
+  b:{ru:'В главной части — will + глагол.',en:'The main part takes will + verb.'},
+  c:{ru:'if — «если» (может не случиться); when — «когда» (случится точно).',en:'if = it may not happen; when = it certainly will.'}},
+ items:[
+ ['mc','If it ___ tomorrow, we will stay at home.',['rains','will rain','rain'],0,'a'],
+ ['mc','If you study, you ___ the exam.',['will pass','pass','passed'],0,'b'],
+ ['mc','I will call you when I ___ home.',['get','will get','got'],0,'a'],
+ ['mc','If she ___ late, we will start without her.',['is','will be','be'],0,'a'],
+ ['mc',"If you don't hurry, you ___ the train.",['will miss','miss','missed'],0,'b'],
+ ['mc','I see him every day. ___ I see him tomorrow, I will tell him.',['When','If','Will'],0,'c'],
+ ['gap','If I ___ time, I will help you. (have)','have','a'],
+ ['gap','She ___ angry if you are late. (be)','will be','b'],
+ ['gap','If he ___ come, I will go alone. (not)','does not','a'],
+ ['gap','We will go out when the rain ___. (stop)','stops','a'],
+ ['build','Если будет холодно, я надену пальто.','If it is cold I will wear a coat.','a',['be']],
+ ['tr','Я позвоню тебе, когда приеду.','I will call you when I arrive.|I will call you when I come.|I will call you when I get there.|When I arrive I will call you.|I will phone you when I arrive.','a'],
+ '|',
+ ['mc','What will you do if you ___ the job?',['get','will get','got'],0,'a'],
+ ['gap','If you ___ me, I will tell you. (ask)','ask','a'],
+ ['gap','I ___ you if I need help. (call)','will call','b'],
+ ['gap','If we ___ now, we will be late. (not / leave)','do not leave','a'],
+ ['fix','If it will rain, I will take an umbrella.','If it rains, I will take an umbrella.','a'],
+ ['fix','When I will finish, I will call you.','When I finish, I will call you.','a'],
+ ['tr','Если ты поможешь мне, я помогу тебе.','If you help me, I will help you.|I will help you if you help me.','a'],
+ ['dict','If you come early, we will have time for coffee.','b']],
+ fw:{ru:"Напиши 5 предложений о своих планах с условием: что ты сделаешь, если что-то случится, и что сделаешь, когда что-то закончится.",en:"Write 5 sentences about your plans with a condition: what you will do if something happens and what you will do when something is over."}}
 ]}];
-const SOON=['Comparatives and superlatives (сравнение прилагательных)','Adverbs (наречия)','Passive voice (страдательный залог)','Infinitive and -ing (инфинитив и герундий)','Conditionals: if (условные предложения)','Question words and word order (вопросы и порядок слов)'];
+const SOON=[];
 
 /* ================= helpers ================= */
 const $=(s,r=document)=>r.querySelector(s);
@@ -1586,7 +2001,8 @@ function renderCourse(){
         <span class="dots">${u.steps.map((_,i)=>`<i class="${i<d?'on':''}"></i>`).join('')}</span></button>`;
     });
   });
-  h+=`<div class="sec-title">Дальше в курсе</div><div class="soon">${SOON.map(esc).join(' · ')}<br><br>Эти темы добавятся следующими.</div>`;
+  h+=SOON.length?`<div class="sec-title">Дальше в курсе</div><div class="soon">${SOON.map(esc).join(' · ')}<br><br>Эти темы добавятся следующими.</div>`
+    :`<div class="soon">Это все темы уровня Elementary. После них грамматика закрепляется повторением, свободным письмом и чтением.</div>`;
   $('#view').innerHTML=h;
   $('#revBtn')&&($('#revBtn').onclick=startReview);
   document.querySelectorAll('.unit[data-u]').forEach(b=>b.onclick=()=>go('unit',b.dataset.u));
