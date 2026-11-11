@@ -46,8 +46,9 @@ struct WebView: UIViewRepresentable {
         Store.keepLegacyCopyIfNeeded()
         let initial = Store.loadValidJSON() ?? "null"
         let lessons = Store.loadLessonsJSON() ?? "null"
+        let grammar = Store.loadGrammarJSON() ?? "null"
         controller.addUserScript(WKUserScript(
-            source: "window.__NATIVE_DATA=\(initial);window.__NATIVE_LESSONS=\(lessons);",
+            source: "window.__NATIVE_DATA=\(initial);window.__NATIVE_LESSONS=\(lessons);window.__NATIVE_GRAMMAR=\(grammar);",
             injectionTime: .atDocumentStart,
             forMainFrameOnly: true))
         config.userContentController = controller
@@ -131,6 +132,23 @@ enum Store {
         if fm.fileExists(atPath: url.path), !fm.fileExists(atPath: lessonsURL.path),
            !fm.fileExists(atPath: legacyURL.path) {
             try? fm.copyItem(at: url, to: legacyURL)
+        }
+    }
+
+    /// Grammar trainer progress (grammar.html), separate from the reader's data.
+    static var grammarURL: URL {
+        url.deletingLastPathComponent().appendingPathComponent("leksika.grammar.json")
+    }
+
+    static func loadGrammarJSON() -> String? {
+        guard let data = try? Data(contentsOf: grammarURL), isValid(data) else { return nil }
+        return String(data: data, encoding: .utf8)
+    }
+
+    static func saveGrammar(_ text: String) {
+        queue.async {
+            guard let data = text.data(using: .utf8), isValid(data) else { return }
+            try? data.write(to: grammarURL, options: .atomic)
         }
     }
 

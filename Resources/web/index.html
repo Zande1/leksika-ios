@@ -1296,4 +1296,26 @@ $('#backupIn').onchange=async e=>{
 addEventListener('keydown',e=>{if(e.key==='Escape'&&sheet)closeSheet()});
 init();
 </script>
+<!-- grammar-hook: adds the «Грамматика» tab; the trainer lives in grammar.html and opens in a frame so Лексика keeps its state -->
+<style>
+nav.tabs .in{grid-template-columns:repeat(6,1fr)}
+nav.tabs button{font-size:9.5px;letter-spacing:-.03em;overflow:hidden}
+#gramLayer{position:fixed;inset:0;z-index:100;background:var(--bg);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}
+#gramLayer iframe{display:block;width:100%;height:100%;border:0;background:var(--bg)}
+</style>
+<script>
+(function(){
+  var nav=document.querySelector('nav.tabs .in');if(!nav)return;
+  var b=document.createElement('button');b.type='button';b.id='gramTab';
+  b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V6a2 2 0 0 1 2-2h13v13H6a2 2 0 0 0-2 2zm0 0a2 2 0 0 0 2 2h13"/><path d="M9 9h6M9 13h4"/></svg>Грамматика';
+  nav.appendChild(b);
+  var layer=null;
+  b.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(!layer){layer=document.createElement('div');layer.id='gramLayer';layer.innerHTML='<iframe src="grammar.html" title="Грамматика"></iframe>';document.body.appendChild(layer)}
+    layer.hidden=false;
+  });
+  window.__closeGrammar=function(){if(layer)layer.hidden=true};
+})();
+</script>
 </body></html>

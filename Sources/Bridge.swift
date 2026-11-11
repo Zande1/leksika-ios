@@ -31,6 +31,9 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
         case "saveLessons":
             if let text = body["data"] as? String { Store.saveLessons(text) }
 
+        case "saveGrammar":
+            if let text = body["data"] as? String { Store.saveGrammar(text) }
+
         case "voices":
             reply(id, true, speaker.voices())
 

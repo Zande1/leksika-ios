@@ -6,6 +6,7 @@ head = ('<!doctype html><html lang="ru"><head><meta charset="utf-8">'
         '<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}'
         'body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>'
         '</head><body>')
+hook = pathlib.Path(__file__).with_name("grammar_hook.html").read_text(encoding="utf-8")
 out = pathlib.Path("Resources/web/index.html")
-out.write_text(head + src + "</body></html>", encoding="utf-8")
+out.write_text(head + src + hook + "</body></html>", encoding="utf-8")
 print("wrote", out, out.stat().st_size, "bytes")
