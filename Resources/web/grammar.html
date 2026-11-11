@@ -750,9 +750,287 @@ const SECTIONS=[
  ['fix','Did she was at home?','Was she at home?','d'],
  ['tr','Я не купил хлеб.','I did not buy bread.|I did not buy the bread.|I did not buy any bread.','a'],
  ['tr','Где ты был вчера?','Where were you yesterday?','d']],
- fw:{ru:"Напиши 3 вопроса другу о его прошлых выходных и 3 предложения о том, чего ты на прошлой неделе не сделал.",en:"Write 3 questions to a friend about their last weekend and 3 sentences about things you didn't do last week."}}
+ fw:{ru:"Напиши 3 вопроса другу о его прошлых выходных и 3 предложения о том, чего ты на прошлой неделе не сделал.",en:"Write 3 questions to a friend about their last weekend and 3 sentences about things you didn't do last week."}},
+
+{id:'pastc',ru:'Past Continuous: I was doing',en:'Past Continuous: I was doing',
+ th:{ru:`<p><b>Past Continuous</b> — действие было в процессе в какой-то момент прошлого. Форма: <b>was / were + глагол с -ing</b>.</p>
+<table><tr><th>I / he / she / it</th><th>we / you / they</th></tr>
+<tr><td><span class="en">I was working.</span></td><td><span class="en">They were working.</span></td></tr>
+<tr><td><span class="en">She wasn't sleeping.</span></td><td><span class="en">We weren't sleeping.</span></td></tr>
+<tr><td><span class="en">Was he listening?</span></td><td><span class="en">Were you listening?</span></td></tr></table>
+<p>Момент обычно назван или понятен: <b>at 8 o'clock, at that moment, at this time yesterday, all evening</b>.</p>
+<ul><li><span class="en">At eight o'clock I was having dinner.</span> — В восемь я ужинал (был в процессе).</li><li><span class="en">What were you doing at midnight?</span></li></ul>
+<p>Сравни: <span class="en">I had dinner at eight.</span> — поужинал (факт), <span class="en">I was having dinner at eight.</span> — в восемь сидел за ужином.</p>`,
+ en:`<p><b>Past Continuous</b>: an action was in progress at some moment in the past. Form: <b>was / were + verb-ing</b>.</p>
+<table><tr><th>I / he / she / it</th><th>we / you / they</th></tr>
+<tr><td><span class="en">I was working.</span></td><td><span class="en">They were working.</span></td></tr>
+<tr><td><span class="en">She wasn't sleeping.</span></td><td><span class="en">We weren't sleeping.</span></td></tr>
+<tr><td><span class="en">Was he listening?</span></td><td><span class="en">Were you listening?</span></td></tr></table>
+<p>The moment is usually given or clear: <b>at 8 o'clock, at that moment, at this time yesterday, all evening</b>.</p>
+<ul><li><span class="en">At eight o'clock I was having dinner.</span></li><li><span class="en">What were you doing at midnight?</span></li></ul>
+<p>Compare: <span class="en">I had dinner at eight.</span> (a fact) and <span class="en">I was having dinner at eight.</span> (in the middle of it).</p>`},
+ rules:{a:{ru:'was / were + глагол с -ing: I / he / she / it was, we / you / they were.',en:'was / were + verb-ing: I / he / she / it was, we / you / they were.'},
+  b:{ru:"Отрицание: wasn't / weren't + -ing. Вопрос: Was / Were + подлежащее + -ing. Без did.",en:"Negative: wasn't / weren't + -ing. Question: Was / Were + subject + -ing. No did."},
+  c:{ru:'Действие длилось в конкретный момент прошлого: at 8 o\'clock, at that moment, all evening.',en:'The action was in progress at a specific past moment: at 8 o\'clock, at that moment, all evening.'}},
+ items:[
+ ['mc',"At eight o'clock I ___ dinner.",['was having','were having','am having'],0,'a'],
+ ['mc','They ___ TV when I came in.',['was watching','were watching','are watching'],1,'a'],
+ ['mc','She ___ at ten last night. (not)',["wasn't sleeping","weren't sleeping","didn't sleeping"],0,'b'],
+ ['mc','___ you working at that moment?',['Was','Were','Did'],1,'b'],
+ ['mc','What ___ he doing at six?',['was','were','did'],0,'b'],
+ ['mc','It ___ all morning yesterday.',['was raining','were raining','is raining'],0,'c'],
+ ['gap','We ___ for the bus at seven. (wait)','were waiting','a'],
+ ['gap','I ___ a book at that moment. (read)','was reading','a'],
+ ['gap','He ___ to me. (not / listen)','was not listening','b'],
+ ['gap','What ___ at midnight? (you / do)','were you doing','b'],
+ ['build','Вчера в это время я работал.','I was working at this time yesterday.|At this time yesterday I was working.','c',['worked']],
+ ['tr','Что ты делал в пять часов?',"What were you doing at five o'clock?|What were you doing at five?|What were you doing at 5 o'clock?|What were you doing at 5?",'b'],
+ '|',
+ ['mc','The children ___ in the garden all afternoon.',['was playing','were playing','playing'],1,'a'],
+ ['gap!','The sun ___ when we left. (shine)','was shining','a'],
+ ['gap','They ___ at that time. (not / sleep)','were not sleeping','b'],
+ ['fix','I were reading a book.','I was reading a book.','a'],
+ ['fix','What you were doing?','What were you doing?','b'],
+ ['tr','В тот момент мы смотрели фильм.','At that moment we were watching a film.|We were watching a film at that moment.|At that moment we were watching a movie.|We were watching a movie at that moment.','c'],
+ ['dict','It was raining and people were running.','a']],
+ fw:{ru:"Вспомни вчерашний вечер и опиши, что происходило в 8 часов: что делал ты, что делали другие. 4–5 предложений.",en:"Think of yesterday evening and describe what was happening at 8 o'clock: what you were doing, what others were doing. 4–5 sentences."}},
+
+{id:'pastcs',ru:'was doing или did?',en:'was doing or did?',
+ th:{ru:`<p>Два прошедших времени часто стоят рядом в одном предложении.</p>
+<table><tr><th>Past Continuous</th><th>Past Simple</th></tr>
+<tr><td>фон, длительный процесс</td><td>короткое событие, законченный факт</td></tr>
+<tr><td><span class="en">I was cooking</span></td><td><span class="en">when the phone rang.</span></td></tr>
+<tr><td><span class="en">It was raining</span></td><td><span class="en">when I woke up.</span></td></tr></table>
+<p>Длинное действие шло, короткое его прервало или случилось на его фоне. После <b>while</b> обычно Continuous, после <b>when</b> — Simple:</p>
+<ul><li><span class="en">While I was walking home, I met Tom.</span></li><li><span class="en">I was walking home when I met Tom.</span></li></ul>
+<p>Действия одно за другим — все в Past Simple: <span class="en">He came home, had dinner and went to bed.</span></p>
+<p>Глаголы состояния и в прошедшем не ставятся в Continuous: <span class="en">I knew the answer.</span> <span class="bad">I was knowing</span></p>`,
+ en:`<p>The two past tenses often appear together in one sentence.</p>
+<table><tr><th>Past Continuous</th><th>Past Simple</th></tr>
+<tr><td>background, a longer action in progress</td><td>a short event, a finished fact</td></tr>
+<tr><td><span class="en">I was cooking</span></td><td><span class="en">when the phone rang.</span></td></tr>
+<tr><td><span class="en">It was raining</span></td><td><span class="en">when I woke up.</span></td></tr></table>
+<p>The long action was going on; the short one interrupted it. After <b>while</b> we usually use the Continuous, after <b>when</b> the Simple:</p>
+<ul><li><span class="en">While I was walking home, I met Tom.</span></li><li><span class="en">I was walking home when I met Tom.</span></li></ul>
+<p>Actions one after another are all Past Simple: <span class="en">He came home, had dinner and went to bed.</span></p>
+<p>State verbs are not used in the Continuous in the past either: <span class="en">I knew the answer.</span> <span class="bad">I was knowing</span></p>`},
+ rules:{a:{ru:'Длительный фон → was / were doing. Короткое событие на этом фоне → Past Simple.',en:'A longer background action → was / were doing. A short event during it → Past Simple.'},
+  b:{ru:'Действия одно за другим → все в Past Simple.',en:'Actions one after another → all in the Past Simple.'},
+  c:{ru:'После while обычно Continuous, после when — Simple.',en:'After while we usually use the Continuous, after when the Simple.'},
+  d:{ru:'know, want, like, need — состояния: только Simple (I knew, I wanted).',en:'know, want, like, need are state verbs: Simple only (I knew, I wanted).'}},
+ items:[
+ ['mc','I was cooking when the phone ___.',['rang','was ringing','rings'],0,'a'],
+ ['mc','While I ___, the phone rang.',['cooked','was cooking','cook'],1,'c'],
+ ['mc','He came home, ___ dinner and went to bed.',['had','was having','has'],0,'b'],
+ ['mc','It ___ when I woke up.',['snowed','was snowing','snows'],1,'a'],
+ ['mc','She ___ her leg while she was skiing.',['broke','was breaking','breaks'],0,'a'],
+ ['mc','When I saw him, he ___ a blue jacket.',['wore','was wearing','wears'],1,'a'],
+ ['gap','I ___ TV when you called. (watch)','was watching','a'],
+ ['gap','We were walking home when it ___ to rain. (start)','started','a'],
+ ['gap','While they ___, somebody knocked at the door. (talk)','were talking','c'],
+ ['gap','I got up, ___ a shower and left. (take)','took','b'],
+ ['build','Я спал, когда ты позвонил.','I was sleeping when you called.','a',['slept']],
+ ['tr','Что ты делал, когда я пришёл?','What were you doing when I came?|What were you doing when I arrived?|What were you doing when I came in?','a'],
+ '|',
+ ['mc','I ___ him yesterday. He was sitting in a café.',['saw','was seeing','see'],0,'a'],
+ ['gap','She ___ a book when I came in. (read)','was reading','a'],
+ ['gap','He fell while he ___ football. (play)','was playing','c'],
+ ['gap','What ___ when you heard the news? (you / do)','were you doing','a'],
+ ['fix','I was knowing the answer.','I knew the answer.','d'],
+ ['tr','Когда я вышел, шёл дождь.','It was raining when I went out.|When I went out, it was raining.|It was raining when I left.|When I left, it was raining.','a'],
+ ['dict','I was having a shower when the phone rang.','a']],
+ fw:{ru:"Расскажи короткую историю из прошлого: что происходило вокруг (was / were doing) и что вдруг случилось (Past Simple). 5–6 предложений.",en:"Tell a short story from the past: what was going on around you (was / were doing) and what suddenly happened (Past Simple). 5–6 sentences."}}
+]},
+{ru:'Present Perfect',en:'Present Perfect',units:[
+{id:'pp1',ru:'Present Perfect: I have done',en:'Present Perfect: I have done',
+ th:{ru:`<p><b>Present Perfect</b> связывает прошлое с настоящим: действие произошло, и нам важен результат сейчас. Когда именно — не говорится.</p>
+<p>Форма: <b>have / has + третья форма глагола</b>.</p>
+<table><tr><th>I / you / we / they</th><th>he / she / it</th></tr>
+<tr><td><span class="en">I have finished.</span> (I've)</td><td><span class="en">She has finished.</span> (she's)</td></tr>
+<tr><td><span class="en">We haven't finished.</span></td><td><span class="en">He hasn't finished.</span></td></tr>
+<tr><td><span class="en">Have you finished?</span></td><td><span class="en">Has she finished?</span></td></tr></table>
+<p>Третья форма правильных глаголов — та же <b>-ed</b>: worked, finished, closed. У неправильных её нужно учить:</p>
+<table><tr><td>do → did → <b>done</b></td><td>see → saw → <b>seen</b></td><td>go → went → <b>gone</b></td></tr>
+<tr><td>write → wrote → <b>written</b></td><td>eat → ate → <b>eaten</b></td><td>take → took → <b>taken</b></td></tr>
+<tr><td>break → broke → <b>broken</b></td><td>buy → bought → <b>bought</b></td><td>have → had → <b>had</b></td></tr>
+<tr><td>lose → lost → <b>lost</b></td><td>find → found → <b>found</b></td><td>read → read → <b>read</b></td></tr></table>
+<ul><li><span class="en">I have lost my keys.</span> — Я потерял ключи (и сейчас их нет).</li><li><span class="en">The taxi has arrived.</span> — Такси приехало (оно здесь).</li></ul>`,
+ en:`<p><b>Present Perfect</b> links the past to the present: something happened and the result matters now. We don't say when.</p>
+<p>Form: <b>have / has + past participle</b>.</p>
+<table><tr><th>I / you / we / they</th><th>he / she / it</th></tr>
+<tr><td><span class="en">I have finished.</span> (I've)</td><td><span class="en">She has finished.</span> (she's)</td></tr>
+<tr><td><span class="en">We haven't finished.</span></td><td><span class="en">He hasn't finished.</span></td></tr>
+<tr><td><span class="en">Have you finished?</span></td><td><span class="en">Has she finished?</span></td></tr></table>
+<p>For regular verbs the participle is the same <b>-ed</b> form: worked, finished, closed. Irregular ones have to be learned:</p>
+<table><tr><td>do → did → <b>done</b></td><td>see → saw → <b>seen</b></td><td>go → went → <b>gone</b></td></tr>
+<tr><td>write → wrote → <b>written</b></td><td>eat → ate → <b>eaten</b></td><td>take → took → <b>taken</b></td></tr>
+<tr><td>break → broke → <b>broken</b></td><td>buy → bought → <b>bought</b></td><td>have → had → <b>had</b></td></tr>
+<tr><td>lose → lost → <b>lost</b></td><td>find → found → <b>found</b></td><td>read → read → <b>read</b></td></tr></table>
+<ul><li><span class="en">I have lost my keys.</span> (I don't have them now.)</li><li><span class="en">The taxi has arrived.</span> (It is here.)</li></ul>`},
+ rules:{a:{ru:'have / has + третья форма глагола; he / she / it → has.',en:'have / has + past participle; he / she / it → has.'},
+  b:{ru:'Третья форма: у правильных -ed; у неправильных своя: done, seen, gone, written, eaten, bought, broken.',en:'Past participle: -ed for regular verbs; irregular ones differ: done, seen, gone, written, eaten, bought, broken.'},
+  c:{ru:"Отрицание: haven't / hasn't + третья форма. Вопрос: Have / Has + подлежащее + третья форма.",en:"Negative: haven't / hasn't + participle. Question: Have / Has + subject + participle."},
+  d:{ru:'Важен результат сейчас, а время действия не названо → Present Perfect.',en:'The result matters now and no time is given → Present Perfect.'}},
+ items:[
+ ['mc',"I ___ my keys. I can't find them.",['have lost','has lost','lose'],0,'d'],
+ ['mc','She ___ her homework.',['have finished','has finished','finish'],1,'a'],
+ ['mc','We have ___ this film.',['see','saw','seen'],2,'b'],
+ ['mc','___ you done the shopping?',['Have','Has','Did'],0,'c'],
+ ['mc','He ___ arrived yet. (not)',["hasn't","haven't","didn't"],0,'c'],
+ ['mc','write → wrote →',['writed','wrote','written'],2,'b'],
+ ['gap','I have ___ a new phone. (buy)','bought','b'],
+ ['gap','Tom ___ his leg. (break)','has broken','a'],
+ ['gap','They ___ dinner. (not / have)','have not had','c'],
+ ['gap','___ the letter? (she / write)','Has she written','c'],
+ ['build','Я закончил работу.','I have finished my work.','d',['finish']],
+ ['tr','Она ушла домой. (Present Perfect)','She has gone home.','a'],
+ '|',
+ ['mc','The taxi ___. It is outside.',['has arrived','have arrived','arrive'],0,'d'],
+ ['gap','I ___ this book. (read)','have read','a'],
+ ['gap','We have ___ all the cake. (eat)','eaten','b'],
+ ['gap','He ___ the window. (not / close)','has not closed','c'],
+ ['fix','She have done it.','She has done it.','a'],
+ ['fix','I have saw this film.','I have seen this film.','b'],
+ ['tr','Ты сделал домашнее задание? (Present Perfect)','Have you done your homework?|Have you done the homework?','c'],
+ ['dict','I have lost my phone and I have not found it.','a']],
+ fw:{ru:"Напиши 5 предложений о том, что ты уже сделал сегодня или на этой неделе и чего ещё не сделал (I have… / I haven't…).",en:"Write 5 sentences about what you have done today or this week and what you haven't done yet (I have… / I haven't…)."}},
+
+{id:'pp2',ru:'Present Perfect или Past Simple?',en:'Present Perfect or Past Simple?',
+ th:{ru:`<p>Главный вопрос: названо ли законченное время?</p>
+<table><tr><th>Past Simple</th><th>Present Perfect</th></tr>
+<tr><td>время названо и закончилось: yesterday, last week, in 2019, two days ago, When…?</td><td>время не названо; опыт за всю жизнь; результат сейчас</td></tr>
+<tr><td><span class="en">I saw him yesterday.</span></td><td><span class="en">I have seen him before.</span></td></tr>
+<tr><td><span class="en">We went to Paris in 2019.</span></td><td><span class="en">We have been to Paris twice.</span></td></tr></table>
+<p><b>ever / never</b> — опыт: <span class="en">Have you ever been to London?</span> <span class="en">I have never eaten sushi.</span></p>
+<p><b>just</b> (только что) и <b>already</b> (уже) стоят между have и глаголом: <span class="en">She has just left.</span> <span class="en">I have already eaten.</span></p>
+<p><b>yet</b> (ещё, уже) — в конце вопросов и отрицаний: <span class="en">Has the bus come yet?</span> <span class="en">I haven't finished yet.</span></p>
+<p><b>have been to</b> = побывал где-то: <span class="en">I have been to Italy.</span></p>
+<p>Типичная ошибка: <span class="bad">I have seen him yesterday.</span> С yesterday возможен только Past Simple.</p>`,
+ en:`<p>The key question: is a finished time given?</p>
+<table><tr><th>Past Simple</th><th>Present Perfect</th></tr>
+<tr><td>a finished time is given: yesterday, last week, in 2019, two days ago, When…?</td><td>no time given; life experience; a result now</td></tr>
+<tr><td><span class="en">I saw him yesterday.</span></td><td><span class="en">I have seen him before.</span></td></tr>
+<tr><td><span class="en">We went to Paris in 2019.</span></td><td><span class="en">We have been to Paris twice.</span></td></tr></table>
+<p><b>ever / never</b> for experience: <span class="en">Have you ever been to London?</span> <span class="en">I have never eaten sushi.</span></p>
+<p><b>just</b> and <b>already</b> go between have and the verb: <span class="en">She has just left.</span> <span class="en">I have already eaten.</span></p>
+<p><b>yet</b> goes at the end of questions and negatives: <span class="en">Has the bus come yet?</span> <span class="en">I haven't finished yet.</span></p>
+<p><b>have been to</b> = visited a place: <span class="en">I have been to Italy.</span></p>
+<p>Common mistake: <span class="bad">I have seen him yesterday.</span> With yesterday only the Past Simple is possible.</p>`},
+ rules:{a:{ru:'Названо законченное время (yesterday, last year, ago, When…?) → Past Simple.',en:'A finished time is given (yesterday, last year, ago, When…?) → Past Simple.'},
+  b:{ru:'ever / never, «сколько раз» — опыт без даты → Present Perfect.',en:'ever / never, «how many times» — experience with no date → Present Perfect.'},
+  c:{ru:'just и already — между have и глаголом; yet — в конце вопроса или отрицания.',en:'just and already go between have and the verb; yet goes at the end of a question or negative.'},
+  d:{ru:'have been to = побывал где-то.',en:'have been to = have visited a place.'}},
+ items:[
+ ['mc','I ___ him yesterday.',['saw','have seen','seen'],0,'a'],
+ ['mc','___ you ever been to London?',['Have','Did','Were'],0,'b'],
+ ['mc','She has ___ left. (только что)',['just','yet','ever'],0,'c'],
+ ['mc',"I haven't finished ___.",['yet','already','just'],0,'c'],
+ ['mc','We ___ to Paris in 2019.',['went','have gone','have been'],0,'a'],
+ ['mc','I have never ___ sushi.',['eat','ate','eaten'],2,'b'],
+ ['gap','When ___ you buy this car?','did','a'],
+ ['gap','I ___ never been to Japan.','have','b'],
+ ['gap','She ___ the film last week. (see)','saw','a'],
+ ['gap','I ___ this film three times. (see)','have seen','b'],
+ ['build','Ты когда-нибудь был в Лондоне?','Have you ever been to London?','d',['was']],
+ ['tr','Я уже поел.','I have already eaten.','c'],
+ '|',
+ ['mc','They ___ two years ago.',['got married','have got married','have married'],0,'a'],
+ ['gap','Has the bus come ___?','yet','c'],
+ ['gap','We ___ to Italy twice. (be)','have been','d'],
+ ['gap','I ___ my keys yesterday. (lose)','lost','a'],
+ ['fix','I have seen him yesterday.','I saw him yesterday.','a'],
+ ['fix','Did you ever been to Spain?','Have you ever been to Spain?','b'],
+ ['tr','Я никогда не был в Америке.','I have never been to America.|I have never been to the USA.|I have never been to the US.|I have never been to the United States.','b'],
+ ['dict','I have just finished but she has not started yet.','c']],
+ fw:{ru:"Напиши 3 предложения о своём опыте (I have been to… / I have never…) и 3 предложения о том, когда именно что-то произошло (Past Simple с датой).",en:"Write 3 sentences about your experience (I have been to… / I have never…) and 3 sentences saying exactly when something happened (Past Simple with a date)."}}
+]},
+{ru:'Будущее',en:'Future',units:[
+{id:'gt',ru:'be going to',en:'be going to',
+ th:{ru:`<p><b>be going to</b> — «собираюсь»: план или намерение, которое уже решено.</p>
+<p>Форма: <b>am / is / are + going to + глагол</b>.</p>
+<ul><li><span class="en">I am going to buy a new phone.</span></li><li><span class="en">She is going to see a doctor.</span></li><li><span class="en">We aren't going to move.</span></li><li><span class="en">Are you going to tell him?</span></li><li><span class="en">What are you going to do tonight?</span></li></ul>
+<p>После going to глагол всегда в первой форме: <span class="bad">She is going to buys</span></p>
+<p>Второе значение — что-то вот-вот случится, и это видно уже сейчас:</p>
+<ul><li><span class="en">Look at those clouds! It is going to rain.</span></li></ul>
+<p>Не забывай be: <span class="bad">I going to visit them.</span></p>`,
+ en:`<p><b>be going to</b> is for a plan or intention that is already decided.</p>
+<p>Form: <b>am / is / are + going to + verb</b>.</p>
+<ul><li><span class="en">I am going to buy a new phone.</span></li><li><span class="en">She is going to see a doctor.</span></li><li><span class="en">We aren't going to move.</span></li><li><span class="en">Are you going to tell him?</span></li><li><span class="en">What are you going to do tonight?</span></li></ul>
+<p>After going to the verb is always the base form: <span class="bad">She is going to buys</span></p>
+<p>Second use: something is about to happen and we can already see it:</p>
+<ul><li><span class="en">Look at those clouds! It is going to rain.</span></li></ul>
+<p>Don't drop be: <span class="bad">I going to visit them.</span></p>`},
+ rules:{a:{ru:'am / is / are + going to + первая форма глагола.',en:'am / is / are + going to + base form.'},
+  b:{ru:'Отрицание: be + not + going to. Вопрос: be перед подлежащим.',en:'Negative: be + not + going to. Question: be before the subject.'},
+  c:{ru:'Заранее решённый план или то, что вот-вот случится по явным признакам.',en:'A plan already decided, or something about to happen that we can see coming.'}},
+ items:[
+ ['mc','I ___ going to buy a new phone.',['am','is','are'],0,'a'],
+ ['mc','She is going to ___ a doctor.',['see','sees','seeing'],0,'a'],
+ ['mc','Look at the sky! It ___ rain.',['is going to','going to','goes to'],0,'c'],
+ ['mc','___ you going to tell him?',['Are','Do','Will'],0,'b'],
+ ['mc','We ___ going to move. (not)',["aren't","don't","isn't"],0,'b'],
+ ['mc','What are you going to ___ tonight?',['do','doing','did'],0,'a'],
+ ['gap','They ___ a house. (buy)','are going to buy','a'],
+ ['gap','I ___ tonight. (not / go out)','am not going to go out','b'],
+ ['gap','What ___ after school? (he / do)','is he going to do','b'],
+ ['gap','He ___ going to call you tomorrow.','is','a'],
+ ['build','Я собираюсь учить английский.','I am going to learn English.','c',['learning']],
+ ['tr','Мы собираемся купить машину.','We are going to buy a car.','c'],
+ '|',
+ ['mc','My sister ___ going to have a baby.',['is','are','am'],0,'a'],
+ ['gap','Take an umbrella. It ___. (rain)','is going to rain','c'],
+ ['gap','We ___ this weekend. (not / work)','are not going to work','b'],
+ ['fix','I going to visit my parents.','I am going to visit my parents.','a'],
+ ['fix','She is going to buys a car.','She is going to buy a car.','a'],
+ ['tr','Что ты собираешься делать завтра?','What are you going to do tomorrow?','b'],
+ ['dict','We are going to visit them next week.','a']],
+ fw:{ru:"Напиши 5 предложений о своих планах на выходные или на следующий год с be going to.",en:"Write 5 sentences about your plans for the weekend or for next year with be going to."}},
+
+{id:'will',ru:'will',en:'will',
+ th:{ru:`<p><b>will + глагол</b> — будущее, одинаковое для всех лиц. Коротко: <b>'ll</b>, отрицание <b>won't</b> (will not).</p>
+<ul><li><span class="en">I will call you.</span> (I'll call you.)</li><li><span class="en">She won't come.</span></li><li><span class="en">Will you be at home?</span></li></ul>
+<p>После will нет ни to, ни -s: <span class="bad">She will comes</span>, <span class="bad">I will to help</span></p>
+<p>Когда нужен will:</p>
+<table><tr><td>решение прямо сейчас</td><td><span class="en">The phone is ringing. I'll answer it.</span></td></tr>
+<tr><td>обещание, предложение помощи</td><td><span class="en">I'll help you.</span> <span class="en">I won't tell anyone.</span></td></tr>
+<tr><td>мнение о будущем</td><td><span class="en">I think it will rain tomorrow.</span></td></tr></table>
+<p>Если план решён заранее, нужен <b>going to</b>: <span class="en">We have tickets. We are going to fly on Friday.</span></p>`,
+ en:`<p><b>will + verb</b> is a future form that is the same for every person. Short form: <b>'ll</b>; negative: <b>won't</b> (will not).</p>
+<ul><li><span class="en">I will call you.</span> (I'll call you.)</li><li><span class="en">She won't come.</span></li><li><span class="en">Will you be at home?</span></li></ul>
+<p>No to and no -s after will: <span class="bad">She will comes</span>, <span class="bad">I will to help</span></p>
+<p>When to use will:</p>
+<table><tr><td>a decision made right now</td><td><span class="en">The phone is ringing. I'll answer it.</span></td></tr>
+<tr><td>a promise or an offer</td><td><span class="en">I'll help you.</span> <span class="en">I won't tell anyone.</span></td></tr>
+<tr><td>an opinion about the future</td><td><span class="en">I think it will rain tomorrow.</span></td></tr></table>
+<p>For a plan decided earlier use <b>going to</b>: <span class="en">We have tickets. We are going to fly on Friday.</span></p>`},
+ rules:{a:{ru:'will + первая форма для всех лиц; после will нет to и нет -s.',en:'will + base form for every person; no to and no -s after will.'},
+  b:{ru:"Отрицание: won't (will not). Вопрос: Will + подлежащее + глагол.",en:"Negative: won't (will not). Question: Will + subject + verb."},
+  c:{ru:'Решение в момент речи, обещание, предложение помощи, I think… → will.',en:'A decision at the moment of speaking, a promise, an offer, I think… → will.'},
+  d:{ru:'План, решённый заранее → going to.',en:'A plan decided earlier → going to.'}},
+ items:[
+ ['mc','I think it ___ rain tomorrow.',['will','wills','is'],0,'c'],
+ ['mc','She will ___ you later.',['call','calls','to call'],0,'a'],
+ ['mc',"Don't worry, I ___ tell anyone. (not)",["won't","don't","am not"],0,'b'],
+ ['mc','___ you help me, please?',['Will','Do','Are'],0,'b'],
+ ['mc','The phone is ringing. — ___ answer it.',["I'll","I'm","I"],0,'c'],
+ ['mc','We have tickets. We ___ fly to Sochi on Friday.',['are going to','will to','wills'],0,'d'],
+ ['gap',"Don't wait for me. I ___ be late tonight.",'will','c'],
+ ['gap','He ___ come. He is ill. (not)','will not','b'],
+ ['gap','___ she be at home tomorrow?','Will','b'],
+ ['gap','I promise I ___ you every day. (call)','will call','c'],
+ ['build','Я помогу тебе.','I will help you.','c',['helps']],
+ ['tr','Я думаю, он придёт.','I think he will come.|I think that he will come.','c'],
+ '|',
+ ['mc',"It's cold. ___ close the window.",["I'll","I'm","I do"],0,'c'],
+ ['gap','They ___ be here at six.','will','a'],
+ ['gap','I ___ forget this day. (not)','will not','b'],
+ ['fix','She will comes tomorrow.','She will come tomorrow.','a'],
+ ['fix','I will to help you.','I will help you.','a'],
+ ['tr','Ты будешь дома завтра?','Will you be at home tomorrow?|Will you be home tomorrow?','b'],
+ ['dict','I will call you when I get home.','a']],
+ fw:{ru:"Напиши 3 прогноза о своём будущем через пять лет (I think I will…) и 2 обещания самому себе (I will… / I won't…).",en:"Write 3 predictions about your life in five years (I think I will…) and 2 promises to yourself (I will… / I won't…)."}}
 ]}];
-const SOON=['Past Continuous','Present Perfect','Future: will / going to','Модальные глаголы: can, must, should','Артикли a / an / the','Местоимения и притяжательные формы','Предлоги времени и места','Сравнение прилагательных'];
+const SOON=['Модальные глаголы: can, must, should','Артикли a / an / the','Местоимения и притяжательные формы','Предлоги времени и места','Сравнение прилагательных'];
 
 /* ================= helpers ================= */
 const $=(s,r=document)=>r.querySelector(s);
@@ -894,7 +1172,8 @@ function renderCourse(){
     h+=`<div class="sec-title">${esc(sec.ru)}</div>`;
     sec.units.forEach(u=>{
       const d=stepsDone(u),open=unlocked(u),m=unitMastered(u);
-      const sub=!open?'Откроется после предыдущей темы':m?'Освоено':unitDone(u)?'Пройдено · закрепляется в повторении':d?`Шаг ${d} из ${u.steps.length} пройден`:'Теория и '+u.list.length+' '+plural(u.list.length,'задание','задания','заданий');
+      const cu=curFor(u);
+      const sub=cu?`Шаг ${cu.step+1} начат: сделано ${cu.i} из ${cu.q.length}`:!open?'Откроется после предыдущей темы':m?'Освоено':unitDone(u)?'Пройдено · закрепляется в повторении':d?`Шаг ${d} из ${u.steps.length} пройден`:'Теория и '+u.list.length+' '+plural(u.list.length,'задание','задания','заданий');
       h+=`<button class="unit ${unitDone(u)?'done':''} ${open?'':'locked'}" data-u="${u.id}" ${open?'':'disabled'}>
         <span class="num">${unitDone(u)?'✓':u.n}</span><span><span class="tt">${esc(u.ru)}</span><br><span class="sub">${sub}</span></span>
         <span class="dots">${u.steps.map((_,i)=>`<i class="${i<d?'on':''}"></i>`).join('')}</span></button>`;
@@ -914,9 +1193,9 @@ function renderUnit(){
     <div class="panel theory">${u.th[S.lang]||u.th.ru}<div class="small muted">Нажми на английский пример, чтобы услышать его.</div></div>
     <span class="task">Практика</span>`;
   u.steps.forEach((ids,i)=>{
-    const done=i<d,open=i<=d;
-    h+=`<div class="panel step"><div><b>Шаг ${i+1}. ${['Узнаём форму','Строим сами','Закрепляем вперемешку'][i]}</b><div class="small muted">${ids.length} ${plural(ids.length,'задание','задания','заданий')}${i===2&&u.n>1?' + несколько из прошлых тем':''}${done?' · пройден':''}</div></div>
-      <button class="btn ${done?'':'primary'}" data-step="${i}" ${open?'':'disabled'}>${done?'Ещё раз':open?'Начать':'Закрыт'}</button></div>`;
+    const done=i<d,open=i<=d,c=curFor(u,i);
+    h+=`<div class="panel step"><div><b>Шаг ${i+1}. ${['Узнаём форму','Строим сами','Закрепляем вперемешку'][i]}</b><div class="small muted">${ids.length} ${plural(ids.length,'задание','задания','заданий')}${i===2&&u.n>1?' + несколько из прошлых тем':''}${c?` · сделано ${c.i} из ${c.q.length}`:done?' · пройден':''}</div></div>
+      <button class="btn ${done&&!c?'':'primary'}" data-step="${i}" ${open?'':'disabled'}>${c?'Продолжить':done?'Ещё раз':open?'Начать':'Закрыт'}</button></div>`;
   });
   if(u.fw)h+=`<span class="task">Свободное письмо · в прогресс не идёт</span>
     <div class="panel"><div>${esc(u.fw[S.lang]||u.fw.ru)}</div>
@@ -926,6 +1205,7 @@ function renderUnit(){
   document.querySelectorAll('.seg [data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render()});
   document.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>{
     const i=+b.dataset.step;let q=u.steps[i];
+    const c=curFor(u,i);if(c){startSession({kind:'step',unit:u.id,step:i,q:c.q,resume:c});return}
     if(i===2){ /* interleaving: mix in the weakest items already met in earlier topics */
       const prev=shuffle(UNITS.slice(0,u.n-1).flatMap(x=>x.list.map(y=>y.id)).filter(id=>S.items[id]))
         .sort((a,b)=>(S.items[b].w-S.items[b].r)-(S.items[a].w-S.items[a].r)).slice(0,4);
@@ -1007,14 +1287,21 @@ function renderSettings(){
   document.querySelectorAll('.seg [data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render()});
   document.querySelectorAll('.seg [data-s]').forEach(b=>b.onclick=()=>{S.sound=b.dataset.s==='1';save();render()});
   $('#goal').onchange=e=>{S.goal=+e.target.value;save()};
-  $('#reset').onclick=e=>{const b=e.currentTarget;if(b.dataset.arm){S.items={};S.steps={};S.days={};S.log=[];saveNow();go('course')}else{b.dataset.arm=1;b.textContent='Нажми ещё раз, чтобы удалить всё'}};
+  $('#reset').onclick=e=>{const b=e.currentTarget;if(b.dataset.arm){S.items={};S.steps={};S.days={};S.log=[];delete S.cur;saveNow();go('course')}else{b.dataset.arm=1;b.textContent='Нажми ещё раз, чтобы удалить всё'}};
 }
 
 /* ================= sessions ================= */
+/* an unfinished step is kept so that leaving it (back to the theory or the course) loses nothing */
+function keepCur(i){
+  const s=session;if(!s||s.kind!=='step')return;
+  S.cur={unit:s.unit,step:s.step,q:s.q.slice(),i,total:s.total,right:s.right,wrong:s.wrong,typos:s.typos,tried:[...s.tried],again:s.again};save();
+}
+function curFor(u,step){const c=S.cur;return c&&c.unit===u.id&&(step===undefined||c.step===step)&&c.i>0&&c.i<c.q.length&&c.q.every(id=>ITEMS.has(id))?c:null}
 function startSession(o){
   let q=o.q.filter(id=>ITEMS.has(id)&&(CAN_SPEAK||ITEMS.get(id).t!=='dict'));
   if(!q.length)return;
   session=Object.assign({i:0,q,total:q.length,right:0,wrong:0,typos:0,tried:new Set(),again:{},state:null,t0:Date.now()},o,{q});
+  const r=o.resume;if(r){delete session.resume;Object.assign(session,{i:r.i,total:r.total||q.length,right:r.right||0,wrong:r.wrong||0,typos:r.typos||0,tried:new Set(r.tried||[]),again:r.again||{}})}
   render();scrollTo(0,0);
 }
 function startReview(){const d=dueIds().slice(0,15);if(d.length)startSession({kind:'review',q:shuffle(d)})}
@@ -1072,6 +1359,7 @@ function submit(){
   st.done=true;st.given=given;st.r=r;
   const inp=$('#ans');if(inp)inp.blur();
   grade(it,r.res!=='bad',r.res==='typo',given);
+  keepCur(s.i+1);
   showFeedback();
 }
 /* only the first attempt at an item within a session counts for intervals and statistics */
@@ -1109,6 +1397,7 @@ function override(){
   const s=session,it=s.state.it,rec=S.items[it.id];
   if(s.q[s.q.length-1]===it.id&&s.q.length>s.i+1)s.q.pop();
   if(s.state.rec&&rec){const li=S.log.length-1;if(li>=0&&S.log[li].id===it.id)S.log.pop();s.wrong--;s.right++;rec.w=Math.max(0,rec.w-1);rec.r++;rec.b=1;rec.d=addDays(IV[1]);dayRec().ok++;save()}
+  keepCur(s.i+1);
   s.state.r={res:'ok'};const f=$('#foot');f.className='foot ok';f.querySelector('.verdict').textContent='Засчитано';$('#mine').remove();
 }
 /* a double tap on «Дальше» must not skip a question */
@@ -1120,6 +1409,7 @@ function renderSummary(){
   if(s.kind==='step'){
     const u=UNIT(s.unit),before=stepsDone(u);
     if(s.step+1>before){S.steps[u.id]=s.step+1}
+    if(S.cur&&S.cur.unit===u.id&&S.cur.step===s.step)delete S.cur;
     saveNow();
     const nextU=UNITS[u.n];
     extra=unitDone(u)?(before<u.steps.length?`<div>Тема «${esc(u.ru)}» пройдена.${nextU?' Открыта следующая: «'+esc(nextU.ru)+'».':''}</div>`:'')

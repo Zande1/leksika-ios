@@ -120,6 +120,10 @@ textarea{min-height:160px;resize:vertical;font-family:var(--f-read);line-height:
 .sw-tr{font-size:18px;font-weight:600}
 .ctx{font-family:var(--f-read);font-size:15px;line-height:1.5;background:var(--bg);border-radius:10px;padding:10px 12px}
 .ctx mark{background:var(--l2);color:inherit;border-radius:4px;padding:0 2px}
+.pg[hidden]{display:none}
+.pager{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-top:6px}
+.pager .btn{justify-content:center;padding:13px 10px;font-size:15px}
+.pager .mid{text-align:center;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
 .explain{font-size:14px;line-height:1.5;white-space:pre-wrap;background:var(--accent-soft);border-radius:10px;padding:10px 12px}
 .levels{display:grid;grid-template-columns:repeat(5,1fr) 1.3fr;gap:6px}
 .levels button{border:1px solid var(--line);border-radius:10px;padding:9px 0;background:var(--bg);font-weight:700;font-variant-numeric:tabular-nums;font-size:14px}
@@ -479,6 +483,8 @@ function stopReading(){if(!reading)return;reading=null;spkTok++;if(NATIVE)NB.pos
 function readFrom(i){
   const sents=[...document.querySelectorAll('#text .sent')];
   if(i>=sents.length){stopReading();return}
+  const pgEl=sents[i].closest('.pg');
+  if(pgEl&&pgEl.hidden){const k=pages.findIndex(p=>p.el===pgEl);if(k===pageIdx+1)nextPage(true);else if(k>=0)showPage(k)}
   const token={};reading=token;const b=$('#readBtn');if(b)b.textContent='■ Стоп';
   sents.forEach(x=>x.classList.remove('playing'));sents[i].classList.add('playing');
   const r=sents[i].getBoundingClientRect();if(r.top<70||r.bottom>innerHeight*0.6)sents[i].scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
@@ -816,8 +822,73 @@ function openLesson(id){
 /* ================= reader ================= */
 let fs=LS.get('lx-fs',20), spans=[], posTimer=null, lastPos=-1;
 function nextLessonId(){const l=S.lessons.get(curLesson);if(!l||!l.courseId)return null;const ls=[...S.lessons.entries()].filter(([,x])=>x.courseId===l.courseId).sort((a,b)=>(a[1].order||0)-(b[1].order||0));const i=ls.findIndex(([id])=>id===curLesson);return ls[i+1]?ls[i+1][0]:null}
+/* ---- pages: the whole text stays in the DOM, one page is visible. Turning a page counts its words as read
+   and marks its blue words as known, so statistics move as you read, not only when the lesson is finished. ---- */
+const PAGE_WORDS=160;
+let pages=[],pageIdx=0;
+function buildPages(){
+  const box=$('#text');pages=[];if(!box)return;
+  for(const p of [...box.children]){            /* a very long paragraph is cut at sentence borders */
+    if(p.querySelectorAll('.w').length<=PAGE_WORDS*1.4)continue;
+    let cur=p,cnt=0;
+    for(const st of [...p.children]){const c=st.querySelectorAll('.w').length;
+      if(cnt&&cnt+c>PAGE_WORDS){const np=document.createElement('p');cur.after(np);cur=np;cnt=0}
+      if(cur!==p)cur.appendChild(st);cnt+=c}
+  }
+  let div=null,cnt=0,n=0;
+  for(const p of [...box.children]){
+    const c=p.querySelectorAll('.w').length;
+    if(!div||(cnt&&cnt+c>PAGE_WORDS)){div=document.createElement('div');div.className='pg';box.insertBefore(div,p);pages.push({el:div,from:n,to:n});cnt=0}
+    div.appendChild(p);cnt+=c;n+=c;pages[pages.length-1].to=n;
+  }
+}
+function pageOf(n){const i=pages.findIndex(p=>n>=p.from&&n<p.to);return i<0?0:i}
+function showPage(i){
+  if(!pages.length)return;
+  pageIdx=Math.max(0,Math.min(pages.length-1,i));pages.forEach((p,k)=>p.el.hidden=k!==pageIdx);pageSec=0;
+  const last=pageIdx===pages.length-1,pg=$('#pager'),eb=$('#endbox');
+  if(eb)eb.hidden=!last;
+  if(pg){pg.hidden=pages.length<2;
+    pg.innerHTML=`<button class="btn" id="pgPrev" ${pageIdx?'':'disabled'}>← Назад</button><span class="mid">${pageIdx+1} из ${pages.length}</span>${last?'<span></span>':'<button class="btn primary" id="pgNext">Далее →</button>'}`;
+    $('#pgPrev').onclick=()=>{stopReading();closeSheet();showPage(pageIdx-1);scrollTo(0,0);savePos(true)};
+    $('#pgNext')&&($('#pgNext').onclick=()=>{stopReading();closeSheet();nextPage(false)})}
+  const hint=$('#pgHint');if(hint)hint.hidden=last||pages.length<2;
+}
+/* auto=true when listening runs over the page end: words count as read, but nothing is marked as known */
+function nextPage(auto){
+  const id=curLesson,from=pageIdx,pg=pages[from];if(!pg||from>=pages.length-1)return;
+  const prev={...(S.prog[id]||{})},rd0=prev.rd||0;
+  const keys=auto?[]:[...new Set([...pg.el.querySelectorAll('.w')].map(e=>e.dataset.k))].filter(k=>statusOf(k)===0);
+  if(keys.length)setKn(keys,1);
+  const add=Math.max(0,pg.to-rd0);if(add)bump('read',add);
+  const tm=timedPage(add);
+  setProg(id,{rd:Math.max(rd0,pg.to),pos:pages[from+1].from});
+  showPage(from+1);lastPos=pages[pageIdx].from;paintWords();renderReaderStats();
+  if(!auto){scrollTo(0,0);
+    if(keys.length)toast(`+${keys.length} известных · +${fmtN(add)} прочитано`,'Отменить',()=>{setKn(keys,0);if(add)bump('read',-add);if(tm){bump('tw',-tm.w);bump('ts',-tm.s)}setProg(id,{rd:rd0,pos:pg.from});if(curLesson===id&&view==='read'){showPage(from);paintWords();renderReaderStats();scrollTo(0,0)}})}
+}
+/* ---- reading time: counted only on the reading screen while something is happening
+   (a touch, a scroll, a tap in the last minute, or listening). Speed uses only pages turned at a plausible pace. ---- */
+let lastAct=Date.now(),pageSec=0,pendSec=0;
+['touchstart','scroll','click','keydown'].forEach(ev=>addEventListener(ev,()=>{lastAct=Date.now()},{passive:true,capture:true}));
+function flushSec(){if(pendSec>0){const n=pendSec;pendSec=0;bump('rsec',n)}}
+setInterval(()=>{
+  if(view!=='read'||document.hidden||!curLesson||!spans.length)return;
+  const g=document.getElementById('gramLayer');if(g&&!g.hidden)return;
+  if(!reading&&Date.now()-lastAct>60000)return;
+  pageSec++;pendSec++;if(pendSec>=20)flushSec();
+},1000);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)flushSec()});
+const WPM_MIN=15,WPM_MAX=400;
+function timedPage(words){
+  flushSec();const sec=pageSec;pageSec=0;
+  if(words>0&&sec>=5){const wpm=words/sec*60;if(wpm>=WPM_MIN&&wpm<=WPM_MAX){bump('tw',words);bump('ts',sec);return {w:words,s:sec}}}
+  return null;
+}
+function fmtMin(sec){const m=Math.round((sec||0)/60);return m<60?m+' мин':Math.floor(m/60)+' ч '+(m%60)+' мин'}
 function firstVisibleSpan(){
   if(!spans.length)return 0;const top=70;let lo=0,hi=spans.length-1;
+  if(pages.length&&pages[pageIdx]&&pages[pageIdx].to>pages[pageIdx].from){lo=pages[pageIdx].from;hi=pages[pageIdx].to-1}
   while(lo<hi){const mid=(lo+hi)>>1;if(spans[mid].getBoundingClientRect().bottom<top)lo=mid+1;else hi=mid}
   return lo;
 }
@@ -841,10 +912,15 @@ function renderReader(){
     ${IS_IOS&&!NATIVE&&voices.length&&vScore(voices[0])<2&&!LS.get('lx-tts-tip-off',false)?'<div class="note" id="ttsTip">Нужен живой голос (Ava Premium)? iOS не даёт его веб-страницам, но можно слушать через систему: включи «Проговаривание экрана» в Настройки → Универсальный доступ → Устный контент, выбери там Ava (Premium) и проведи двумя пальцами вниз от верхнего края экрана. <button class="btn ghost sm" id="ttsTipOff">Понятно</button></div>':''}
     <div class="legend"><span><i style="background:var(--new)"></i>новое</span><span><i style="background:var(--l1)"></i>изучаю</span><span><i></i>знаю</span><span>Зажми слово и веди пальцем — выделится фраза</span></div>
     <div class="text" id="text" style="--fs:${fs}px">${parsed.html}</div>
-    <div class="endbox"><div class="stats" id="rStats"></div>
+    <div class="pager" id="pager" hidden></div>
+    <span class="small muted" id="pgHint" hidden>«Далее» засчитывает слова страницы как прочитанные и отмечает её синие слова как известные. Отменить можно сразу после нажатия.</span>
+    <div class="endbox" id="endbox"><div class="stats" id="rStats"></div>
       <div class="row"><button class="btn primary" id="finish"></button>${nx?`<button class="btn" id="nextL">Следующий урок →</button>`:''}</div>
       <span class="small muted">«Завершить урок» отмечает оставшиеся синие слова как известные и засчитывает прочитанные слова. Это можно отменить.</span></div>`;
   spans=[...document.querySelectorAll('#text .w')];
+  buildPages();
+  const pos0=(S.prog[curLesson]||{}).pos??LS.get('lx-pos',{})[curLesson];
+  showPage(pos0>0?pageOf(pos0):0);
   paintWords();renderReaderStats();bindVoiceSel();
   $('#fsUp').onclick=()=>{fs=Math.min(30,fs+2);LS.set('lx-fs',fs);$('#text').style.setProperty('--fs',fs+'px')};
   $('#fsDown').onclick=()=>{fs=Math.max(14,fs-2);LS.set('lx-fs',fs);$('#text').style.setProperty('--fs',fs+'px')};
@@ -860,10 +936,14 @@ function renderReader(){
 }
 function finishLesson(){
   const id=curLesson;const keys=[...lessonInfo(id).keys].filter(k=>statusOf(k)===0);
-  const total=lessonInfo(id).total;const prev={...(S.prog[id]||{})};
+  const prev={...(S.prog[id]||{})};
+  /* pages already turned were counted then; only the rest of the lesson is added here */
+  const all=spans.length||lessonInfo(id).total,rd0=Math.min(prev.rd||0,all),total=all-rd0;
   if(keys.length)setKn(keys,1);
-  bump('read',total);bump('lessons');setProg(id,{done:true,reads:(prev.reads||0)+1});
-  toast(keys.length?`Урок пройден · +${keys.length} известных`:'Урок пройден · +'+fmtN(total)+' прочитано','Отменить',()=>{if(keys.length)setKn(keys,0);bump('read',-total);bump('lessons',-1);setProg(id,{done:!!prev.done,reads:prev.reads||0})});
+  const tm=timedPage(pages.length&&pageIdx===pages.length-1?Math.max(0,pages[pageIdx].to-Math.max(rd0,pages[pageIdx].from)):0);
+  if(total)bump('read',total);bump('lessons');setProg(id,{done:true,reads:(prev.reads||0)+1,rd:0});
+  renderReaderStats();
+  toast(keys.length?`Урок пройден · +${keys.length} известных`:'Урок пройден · +'+fmtN(total)+' прочитано','Отменить',()=>{if(keys.length)setKn(keys,0);if(total)bump('read',-total);if(tm){bump('tw',-tm.w);bump('ts',-tm.s)}bump('lessons',-1);setProg(id,{done:!!prev.done,reads:prev.reads||0,rd:rd0})});
 }
 function paintWords(){
   const box=$('#text');if(!box||!spans.length)return;
@@ -1201,8 +1281,8 @@ function renderProgress(){
   const lv=[0,0,0,0];let phrases=0;for(const w of S.words.values()){if(w.phrase)phrases++;const s=(w.status||1);if(s<5)lv[s-1]++}
   let ign=0;for(const v of S.kn.values())if(v===2)ign++;
   const lingqs=lv[0]+lv[1]+lv[2]+lv[3];const dmax=Math.max(1,...lv,known);
-  let read=0,reviews=0,active=0;
-  for(const r of Object.values(days)){read+=r.read||0;reviews+=r.reviews||0;if((r.read||0)+(r.reviews||0)+(r.created||0)>0)active++}
+  let read=0,reviews=0,active=0,rsecAll=0,twAll=0,tsAll=0;
+  for(const r of Object.values(days)){rsecAll+=r.rsec||0;twAll+=r.tw||0;tsAll+=r.ts||0;read+=r.read||0;reviews+=r.reviews||0;if((r.read||0)+(r.reviews||0)+(r.created||0)>0)active++}
   let streak=0;{const d=new Date();for(let n=0;n<3650;n++){const r=days[today(d)];const act=r&&((r.read||0)+(r.reviews||0)+(r.created||0)>0);if(act)streak++;else if(today(d)!==t)break;d.setDate(d.getDate()-1)}}
   $('#view').innerHTML=`<div class="panel">
       <span class="label">Знаю слов</span><div class="big-num">${fmtN(known)}</div>
@@ -1227,6 +1307,8 @@ function renderProgress(){
       <div class="tile"><b>${fmtN(tr.created||0)}</b><span>новых слов и фраз в изучении</span></div>
       <div class="tile"><b>${fmtN(tr.reviews||0)}</b><span>ответов в карточках</span></div>
       <div class="tile"><b>${fmtN(tr.read||0)}</b><span>слов прочитано</span></div>
+      <div class="tile"><b>${fmtMin(tr.rsec)}</b><span>время чтения</span></div>
+      <div class="tile"><b>${(tr.ts||0)>=60?Math.round(tr.tw/tr.ts*60):'—'}</b><span>слов в минуту</span></div>
     </div>
     <div class="panel"><h2>Известные слова по дням</h2>${chartKnown(days,known)}</div>
     <div class="panel"><h2>Мои слова по уровням</h2><div class="dist">
@@ -1239,7 +1321,10 @@ function renderProgress(){
       <div class="tile"><b>${fmtN(reviews)}</b><span>ответов в карточках</span></div>
       <div class="tile"><b>${fmtN(active)}</b><span>активных дней</span></div>
       <div class="tile"><b>${fmtN(streak)}</b><span>дней подряд</span></div>
+      <div class="tile"><b>${fmtMin(rsecAll)}</b><span>время чтения</span></div>
+      <div class="tile"><b>${tsAll>=60?Math.round(twAll/tsAll*60):'—'}</b><span>слов в минуту в среднем</span></div>
     </div>
+    <div class="small muted">Слова засчитываются по страницам: каждая перевёрнутая страница сразу попадает в «прочитано», поэтому главу можно читать несколько дней. Время идёт только на вкладке «Чтение», пока ты листаешь, нажимаешь слова или слушаешь; через минуту без действий счёт останавливается. Скорость считается только по страницам, прочитанным в темпе от ${WPM_MIN} до ${WPM_MAX} слов в минуту: пролистанные за секунды и оставленные открытыми в неё не попадают.</div>
     <div class="panel"><h2>Данные</h2>
       ${downloads||NATIVE?`<div class="row"><button class="btn" id="expCsv">Слова в CSV (для Anki)</button><button class="btn" id="expJson">Резервная копия</button></div>`:'<div class="small muted">Сохранение файлов недоступно в этом окне.</div>'}
       <div class="row"><button class="btn ${restoreArm?'danger':''}" id="impJson">${restoreArm?'Выбрать файл копии':'Восстановить из копии'}</button>${restoreArm?'<span class="small muted">Данные из копии добавятся к текущим.</span>':''}</div>
