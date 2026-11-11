@@ -76,6 +76,7 @@ body.in-session nav.tabs{display:none}
 .unit.locked{opacity:.55}
 .unit.locked .num{background:var(--line);color:var(--muted)}
 .unit .tt{font-weight:700;overflow-wrap:anywhere}
+.unit .ru{font-size:13.5px;color:var(--ink);opacity:.8}
 .unit .sub{font-size:12.5px;color:var(--muted)}
 .unit .dots{display:flex;gap:4px}
 .unit .dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
@@ -167,7 +168,7 @@ select{border:1px solid var(--line);background:var(--surface);border-radius:10px
    fw is the free-writing prompt: optional, never counted in progress. */
 const SECTIONS=[
 {ru:'Настоящее время',en:'Present',units:[
-{id:'be1',ru:'am / is / are',en:'am / is / are',
+{id:'be1',ru:"Глагол to be: утверждение",en:"am / is / are",
  th:{ru:`<p>Глагол <b>to be</b> («быть, являться, находиться») в настоящем времени имеет три формы.</p>
 <table><tr><th>Кто</th><th>Форма</th><th>Коротко</th></tr>
 <tr><td>I</td><td><span class="en">I am</span></td><td>I'm</td></tr>
@@ -214,7 +215,7 @@ const SECTIONS=[
  ['build','Эта книга очень интересная.','This book is very interesting.','c',['are']]],
  fw:{ru:"Напиши 4–5 предложений о себе и своих близких: кто вы, откуда, какие вы.",en:"Write 4–5 sentences about yourself and the people close to you: who you are, where you are from, what you are like."}},
 
-{id:'be2',ru:'am / is / are: отрицание и вопрос',en:'am / is / are: negatives and questions',
+{id:'be2',ru:"Глагол to be: отрицание и вопрос",en:"am / is / are: negatives and questions",
  th:{ru:`<p><b>Отрицание:</b> после be ставим <b>not</b>.</p>
 <ul><li><span class="en">I am not ready.</span> (I'm not)</li><li><span class="en">He is not at home.</span> (isn't)</li><li><span class="en">They are not students.</span> (aren't)</li></ul>
 <p>Формы «amn't» не существует — только <b>I'm not</b>.</p>
@@ -259,7 +260,7 @@ const SECTIONS=[
  ['tr','Это не моя сумка.','This is not my bag.|It is not my bag.','a']],
  fw:{ru:"Напиши 3 вопроса, которые ты задал бы новому знакомому, и 2 предложения о том, кем ты не являешься или где тебя сейчас нет.",en:"Write 3 questions you would ask a new acquaintance and 2 sentences about what you are not or where you are not right now."}},
 
-{id:'pc1',ru:'Present Continuous: I am doing',en:'Present Continuous: I am doing',
+{id:'pc1',ru:"Настоящее длительное: утверждение",en:"Present Continuous: I am doing",
  th:{ru:`<p><b>Present Continuous</b> — действие происходит прямо сейчас. Форма: <b>am / is / are + глагол с -ing</b>.</p>
 <ul><li><span class="en">I am working.</span> — Я работаю (сейчас).</li><li><span class="en">She is reading a book.</span></li><li><span class="en">They are playing football.</span></li></ul>
 <p>Нужны обе части. <span class="bad">She reading.</span> и <span class="bad">She is read.</span> — ошибки.</p>
@@ -307,7 +308,7 @@ const SECTIONS=[
  ['build','Дети смотрят мультфильм.','The children are watching a cartoon.','a',['is']]],
  fw:{ru:"Опиши, что происходит вокруг тебя прямо сейчас: 4–5 предложений.",en:"Describe what is happening around you right now: 4–5 sentences."}},
 
-{id:'pc2',ru:'Present Continuous: отрицание и вопрос',en:'Present Continuous: negatives and questions',
+{id:'pc2',ru:"Настоящее длительное: отрицание и вопрос",en:"Present Continuous: negatives and questions",
  th:{ru:`<p><b>Отрицание:</b> not после be.</p>
 <ul><li><span class="en">I'm not working today.</span></li><li><span class="en">He isn't sleeping.</span></li><li><span class="en">We aren't watching TV.</span></li></ul>
 <p><b>Вопрос:</b> be перед подлежащим.</p>
@@ -354,7 +355,7 @@ const SECTIONS=[
  ['tr','Мы не спим.','We are not sleeping.','a']],
  fw:{ru:"Напиши 3 вопроса другу о том, что он делает сейчас, и 2 предложения о том, чего ты сейчас не делаешь.",en:"Write 3 questions to a friend about what they are doing now and 2 sentences about what you are not doing now."}},
 
-{id:'ps1',ru:'Present Simple: I do / he does',en:'Present Simple: I do / he does',
+{id:'ps1',ru:"Настоящее простое: утверждение",en:"Present Simple: I do / he does",
  th:{ru:`<p><b>Present Simple</b> — привычки, регулярные действия, факты. Не «сейчас», а «вообще».</p>
 <table><tr><th>I / you / we / they</th><th>he / she / it</th></tr>
 <tr><td><span class="en">I work</span></td><td><span class="en">he works</span></td></tr>
@@ -405,7 +406,7 @@ const SECTIONS=[
  ['build','Мой брат всегда встаёт рано.','My brother always gets up early.','c',['get']]],
  fw:{ru:"Опиши свой обычный день: 5 предложений со словами always, usually, often, never. Одно-два предложения напиши о другом человеке (he / she).",en:"Describe your usual day in 5 sentences with always, usually, often, never. Write one or two of them about another person (he / she)."}},
 
-{id:'ps2',ru:"Present Simple: I don't / he doesn't",en:"Present Simple: I don't / he doesn't",
+{id:'ps2',ru:"Настоящее простое: отрицание",en:"Present Simple: I don't / he doesn't",
  th:{ru:`<p>Отрицание в Present Simple строится с помощью <b>do not / does not</b>.</p>
 <table><tr><th>I / you / we / they</th><th>he / she / it</th></tr>
 <tr><td><span class="en">I don't work</span></td><td><span class="en">he doesn't work</span></td></tr>
@@ -451,7 +452,7 @@ const SECTIONS=[
  ['tr','Он не говорит по-английски.','He does not speak English.','b']],
  fw:{ru:"Напиши 5 предложений о том, чего не делаешь ты и чего не делает кто-то из твоих знакомых.",en:"Write 5 sentences about things you don't do and things someone you know doesn't do."}},
 
-{id:'ps3',ru:'Present Simple: Do you…? Does he…?',en:'Present Simple: Do you…? Does he…?',
+{id:'ps3',ru:"Настоящее простое: вопрос",en:"Present Simple: Do you…? Does he…?",
  th:{ru:`<p>Вопрос в Present Simple начинается с <b>do / does</b>.</p>
 <table><tr><th>do</th><th>I / you / we / they</th><td><span class="en">Do you work?</span></td></tr>
 <tr><th>does</th><th>he / she / it</th><td><span class="en">Does she work?</span></td></tr></table>
@@ -500,7 +501,7 @@ const SECTIONS=[
  ['tr','Когда начинается урок?','When does the lesson start?|When does the lesson begin?|What time does the lesson start?|When does the class start?|When does the class begin?','c']],
  fw:{ru:"Напиши 5 вопросов для человека, которого хочешь узнать лучше: где работает, что любит, как часто что-то делает.",en:"Write 5 questions for a person you want to know better: where they work, what they like, how often they do something."}},
 
-{id:'pcps',ru:'Continuous или Simple?',en:'Continuous or Simple?',
+{id:'pcps',ru:"Длительное или простое: что выбрать",en:"Present Continuous or Present Simple?",
  th:{ru:`<p>Главный вопрос: действие идёт <b>сейчас</b> или происходит <b>вообще, регулярно</b>?</p>
 <table><tr><th>Present Continuous</th><th>Present Simple</th></tr>
 <tr><td>сейчас, в данный момент, временно</td><td>обычно, всегда, факт</td></tr>
@@ -548,7 +549,7 @@ const SECTIONS=[
  ['tr','Мне нужна твоя помощь.','I need your help.','c']],
  fw:{ru:"Напиши 3 пары предложений: что ты делаешь обычно и что делаешь иначе сегодня или прямо сейчас.",en:"Write 3 pairs of sentences: what you usually do and what you are doing differently today or right now."}},
 
-{id:'hgot',ru:'have got / has got',en:'have got / has got',
+{id:'hgot',ru:"У меня есть: have got",en:"have got / has got",
  th:{ru:`<p><b>have got</b> = «иметь», «у меня есть».</p>
 <table><tr><th>I / you / we / they</th><th>he / she / it</th></tr>
 <tr><td><span class="en">I have got a car.</span> (I've got)</td><td><span class="en">She has got a car.</span> (she's got)</td></tr>
@@ -597,7 +598,7 @@ const SECTIONS=[
  fw:{ru:"Опиши, что есть у тебя и у твоей семьи и чего нет: 5 предложений с have got / has got.",en:"Describe what you and your family have and don't have: 5 sentences with have got / has got."}}
 ]},
 {ru:'Прошедшее время',en:'Past',units:[
-{id:'was',ru:'was / were',en:'was / were',
+{id:'was',ru:"Глагол to be в прошедшем времени",en:"was / were",
  th:{ru:`<p><b>was / were</b> — прошедшее время глагола be: «был, была, были».</p>
 <table><tr><th>I / he / she / it</th><th>we / you / they</th></tr>
 <tr><td><span class="en">I was at home.</span></td><td><span class="en">We were at home.</span></td></tr>
@@ -645,7 +646,7 @@ const SECTIONS=[
  ['tr','Вы были в Лондоне?','Were you in London?','b']],
  fw:{ru:"Напиши 5 предложений о вчерашнем дне или о детстве: где ты был, каким был день, кто был рядом.",en:"Write 5 sentences about yesterday or your childhood: where you were, what the day was like, who was with you."}},
 
-{id:'past1',ru:'Past Simple: worked, went',en:'Past Simple: worked, went',
+{id:'past1',ru:"Прошедшее простое: утверждение",en:"Past Simple: worked, went",
  th:{ru:`<p><b>Past Simple</b> — законченное действие в прошлом. Форма одна для всех лиц: I worked, she worked, they worked.</p>
 <p><b>Правильные глаголы:</b> + <b>-ed</b>.</p>
 <table><tr><td>обычно</td><td>work → worked, watch → watched</td></tr>
@@ -703,7 +704,7 @@ const SECTIONS=[
  ['tr','Я видел его вчера.','I saw him yesterday.|Yesterday I saw him.','c']],
  fw:{ru:"Расскажи, что ты делал вчера или в прошлые выходные: 5–6 предложений.",en:"Say what you did yesterday or last weekend: 5–6 sentences."}},
 
-{id:'past2',ru:"Past Simple: didn't / Did you…?",en:"Past Simple: didn't / Did you…?",
+{id:'past2',ru:"Прошедшее простое: отрицание и вопрос",en:"Past Simple: didn't / Did you…?",
  th:{ru:`<p>Отрицание и вопрос в Past Simple строятся с <b>did</b> — для всех лиц одинаково.</p>
 <table><tr><th>Отрицание</th><td><span class="en">I didn't go.</span></td><td><span class="en">She didn't call.</span></td></tr>
 <tr><th>Вопрос</th><td><span class="en">Did you go?</span></td><td><span class="en">Did she call?</span></td></tr></table>
@@ -752,7 +753,7 @@ const SECTIONS=[
  ['tr','Где ты был вчера?','Where were you yesterday?','d']],
  fw:{ru:"Напиши 3 вопроса другу о его прошлых выходных и 3 предложения о том, чего ты на прошлой неделе не сделал.",en:"Write 3 questions to a friend about their last weekend and 3 sentences about things you didn't do last week."}},
 
-{id:'pastc',ru:'Past Continuous: I was doing',en:'Past Continuous: I was doing',
+{id:'pastc',ru:"Прошедшее длительное",en:"Past Continuous: I was doing",
  th:{ru:`<p><b>Past Continuous</b> — действие было в процессе в какой-то момент прошлого. Форма: <b>was / were + глагол с -ing</b>.</p>
 <table><tr><th>I / he / she / it</th><th>we / you / they</th></tr>
 <tr><td><span class="en">I was working.</span></td><td><span class="en">They were working.</span></td></tr>
@@ -795,7 +796,7 @@ const SECTIONS=[
  ['dict','It was raining and people were running.','a']],
  fw:{ru:"Вспомни вчерашний вечер и опиши, что происходило в 8 часов: что делал ты, что делали другие. 4–5 предложений.",en:"Think of yesterday evening and describe what was happening at 8 o'clock: what you were doing, what others were doing. 4–5 sentences."}},
 
-{id:'pastcs',ru:'was doing или did?',en:'was doing or did?',
+{id:'pastcs',ru:"Прошедшее длительное или простое",en:"Past Continuous or Past Simple?",
  th:{ru:`<p>Два прошедших времени часто стоят рядом в одном предложении.</p>
 <table><tr><th>Past Continuous</th><th>Past Simple</th></tr>
 <tr><td>фон, длительный процесс</td><td>короткое событие, законченный факт</td></tr>
@@ -841,8 +842,8 @@ const SECTIONS=[
  ['dict','I was having a shower when the phone rang.','a']],
  fw:{ru:"Расскажи короткую историю из прошлого: что происходило вокруг (was / were doing) и что вдруг случилось (Past Simple). 5–6 предложений.",en:"Tell a short story from the past: what was going on around you (was / were doing) and what suddenly happened (Past Simple). 5–6 sentences."}}
 ]},
-{ru:'Present Perfect',en:'Present Perfect',units:[
-{id:'pp1',ru:'Present Perfect: I have done',en:'Present Perfect: I have done',
+{ru:'Настоящее совершённое',en:'Present Perfect',units:[
+{id:'pp1',ru:"Настоящее совершённое",en:"Present Perfect: I have done",
  th:{ru:`<p><b>Present Perfect</b> связывает прошлое с настоящим: действие произошло, и нам важен результат сейчас. Когда именно — не говорится.</p>
 <p>Форма: <b>have / has + третья форма глагола</b>.</p>
 <table><tr><th>I / you / we / they</th><th>he / she / it</th></tr>
@@ -895,7 +896,7 @@ const SECTIONS=[
  ['dict','I have lost my phone and I have not found it.','a']],
  fw:{ru:"Напиши 5 предложений о том, что ты уже сделал сегодня или на этой неделе и чего ещё не сделал (I have… / I haven't…).",en:"Write 5 sentences about what you have done today or this week and what you haven't done yet (I have… / I haven't…)."}},
 
-{id:'pp2',ru:'Present Perfect или Past Simple?',en:'Present Perfect or Past Simple?',
+{id:'pp2',ru:"Совершённое или прошедшее простое",en:"Present Perfect or Past Simple?",
  th:{ru:`<p>Главный вопрос: названо ли законченное время?</p>
 <table><tr><th>Past Simple</th><th>Present Perfect</th></tr>
 <tr><td>время названо и закончилось: yesterday, last week, in 2019, two days ago, When…?</td><td>время не названо; опыт за всю жизнь; результат сейчас</td></tr>
@@ -944,8 +945,8 @@ const SECTIONS=[
  ['dict','I have just finished but she has not started yet.','c']],
  fw:{ru:"Напиши 3 предложения о своём опыте (I have been to… / I have never…) и 3 предложения о том, когда именно что-то произошло (Past Simple с датой).",en:"Write 3 sentences about your experience (I have been to… / I have never…) and 3 sentences saying exactly when something happened (Past Simple with a date)."}}
 ]},
-{ru:'Будущее',en:'Future',units:[
-{id:'gt',ru:'be going to',en:'be going to',
+{ru:'Будущее время',en:'Future',units:[
+{id:'gt',ru:"Планы и намерения: «собираюсь»",en:"be going to",
  th:{ru:`<p><b>be going to</b> — «собираюсь»: план или намерение, которое уже решено.</p>
 <p>Форма: <b>am / is / are + going to + глагол</b>.</p>
 <ul><li><span class="en">I am going to buy a new phone.</span></li><li><span class="en">She is going to see a doctor.</span></li><li><span class="en">We aren't going to move.</span></li><li><span class="en">Are you going to tell him?</span></li><li><span class="en">What are you going to do tonight?</span></li></ul>
@@ -986,7 +987,7 @@ const SECTIONS=[
  ['dict','We are going to visit them next week.','a']],
  fw:{ru:"Напиши 5 предложений о своих планах на выходные или на следующий год с be going to.",en:"Write 5 sentences about your plans for the weekend or for next year with be going to."}},
 
-{id:'will',ru:'will',en:'will',
+{id:'will',ru:"Будущее с will: решения, обещания, прогнозы",en:"will",
  th:{ru:`<p><b>will + глагол</b> — будущее, одинаковое для всех лиц. Коротко: <b>'ll</b>, отрицание <b>won't</b> (will not).</p>
 <ul><li><span class="en">I will call you.</span> (I'll call you.)</li><li><span class="en">She won't come.</span></li><li><span class="en">Will you be at home?</span></li></ul>
 <p>После will нет ни to, ни -s: <span class="bad">She will comes</span>, <span class="bad">I will to help</span></p>
@@ -1030,7 +1031,7 @@ const SECTIONS=[
  ['dict','I will call you when I get home.','a']],
  fw:{ru:"Напиши 3 прогноза о своём будущем через пять лет (I think I will…) и 2 обещания самому себе (I will… / I won't…).",en:"Write 3 predictions about your life in five years (I think I will…) and 2 promises to yourself (I will… / I won't…)."}}
 ]}];
-const SOON=['Модальные глаголы: can, must, should','Артикли a / an / the','Местоимения и притяжательные формы','Предлоги времени и места','Сравнение прилагательных'];
+const SOON=['Modal verbs: can, must, should (модальные глаголы)','Articles: a / an / the (артикли)','Pronouns and possessives (местоимения)','Prepositions of time and place (предлоги)','Comparatives and superlatives (сравнение прилагательных)'];
 
 /* ================= helpers ================= */
 const $=(s,r=document)=>r.querySelector(s);
@@ -1169,13 +1170,13 @@ function renderCourse(){
   const due=dueIds().length;
   if(due)h+=`<button class="btn primary big" id="revBtn">Повторить: ${due} ${plural(due,'задание','задания','заданий')}</button>`;
   SECTIONS.forEach(sec=>{
-    h+=`<div class="sec-title">${esc(sec.ru)}</div>`;
+    h+=`<div class="sec-title">${esc(sec.en)} · ${esc(sec.ru)}</div>`;
     sec.units.forEach(u=>{
       const d=stepsDone(u),open=unlocked(u),m=unitMastered(u);
       const cu=curFor(u);
       const sub=cu?`Шаг ${cu.step+1} начат: сделано ${cu.i} из ${cu.q.length}`:!open?'Откроется после предыдущей темы':m?'Освоено':unitDone(u)?'Пройдено · закрепляется в повторении':d?`Шаг ${d} из ${u.steps.length} пройден`:'Теория и '+u.list.length+' '+plural(u.list.length,'задание','задания','заданий');
       h+=`<button class="unit ${unitDone(u)?'done':''} ${open?'':'locked'}" data-u="${u.id}" ${open?'':'disabled'}>
-        <span class="num">${unitDone(u)?'✓':u.n}</span><span><span class="tt">${esc(u.ru)}</span><br><span class="sub">${sub}</span></span>
+        <span class="num">${unitDone(u)?'✓':u.n}</span><span><span class="tt">${esc(u.en)}</span><br><span class="ru">${esc(u.ru)}</span><br><span class="sub">${sub}</span></span>
         <span class="dots">${u.steps.map((_,i)=>`<i class="${i<d?'on':''}"></i>`).join('')}</span></button>`;
     });
   });
@@ -1186,9 +1187,9 @@ function renderCourse(){
 }
 
 function renderUnit(){
-  const u=UNIT(view.arg);$('#title').textContent=u.n+'. '+u.ru;
+  const u=UNIT(view.arg);$('#title').textContent=u.n+'. '+u.en;
   const d=stepsDone(u);
-  let h=`<div class="row" style="justify-content:space-between"><span class="task">Теория</span>
+  let h=`<div class="muted">${esc(u.ru)}</div><div class="row" style="justify-content:space-between"><span class="task">Теория</span>
     <span class="seg" role="group" aria-label="Язык теории"><button data-l="ru" aria-pressed="${S.lang==='ru'}">Русский</button><button data-l="en" aria-pressed="${S.lang==='en'}">English</button></span></div>
     <div class="panel theory">${u.th[S.lang]||u.th.ru}<div class="small muted">Нажми на английский пример, чтобы услышать его.</div></div>
     <span class="task">Практика</span>`;
@@ -1251,7 +1252,7 @@ function renderStats(){
   h+=`<div class="panel"><h2>Ответы за 14 дней</h2><div class="days">${ds.map(d=>`<i class="${d.n?'':'zero'}" style="height:${d.n?Math.max(6,Math.round(100*d.n/mx)):2}%" title="${d.k}: ${d.n}"></i>`).join('')}</div>
     <div class="dlab">${ds.map(d=>`<span>${+d.k.slice(8)}</span>`).join('')}</div></div>`;
   const rows=UNITS.map(u=>{let r=0,w=0;u.list.forEach(it=>{const x=S.items[it.id];if(x){r+=x.r||0;w+=x.w||0}});return {u,r,w,p:r+w?r/(r+w):null}}).filter(x=>x.p!=null).sort((a,b)=>a.p-b.p);
-  h+=`<div class="panel"><h2>Точность по темам</h2>${rows.length?'<div class="small muted">Сверху — темы, где ошибок больше всего.</div>'+rows.map(x=>`<div class="urow"><span>${x.u.n}. ${esc(x.u.ru)}</span><b>${Math.round(100*x.p)}%</b><div class="bar"><i style="width:${Math.round(100*x.p)}%"></i></div></div>`).join(''):'<div class="muted">Появится после первых ответов.</div>'}</div>`;
+  h+=`<div class="panel"><h2>Точность по темам</h2>${rows.length?'<div class="small muted">Сверху — темы, где ошибок больше всего.</div>'+rows.map(x=>`<div class="urow"><span>${x.u.n}. ${esc(x.u.en)}<br><span class="small muted">${esc(x.u.ru)}</span></span><b>${Math.round(100*x.p)}%</b><div class="bar"><i style="width:${Math.round(100*x.p)}%"></i></div></div>`).join(''):'<div class="muted">Появится после первых ответов.</div>'}</div>`;
   const nf=Object.keys(S.free).filter(id=>UNIT(id)).length,nl=S.log.filter(x=>ITEMS.has(x.id)).length;
   h+=`<div class="panel"><h2>Выгрузка на проверку</h2><div class="small muted">Собирает одним текстом свободное письмо (${nf} ${plural(nf,'тема','темы','тем')}) и последние ошибки в упражнениях (${nl}). Отправь его Claude — он разберёт ошибки. ${S.exp?'Последняя выгрузка: '+S.exp+'.':'Удобный ритм — раз в неделю.'}</div>
     <button class="btn primary" id="expBtn" ${nf||nl?'':'disabled'}>Выгрузить</button><div id="expOut"></div></div>`;
@@ -1322,7 +1323,7 @@ function renderSession(){
   let mode=it.t;if(mode==='mc'&&(s.kind!=='step'||it.u!==s.unit)&&it.q.includes('___')&&rec&&rec.b>=1&&canon(it.ans[0]).split(' ').every(w=>AUX.has(w)))mode='gap';
   s.state={it,mode,shown:Date.now(),pick:null,tiles:null,line:[],done:false};
   let h=`<div class="sess-top"><button class="icon-btn" id="quit" aria-label="Закрыть">${CLOSE}</button><div class="bar"><i style="width:${Math.round(100*s.i/s.q.length)}%"></i></div><span class="small muted">${s.i+1} / ${s.q.length}</span></div>
-    <div class="task">${TASK[mode]}${s.kind!=='step'||it.u!==s.unit?' · '+esc(UNIT(it.u).ru):''}</div>`;
+    <div class="task">${TASK[mode]}${s.kind!=='step'||it.u!==s.unit?' · '+esc(UNIT(it.u).en):''}</div>`;
   const input=`<input class="inp" id="ans" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" placeholder="Ответ по-английски">`;
   if(mode==='mc')h+=`<div class="q">${esc(it.q).replace('___','<span class="blank"></span>')}</div><div class="opts">${shuffle(it.o.map((o,i)=>i)).map(i=>`<button class="opt" data-i="${i}" aria-pressed="false">${esc(it.o[i])}</button>`).join('')}</div>`;
   else if(mode==='gap')h+=`<div class="q">${esc(it.q).replace('___','<span class="blank"></span>')}</div>${input}`;
@@ -1412,7 +1413,7 @@ function renderSummary(){
     if(S.cur&&S.cur.unit===u.id&&S.cur.step===s.step)delete S.cur;
     saveNow();
     const nextU=UNITS[u.n];
-    extra=unitDone(u)?(before<u.steps.length?`<div>Тема «${esc(u.ru)}» пройдена.${nextU?' Открыта следующая: «'+esc(nextU.ru)+'».':''}</div>`:'')
+    extra=unitDone(u)?(before<u.steps.length?`<div>Тема «${esc(u.en)}» пройдена.${nextU?' Открыта следующая: «'+esc(nextU.en)+'».':''}</div>`:'')
       :`<div>Шаг ${s.step+1} пройден. Впереди шаг ${s.step+2}.</div>`;
   }else saveNow();
   $('#view').innerHTML=`<div class="panel" style="text-align:center;padding:26px 16px"><div class="task">Готово</div>
