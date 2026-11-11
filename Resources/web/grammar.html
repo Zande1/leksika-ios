@@ -29,7 +29,7 @@
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.45;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
-button,input,select{font:inherit;color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;touch-action:manipulation}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -108,6 +108,8 @@ body.in-session nav.tabs{display:none}
 .opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
 .inp{width:100%;border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:13px 14px;font-size:18px;font-family:var(--f-read)}
 .inp:focus{outline:none;border-color:var(--accent)}
+textarea.inp{font-size:16px;line-height:1.5;min-height:130px;resize:vertical;display:block}
+textarea.out{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;min-height:180px}
 .tiles{display:flex;flex-wrap:wrap;gap:8px}
 .tiles.line{min-height:54px;border-bottom:2px solid var(--line);padding-bottom:8px;align-content:flex-start}
 .tile{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 12px;font-size:17px;font-family:var(--f-read);font-weight:600}
@@ -160,7 +162,9 @@ select{border:1px solid var(--line);background:var(--surface);border-radius:10px
    ['tr',  russian, 'answer|alternative', rule]
    ['fix', wrong sentence, 'corrected|alternative', rule]
    ['dict', sentence to type by ear, rule]
-   Item ids are unit id + position, so add new items only at the END of a unit. */
+   Item ids are unit id + position, so add new items only at the END of a unit.
+   '|' separates the first two steps from the third (mixed) one and is not an item.
+   fw is the free-writing prompt: optional, never counted in progress. */
 const SECTIONS=[
 {ru:'Настоящее время',en:'Present',units:[
 {id:'be1',ru:'am / is / are',en:'am / is / are',
@@ -197,7 +201,18 @@ const SECTIONS=[
  ['build','Мы дома.','We are at home.','b',['is']],
  ['tr','Я из России.','I am from Russia.','b'],
  ['tr','Они счастливы.','They are happy.','b'],
- ['dict','This is my friend. He is a teacher.','a']]},
+ ['dict','This is my friend. He is a teacher.','a'],
+ '|',
+ ['mc','Tom and I ___ friends.',['am','is','are'],2,'c'],
+ ['mc','This coffee ___ very hot.',['am','is','are'],1,'c'],
+ ['gap','My parents ___ at work now.','are','c'],
+ ['gap','Moscow ___ a big city.','is','c'],
+ ['fix','She are my teacher.','She is my teacher.','a'],
+ ['fix','I is very tired today.','I am very tired today.','a'],
+ ['tr','Мой брат — врач.','My brother is a doctor.','b'],
+ ['tr','Мы из Москвы.','We are from Moscow.','b'],
+ ['build','Эта книга очень интересная.','This book is very interesting.','c',['are']]],
+ fw:{ru:"Напиши 4–5 предложений о себе и своих близких: кто вы, откуда, какие вы.",en:"Write 4–5 sentences about yourself and the people close to you: who you are, where you are from, what you are like."}},
 
 {id:'be2',ru:'am / is / are: отрицание и вопрос',en:'am / is / are: negatives and questions',
  th:{ru:`<p><b>Отрицание:</b> после be ставим <b>not</b>.</p>
@@ -231,7 +246,18 @@ const SECTIONS=[
  ['build','Ты устал?','Are you tired?','b',['is']],
  ['build','Где твой телефон?','Where is your phone?','d',['are']],
  ['tr','Я не готов.','I am not ready.','a'],
- ['fix','Is your friends at work?','Are your friends at work?','b']]},
+ ['fix','Is your friends at work?','Are your friends at work?','b'],
+ '|',
+ ['mc','___ your parents at home?',['Is','Are','Am'],1,'b'],
+ ['mc','"Is he a doctor?" — "No, he ___."',["isn't","aren't","am not"],0,'c'],
+ ['gap','How old ___ your sister?','is','d'],
+ ['gap','The shops ___ open today. (not)','are not','a'],
+ ['gap','___ I late?','Am','b'],
+ ['fix','Where your car is?','Where is your car?','d'],
+ ['fix','They not are at home.','They are not at home.','a'],
+ ['tr','Почему ты грустный?','Why are you sad?','d'],
+ ['tr','Это не моя сумка.','This is not my bag.|It is not my bag.','a']],
+ fw:{ru:"Напиши 3 вопроса, которые ты задал бы новому знакомому, и 2 предложения о том, кем ты не являешься или где тебя сейчас нет.",en:"Write 3 questions you would ask a new acquaintance and 2 sentences about what you are not or where you are not right now."}},
 
 {id:'pc1',ru:'Present Continuous: I am doing',en:'Present Continuous: I am doing',
  th:{ru:`<p><b>Present Continuous</b> — действие происходит прямо сейчас. Форма: <b>am / is / are + глагол с -ing</b>.</p>
@@ -268,7 +294,18 @@ const SECTIONS=[
  ['build','Том спит в своей комнате.','Tom is sleeping in his room.','a',['sleeps']],
  ['tr','Я сейчас работаю.','I am working now.|I am working right now.|I am working at the moment.|Now I am working.|Right now I am working.','c'],
  ['fix','She is cook dinner now.','She is cooking dinner now.','a'],
- ['dict','Listen! Somebody is singing.','c']]},
+ ['dict','Listen! Somebody is singing.','c'],
+ '|',
+ ['mc','Be quiet! The baby ___.',['sleeps','is sleeping','sleeping'],1,'c'],
+ ['mc','sit + ing →',['siting','sitting','sitteing'],1,'b'],
+ ['gap!','The sun ___ today. (shine)','is shining','b'],
+ ['gap','My friends ___ for me. (wait)','are waiting','a'],
+ ['gap','I ___ a sandwich. (eat)','am eating','a'],
+ ['fix','They playing football now.','They are playing football now.','a'],
+ ['fix','He is runing in the park.','He is running in the park.','b'],
+ ['tr','Она разговаривает по телефону.','She is talking on the phone.|She is speaking on the phone.','a'],
+ ['build','Дети смотрят мультфильм.','The children are watching a cartoon.','a',['is']]],
+ fw:{ru:"Опиши, что происходит вокруг тебя прямо сейчас: 4–5 предложений.",en:"Describe what is happening around you right now: 4–5 sentences."}},
 
 {id:'pc2',ru:'Present Continuous: отрицание и вопрос',en:'Present Continuous: negatives and questions',
  th:{ru:`<p><b>Отрицание:</b> not после be.</p>
@@ -304,7 +341,18 @@ const SECTIONS=[
  ['build','Он сейчас не работает.','He is not working now.','a',['does']],
  ['tr','Ты слушаешь?','Are you listening?','b'],
  ['fix','What you are doing?','What are you doing?','c'],
- ['dict',"I'm not watching TV. I'm reading.",'a']]},
+ ['dict',"I'm not watching TV. I'm reading.",'a'],
+ '|',
+ ['mc','Why ___ you laughing?',['are','do','is'],0,'c'],
+ ['mc','I ___ to music now. (not)',['am not listening',"don't listening",'not listening'],0,'a'],
+ ['gap','Look! ___ the bus coming?','Is','b'],
+ ['gap','What ___? (your mother / cook)','is your mother cooking','c'],
+ ['gap','They ___ today. (not / work)','are not working','a'],
+ ['fix','Do you listening to me?','Are you listening to me?','b'],
+ ['fix','Where she is going?','Where is she going?','c'],
+ ['tr','Что ты делаешь?','What are you doing?','c'],
+ ['tr','Мы не спим.','We are not sleeping.','a']],
+ fw:{ru:"Напиши 3 вопроса другу о том, что он делает сейчас, и 2 предложения о том, чего ты сейчас не делаешь.",en:"Write 3 questions to a friend about what they are doing now and 2 sentences about what you are not doing now."}},
 
 {id:'ps1',ru:'Present Simple: I do / he does',en:'Present Simple: I do / he does',
  th:{ru:`<p><b>Present Simple</b> — привычки, регулярные действия, факты. Не «сейчас», а «вообще».</p>
@@ -344,7 +392,18 @@ const SECTIONS=[
  ['build','Она часто читает книги.','She often reads books.','c',['read']],
  ['tr','Он живёт в Лондоне.','He lives in London.','a'],
  ['fix','My sister like music.','My sister likes music.','a'],
- ['dict','He usually gets up at seven.','c']]},
+ ['dict','He usually gets up at seven.','c'],
+ '|',
+ ['mc','Anna ___ in a hospital.',['work','works','is work'],1,'a'],
+ ['mc','My friends ___ football every weekend.',['play','plays','playing'],0,'a'],
+ ['gap!','He ___ his car every Sunday. (wash)','washes','b'],
+ ['gap!','The baby ___ at night. (cry)','cries','b'],
+ ['gap','I ___ up at six every day. (get)','get','a'],
+ ['fix','She always is late.','She is always late.','c'],
+ ['fix','He go to the gym on Mondays.','He goes to the gym on Mondays.','b'],
+ ['tr','Мы часто играем в футбол.','We often play football.|We often play soccer.','c'],
+ ['build','Мой брат всегда встаёт рано.','My brother always gets up early.','c',['get']]],
+ fw:{ru:"Опиши свой обычный день: 5 предложений со словами always, usually, often, never. Одно-два предложения напиши о другом человеке (he / she).",en:"Describe your usual day in 5 sentences with always, usually, often, never. Write one or two of them about another person (he / she)."}},
 
 {id:'ps2',ru:"Present Simple: I don't / he doesn't",en:"Present Simple: I don't / he doesn't",
  th:{ru:`<p>Отрицание в Present Simple строится с помощью <b>do not / does not</b>.</p>
@@ -379,7 +438,18 @@ const SECTIONS=[
  ['build','Он не смотрит телевизор.','He does not watch TV.','c',['watches']],
  ['tr','Она не работает по субботам.','She does not work on Saturdays.|She does not work on Saturday.','b'],
  ['fix',"He don't like coffee.","He doesn't like coffee.",'b'],
- ['fix',"She doesn't likes tea.","She doesn't like tea.",'c']]},
+ ['fix',"She doesn't likes tea.","She doesn't like tea.",'c'],
+ '|',
+ ['mc','We ___ work on Sundays. (not)',["don't","doesn't","aren't"],0,'a'],
+ ['mc','This bus ___ go to the centre. (not)',["don't","doesn't","isn't"],1,'b'],
+ ['gap','I ___ coffee in the evening. (not / drink)','do not drink','a'],
+ ['gap','My brother ___ in Moscow. (not / live)','does not live','b'],
+ ['gap',"She doesn't ___ sport. (like)",'like','c'],
+ ['fix',"They doesn't know me.","They don't know me.",'a'],
+ ['fix','I not like fish.',"I don't like fish.",'a'],
+ ['tr','Мы не живём здесь.','We do not live here.','a'],
+ ['tr','Он не говорит по-английски.','He does not speak English.','b']],
+ fw:{ru:"Напиши 5 предложений о том, чего не делаешь ты и чего не делает кто-то из твоих знакомых.",en:"Write 5 sentences about things you don't do and things someone you know doesn't do."}},
 
 {id:'ps3',ru:'Present Simple: Do you…? Does he…?',en:'Present Simple: Do you…? Does he…?',
  th:{ru:`<p>Вопрос в Present Simple начинается с <b>do / does</b>.</p>
@@ -417,7 +487,18 @@ const SECTIONS=[
  ['build','Твой брат говорит по-английски?','Does your brother speak English?','a',['speaks']],
  ['tr','Что ты обычно ешь на завтрак?','What do you usually eat for breakfast?|What do you usually have for breakfast?','c'],
  ['fix','Does she works here?','Does she work here?','b'],
- ['fix','Where you live?','Where do you live?','c']]},
+ ['fix','Where you live?','Where do you live?','c'],
+ '|',
+ ['mc','___ your sister work here?',['Do','Does','Is'],1,'a'],
+ ['mc','What ___ you do?',['do','does','are'],0,'c'],
+ ['gap','Where ___ he work?','does','c'],
+ ['gap','___ your parents live in Moscow?','Do','a'],
+ ['gap','"Do they know?" — "Yes, they ___."','do','d'],
+ ['fix','Do she like coffee?','Does she like coffee?','a'],
+ ['fix','What does he wants?','What does he want?','b'],
+ ['tr','Ты любишь музыку?','Do you like music?|Do you love music?','a'],
+ ['tr','Когда начинается урок?','When does the lesson start?|When does the lesson begin?|What time does the lesson start?|When does the class start?|When does the class begin?','c']],
+ fw:{ru:"Напиши 5 вопросов для человека, которого хочешь узнать лучше: где работает, что любит, как часто что-то делает.",en:"Write 5 questions for a person you want to know better: where they work, what they like, how often they do something."}},
 
 {id:'pcps',ru:'Continuous или Simple?',en:'Continuous or Simple?',
  th:{ru:`<p>Главный вопрос: действие идёт <b>сейчас</b> или происходит <b>вообще, регулярно</b>?</p>
@@ -454,7 +535,18 @@ const SECTIONS=[
  ['build','Обычно я хожу пешком, но сегодня я еду на автобусе.','I usually walk but today I am taking the bus.','a',['take']],
  ['tr','Она сейчас не работает.','She is not working now.|She is not working at the moment.|She is not working right now.|Now she is not working.','a'],
  ['fix','I am liking this song.','I like this song.','c'],
- ['dict','He works in a shop but he is not working today.','a']]},
+ ['dict','He works in a shop but he is not working today.','a'],
+ '|',
+ ['mc','He ___ to music every evening.',['listens','is listening','listen'],0,'b'],
+ ['mc',"Don't turn off the TV. I ___ it.",['watch','am watching','watches'],1,'a'],
+ ['mc','She ___ what you mean.',['understands','is understanding','understand'],0,'c'],
+ ['gap','Where is Tom? — He ___ a shower. (have)','is having','a'],
+ ['gap','I usually ___ tea, but today I am drinking coffee. (drink)','drink','b'],
+ ['gap','We ___ your help now. (need)','need','c'],
+ ['fix','I am knowing him very well.','I know him very well.','c'],
+ ['fix','She reads a book at the moment.','She is reading a book at the moment.','a'],
+ ['tr','Мне нужна твоя помощь.','I need your help.','c']],
+ fw:{ru:"Напиши 3 пары предложений: что ты делаешь обычно и что делаешь иначе сегодня или прямо сейчас.",en:"Write 3 pairs of sentences: what you usually do and what you are doing differently today or right now."}},
 
 {id:'hgot',ru:'have got / has got',en:'have got / has got',
  th:{ru:`<p><b>have got</b> = «иметь», «у меня есть».</p>
@@ -491,7 +583,18 @@ const SECTIONS=[
  ['build','У тебя есть время?','Have you got time?','b',['do']],
  ['tr','У него нет машины. (have got)','He has not got a car.','b'],
  ['fix','Do you have got a pen?','Have you got a pen?|Do you have a pen?','c'],
- ['dict','I have got a brother and two sisters.','a']]}
+ ['dict','I have got a brother and two sisters.','a'],
+ '|',
+ ['mc','They ___ got a dog.',['have','has','are'],0,'a'],
+ ['mc','___ she got a car?',['Has','Have','Does'],0,'b'],
+ ['gap','I ___ got any money. (not)','have not','b'],
+ ['gap','___ you got a minute?','Have','b'],
+ ['gap','Tom ___ got a headache.','has','a'],
+ ['fix','She have got a new job.','She has got a new job.','a'],
+ ['fix',"He doesn't have got a car.","He hasn't got a car.|He doesn't have a car.",'c'],
+ ['tr','У неё есть брат. (have got)','She has got a brother.','a'],
+ ['tr','У тебя есть машина? (have got)','Have you got a car?','b']],
+ fw:{ru:"Опиши, что есть у тебя и у твоей семьи и чего нет: 5 предложений с have got / has got.",en:"Describe what you and your family have and don't have: 5 sentences with have got / has got."}}
 ]},
 {ru:'Прошедшее время',en:'Past',units:[
 {id:'was',ru:'was / were',en:'was / were',
@@ -529,7 +632,18 @@ const SECTIONS=[
  ['build','Почему ты опоздал?','Why were you late?','b',['was']],
  ['tr','Он был врачом.','He was a doctor.','a'],
  ['fix','We was tired after work.','We were tired after work.','a'],
- ['dict','The weather was nice and we were happy.','a']]},
+ ['dict','The weather was nice and we were happy.','a'],
+ '|',
+ ['mc','We ___ at school together.',['was','were','are'],1,'a'],
+ ['mc','___ it cold yesterday?',['Was','Were','Did'],0,'b'],
+ ['gap','My grandfather ___ a pilot.','was','a'],
+ ['gap','You ___ right yesterday.','were','a'],
+ ['gap','"Was she at home?" — "No, she ___."','was not','b'],
+ ['fix','Where you were yesterday?','Where were you yesterday?','b'],
+ ['fix','They was not at work.','They were not at work.','a'],
+ ['tr','Я был дома вчера.','I was at home yesterday.|Yesterday I was at home.|I was home yesterday.|Yesterday I was home.','a'],
+ ['tr','Вы были в Лондоне?','Were you in London?','b']],
+ fw:{ru:"Напиши 5 предложений о вчерашнем дне или о детстве: где ты был, каким был день, кто был рядом.",en:"Write 5 sentences about yesterday or your childhood: where you were, what the day was like, who was with you."}},
 
 {id:'past1',ru:'Past Simple: worked, went',en:'Past Simple: worked, went',
  th:{ru:`<p><b>Past Simple</b> — законченное действие в прошлом. Форма одна для всех лиц: I worked, she worked, they worked.</p>
@@ -542,7 +656,8 @@ const SECTIONS=[
 <table><tr><td>go → <b>went</b></td><td>have → <b>had</b></td><td>see → <b>saw</b></td></tr>
 <tr><td>come → <b>came</b></td><td>buy → <b>bought</b></td><td>make → <b>made</b></td></tr>
 <tr><td>eat → <b>ate</b></td><td>write → <b>wrote</b></td><td>get → <b>got</b></td></tr>
-<tr><td>take → <b>took</b></td><td>say → <b>said</b></td><td>do → <b>did</b></td></tr></table>
+<tr><td>take → <b>took</b></td><td>say → <b>said</b></td><td>do → <b>did</b></td></tr>
+<tr><td>give → <b>gave</b></td><td>find → <b>found</b></td><td>know → <b>knew</b></td></tr></table>
 <ul><li><span class="en">I watched a film yesterday.</span></li><li><span class="en">We went to the cinema last week.</span></li></ul>`,
  en:`<p><b>Past Simple</b> is for a finished action in the past. One form for every person: I worked, she worked, they worked.</p>
 <p><b>Regular verbs:</b> + <b>-ed</b>.</p>
@@ -554,7 +669,8 @@ const SECTIONS=[
 <table><tr><td>go → <b>went</b></td><td>have → <b>had</b></td><td>see → <b>saw</b></td></tr>
 <tr><td>come → <b>came</b></td><td>buy → <b>bought</b></td><td>make → <b>made</b></td></tr>
 <tr><td>eat → <b>ate</b></td><td>write → <b>wrote</b></td><td>get → <b>got</b></td></tr>
-<tr><td>take → <b>took</b></td><td>say → <b>said</b></td><td>do → <b>did</b></td></tr></table>
+<tr><td>take → <b>took</b></td><td>say → <b>said</b></td><td>do → <b>did</b></td></tr>
+<tr><td>give → <b>gave</b></td><td>find → <b>found</b></td><td>know → <b>knew</b></td></tr></table>
 <ul><li><span class="en">I watched a film yesterday.</span></li><li><span class="en">We went to the cinema last week.</span></li></ul>`},
  rules:{a:{ru:'Правильные глаголы: + -ed, форма одинакова для всех лиц.',en:'Regular verbs: + -ed, the same form for every person.'},
   b:{ru:'Написание: live → lived, study → studied, stop → stopped.',en:'Spelling: live → lived, study → studied, stop → stopped.'},
@@ -570,11 +686,22 @@ const SECTIONS=[
  ['gap!','She ___ all night. (study)','studied','b'],
  ['gap','We ___ breakfast at eight. (have)','had','c'],
  ['gap','He ___ home late. (come)','came','c'],
- ['gap','I ___ three emails this morning. (write)','wrote','c'],
+ ['gap','I ___ three emails yesterday. (write)','wrote','c'],
  ['build','Вчера я купил новый телефон.','I bought a new phone yesterday.|Yesterday I bought a new phone.','c',['buy']],
  ['tr','Мы смотрели телевизор вчера вечером.','We watched TV last night.|We watched TV yesterday evening.|We watched television last night.|We watched television yesterday evening.|Last night we watched TV.|Yesterday evening we watched TV.|We watched TV last evening.','a'],
  ['fix','I goed to school by bus.','I went to school by bus.','c'],
- ['dict','She made dinner and then we ate together.','c']]},
+ ['dict','She made dinner and then we ate together.','c'],
+ '|',
+ ['mc','I ___ my keys this morning.',['finded','found','find'],1,'c'],
+ ['mc','They ___ dinner at seven.',['had','haved','have'],0,'c'],
+ ['gap','She ___ me a present. (give)','gave','c'],
+ ['gap!','We ___ at a red light. (stop)','stopped','b'],
+ ['gap','He ___ a taxi to the airport. (take)','took','c'],
+ ['gap','I ___ the door. (open)','opened','a'],
+ ['fix','She buyed a new phone.','She bought a new phone.','c'],
+ ['fix','He eated all the cake.','He ate all the cake.','c'],
+ ['tr','Я видел его вчера.','I saw him yesterday.|Yesterday I saw him.','c']],
+ fw:{ru:"Расскажи, что ты делал вчера или в прошлые выходные: 5–6 предложений.",en:"Say what you did yesterday or last weekend: 5–6 sentences."}},
 
 {id:'past2',ru:"Past Simple: didn't / Did you…?",en:"Past Simple: didn't / Did you…?",
  th:{ru:`<p>Отрицание и вопрос в Past Simple строятся с <b>did</b> — для всех лиц одинаково.</p>
@@ -612,7 +739,18 @@ const SECTIONS=[
  ['build','Они не пришли вчера.','They did not come yesterday.|Yesterday they did not come.','a',['came']],
  ['tr','Ты видел этот фильм? (Past Simple)','Did you see this film?|Did you see this movie?|Did you watch this film?|Did you watch this movie?|Did you see that film?|Did you see that movie?','b'],
  ['fix',"He didn't went to work.","He didn't go to work.",'c'],
- ['fix','Did you saw my keys?','Did you see my keys?','c']]}
+ ['fix','Did you saw my keys?','Did you see my keys?','c'],
+ '|',
+ ['mc','We ___ go out last night. (not)',["didn't","don't","weren't"],0,'a'],
+ ['mc','What time did she ___?',['arrive','arrived','arrives'],0,'c'],
+ ['gap','Why ___ you leave so early?','did','b'],
+ ['gap','They ___ us. (not / see)','did not see','a'],
+ ['gap','"Did you sleep well?" — "Yes, I ___."','did','b'],
+ ['fix',"I didn't saw the film.","I didn't see the film.",'c'],
+ ['fix','Did she was at home?','Was she at home?','d'],
+ ['tr','Я не купил хлеб.','I did not buy bread.|I did not buy the bread.|I did not buy any bread.','a'],
+ ['tr','Где ты был вчера?','Where were you yesterday?','d']],
+ fw:{ru:"Напиши 3 вопроса другу о его прошлых выходных и 3 предложения о том, чего ты на прошлой неделе не сделал.",en:"Write 3 questions to a friend about their last weekend and 3 sentences about things you didn't do last week."}}
 ]}];
 const SOON=['Past Continuous','Present Perfect','Future: will / going to','Модальные глаголы: can, must, should','Артикли a / an / the','Местоимения и притяжательные формы','Предлоги времени и места','Сравнение прилагательных'];
 
@@ -637,26 +775,27 @@ function post(type,data){try{MH.postMessage({id:0,type,data})}catch(e){}}
 const UNITS=[];const ITEMS=new Map();
 SECTIONS.forEach((sec,si)=>sec.units.forEach(u=>{
   u.sec=si;u.n=UNITS.length+1;
-  u.list=u.items.map((r,i)=>{
+  const n0=u.items.indexOf('|');
+  u.list=u.items.filter(r=>r!=='|').map((r,i)=>{
     const strict=r[0].endsWith('!'),t=r[0].replace('!','');const it={id:u.id+'.'+i,u:u.id,t,strict};
     if(t==='mc'){it.q=r[1];it.o=r[2];it.c=r[3];it.rule=r[4];it.ans=[r[2][r[3]]]}
     else if(t==='dict'){it.ans=[r[1]];it.rule=r[2]}
     else{it.q=r[1];it.ans=r[2].split('|');it.rule=r[3];it.extra=r[4]||[]}
     ITEMS.set(it.id,it);return it});
-  const half=Math.ceil(u.list.length/2);
-  u.steps=[u.list.slice(0,half).map(x=>x.id),u.list.slice(half).map(x=>x.id)];
+  const ids=u.list.map(x=>x.id),n=n0<0?ids.length:n0,half=Math.ceil(n/2);
+  u.steps=[ids.slice(0,half),ids.slice(half,n)];if(n<ids.length)u.steps.push(ids.slice(n));
   UNITS.push(u)}));
 const UNIT=id=>UNITS.find(u=>u.id===id);
 const TOTAL_STEPS=UNITS.reduce((s,u)=>s+u.steps.length,0);
 
 const IV=[1,1,3,7,16,35];       /* days until the next review, by box */
 const MASTER=3;                 /* box at which an item counts as learned */
-let S={v:1,lang:'ru',goal:20,sound:true,items:{},steps:{},days:{}};
+let S={v:1,lang:'ru',goal:20,sound:true,items:{},steps:{},days:{},free:{},log:[],exp:''};
 (function load(){
   let d=null;
   try{d=EMB?PARENT.__NATIVE_GRAMMAR:window.__NATIVE_GRAMMAR}catch(e){}
   if(!d||typeof d!=='object')d=LS.get('gr1',null);
-  if(d&&typeof d==='object'){S=Object.assign(S,d);S.items=S.items||{};S.steps=S.steps||{};S.days=S.days||{}}
+  if(d&&typeof d==='object'){S=Object.assign(S,d);S.items=S.items||{};S.steps=S.steps||{};S.days=S.days||{};S.free=S.free||{};S.log=Array.isArray(S.log)?S.log:[]}
 })();
 let saveT=0;
 function saveNow(){clearTimeout(saveT);saveT=0;LS.set('gr1',S);if(MH)post('saveGrammar',JSON.stringify(S));if(EMB)try{PARENT.__NATIVE_GRAMMAR=JSON.parse(JSON.stringify(S))}catch(e){}}
@@ -776,12 +915,24 @@ function renderUnit(){
     <span class="task">Практика</span>`;
   u.steps.forEach((ids,i)=>{
     const done=i<d,open=i<=d;
-    h+=`<div class="panel step"><div><b>Шаг ${i+1}. ${i===0?'Узнаём форму':'Строим сами'}</b><div class="small muted">${ids.length} ${plural(ids.length,'задание','задания','заданий')}${done?' · пройден':''}</div></div>
+    h+=`<div class="panel step"><div><b>Шаг ${i+1}. ${['Узнаём форму','Строим сами','Закрепляем вперемешку'][i]}</b><div class="small muted">${ids.length} ${plural(ids.length,'задание','задания','заданий')}${i===2&&u.n>1?' + несколько из прошлых тем':''}${done?' · пройден':''}</div></div>
       <button class="btn ${done?'':'primary'}" data-step="${i}" ${open?'':'disabled'}>${done?'Ещё раз':open?'Начать':'Закрыт'}</button></div>`;
   });
+  if(u.fw)h+=`<span class="task">Свободное письмо · в прогресс не идёт</span>
+    <div class="panel"><div>${esc(u.fw[S.lang]||u.fw.ru)}</div>
+    <textarea class="inp" id="fw" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Пиши по-английски, своими словами">${esc((S.free[u.id]||{}).t||'')}</textarea>
+    <div class="small muted">Сохраняется само. Здесь нет автопроверки: текст можно выгрузить на разбор в «Статистике».</div></div>`;
   $('#view').innerHTML=h;
   document.querySelectorAll('.seg [data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render()});
-  document.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>startSession({kind:'step',unit:u.id,step:+b.dataset.step,q:u.steps[+b.dataset.step]}));
+  document.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.step;let q=u.steps[i];
+    if(i===2){ /* interleaving: mix in the weakest items already met in earlier topics */
+      const prev=shuffle(UNITS.slice(0,u.n-1).flatMap(x=>x.list.map(y=>y.id)).filter(id=>S.items[id]))
+        .sort((a,b)=>(S.items[b].w-S.items[b].r)-(S.items[a].w-S.items[a].r)).slice(0,4);
+      q=shuffle(q.concat(prev));
+    }
+    startSession({kind:'step',unit:u.id,step:i,q})});
+  const fw=$('#fw');if(fw)fw.oninput=()=>{const t=fw.value;if(t.trim())S.free[u.id]={t,at:dayKey()};else delete S.free[u.id];save()};
 }
 
 function renderReview(){
@@ -821,7 +972,28 @@ function renderStats(){
     <div class="dlab">${ds.map(d=>`<span>${+d.k.slice(8)}</span>`).join('')}</div></div>`;
   const rows=UNITS.map(u=>{let r=0,w=0;u.list.forEach(it=>{const x=S.items[it.id];if(x){r+=x.r||0;w+=x.w||0}});return {u,r,w,p:r+w?r/(r+w):null}}).filter(x=>x.p!=null).sort((a,b)=>a.p-b.p);
   h+=`<div class="panel"><h2>Точность по темам</h2>${rows.length?'<div class="small muted">Сверху — темы, где ошибок больше всего.</div>'+rows.map(x=>`<div class="urow"><span>${x.u.n}. ${esc(x.u.ru)}</span><b>${Math.round(100*x.p)}%</b><div class="bar"><i style="width:${Math.round(100*x.p)}%"></i></div></div>`).join(''):'<div class="muted">Появится после первых ответов.</div>'}</div>`;
+  const nf=Object.keys(S.free).filter(id=>UNIT(id)).length,nl=S.log.filter(x=>ITEMS.has(x.id)).length;
+  h+=`<div class="panel"><h2>Выгрузка на проверку</h2><div class="small muted">Собирает одним текстом свободное письмо (${nf} ${plural(nf,'тема','темы','тем')}) и последние ошибки в упражнениях (${nl}). Отправь его Claude — он разберёт ошибки. ${S.exp?'Последняя выгрузка: '+S.exp+'.':'Удобный ритм — раз в неделю.'}</div>
+    <button class="btn primary" id="expBtn" ${nf||nl?'':'disabled'}>Выгрузить</button><div id="expOut"></div></div>`;
   $('#view').innerHTML=h;
+  $('#expBtn').onclick=doExport;
+}
+function exportText(){
+  let t='Грамматика: выгрузка на проверку, '+dayKey()+'\n\nПроверь, пожалуйста, мои тексты: исправь ошибки и коротко объясни каждую. Потом посмотри список ошибок из упражнений и скажи, какие правила мне стоит повторить.\n';
+  const fr=UNITS.filter(u=>S.free[u.id]);
+  if(fr.length){t+='\n=== Свободное письмо ===\n';fr.forEach(u=>{t+='\n'+u.n+'. '+u.en+' ('+S.free[u.id].at+')\nЗадание: '+(u.fw?u.fw.ru:'')+'\nМой текст:\n'+S.free[u.id].t.trim()+'\n'})}
+  const lg=S.log.filter(x=>ITEMS.has(x.id)).slice(-60);
+  if(lg.length){t+='\n=== Ошибки в упражнениях ===\n';lg.forEach(x=>{const it=ITEMS.get(x.id);t+='\n['+UNIT(it.u).en+'] '+(it.t==='dict'?'(диктант)':it.q)+'\n  мой ответ: '+(x.g||'—')+'\n  верно: '+it.ans[0]+'\n'})}
+  return t;
+}
+function doExport(){
+  const t=exportText();S.exp=dayKey();save();
+  $('#expOut').innerHTML='<textarea class="inp out" readonly></textarea><div class="row"><button class="btn" id="cpBtn">Скопировать</button><span class="small muted" id="cpNote"></span></div>';
+  const ta=$('#expOut textarea');ta.value=t;
+  const copy=()=>{const ok=()=>{$('#cpNote').textContent='Скопировано — вставь в чат с Claude.'},fail=()=>{ta.focus();ta.select();try{document.execCommand('copy')?ok():($('#cpNote').textContent='Выдели текст и скопируй вручную.')}catch(e){$('#cpNote').textContent='Выдели текст и скопируй вручную.'}};
+    try{navigator.clipboard.writeText(t).then(ok,fail)}catch(e){fail()}};
+  $('#cpBtn').onclick=copy;
+  if(MH)post('share',{filename:'grammar-'+dayKey()+'.txt',data:t});else copy();
 }
 
 function renderSettings(){
@@ -831,11 +1003,11 @@ function renderSettings(){
     <div class="field"><span>Цель на день, ответов</span><select id="goal">${[10,20,30,50].map(g=>`<option ${g===S.goal?'selected':''}>${g}</option>`).join('')}</select></div>
     <div class="field"><span>Озвучивать правильный ответ</span><span class="seg"><button data-s="1" aria-pressed="${!!S.sound}">Да</button><button data-s="0" aria-pressed="${!S.sound}">Нет</button></span></div></div>
     <div class="panel"><h2>Проверка ответов</h2><div class="small muted">Регистр и знаки препинания не учитываются. Сокращения равны полной форме: don't = do not, I'm = I am. Одна опечатка в длинном слове прощается с пометкой, но не там, где одна буква и есть грамматика: play / plays, окончания -s, -ed, -ing.</div></div>
-    <div class="panel"><h2>Сброс</h2><div class="small muted">Удаляет весь прогресс грамматики. Слова и тексты Лексики не затрагиваются.</div><button class="btn danger" id="reset">Сбросить прогресс</button></div>`;
+    <div class="panel"><h2>Сброс</h2><div class="small muted">Удаляет прогресс и статистику грамматики. Тексты свободного письма, а также слова и тексты Лексики остаются.</div><button class="btn danger" id="reset">Сбросить прогресс</button></div>`;
   document.querySelectorAll('.seg [data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render()});
   document.querySelectorAll('.seg [data-s]').forEach(b=>b.onclick=()=>{S.sound=b.dataset.s==='1';save();render()});
   $('#goal').onchange=e=>{S.goal=+e.target.value;save()};
-  $('#reset').onclick=e=>{const b=e.currentTarget;if(b.dataset.arm){S.items={};S.steps={};S.days={};saveNow();go('course')}else{b.dataset.arm=1;b.textContent='Нажми ещё раз, чтобы удалить всё'}};
+  $('#reset').onclick=e=>{const b=e.currentTarget;if(b.dataset.arm){S.items={};S.steps={};S.days={};S.log=[];saveNow();go('course')}else{b.dataset.arm=1;b.textContent='Нажми ещё раз, чтобы удалить всё'}};
 }
 
 /* ================= sessions ================= */
@@ -860,10 +1032,10 @@ function renderSession(){
   if(s.i>=s.q.length)return renderSummary();
   const it=ITEMS.get(s.q[s.i]),rec=S.items[it.id];
   /* in review, a multiple-choice gap that was already answered right once becomes a typed gap */
-  let mode=it.t;if(mode==='mc'&&s.kind!=='step'&&it.q.includes('___')&&rec&&rec.b>=1&&canon(it.ans[0]).split(' ').every(w=>AUX.has(w)))mode='gap';
+  let mode=it.t;if(mode==='mc'&&(s.kind!=='step'||it.u!==s.unit)&&it.q.includes('___')&&rec&&rec.b>=1&&canon(it.ans[0]).split(' ').every(w=>AUX.has(w)))mode='gap';
   s.state={it,mode,shown:Date.now(),pick:null,tiles:null,line:[],done:false};
   let h=`<div class="sess-top"><button class="icon-btn" id="quit" aria-label="Закрыть">${CLOSE}</button><div class="bar"><i style="width:${Math.round(100*s.i/s.q.length)}%"></i></div><span class="small muted">${s.i+1} / ${s.q.length}</span></div>
-    <div class="task">${TASK[mode]}${s.kind!=='step'?' · '+esc(UNIT(it.u).ru):''}</div>`;
+    <div class="task">${TASK[mode]}${s.kind!=='step'||it.u!==s.unit?' · '+esc(UNIT(it.u).ru):''}</div>`;
   const input=`<input class="inp" id="ans" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" placeholder="Ответ по-английски">`;
   if(mode==='mc')h+=`<div class="q">${esc(it.q).replace('___','<span class="blank"></span>')}</div><div class="opts">${shuffle(it.o.map((o,i)=>i)).map(i=>`<button class="opt" data-i="${i}" aria-pressed="false">${esc(it.o[i])}</button>`).join('')}</div>`;
   else if(mode==='gap')h+=`<div class="q">${esc(it.q).replace('___','<span class="blank"></span>')}</div>${input}`;
@@ -887,7 +1059,7 @@ function renderSession(){
     document.querySelectorAll('#bank .tile').forEach(b=>b.onclick=()=>{if(s.state.done)return;s.state.line.push(+b.dataset.i);paint()});paint();
   }
   const inp=$('#ans');
-  if(inp){inp.oninput=()=>{cb.disabled=!inp.value.trim()};inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();if(s.state.done)next();else if(inp.value.trim())submit()}};if(!('ontouchstart' in window))inp.focus()}
+  if(inp){inp.oninput=()=>{cb.disabled=!inp.value.trim()};inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();if(!s.state.done&&inp.value.trim())submit()}};if(!('ontouchstart' in window))inp.focus()}
   if(mode==='dict'){$('#say').onclick=()=>speak(it.ans[0]);setTimeout(()=>speak(it.ans[0]),350)}
 }
 
@@ -898,18 +1070,19 @@ function submit(){
   else if(st.mode==='build'){given=st.line.map(i=>st.tiles[i]).join(' ');r=check(given,it.ans,true)}
   else{given=$('#ans').value;r=check(given,it.ans,it.strict)}
   st.done=true;st.given=given;st.r=r;
-  grade(it,r.res!=='bad',r.res==='typo');
+  const inp=$('#ans');if(inp)inp.blur();
+  grade(it,r.res!=='bad',r.res==='typo',given);
   showFeedback();
 }
 /* only the first attempt at an item within a session counts for intervals and statistics */
-function grade(it,ok,typo){
+function grade(it,ok,typo,given){
   const s=session,first=!s.tried.has(it.id);s.tried.add(it.id);
   if(!ok){s.again[it.id]=(s.again[it.id]||0)+1;if(s.again[it.id]<=2)s.q.push(it.id)}
   if(!first)return;
   ok?s.right++:s.wrong++;if(typo)s.typos++;
   const t=dayKey(),rec=S.items[it.id]||(S.items[it.id]={b:0,d:t,r:0,w:0}),wasDue=rec.d<=t||!(rec.r+rec.w);
   if(ok){rec.r++;if(wasDue){rec.b=Math.min(rec.b+1,IV.length-1);rec.d=addDays(IV[rec.b])}}
-  else{rec.w++;rec.b=0;rec.d=addDays(1)}
+  else{rec.w++;rec.b=0;rec.d=addDays(1);S.log.push({id:it.id,g:String(given||'').slice(0,120),at:t});if(S.log.length>150)S.log=S.log.slice(-150)}
   const d=dayRec();d.n++;if(ok)d.ok++;d.sec+=Math.min(90,Math.round((Date.now()-s.state.shown)/1000));
   s.state.rec={first:true};save();
 }
@@ -935,10 +1108,11 @@ function showFeedback(){
 function override(){
   const s=session,it=s.state.it,rec=S.items[it.id];
   if(s.q[s.q.length-1]===it.id&&s.q.length>s.i+1)s.q.pop();
-  if(s.state.rec&&rec){s.wrong--;s.right++;rec.w=Math.max(0,rec.w-1);rec.r++;rec.b=1;rec.d=addDays(IV[1]);dayRec().ok++;save()}
+  if(s.state.rec&&rec){const li=S.log.length-1;if(li>=0&&S.log[li].id===it.id)S.log.pop();s.wrong--;s.right++;rec.w=Math.max(0,rec.w-1);rec.r++;rec.b=1;rec.d=addDays(IV[1]);dayRec().ok++;save()}
   s.state.r={res:'ok'};const f=$('#foot');f.className='foot ok';f.querySelector('.verdict').textContent='Засчитано';$('#mine').remove();
 }
-function next(){session.i++;render();scrollTo(0,0)}
+/* a double tap on «Дальше» must not skip a question */
+function next(){const st=session.state;if(!st||st.left)return;st.left=true;session.i++;render();scrollTo(0,0)}
 
 function renderSummary(){
   const s=session,n=s.right+s.wrong,mins=Math.max(1,Math.round((Date.now()-s.t0)/60000));

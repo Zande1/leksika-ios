@@ -1146,7 +1146,8 @@ function renderCards(){
   const wordBlock=`<div class="row" style="justify-content:center"><div class="big">${word}</div><button class="icon-btn" id="cSpk" aria-label="Озвучить">${SPK}</button></div>`;
   const trBlock=`<div class="ans">${w.ipa?`<div class="sw-ipa">[${esc(w.ipa)}]</div>`:''}<div class="sw-tr">${esc(w.tr||'— перевод не добавлен')}</div>${w.note?`<div class="small muted">${esc(w.note)}</div>`:''}</div>`;
   const shown=c.answered!==null||c.revealed;
-  let front=ru?`<div class="big" style="font-family:var(--f-ui);font-size:24px">${esc(w.tr)}</div>`:wordBlock+ctxH;
+  const ctxFront=!ctxH||shown||c.ctxOpen?ctxH:`<button class="btn ghost sm" id="ctxShow">Показать предложение</button>`;
+  let front=ru?`<div class="big" style="font-family:var(--f-ui);font-size:24px">${esc(w.tr)}</div>`:wordBlock+ctxFront;
   let back=ru?`<hr>${wordBlock}${ctxH}`:(c.mode==='recall'?`<hr>${trBlock}`:'');
   let actions='';
   if(c.mode==='choice'){
@@ -1163,6 +1164,7 @@ function renderCards(){
     ${actions}
     <div class="row"><button class="btn ghost" id="quit">Закончить</button><span class="small muted">Уровень ${lv===5?'✓':lv+'/4'} · ${Math.min(done+1,total)} из ${total}</span>${c.answered===null&&!c.revealed?`<button class="btn ghost sm" id="knowIt" style="margin-left:auto">Знаю ✓</button>`:''}</div>`;
   $('#cSpk')&&($('#cSpk').onclick=()=>speak(w.w||w.k));
+  $('#ctxShow')&&($('#ctxShow').onclick=()=>{c.ctxOpen=true;renderCards()});
   $('#quit').onclick=()=>{session=null;renderView()};
   const answer=ok=>{
     if(Date.now()<gradeLock)return;gradeLock=Date.now()+300;
