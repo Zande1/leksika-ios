@@ -81,6 +81,14 @@ body.in-session nav.tabs{display:none}
 .unit .dots{display:flex;gap:4px}
 .unit .dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
 .unit .dots i.on{background:var(--accent)}
+.unit.test{border-style:dashed}
+.unit.test .num{border-radius:12px}
+.lvseg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr}
+.lvseg button{padding:10px 8px;font-size:14px}
+.lvseg button span{font-weight:600;opacity:.75;font-size:12px}
+.mist{border-top:1px solid var(--line);padding:10px 0;display:flex;flex-direction:column;gap:4px}
+.mist:first-of-type{border-top:0}
+.wrongtxt{color:var(--danger);font-family:var(--f-read);font-weight:600}
 .soon{font-size:13px;color:var(--muted);border:1px dashed var(--line);border-radius:var(--r);padding:12px 14px}
 
 /* theory */
@@ -1814,8 +1822,290 @@ const SECTIONS=[
  ['tr','Если ты поможешь мне, я помогу тебе.','If you help me, I will help you.|I will help you if you help me.','a'],
  ['dict','If you come early, we will have time for coffee.','b']],
  fw:{ru:"Напиши 5 предложений о своих планах с условием: что ты сделаешь, если что-то случится, и что сделаешь, когда что-то закончится.",en:"Write 5 sentences about your plans with a condition: what you will do if something happens and what you will do when something is over."}}
+]},
+{lv:'b',ru:'Времена подробнее',en:'Tenses in depth',units:[
+{id:'ppc',ru:'Делаю уже какое-то время',en:'Present Perfect Continuous: I have been doing',
+ th:{ru:`<p><b>Present Perfect Continuous</b> — действие началось в прошлом и продолжается до сих пор. Форма: <b>have / has been + глагол с -ing</b>.</p>
+<ul><li><span class="en">I have been learning English for two years.</span> — Я учу английский уже два года.</li><li><span class="en">It has been raining since morning.</span></li><li><span class="en">How long have you been waiting?</span></li></ul>
+<p>По-русски здесь настоящее время («учу», «жду»), поэтому частая ошибка — Present Continuous: <span class="bad">I am learning English for two years.</span> Если сказано, сколько времени длится действие (for, since, how long), нужен Perfect.</p>
+<p>Второе значение: действие только что закончилось, и виден его результат.</p>
+<ul><li><span class="en">You look tired.</span> — <span class="en">I have been running.</span></li></ul>
+<p>Глаголы состояния (know, like, want, be, have в значении «иметь») в Continuous не ставятся — для них обычный Present Perfect: <span class="en">I have known him for ten years.</span> <span class="bad">I have been knowing</span></p>`,
+ en:`<p><b>Present Perfect Continuous</b>: an action started in the past and is still going on. Form: <b>have / has been + verb-ing</b>.</p>
+<ul><li><span class="en">I have been learning English for two years.</span></li><li><span class="en">It has been raining since morning.</span></li><li><span class="en">How long have you been waiting?</span></li></ul>
+<p>A common mistake is the Present Continuous: <span class="bad">I am learning English for two years.</span> When you say how long (for, since, how long), use the Perfect.</p>
+<p>Second use: the action has just stopped and you can see the result.</p>
+<ul><li><span class="en">You look tired.</span> — <span class="en">I have been running.</span></li></ul>
+<p>State verbs (know, like, want, be, have = own) are not used in the Continuous; use the Present Perfect: <span class="en">I have known him for ten years.</span> <span class="bad">I have been knowing</span></p>`},
+ rules:{a:{ru:'have / has been + глагол с -ing.',en:'have / has been + verb-ing.'},
+  b:{ru:'Действие началось раньше и всё ещё идёт (for, since, how long) → Perfect Continuous, а не Present Continuous.',en:'Started earlier and still going on (for, since, how long) → Perfect Continuous, not Present Continuous.'},
+  c:{ru:'Действие только что закончилось, и виден результат.',en:'The action has just stopped and the result is visible.'},
+  d:{ru:'know, like, want, be, have («иметь») — без Continuous: I have known.',en:'know, like, want, be, have (own) take no Continuous: I have known.'}},
+ items:[
+ ['mc','I ___ English for two years.',['have been learning','am learning','learn'],0,'b'],
+ ['mc','She ___ all morning.',['has been working','have been working','is been working'],0,'a'],
+ ['mc','How long ___ you been waiting?',['have','are','do'],0,'a'],
+ ['mc','Your eyes are red. ___ you been crying?',['Have','Are','Did'],0,'c'],
+ ['mc','I ___ him for ten years.',['have known','have been knowing','am knowing'],0,'d'],
+ ['mc','It ___ since morning.',['has been raining','is raining','rains'],0,'b'],
+ ['gap','We ___ for an hour. (wait)','have been waiting','a'],
+ ['gap','He ___ here since 2020. (live)','has been living|has lived','b'],
+ ['gap','How long ___ English? (you / learn)','have you been learning','b'],
+ ['gap','I am tired. I ___ all day. (work)','have been working','c'],
+ ['build','Я жду тебя уже час.','I have been waiting for you for an hour.','b',['am']],
+ ['tr','Как давно ты здесь работаешь?','How long have you been working here?|How long have you worked here?','b'],
+ '|',
+ ['mc',"They ___ tennis since two o'clock.",['have been playing','are playing','play'],0,'b'],
+ ['gap','She ___ that car for years. (have)','has had','d'],
+ ['gap','What ___? You are all wet! (you / do)','have you been doing','c'],
+ ['gap','I ___ this book for a week. (read)','have been reading','b'],
+ ['fix','I am living here for five years.','I have been living here for five years.|I have lived here for five years.','b'],
+ ['fix','She has been knowing him since school.','She has known him since school.','d'],
+ ['tr','Весь день идёт дождь.','It has been raining all day.','b'],
+ ['dict','I have been studying English for two years.','a']],
+ fw:{ru:"Напиши 5 предложений о том, чем ты занимаешься уже какое-то время: работа, учёба, хобби. Используй for и since.",en:"Write 5 sentences about things you have been doing for some time: work, studies, hobbies. Use for and since."}},
+
+{id:'forsince',ru:'Как долго и когда: for, since, ago',en:'for, since, ago',
+ th:{ru:`<p>Три слова, которые легко перепутать.</p>
+<table><tr><th>for</th><th>since</th><th>ago</th></tr>
+<tr><td>период: сколько длится</td><td>момент начала</td><td>сколько времени назад</td></tr>
+<tr><td>Present Perfect</td><td>Present Perfect</td><td>Past Simple</td></tr>
+<tr><td><span class="en">for two years</span><br><span class="en">for a long time</span></td><td><span class="en">since 2020</span><br><span class="en">since Monday</span></td><td><span class="en">two years ago</span></td></tr></table>
+<ul><li><span class="en">I have lived here for ten years.</span> — живу и сейчас.</li><li><span class="en">I have lived here since 2016.</span></li><li><span class="en">I moved here ten years ago.</span> — событие в прошлом.</li></ul>
+<p>После since может стоять целое предложение: <span class="en">I have known her since I was a child.</span></p>
+<p>Вопросы: <b>How long…?</b> — Present Perfect, <b>When…?</b> — Past Simple.</p>
+<ul><li><span class="en">How long have you been married?</span></li><li><span class="en">When did you get married?</span></li></ul>`,
+ en:`<p>Three words that are easy to confuse.</p>
+<table><tr><th>for</th><th>since</th><th>ago</th></tr>
+<tr><td>a period: how long</td><td>the starting point</td><td>how long before now</td></tr>
+<tr><td>Present Perfect</td><td>Present Perfect</td><td>Past Simple</td></tr>
+<tr><td><span class="en">for two years</span><br><span class="en">for a long time</span></td><td><span class="en">since 2020</span><br><span class="en">since Monday</span></td><td><span class="en">two years ago</span></td></tr></table>
+<ul><li><span class="en">I have lived here for ten years.</span></li><li><span class="en">I have lived here since 2016.</span></li><li><span class="en">I moved here ten years ago.</span></li></ul>
+<p>since can be followed by a clause: <span class="en">I have known her since I was a child.</span></p>
+<p>Questions: <b>How long…?</b> takes the Present Perfect, <b>When…?</b> the Past Simple.</p>
+<ul><li><span class="en">How long have you been married?</span></li><li><span class="en">When did you get married?</span></li></ul>`},
+ rules:{a:{ru:'for + период: for two years, for a long time.',en:'for + a period: for two years, for a long time.'},
+  b:{ru:'since + момент начала: since 2020, since Monday, since I was a child.',en:'since + a starting point: since 2020, since Monday, since I was a child.'},
+  c:{ru:'ago — с Past Simple: событие в прошлом.',en:'ago goes with the Past Simple: an event in the past.'},
+  d:{ru:'How long…? → Present Perfect. When…? → Past Simple.',en:'How long…? → Present Perfect. When…? → Past Simple.'}},
+ items:[
+ ['mc','I have lived here ___ ten years.',['for','since','ago'],0,'a'],
+ ['mc','She has worked here ___ 2019.',['since','for','ago'],0,'b'],
+ ['mc','We met three years ___.',['ago','for','since'],0,'c'],
+ ['mc','I have known her ___ I was a child.',['since','for','ago'],0,'b'],
+ ['mc','___ did you move here? — In 2020.',['When','How long','How much'],0,'d'],
+ ['mc','___ have you been married?',['How long','When','How long ago'],0,'d'],
+ ['gap','He has been ill ___ Monday.','since','b'],
+ ['gap','I have not seen him ___ a long time.','for','a'],
+ ['gap','They got married five years ___.','ago','c'],
+ ['gap','I ___ here two years ago. (come)','came','c'],
+ ['build','Я не видел её с прошлого года.','I have not seen her since last year.','b',['for']],
+ ['tr','Мы живём здесь три года.','We have lived here for three years.|We have been living here for three years.','a'],
+ '|',
+ ['mc','It has been raining ___ two hours.',['for','since','ago'],0,'a'],
+ ['gap','She has had this phone ___ her birthday.','since','b'],
+ ['gap','I ___ him since school. (know)','have known','b'],
+ ['gap','How long ago ___ you start learning English?','did','c'],
+ ['fix','I have lived here since five years.','I have lived here for five years.','a'],
+ ['fix','I have moved here two years ago.','I moved here two years ago.','c'],
+ ['tr','Когда ты купил эту машину?','When did you buy this car?','d'],
+ ['dict','I have known her since school but we met again a year ago.','b']],
+ fw:{ru:"Напиши о трёх вещах в своей жизни дважды: как долго это длится (for / since) и когда это началось (ago). Всего 6 предложений.",en:"Write about three things in your life twice: how long they have lasted (for / since) and when they started (ago). 6 sentences in total."}},
+
+{id:'pastperf',ru:'Предпрошедшее: что случилось раньше',en:'Past Perfect: I had done',
+ th:{ru:`<p><b>Past Perfect</b> показывает, что одно прошлое действие произошло раньше другого. Форма: <b>had + третья форма</b>, одинаково для всех лиц.</p>
+<ul><li><span class="en">When I arrived, the train had already left.</span> — сначала ушёл поезд, потом пришёл я.</li><li><span class="en">I wasn't hungry because I had eaten.</span></li></ul>
+<p>Сравни:</p>
+<table><tr><td><span class="en">When I arrived, they left.</span></td><td>я пришёл — и они ушли (после)</td></tr>
+<tr><td><span class="en">When I arrived, they had left.</span></td><td>к моему приходу их уже не было (до)</td></tr></table>
+<p>Отрицание и вопрос: <span class="en">They hadn't left.</span> <span class="en">Had you finished?</span></p>
+<p>Если события просто идут по порядку, Past Perfect не нужен: <span class="en">He got up, had a shower and left.</span></p>
+<p>Часто используется после said, told, knew, realised: <span class="en">She told me she had read the book.</span></p>`,
+ en:`<p><b>Past Perfect</b> shows that one past action happened before another. Form: <b>had + past participle</b>, the same for every person.</p>
+<ul><li><span class="en">When I arrived, the train had already left.</span></li><li><span class="en">I wasn't hungry because I had eaten.</span></li></ul>
+<p>Compare:</p>
+<table><tr><td><span class="en">When I arrived, they left.</span></td><td>I came, then they left (after)</td></tr>
+<tr><td><span class="en">When I arrived, they had left.</span></td><td>they were already gone (before)</td></tr></table>
+<p>Negative and question: <span class="en">They hadn't left.</span> <span class="en">Had you finished?</span></p>
+<p>When events simply follow each other, you don't need it: <span class="en">He got up, had a shower and left.</span></p>
+<p>It is common after said, told, knew, realised: <span class="en">She told me she had read the book.</span></p>`},
+ rules:{a:{ru:'had + третья форма, одинаково для всех лиц.',en:'had + past participle, the same for every person.'},
+  b:{ru:'Из двух прошлых действий более раннее — в Past Perfect.',en:'Of two past actions, the earlier one takes the Past Perfect.'},
+  c:{ru:"Отрицание: hadn't + третья форма. Вопрос: Had + подлежащее + третья форма.",en:"Negative: hadn't + participle. Question: Had + subject + participle."},
+  d:{ru:'События по порядку, одно за другим → достаточно Past Simple.',en:'Events in order, one after another → the Past Simple is enough.'}},
+ items:[
+ ['mc','When I arrived, the train ___.',['had already left','has already left','already leaves'],0,'b'],
+ ['mc','I was not hungry because I ___.',['had eaten','have eaten','eat'],0,'b'],
+ ['mc','She ___ never seen snow before that trip.',['had','has','was'],0,'a'],
+ ['mc','___ you finished before he came?',['Had','Have','Did'],0,'c'],
+ ['mc','He got up, ___ a shower and left.',['had','had had','has'],0,'d'],
+ ['mc','We could not get in because I ___ the keys.',['had lost','have lost','lose'],0,'b'],
+ ['gap','The film ___ when we got to the cinema. (start)','had started','b'],
+ ['gap','I recognised him. I ___ him before. (see)','had seen','b'],
+ ['gap','They ___ when I called. (not / leave)','had not left','c'],
+ ['gap','After she ___ dinner, she went to bed. (have)','had had|had','b'],
+ ['build','Когда я пришёл, они уже ушли.','When I came they had already left.','b',['have']],
+ ['tr','Я никогда раньше не был там.','I had never been there before.','a'],
+ '|',
+ ['mc','She told me she ___ the book.',['had read','has read','reads'],0,'b'],
+ ['gap','By the time we arrived, everyone ___ home. (go)','had gone','b'],
+ ['gap','___ he ever driven a car before that day?','Had','c'],
+ ['gap','I was late because I ___ the bus. (miss)','had missed','b'],
+ ['fix','When I got home, my wife has cooked dinner.','When I got home, my wife had cooked dinner.','b'],
+ ['fix','He had went home before I arrived.','He had gone home before I arrived.','a'],
+ ['tr','Он сказал, что уже видел этот фильм.','He said that he had already seen this film.|He said he had already seen this film.|He said that he had already seen this movie.|He said he had already seen this movie.|He said that he had already seen that film.|He said he had already seen that film.','b'],
+ ['dict','When we got to the station the train had already left.','b']],
+ fw:{ru:"Расскажи историю, где что-то пошло не так, потому что что-то уже случилось раньше: опоздал, а все уже ушли; пришёл, а магазин уже закрылся. 5–6 предложений.",en:"Tell a story where something went wrong because something had already happened: you were late and everyone had left; you arrived and the shop had closed. 5–6 sentences."}},
+
+{id:'usedto',ru:'Раньше делал, а теперь нет',en:'used to',
+ th:{ru:`<p><b>used to + глагол</b> — привычка или состояние в прошлом, которых больше нет. По-русски это «раньше».</p>
+<ul><li><span class="en">I used to smoke.</span> — Раньше я курил (сейчас нет).</li><li><span class="en">She used to live in London.</span></li><li><span class="en">There used to be a cinema here.</span></li></ul>
+<p>Отрицание и вопрос — с did, и тогда <b>use</b> без -d:</p>
+<ul><li><span class="en">I didn't use to like coffee.</span></li><li><span class="en">Did you use to play football?</span></li></ul>
+<p>used to — только о прошлом. Для привычек в настоящем — Present Simple и usually: <span class="en">Now I usually get up at six.</span></p>
+<p>Для одного события used to не подходит, нужен Past Simple: <span class="en">I went to Paris in 2019.</span> <span class="bad">I used to go to Paris in 2019.</span></p>`,
+ en:`<p><b>used to + verb</b>: a past habit or state that is no longer true.</p>
+<ul><li><span class="en">I used to smoke.</span> (I don't now.)</li><li><span class="en">She used to live in London.</span></li><li><span class="en">There used to be a cinema here.</span></li></ul>
+<p>Negatives and questions take did, and then it is <b>use</b> without -d:</p>
+<ul><li><span class="en">I didn't use to like coffee.</span></li><li><span class="en">Did you use to play football?</span></li></ul>
+<p>used to is only about the past. For present habits use the Present Simple and usually: <span class="en">Now I usually get up at six.</span></p>
+<p>For a single event use the Past Simple: <span class="en">I went to Paris in 2019.</span> <span class="bad">I used to go to Paris in 2019.</span></p>`},
+ rules:{a:{ru:'used to + первая форма: привычка или состояние в прошлом, которых больше нет.',en:'used to + base form: a past habit or state that is no longer true.'},
+  b:{ru:"С did — use без -d: didn't use to, Did you use to…?",en:"With did it is use without -d: didn't use to, Did you use to…?"},
+  c:{ru:'Одно событие в прошлом → Past Simple, не used to.',en:'A single past event → Past Simple, not used to.'},
+  d:{ru:'Привычка в настоящем → Present Simple + usually.',en:'A present habit → Present Simple + usually.'}},
+ items:[
+ ['mc','I ___ smoke, but I stopped.',['used to','use to','am used'],0,'a'],
+ ['mc','She used to ___ in London.',['live','lived','living'],0,'a'],
+ ['mc','I ___ like vegetables when I was a child. (not)',["didn't use to","didn't used","not used to"],0,'b'],
+ ['mc','___ you use to play football?',['Did','Do','Were'],0,'b'],
+ ['mc','I ___ to Paris in 2019.',['went','used to go','use to go'],0,'c'],
+ ['mc','Now I ___ get up at six.',['usually','used to','use to'],0,'d'],
+ ['gap','We ___ to have a dog.','used','a'],
+ ['gap','He used to ___ long hair. (have)','have','a'],
+ ['gap','Did she ___ to work here?','use','b'],
+ ['gap','There ___ to be a cinema here.','used','a'],
+ ['build','Раньше я много читал.','I used to read a lot.','a',['use']],
+ ['tr','Раньше я не любил кофе.','I did not use to like coffee.|I never used to like coffee.','b'],
+ '|',
+ ['mc','People ___ write letters; now they send messages.',['used to','use to','are used'],0,'a'],
+ ['gap','I ___ use to eat fish, but now I love it. (not)','did not','b'],
+ ['gap','Where did you ___ to live?','use','b'],
+ ['gap','She ___ me yesterday. (call)','called','c'],
+ ['fix','I use to play tennis when I was young.','I used to play tennis when I was young.','a'],
+ ['fix','Did you used to live here?','Did you use to live here?','b'],
+ ['tr','Раньше здесь был парк.','There used to be a park here.','a'],
+ ['dict','I used to work at night but now I work during the day.','a']],
+ fw:{ru:"Сравни свою жизнь пять или десять лет назад и сейчас: что ты делал раньше и чего не делал. 5 предложений с used to и didn't use to.",en:"Compare your life five or ten years ago with now: what you used to do and what you didn't use to do. 5 sentences."}}
+]},
+{lv:'b',ru:'Условия и косвенная речь',en:'Conditions and reporting',units:[
+{id:'if2',ru:'Нереальное условие: если бы',en:'Second conditional: If I had…, I would…',
+ th:{ru:`<p>Второй тип условных — воображаемая ситуация в настоящем или будущем: «если бы».</p>
+<table><tr><th>часть с if</th><th>главная часть</th></tr>
+<tr><td>Past Simple</td><td>would + глагол</td></tr>
+<tr><td><span class="en">If I had more money,</span></td><td><span class="en">I would travel.</span></td></tr>
+<tr><td><span class="en">If I won the lottery,</span></td><td><span class="en">I would buy a house.</span></td></tr></table>
+<p>Прошедшее время здесь не про прошлое: оно показывает, что ситуация нереальна.</p>
+<p>После if не ставится would: <span class="bad">If I would have a car, …</span></p>
+<p>С глаголом be принято <b>were</b> для всех лиц, особенно в совете: <span class="en">If I were you, I would talk to her.</span></p>
+<p>Сравни с первым типом:</p>
+<ul><li><span class="en">If it rains, I will stay at home.</span> — это вполне может случиться.</li><li><span class="en">If I lived in Spain, I would go to the beach every day.</span> — я там не живу, это мечта.</li></ul>`,
+ en:`<p>The second conditional describes an imaginary situation in the present or future.</p>
+<table><tr><th>the if part</th><th>the main part</th></tr>
+<tr><td>Past Simple</td><td>would + verb</td></tr>
+<tr><td><span class="en">If I had more money,</span></td><td><span class="en">I would travel.</span></td></tr>
+<tr><td><span class="en">If I won the lottery,</span></td><td><span class="en">I would buy a house.</span></td></tr></table>
+<p>The past tense here is not about the past: it shows the situation is unreal.</p>
+<p>No would after if: <span class="bad">If I would have a car, …</span></p>
+<p>With be we normally use <b>were</b> for every person, especially for advice: <span class="en">If I were you, I would talk to her.</span></p>
+<p>Compare with the first conditional:</p>
+<ul><li><span class="en">If it rains, I will stay at home.</span> — a real possibility.</li><li><span class="en">If I lived in Spain, I would go to the beach every day.</span> — imaginary.</li></ul>`},
+ rules:{a:{ru:'if + Past Simple, would + первая форма: воображаемая ситуация.',en:'if + Past Simple, would + base form: an imaginary situation.'},
+  b:{ru:'После if не ставится would: If I had, а не If I would have.',en:'No would after if: If I had, not If I would have.'},
+  c:{ru:'С be — were для всех лиц: If I were you…',en:'With be use were for every person: If I were you…'},
+  d:{ru:'Реальная возможность → первый тип (if + настоящее, will).',en:'A real possibility → first conditional (if + present, will).'}},
+ items:[
+ ['mc','If I ___ more money, I would travel.',['had','have','would have'],0,'a'],
+ ['mc','If I won the lottery, I ___ a house.',['would buy','will buy','bought'],0,'a'],
+ ['mc','If I ___ you, I would talk to her.',['were','am','would be'],0,'c'],
+ ['mc','What ___ you do if you lost your job?',['would','will','did'],0,'a'],
+ ['mc','If she ___ here, she would help us.',['were','is','would be'],0,'b'],
+ ['mc','The forecast is good: if it ___ sunny tomorrow, we will go to the beach.',['is','was','would be'],0,'d'],
+ ['gap','If I ___ his number, I would call him. (know)','knew','a'],
+ ['gap','We ___ a car if we had enough money. (buy)','would buy','a'],
+ ['gap','If I ___ you, I would not do that.','were','c'],
+ ['gap','If he ___ harder, he would pass. (work)','worked','a'],
+ ['build','Если бы у меня было время, я бы помог тебе.','If I had time I would help you.','a',['have']],
+ ['tr','Что бы ты сделал на моём месте?','What would you do if you were me?|What would you do in my place?|What would you do if you were in my place?','c'],
+ '|',
+ ['mc','She would be happier if she ___ a different job.',['had','has','would have'],0,'b'],
+ ['gap','I ___ live in the city if I could choose. (not)','would not','a'],
+ ['gap','If we ___ in Spain, we would go to the beach every day. (live)','lived','a'],
+ ['gap','Where ___ you live if you could live anywhere?','would','a'],
+ ['fix','If I would have a car, I would drive to work.','If I had a car, I would drive to work.','b'],
+ ['fix','If I was rich, I will buy a boat.','If I were rich, I would buy a boat.|If I was rich, I would buy a boat.','a'],
+ ['tr','Если бы я был тобой, я бы остался.','If I were you, I would stay.','c'],
+ ['dict','If I had more free time I would learn to play the guitar.','a']],
+ fw:{ru:"Представь, что у тебя есть год свободного времени и неограниченные деньги. Что бы ты сделал? 5–6 предложений с if и would.",en:"Imagine you had a free year and unlimited money. What would you do? 5–6 sentences with if and would."}},
+
+{id:'reported',ru:'Косвенная речь: он сказал, что…',en:'Reported speech: he said that…',
+ th:{ru:`<p>Когда мы пересказываем чужие слова после said / told, время в английском <b>сдвигается назад</b>.</p>
+<table><tr><th>прямая речь</th><th>косвенная речь</th></tr>
+<tr><td>am / is / are</td><td>was / were</td></tr>
+<tr><td>do / work</td><td>did / worked</td></tr>
+<tr><td>will</td><td>would</td></tr>
+<tr><td>can</td><td>could</td></tr>
+<tr><td>have done, did</td><td>had done</td></tr></table>
+<ul><li>"I am tired." → <span class="en">He said he was tired.</span></li><li>"I will call you." → <span class="en">She said she would call me.</span></li></ul>
+<p>По-русски время не меняется («он сказал, что <b>устал</b>»), поэтому сдвиг легко забыть.</p>
+<p><b>say</b> и <b>tell</b>: после tell обязательно «кому».</p>
+<ul><li><span class="en">He said that he was busy.</span></li><li><span class="en">He told me that he was busy.</span> <span class="bad">He said me</span></li></ul>
+<p>Местоимения меняются по смыслу: "I like <b>my</b> job." → Tom said he liked <b>his</b> job.</p>
+<p><b>Вопросы</b>: ask + if или вопросительное слово, дальше прямой порядок слов без do / did:</p>
+<ul><li>"Where do you live?" → <span class="en">She asked where I lived.</span></li><li>"Are you ready?" → <span class="en">He asked if I was ready.</span></li></ul>`,
+ en:`<p>When we report what someone said after said / told, the tense <b>moves back</b>.</p>
+<table><tr><th>direct speech</th><th>reported speech</th></tr>
+<tr><td>am / is / are</td><td>was / were</td></tr>
+<tr><td>do / work</td><td>did / worked</td></tr>
+<tr><td>will</td><td>would</td></tr>
+<tr><td>can</td><td>could</td></tr>
+<tr><td>have done, did</td><td>had done</td></tr></table>
+<ul><li>"I am tired." → <span class="en">He said he was tired.</span></li><li>"I will call you." → <span class="en">She said she would call me.</span></li></ul>
+<p><b>say</b> and <b>tell</b>: tell needs a person after it.</p>
+<ul><li><span class="en">He said that he was busy.</span></li><li><span class="en">He told me that he was busy.</span> <span class="bad">He said me</span></li></ul>
+<p>Pronouns change to fit: "I like <b>my</b> job." → Tom said he liked <b>his</b> job.</p>
+<p><b>Questions</b>: ask + if or a question word, then statement word order with no do / did:</p>
+<ul><li>"Where do you live?" → <span class="en">She asked where I lived.</span></li><li>"Are you ready?" → <span class="en">He asked if I was ready.</span></li></ul>`},
+ rules:{a:{ru:'Время сдвигается назад: is → was, do → did, will → would, can → could, have done → had done.',en:'The tense moves back: is → was, do → did, will → would, can → could, have done → had done.'},
+  b:{ru:'say (that)…; tell + кому: He told me…',en:'say (that)…; tell + person: He told me…'},
+  c:{ru:'Местоимения меняются по смыслу: I → he, my → his.',en:'Pronouns change to fit: I → he, my → his.'},
+  d:{ru:'Вопрос: ask + if / вопросительное слово + прямой порядок слов.',en:'Questions: ask + if / question word + statement word order.'}},
+ items:[
+ ['mc','"I am tired." → He said he ___ tired.',['was','is','am'],0,'a'],
+ ['mc','"I will call you." → She said she ___ call me.',['would','will','would to'],0,'a'],
+ ['mc','He ___ me that he was busy.',['told','said','spoke'],0,'b'],
+ ['mc','"I can swim." → She said she ___ swim.',['could','can','can to'],0,'a'],
+ ['mc','"Where do you live?" → He asked where I ___.',['lived','did live','do live'],0,'d'],
+ ['mc','"I like my job." → Tom said he liked ___ job.',['his','my','your'],0,'c'],
+ ['gap','"We are late." → They said they ___ late.','were','a'],
+ ['gap','"I do not know." → She said she ___ know.','did not','a'],
+ ['gap','She ___ that she was hungry. (say)','said','b'],
+ ['gap','"Are you ready?" → He asked ___ I was ready.','if|whether','d'],
+ ['build','Он сказал, что занят.','He said that he was busy.','a',['is']],
+ ['tr','Она сказала мне, что придёт.','She told me that she would come.|She told me she would come.','b'],
+ '|',
+ ['mc','"I have finished." → He said he ___ finished.',['had','has','have'],0,'a'],
+ ['gap','"I work in a bank." → She said she ___ in a bank.','worked','a'],
+ ['gap','He told ___ that he was leaving. (I)','me','b'],
+ ['gap','"What time is it?" → She asked what time it ___.','was','d'],
+ ['fix','He said me that he was tired.','He told me that he was tired.|He said that he was tired.|He told me he was tired.|He said he was tired.','b'],
+ ['fix','She asked where did I live.','She asked where I lived.','d'],
+ ['tr','Он спросил, как меня зовут.','He asked what my name was.|He asked me what my name was.','d'],
+ ['dict','She said that she could not come because she was ill.','a']],
+ fw:{ru:"Вспомни недавний разговор и перескажи его: кто что сказал и кто что спросил. 5–6 предложений с said, told, asked.",en:"Think of a recent conversation and report it: who said what and who asked what. 5–6 sentences with said, told, asked."}}
 ]}];
-const SOON=[];
+const SOON={a:[],b:['Modals of deduction: must be, might be, can\'t be (предположения)','Third conditional: If I had known… (нереальное прошлое)','Passive in other tenses (пассив в других временах)','Relative clauses: who, which, that (придаточные)','Gerund and infinitive in depth (герундий и инфинитив)','Future forms compared (сравнение будущих времён)','Articles in depth (артикли подробнее)','Phrasal verbs (фразовые глаголы)']};
+const LEVELS=[{id:'a',name:'Elementary',cefr:'A1–A2'},{id:'b',name:'Intermediate',cefr:'B1'}];
 
 /* ================= helpers ================= */
 const $=(s,r=document)=>r.querySelector(s);
@@ -1836,8 +2126,9 @@ function post(type,data){try{MH.postMessage({id:0,type,data})}catch(e){}}
 
 /* ================= model ================= */
 const UNITS=[];const ITEMS=new Map();
-SECTIONS.forEach((sec,si)=>sec.units.forEach(u=>{
-  u.sec=si;u.n=UNITS.length+1;
+const LVN={};
+SECTIONS.forEach((sec,si)=>{sec.lv=sec.lv||'a';sec.id=sec.lv+'-'+sec.en.toLowerCase().replace(/[^a-z]+/g,'-');sec.units.forEach(u=>{
+  u.sec=si;u.n=UNITS.length+1;u.lv=sec.lv;u.k=LVN[u.lv]=(LVN[u.lv]||0)+1;
   const n0=u.items.indexOf('|');
   u.list=u.items.filter(r=>r!=='|').map((r,i)=>{
     const strict=r[0].endsWith('!'),t=r[0].replace('!','');const it={id:u.id+'.'+i,u:u.id,t,strict};
@@ -1847,18 +2138,18 @@ SECTIONS.forEach((sec,si)=>sec.units.forEach(u=>{
     ITEMS.set(it.id,it);return it});
   const ids=u.list.map(x=>x.id),n=n0<0?ids.length:n0,half=Math.ceil(n/2);
   u.steps=[ids.slice(0,half),ids.slice(half,n)];if(n<ids.length)u.steps.push(ids.slice(n));
-  UNITS.push(u)}));
+  UNITS.push(u)})});
 const UNIT=id=>UNITS.find(u=>u.id===id);
 const TOTAL_STEPS=UNITS.reduce((s,u)=>s+u.steps.length,0);
 
 const IV=[1,1,3,7,16,35];       /* days until the next review, by box */
 const MASTER=3;                 /* box at which an item counts as learned */
-let S={v:1,lang:'ru',goal:20,sound:true,items:{},steps:{},days:{},free:{},log:[],exp:''};
+let S={v:1,lang:'ru',lv:'a',goal:20,sound:true,items:{},steps:{},days:{},free:{},log:[],exp:'',tests:{}};
 (function load(){
   let d=null;
   try{d=EMB?PARENT.__NATIVE_GRAMMAR:window.__NATIVE_GRAMMAR}catch(e){}
   if(!d||typeof d!=='object')d=LS.get('gr1',null);
-  if(d&&typeof d==='object'){S=Object.assign(S,d);S.items=S.items||{};S.steps=S.steps||{};S.days=S.days||{};S.free=S.free||{};S.log=Array.isArray(S.log)?S.log:[]}
+  if(d&&typeof d==='object'){S=Object.assign(S,d);S.items=S.items||{};S.steps=S.steps||{};S.days=S.days||{};S.free=S.free||{};S.log=Array.isArray(S.log)?S.log:[];S.tests=S.tests||{};if(!LEVELS.some(l=>l.id===S.lv))S.lv='a'}
 })();
 let saveT=0;
 function saveNow(){clearTimeout(saveT);saveT=0;LS.set('gr1',S);if(MH)post('saveGrammar',JSON.stringify(S));if(EMB)try{PARENT.__NATIVE_GRAMMAR=JSON.parse(JSON.stringify(S))}catch(e){}}
@@ -1877,9 +2168,11 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){flushAct()
 const fmtTime=sec=>{const m=Math.round((sec||0)/60);return m<60?m+' мин':Math.floor(m/60)+' ч '+(m%60)+' мин'};
 const stepsDone=u=>Math.min(S.steps[u.id]||0,u.steps.length);
 const unitDone=u=>stepsDone(u)>=u.steps.length;
-const unlocked=u=>u.n===1||unitDone(UNITS[u.n-2]);
+const unlocked=u=>u.k===1||unitDone(UNITS[u.n-2]);   /* the first topic of every level is always open */
 const unitMastered=u=>unitDone(u)&&u.list.every(it=>(S.items[it.id]||{}).b>=MASTER);
-const coursePct=()=>Math.round(100*UNITS.reduce((s,u)=>s+stepsDone(u),0)/TOTAL_STEPS);
+const lvUnits=lv=>UNITS.filter(u=>u.lv===lv);
+const coursePct=(lv=S.lv)=>{const us=lvUnits(lv);return Math.round(100*us.reduce((s,u)=>s+stepsDone(u),0)/Math.max(1,us.reduce((s,u)=>s+u.steps.length,0)))};
+const PASS=80;
 function dueIds(){const t=dayKey();return Object.keys(S.items).filter(id=>ITEMS.has(id)&&S.items[id].d<=t).sort((a,b)=>S.items[a].d<S.items[b].d?-1:1)}
 function streak(){let n=0,d=new Date();if(!(S.days[dayKey(d)]||{}).n)d.setDate(d.getDate()-1);while((S.days[dayKey(d)]||{}).n){n++;d.setDate(d.getDate()-1)}return n}
 function dayRec(){const k=dayKey();return S.days[k]||(S.days[k]={n:0,ok:0,sec:0})}
@@ -1984,32 +2277,43 @@ function renderCourse(){
   $('#title').textContent='Грамматика';
   const pct=coursePct(),st=streak(),day=S.days[dayKey()]||{n:0};
   $('#topActions').innerHTML=st?`<span class="chip">${st} ${plural(st,'день','дня','дней')} подряд</span>`:'';
-  const doneUnits=UNITS.filter(unitDone).length;
-  let h=`<div class="panel hero"><div><div class="muted small">Пройдено курса</div><div class="pct">${pct}%</div></div>
-    <div class="small muted" style="text-align:right">${doneUnits} из ${UNITS.length} тем<br>сегодня ${day.n} / ${S.goal}</div>
+  const mine=lvUnits(S.lv),doneUnits=mine.filter(unitDone).length,L=LEVELS.find(l=>l.id===S.lv);
+  let h=`<div class="seg lvseg" role="group" aria-label="Уровень">${LEVELS.map(l=>`<button data-lv="${l.id}" aria-pressed="${l.id===S.lv}">${l.name} <span>${l.cefr}</span></button>`).join('')}</div>
+    <div class="panel hero"><div><div class="muted small">Пройдено: ${L.name}</div><div class="pct">${pct}%</div></div>
+    <div class="small muted" style="text-align:right">${doneUnits} из ${mine.length} тем<br>сегодня ${day.n} / ${S.goal}</div>
     <div class="bar"><i style="width:${pct}%"></i></div></div>`;
   const due=dueIds().length;
   if(due)h+=`<button class="btn primary big" id="revBtn">Повторить: ${due} ${plural(due,'задание','задания','заданий')}</button>`;
-  SECTIONS.forEach(sec=>{
+  const testCard=(key,units,title,ru,n)=>{const open=units.every(unitDone),t=S.tests[key];
+    return `<button class="unit test ${t&&t.best>=PASS?'done':''} ${open?'':'locked'}" data-test="${key}" ${open?'':'disabled'}>
+      <span class="num">${t&&t.best>=PASS?'✓':'T'}</span><span><span class="tt">${title}</span><br><span class="ru">${esc(ru)}</span><br>
+      <span class="sub">${!open?'Откроется после всех тем':t?`Лучший результат ${t.best}% · последний ${t.last}% (${t.at})`:n+' вопросов без подсказок и объяснений'}</span></span><span></span></button>`};
+  SECTIONS.filter(sec=>sec.lv===S.lv).forEach(sec=>{
     h+=`<div class="sec-title">${esc(sec.en)} · ${esc(sec.ru)}</div>`;
     sec.units.forEach(u=>{
       const d=stepsDone(u),open=unlocked(u),m=unitMastered(u);
       const cu=curFor(u);
       const sub=cu?`Шаг ${cu.step+1} начат: сделано ${cu.i} из ${cu.q.length}`:!open?'Откроется после предыдущей темы':m?'Освоено':unitDone(u)?'Пройдено · закрепляется в повторении':d?`Шаг ${d} из ${u.steps.length} пройден`:'Теория и '+u.list.length+' '+plural(u.list.length,'задание','задания','заданий');
       h+=`<button class="unit ${unitDone(u)?'done':''} ${open?'':'locked'}" data-u="${u.id}" ${open?'':'disabled'}>
-        <span class="num">${unitDone(u)?'✓':u.n}</span><span><span class="tt">${esc(u.en)}</span><br><span class="ru">${esc(u.ru)}</span><br><span class="sub">${sub}</span></span>
+        <span class="num">${unitDone(u)?'✓':u.k}</span><span><span class="tt">${esc(u.en)}</span><br><span class="ru">${esc(u.ru)}</span><br><span class="sub">${sub}</span></span>
         <span class="dots">${u.steps.map((_,i)=>`<i class="${i<d?'on':''}"></i>`).join('')}</span></button>`;
     });
+    h+=testCard(sec.id,sec.units,'Section test','Тест раздела: '+sec.ru,Math.min(15,testPool(sec.units,15).length));
   });
-  h+=SOON.length?`<div class="sec-title">Дальше в курсе</div><div class="soon">${SOON.map(esc).join(' · ')}<br><br>Эти темы добавятся следующими.</div>`
-    :`<div class="soon">Это все темы уровня Elementary. После них грамматика закрепляется повторением, свободным письмом и чтением.</div>`;
+  const soon=SOON[S.lv]||[];
+  if(soon.length)h+=`<div class="sec-title">Дальше в курсе</div><div class="soon">${soon.map(esc).join(' · ')}<br><br>Уровень ${L.name} ещё дописывается: эти темы добавятся следующими.</div>`;
+  else{h+=`<div class="sec-title">Итог уровня</div>`+testCard('level-'+S.lv,mine,'Final test: '+L.name,'Итоговый тест уровня '+L.cefr,30)
+    +`<div class="soon">Это все темы уровня ${L.name}. Дальше грамматика закрепляется повторением, свободным письмом и чтением.</div>`}
   $('#view').innerHTML=h;
+  document.querySelectorAll('.lvseg [data-lv]').forEach(b=>b.onclick=()=>{S.lv=b.dataset.lv;save();render();scrollTo(0,0)});
+  document.querySelectorAll('.unit[data-test]').forEach(b=>b.onclick=()=>{const key=b.dataset.test,sec=SECTIONS.find(x=>x.id===key);
+    sec?startTest(key,sec.units,15,'Section test: '+sec.en):startTest(key,lvUnits(key.slice(6)),30,'Final test')});
   $('#revBtn')&&($('#revBtn').onclick=startReview);
   document.querySelectorAll('.unit[data-u]').forEach(b=>b.onclick=()=>go('unit',b.dataset.u));
 }
 
 function renderUnit(){
-  const u=UNIT(view.arg);$('#title').textContent=u.n+'. '+u.en;
+  const u=UNIT(view.arg);$('#title').textContent=u.k+'. '+u.en;
   const d=stepsDone(u);
   let h=`<div class="muted">${esc(u.ru)}</div><div class="row" style="justify-content:space-between"><span class="task">Теория</span>
     <span class="seg" role="group" aria-label="Язык теории"><button data-l="ru" aria-pressed="${S.lang==='ru'}">Русский</button><button data-l="en" aria-pressed="${S.lang==='en'}">English</button></span></div>
@@ -2064,7 +2368,7 @@ function renderStats(){
   const seen=Object.keys(S.items).filter(id=>ITEMS.has(id)),mast=seen.filter(id=>S.items[id].b>=MASTER).length;
   const day=S.days[dayKey()]||{n:0},st=streak();
   let h=`<div class="grid2">
-    <div class="stat"><div class="v">${coursePct()}%</div><div class="l">курса пройдено · осталось ${100-coursePct()}%</div></div>
+    <div class="stat"><div class="v">${coursePct()}%</div><div class="l">${LEVELS.find(l=>l.id===S.lv).name}: пройдено · осталось ${100-coursePct()}%</div></div>
     <div class="stat"><div class="v">${st}</div><div class="l">${plural(st,'день','дня','дней')} подряд</div></div>
     <div class="stat"><div class="v">${day.n} / ${S.goal}</div><div class="l">ответов сегодня</div></div>
     <div class="stat"><div class="v">${n?Math.round(100*ok/n)+'%':'—'}</div><div class="l">верных с первой попытки</div></div>
@@ -2077,8 +2381,10 @@ function renderStats(){
   const mx=Math.max(1,...ds.map(d=>d.n));
   h+=`<div class="panel"><h2>Ответы за 14 дней</h2><div class="days">${ds.map(d=>`<i class="${d.n?'':'zero'}" style="height:${d.n?Math.max(6,Math.round(100*d.n/mx)):2}%" title="${d.k}: ${d.n}"></i>`).join('')}</div>
     <div class="dlab">${ds.map(d=>`<span>${+d.k.slice(8)}</span>`).join('')}</div></div>`;
+  const taken=Object.keys(S.tests).map(k=>{const sec=SECTIONS.find(x=>x.id===k),lv=LEVELS.find(l=>'level-'+l.id===k);return (sec||lv)?{name:sec?'Section test: '+sec.en:'Final test: '+lv.name,t:S.tests[k]}:null}).filter(Boolean);
+  if(taken.length)h+=`<div class="panel"><h2>Тесты</h2>${taken.map(x=>`<div class="urow"><span>${esc(x.name)}<br><span class="small muted">попыток: ${x.t.n} · последняя ${x.t.at}: ${x.t.last}%</span></span><b>${x.t.best}%</b><div class="bar"><i style="width:${x.t.best}%"></i></div></div>`).join('')}<div class="small muted">Справа лучший результат. Зачёт от ${PASS}%.</div></div>`;
   const rows=UNITS.map(u=>{let r=0,w=0;u.list.forEach(it=>{const x=S.items[it.id];if(x){r+=x.r||0;w+=x.w||0}});return {u,r,w,p:r+w?r/(r+w):null}}).filter(x=>x.p!=null).sort((a,b)=>a.p-b.p);
-  h+=`<div class="panel"><h2>Точность по темам</h2>${rows.length?'<div class="small muted">Сверху — темы, где ошибок больше всего.</div>'+rows.map(x=>`<div class="urow"><span>${x.u.n}. ${esc(x.u.en)}<br><span class="small muted">${esc(x.u.ru)}</span></span><b>${Math.round(100*x.p)}%</b><div class="bar"><i style="width:${Math.round(100*x.p)}%"></i></div></div>`).join(''):'<div class="muted">Появится после первых ответов.</div>'}</div>`;
+  h+=`<div class="panel"><h2>Точность по темам</h2>${rows.length?'<div class="small muted">Сверху — темы, где ошибок больше всего.</div>'+rows.map(x=>`<div class="urow"><span>${esc(x.u.en)}<br><span class="small muted">${esc(x.u.ru)}</span></span><b>${Math.round(100*x.p)}%</b><div class="bar"><i style="width:${Math.round(100*x.p)}%"></i></div></div>`).join(''):'<div class="muted">Появится после первых ответов.</div>'}</div>`;
   const nf=Object.keys(S.free).filter(id=>UNIT(id)).length,nl=S.log.filter(x=>ITEMS.has(x.id)).length;
   h+=`<div class="panel"><h2>Выгрузка на проверку</h2><div class="small muted">Собирает одним текстом свободное письмо (${nf} ${plural(nf,'тема','темы','тем')}) и последние ошибки в упражнениях (${nl}). Отправь его Claude — он разберёт ошибки. ${S.exp?'Последняя выгрузка: '+S.exp+'.':'Удобный ритм — раз в неделю.'}</div>
     <button class="btn primary" id="expBtn" ${nf||nl?'':'disabled'}>Выгрузить</button><div id="expOut"></div></div>`;
@@ -2114,7 +2420,7 @@ function renderSettings(){
   document.querySelectorAll('.seg [data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render()});
   document.querySelectorAll('.seg [data-s]').forEach(b=>b.onclick=()=>{S.sound=b.dataset.s==='1';save();render()});
   $('#goal').onchange=e=>{S.goal=+e.target.value;save()};
-  $('#reset').onclick=e=>{const b=e.currentTarget;if(b.dataset.arm){pendAct=0;S.items={};S.steps={};S.days={};S.log=[];delete S.cur;saveNow();go('course')}else{b.dataset.arm=1;b.textContent='Нажми ещё раз, чтобы удалить всё'}};
+  $('#reset').onclick=e=>{const b=e.currentTarget;if(b.dataset.arm){pendAct=0;S.items={};S.steps={};S.days={};S.log=[];S.tests={};delete S.cur;saveNow();go('course')}else{b.dataset.arm=1;b.textContent='Нажми ещё раз, чтобы удалить всё'}};
 }
 
 /* ================= sessions ================= */
@@ -2130,6 +2436,40 @@ function startSession(o){
   session=Object.assign({i:0,q,total:q.length,right:0,wrong:0,typos:0,tried:new Set(),again:{},state:null,t0:Date.now()},o,{q});
   const r=o.resume;if(r){delete session.resume;Object.assign(session,{i:r.i,total:r.total||q.length,right:r.right||0,wrong:r.wrong||0,typos:r.typos||0,tried:new Set(r.tried||[]),again:r.again||{}})}
   render();scrollTo(0,0);
+}
+/* ---- tests: questions from the finished topics, no hints, no explanations until the end.
+   A wrong answer sends the item back to review; a right one does not move its interval. ---- */
+function testPool(units,n){
+  const per=Math.max(1,Math.ceil(n/units.length));let out=[];
+  units.forEach(u=>{out=out.concat(shuffle(u.list.filter(it=>it.t==='mc'||it.t==='gap'||it.t==='fix'||it.t==='tr').map(it=>it.id)).slice(0,per))});
+  return shuffle(out).slice(0,n);
+}
+function startTest(key,units,n,title){startSession({kind:'test',key,title,units:units.map(u=>u.id),res:[],q:testPool(units,n)})}
+function testAnswer(it,r,given){
+  const s=session,ok=r.res!=='bad',t=dayKey();
+  s.res.push({id:it.id,g:given,ok});ok?s.right++:s.wrong++;
+  const rec=S.items[it.id]||(S.items[it.id]={b:1,d:addDays(1),r:0,w:0});
+  if(ok)rec.r++;else{rec.w++;rec.b=0;rec.d=addDays(1);S.log.push({id:it.id,g:String(given||'').slice(0,120),at:t});if(S.log.length>150)S.log=S.log.slice(-150)}
+  const d=dayRec();d.n++;if(ok)d.ok++;d.sec+=Math.min(90,Math.round((Date.now()-s.state.shown)/1000));save();
+}
+function renderTestResult(){
+  const s=session,n=s.res.length,pct=n?Math.round(100*s.right/n):0,prev=S.tests[s.key]||{};
+  if(!s.saved){s.saved=true;S.tests[s.key]={best:Math.max(prev.best||0,pct),last:pct,at:dayKey(),n:(prev.n||0)+1};saveNow()}
+  const by=new Map();s.res.forEach(x=>{const u=UNIT(ITEMS.get(x.id).u),e=by.get(u.id)||{u,ok:0,n:0};e.n++;if(x.ok)e.ok++;by.set(u.id,e)});
+  const weak=[...by.values()].filter(e=>e.ok<e.n).sort((a,b)=>a.ok/a.n-b.ok/b.n);
+  const bad=s.res.filter(x=>!x.ok);
+  let h=`<div class="panel" style="text-align:center;padding:26px 16px"><div class="task">${esc(s.title)}</div>
+    <div style="font-size:44px;font-weight:800;letter-spacing:-.02em">${pct}%</div>
+    <div class="muted">верно ${s.right} из ${n}</div>
+    <div><b>${pct>=PASS?'Тест пройден: материал закреплён.':`До зачёта нужно ${PASS}%. Повтори слабые темы и попробуй ещё раз.`}</b></div></div>`;
+  if(weak.length)h+=`<div class="panel"><h2>Где были ошибки</h2>${weak.map(e=>`<div class="urow"><span>${esc(e.u.en)}<br><span class="small muted">${esc(e.u.ru)}</span></span><b>${e.ok} из ${e.n}</b></div>`).join('')}</div>`;
+  if(bad.length)h+=`<div class="panel"><h2>Разбор ошибок</h2>${bad.map(x=>{const it=ITEMS.get(x.id),u=UNIT(it.u),rule=u.rules[it.rule];
+    const right=(it.t==='mc'||it.t==='gap')&&it.q.includes('___')?fillBlank(it.q,it.ans[0]):twrap(it.ans[0]);
+    return `<div class="mist"><div class="small muted">${it.t==='tr'||it.t==='fix'?esc(it.q):''}</div><div class="right">${right}</div>
+      <div class="small">Твой ответ: <span class="wrongtxt">${esc(x.g||'—')}</span></div>${rule?`<div class="why">${esc(rule[S.lang]||rule.ru)}</div>`:''}</div>`}).join('')}
+    <div class="small muted">Эти задания вернутся в повторении завтра.</div></div>`;
+  h+=`<button class="btn primary big" id="doneBtn">К курсу</button>`;
+  $('#view').innerHTML=h;$('#doneBtn').onclick=()=>go('course');
 }
 function startReview(){const d=dueIds().slice(0,15);if(d.length)startSession({kind:'review',q:shuffle(d)})}
 function startExtra(){
@@ -2147,13 +2487,13 @@ const TASK={mc:'Выбери вариант',gap:'Впиши пропущенн�
 
 function renderSession(){
   const s=session;
-  if(s.i>=s.q.length)return renderSummary();
+  if(s.i>=s.q.length)return s.kind==='test'?renderTestResult():renderSummary();
   const it=ITEMS.get(s.q[s.i]),rec=S.items[it.id];
   /* in review, a multiple-choice gap that was already answered right once becomes a typed gap */
-  let mode=it.t;if(mode==='mc'&&(s.kind!=='step'||it.u!==s.unit)&&it.q.includes('___')&&rec&&rec.b>=1&&canon(it.ans[0]).split(' ').every(w=>AUX.has(w)))mode='gap';
+  let mode=it.t;if(mode==='mc'&&s.kind!=='test'&&(s.kind!=='step'||it.u!==s.unit)&&it.q.includes('___')&&rec&&rec.b>=1&&canon(it.ans[0]).split(' ').every(w=>AUX.has(w)))mode='gap';
   s.state={it,mode,shown:Date.now(),pick:null,tiles:null,line:[],done:false};
   let h=`<div class="sess-top"><button class="icon-btn" id="quit" aria-label="Закрыть">${CLOSE}</button><div class="bar"><i style="width:${Math.round(100*s.i/s.q.length)}%"></i></div><span class="small muted">${s.i+1} / ${s.q.length}</span></div>
-    <div class="task">${mode==='mc'&&it.o.includes(NOART)?'Выбери вариант («—» значит ничего не нужно)':TASK[mode]}${s.kind!=='step'||it.u!==s.unit?' · '+esc(UNIT(it.u).en):''}</div>`;
+    <div class="task">${mode==='mc'&&it.o.includes(NOART)?'Выбери вариант («—» значит ничего не нужно)':TASK[mode]}${s.kind==='test'?(mode==='gap'?' · '+esc(UNIT(it.u).en):''):s.kind!=='step'||it.u!==s.unit?' · '+esc(UNIT(it.u).en):''}</div>`;
   const input=`<input class="inp" id="ans" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" placeholder="Ответ по-английски">`;
   if(mode==='mc')h+=`<div class="q">${qHtml(it.q)}</div><div class="opts">${shuffle(it.o.map((o,i)=>i)).map(i=>`<button class="opt" data-i="${i}" aria-pressed="false">${esc(it.o[i])}</button>`).join('')}</div>`;
   else if(mode==='gap')h+=`<div class="q">${qHtml(it.q)}</div>${input}`;
@@ -2165,9 +2505,9 @@ function renderSession(){
     s.state.tiles=shuffle(words.concat(it.extra));
     h+=`<div class="q">${esc(it.q)}</div><div class="tiles line" id="line"></div><div class="tiles" id="bank">${s.state.tiles.map((w,i)=>`<button class="tile" data-i="${i}">${esc(w)}</button>`).join('')}</div>`;
   }
-  h+=`<div class="foot" id="foot"><div class="wrap"><button class="btn primary big" id="checkBtn" disabled>Проверить</button></div></div>`;
+  h+=`<div class="foot" id="foot"><div class="wrap"><button class="btn primary big" id="checkBtn" disabled>${s.kind==='test'?'Ответить':'Проверить'}</button></div></div>`;
   $('#view').innerHTML=h;
-  $('#quit').onclick=()=>{saveNow();const k=s.kind,u=s.unit;session=null;k==='step'?go('unit',u):go('review')};
+  $('#quit').onclick=()=>{saveNow();const k=s.kind,u=s.unit;session=null;k==='step'?go('unit',u):k==='test'?go('course'):go('review')};
   const cb=$('#checkBtn');cb.onclick=submit;
   if(mode==='mc')document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(s.state.done)return;s.state.pick=+b.dataset.i;document.querySelectorAll('.opt').forEach(x=>x.setAttribute('aria-pressed',x===b));cb.disabled=false});
   if(mode==='build'){
@@ -2189,6 +2529,7 @@ function submit(){
   else{given=$('#ans').value;r=check(given,it.ans,it.strict)}
   st.done=true;st.given=given;st.r=r;
   const inp=$('#ans');if(inp)inp.blur();
+  if(s.kind==='test'){testAnswer(it,r,given);s.i++;render();scrollTo(0,0);return}
   grade(it,r.res!=='bad',r.res==='typo',given);
   keepCur(s.i+1);
   showFeedback();
