@@ -127,6 +127,11 @@ textarea.out{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;min-heigh
 .right{font-family:var(--f-read);font-size:17px;font-weight:600}
 .right b{color:var(--accent)}
 .why{font-size:13.5px}
+.tw{cursor:pointer;border-radius:4px}
+.tw:active{background:var(--accent-soft)}
+#tip{position:fixed;left:12px;right:12px;top:calc(var(--sat) + 10px);z-index:40;background:var(--ink);color:var(--bg);border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.4;box-shadow:0 8px 24px var(--shadow)}
+#tip b{font-family:var(--f-read);font-size:17px}
+#tip .linkbtn{color:inherit;opacity:.8;display:block;margin-top:8px}
 .linkbtn{background:none;border:0;padding:0;color:var(--muted);font-size:13px;text-decoration:underline;align-self:flex-start}
 
 /* stats */
@@ -1030,8 +1035,372 @@ const SECTIONS=[
  ['tr','Ты будешь дома завтра?','Will you be at home tomorrow?|Will you be home tomorrow?','b'],
  ['dict','I will call you when I get home.','a']],
  fw:{ru:"Напиши 3 прогноза о своём будущем через пять лет (I think I will…) и 2 обещания самому себе (I will… / I won't…).",en:"Write 3 predictions about your life in five years (I think I will…) and 2 promises to yourself (I will… / I won't…)."}}
+]},
+{ru:'Модальные глаголы',en:'Modal verbs',units:[
+{id:'can',ru:'Умею, могу: can и could',en:'can / could',
+ th:{ru:`<p><b>can</b> — «могу, умею». После can идёт глагол в первой форме: без to и без -s, одинаково для всех лиц.</p>
+<ul><li><span class="en">I can swim.</span></li><li><span class="en">She can speak English.</span> <span class="bad">She cans speak</span> <span class="bad">She can to speak</span></li></ul>
+<p>Отрицание — <b>can't</b> (cannot), вопрос — can перед подлежащим:</p>
+<ul><li><span class="en">I can't drive.</span></li><li><span class="en">Can you hear me?</span></li></ul>
+<p><b>could</b> — прошедшее время от can:</p>
+<ul><li><span class="en">I could read when I was five.</span></li><li><span class="en">We couldn't find the hotel.</span></li></ul>
+<p><b>Can you…? / Could you…?</b> — просьба. Could звучит вежливее: <span class="en">Could you open the window, please?</span></p>`,
+ en:`<p><b>can</b> means ability or possibility. It is followed by the base form: no to, no -s, the same for every person.</p>
+<ul><li><span class="en">I can swim.</span></li><li><span class="en">She can speak English.</span> <span class="bad">She cans speak</span> <span class="bad">She can to speak</span></li></ul>
+<p>The negative is <b>can't</b> (cannot); in a question can goes before the subject:</p>
+<ul><li><span class="en">I can't drive.</span></li><li><span class="en">Can you hear me?</span></li></ul>
+<p><b>could</b> is the past of can:</p>
+<ul><li><span class="en">I could read when I was five.</span></li><li><span class="en">We couldn't find the hotel.</span></li></ul>
+<p><b>Can you…? / Could you…?</b> make a request. Could is more polite: <span class="en">Could you open the window, please?</span></p>`},
+ rules:{a:{ru:'can + первая форма глагола, без to и без -s.',en:'can + base form, no to and no -s.'},
+  b:{ru:"Отрицание: can't (cannot). Вопрос: Can + подлежащее + глагол.",en:"Negative: can't (cannot). Question: Can + subject + verb."},
+  c:{ru:"could / couldn't — прошедшее время от can.",en:"could / couldn't is the past of can."},
+  d:{ru:'Can you…? / Could you…? — просьба; could вежливее.',en:'Can you…? / Could you…? make a request; could is more polite.'}},
+ items:[
+ ['mc','She can ___ very well.',['swim','swims','to swim'],0,'a'],
+ ['mc','I ___ drive a car. (not)',["can't","don't can","am not can"],0,'b'],
+ ['mc','___ you help me?',['Can','Do','Are'],0,'d'],
+ ['mc','When I was five, I ___ read.',['could','can','cans'],0,'c'],
+ ['mc','He ___ come yesterday. He was ill. (not)',["couldn't","can't","didn't can"],0,'c'],
+ ['mc','Can he ___ the guitar?',['play','plays','playing'],0,'a'],
+ ['gap','My sister ___ speak three languages.','can','a'],
+ ['gap','Sorry, I ___ hear you. (not)','cannot','b'],
+ ['gap','___ you open the window, please?','Could|Can','d'],
+ ['gap','We ___ find the hotel last night. (not)','could not','c'],
+ ['build','Ты умеешь плавать?','Can you swim?','b',['to']],
+ ['tr','Я не умею готовить.','I cannot cook.','b'],
+ '|',
+ ['mc','Birds can ___.',['fly','flies','to fly'],0,'a'],
+ ['gap','I ___ swim when I was a child, but now I can. (not)','could not','c'],
+ ['gap','What ___ you see in the picture?','can','b'],
+ ['fix','He cans play chess.','He can play chess.','a'],
+ ['fix','I can to help you.','I can help you.','a'],
+ ['tr','Вы не могли бы мне помочь?','Could you help me?|Could you help me please?|Can you help me?|Can you help me please?','d'],
+ ['dict','I can read English but I cannot speak it well.','a']],
+ fw:{ru:"Напиши 3 предложения о том, что ты умеешь, 2 о том, чего не умеешь, и 1 о том, что умел в детстве (could).",en:"Write 3 sentences about things you can do, 2 about things you can't do, and 1 about something you could do as a child."}},
+
+{id:'must',ru:'Должен, нужно: must и have to',en:'must / have to',
+ th:{ru:`<p><b>must</b> и <b>have to</b> — «должен, нужно».</p>
+<table><tr><th>must + глагол</th><th>have to / has to + глагол</th></tr>
+<tr><td>без to, без -s, для всех лиц одинаково</td><td>как обычный глагол: he has to, вопрос и отрицание через do / does</td></tr>
+<tr><td><span class="en">You must stop.</span></td><td><span class="en">She has to get up early.</span></td></tr>
+<tr><td></td><td><span class="en">Do you have to work today?</span></td></tr></table>
+<p>В утверждениях они близки по смыслу. В отрицаниях смысл разный:</p>
+<ul><li><span class="en">You mustn't smoke here.</span> — нельзя, запрещено.</li><li><span class="en">You don't have to come.</span> — не обязательно, можно не приходить.</li></ul>
+<p>В прошедшем времени для обоих — <b>had to</b>: <span class="en">I had to work late yesterday.</span></p>`,
+ en:`<p><b>must</b> and <b>have to</b> both express necessity.</p>
+<table><tr><th>must + verb</th><th>have to / has to + verb</th></tr>
+<tr><td>no to, no -s, the same for every person</td><td>behaves like a normal verb: he has to; questions and negatives with do / does</td></tr>
+<tr><td><span class="en">You must stop.</span></td><td><span class="en">She has to get up early.</span></td></tr>
+<tr><td></td><td><span class="en">Do you have to work today?</span></td></tr></table>
+<p>In positive sentences they are close in meaning. The negatives are different:</p>
+<ul><li><span class="en">You mustn't smoke here.</span> — it is forbidden.</li><li><span class="en">You don't have to come.</span> — it is not necessary.</li></ul>
+<p>The past of both is <b>had to</b>: <span class="en">I had to work late yesterday.</span></p>`},
+ rules:{a:{ru:'must + первая форма, без to и без -s.',en:'must + base form, no to and no -s.'},
+  b:{ru:'have to / has to + глагол; вопрос и отрицание через do / does.',en:'have to / has to + verb; questions and negatives with do / does.'},
+  c:{ru:"mustn't = нельзя. don't have to = не обязательно.",en:"mustn't = it is forbidden. don't have to = it is not necessary."},
+  d:{ru:'В прошедшем времени — had to.',en:'The past form is had to.'}},
+ items:[
+ ['mc','You ___ wear a seat belt.',['must','must to','musts'],0,'a'],
+ ['mc','She ___ get up early every day.',['has to','have to','must to'],0,'b'],
+ ['mc','You ___ smoke here. It is forbidden.',["mustn't","don't have to","haven't to"],0,'c'],
+ ['mc','Tomorrow is Sunday. I ___ get up early.',["don't have to","mustn't","haven't"],0,'c'],
+ ['mc','Yesterday I ___ work late.',['had to','must','have to'],0,'d'],
+ ['mc','___ you have to wear a uniform?',['Do','Must','Are'],0,'b'],
+ ['gap','He ___ to take the bus every day.','has','b'],
+ ['gap','We must ___ now. (go)','go','a'],
+ ['gap','I ___ to go to the doctor yesterday.','had','d'],
+ ['gap','She ___ have to work on Saturdays. (not)','does not','b'],
+ ['build','Мне нужно позвонить маме.','I have to call my mother.|I must call my mother.','b',['must']],
+ ['tr','Тебе не обязательно приходить.','You do not have to come.','c'],
+ '|',
+ ['mc','It is a secret. You ___ tell anyone.',["mustn't","don't have to","must"],0,'c'],
+ ['gap','Do I ___ to pay now?','have','b'],
+ ['gap','They ___ to wait for two hours yesterday.','had','d'],
+ ['fix','She must to go.','She must go.','a'],
+ ['fix','He have to work today.','He has to work today.','b'],
+ ['tr','Я должен идти.','I must go.|I have to go.','a'],
+ ['dict','You must not be late and you have to bring your passport.','c']],
+ fw:{ru:"Напиши 3 предложения о том, что тебе нужно делать на работе или учёбе (have to), 2 о том, чего делать нельзя (mustn't), и 1 о том, что делать не обязательно (don't have to).",en:"Write 3 sentences about things you have to do at work or in your studies, 2 about things you mustn't do, and 1 about something you don't have to do."}},
+
+{id:'should',ru:'Совет: should',en:'should',
+ th:{ru:`<p><b>should</b> — совет: «стоит, следует». После should глагол в первой форме, без to и без -s.</p>
+<ul><li><span class="en">You should go to bed.</span> — Тебе стоит лечь спать.</li><li><span class="en">He should see a doctor.</span></li></ul>
+<p>Отрицание — <b>shouldn't</b>, вопрос — should перед подлежащим:</p>
+<ul><li><span class="en">You shouldn't eat so much sugar.</span></li><li><span class="en">Should I call her?</span></li><li><span class="en">What should I do?</span></li></ul>
+<p>Часто с <b>I think</b>: <span class="en">I think you should buy it.</span></p>
+<p>should мягче, чем must: must — обязанность, should — хорошая идея.</p>
+<p>Ошибки: <span class="bad">You should to study.</span> <span class="bad">He shoulds call.</span></p>`,
+ en:`<p><b>should</b> gives advice: it is a good idea. It is followed by the base form, no to and no -s.</p>
+<ul><li><span class="en">You should go to bed.</span></li><li><span class="en">He should see a doctor.</span></li></ul>
+<p>The negative is <b>shouldn't</b>; in a question should goes before the subject:</p>
+<ul><li><span class="en">You shouldn't eat so much sugar.</span></li><li><span class="en">Should I call her?</span></li><li><span class="en">What should I do?</span></li></ul>
+<p>Often with <b>I think</b>: <span class="en">I think you should buy it.</span></p>
+<p>should is softer than must: must is an obligation, should is a good idea.</p>
+<p>Mistakes: <span class="bad">You should to study.</span> <span class="bad">He shoulds call.</span></p>`},
+ rules:{a:{ru:'should + первая форма, без to и без -s.',en:'should + base form, no to and no -s.'},
+  b:{ru:"Отрицание: shouldn't. Вопрос: Should + подлежащее + глагол.",en:"Negative: shouldn't. Question: Should + subject + verb."},
+  c:{ru:'should — совет («стоит»); must — обязанность.',en:'should is advice; must is an obligation.'}},
+ items:[
+ ['mc','You look tired. You ___ go to bed.',['should','should to','shoulds'],0,'a'],
+ ['mc','You ___ eat so much sugar. (not)',["shouldn't","don't should","not should"],0,'b'],
+ ['mc','___ I call her?',['Should','Do','Am'],0,'b'],
+ ['mc','He should ___ a doctor.',['see','sees','to see'],0,'a'],
+ ['mc','I think you ___ buy this jacket. It looks great.',['should','must to','have'],0,'c'],
+ ['mc','It is late. I think we ___ go home.',['should','are','do'],0,'c'],
+ ['gap','It is cold. You ___ take a coat.','should','c'],
+ ['gap','What ___ I do?','should','b'],
+ ['gap','You ___ drive so fast. It is dangerous. (not)','should not','b'],
+ ['gap','She should ___ more water. (drink)','drink','a'],
+ ['build','Тебе стоит больше спать.','You should sleep more.','c',['to']],
+ ['tr','Тебе не следует так много работать.','You should not work so much.|You should not work so hard.|You should not work that much.','b'],
+ '|',
+ ['mc','We ___ leave now or we will be late.',['should','shoulds','should to'],0,'a'],
+ ['gap','Do you think I ___ apply for this job?','should','c'],
+ ['gap','Children ___ watch TV all day. (not)','should not','b'],
+ ['fix','You should to study more.','You should study more.','a'],
+ ['fix','He shoulds call his mother.','He should call his mother.','a'],
+ ['tr','Что мне надеть?','What should I wear?|What should I put on?','b'],
+ ['dict','You should not worry. Everything will be fine.','b']],
+ fw:{ru:"Друг хочет выучить английский за год. Дай ему 5 советов: что стоит делать и чего не стоит (should / shouldn't).",en:"A friend wants to learn English in a year. Give 5 pieces of advice: what they should and shouldn't do."}}
+]},
+{ru:'Существительные и артикли',en:'Nouns and articles',units:[
+{id:'there',ru:'Есть, находится: there is / there are',en:'there is / there are',
+ th:{ru:`<p><b>there is / there are</b> сообщает, что что-то где-то есть. По-русски такие фразы начинаются с места: «На столе книга». По-английски — с there.</p>
+<table><tr><th>одно</th><th>несколько</th></tr>
+<tr><td><span class="en">There is a book on the table.</span></td><td><span class="en">There are two books on the table.</span></td></tr>
+<tr><td><span class="en">There isn't a bank here.</span></td><td><span class="en">There aren't any shops here.</span></td></tr>
+<tr><td><span class="en">Is there a bank near here?</span></td><td><span class="en">Are there any shops?</span></td></tr></table>
+<p>В прошедшем времени: <b>there was / there were</b>. <span class="en">There was a park here.</span> <span class="en">There were a lot of people.</span></p>
+<p>Не путай с it is. <span class="en">There is a cat under the bed.</span> — сообщаем, что кошка там есть. <span class="bad">It is a cat under the bed.</span></p>`,
+ en:`<p><b>there is / there are</b> says that something exists somewhere.</p>
+<table><tr><th>one</th><th>several</th></tr>
+<tr><td><span class="en">There is a book on the table.</span></td><td><span class="en">There are two books on the table.</span></td></tr>
+<tr><td><span class="en">There isn't a bank here.</span></td><td><span class="en">There aren't any shops here.</span></td></tr>
+<tr><td><span class="en">Is there a bank near here?</span></td><td><span class="en">Are there any shops?</span></td></tr></table>
+<p>In the past: <b>there was / there were</b>. <span class="en">There was a park here.</span> <span class="en">There were a lot of people.</span></p>
+<p>Don't confuse it with it is. <span class="en">There is a cat under the bed.</span> tells us the cat exists there. <span class="bad">It is a cat under the bed.</span></p>`},
+ rules:{a:{ru:'there is + единственное число; there are + множественное.',en:'there is + singular; there are + plural.'},
+  b:{ru:"Вопрос: Is there…? / Are there…? Отрицание: there isn't / there aren't.",en:"Question: Is there…? / Are there…? Negative: there isn't / there aren't."},
+  c:{ru:'В прошедшем: there was / there were.',en:'In the past: there was / there were.'},
+  d:{ru:'Сообщаем, что что-то где-то есть → there is, а не it is.',en:'To say that something exists somewhere use there is, not it is.'}},
+ items:[
+ ['mc','There ___ a book on the table.',['is','are','be'],0,'a'],
+ ['mc','There ___ two cats in the garden.',['is','are','am'],1,'a'],
+ ['mc','___ there a bank near here?',['Is','Are','Does'],0,'b'],
+ ['mc','There ___ any milk in the fridge. (not)',["isn't","aren't","doesn't"],0,'b'],
+ ['mc','There ___ a lot of people at the party last night.',['were','was','are'],0,'c'],
+ ['mc','___ a good film on TV tonight.',['There is','It is','There are'],0,'d'],
+ ['gap','There ___ many students in the class.','are','a'],
+ ['gap','___ there any shops in your street?','Are','b'],
+ ['gap','There ___ a park here ten years ago.','was','c'],
+ ['gap','Look! There ___ a taxi.','is','a'],
+ ['build','В моей комнате два окна.','There are two windows in my room.','a',['is']],
+ ['tr','На столе есть телефон.','There is a phone on the table.|There is a telephone on the table.','d'],
+ '|',
+ ['mc','How many days ___ in a week?',['are there','is there','there are'],0,'b'],
+ ['gap','There ___ a problem with my computer.','is','a'],
+ ['gap','There ___ any chairs in the room. (not)','are not','b'],
+ ['fix','There is three books on the shelf.','There are three books on the shelf.','a'],
+ ['fix','It is a cat under the bed.','There is a cat under the bed.','d'],
+ ['tr','Здесь есть ресторан?','Is there a restaurant here?|Is there a restaurant near here?','b'],
+ ['dict','There is a small shop and there are two cafes.','a']],
+ fw:{ru:"Опиши свою комнату или своё рабочее место: что там есть и чего нет. 5–6 предложений с there is / there are.",en:"Describe your room or your workplace: what there is and what there isn't. 5–6 sentences with there is / there are."}},
+
+{id:'art',ru:'Артикли a / an / the',en:'a / an / the',
+ th:{ru:`<p>В русском артиклей нет, поэтому это одна из самых трудных тем. Главная идея: понятно ли собеседнику, о каком именно предмете речь?</p>
+<table><tr><th>a / an</th><th>the</th><th>без артикля</th></tr>
+<tr><td>один из многих, говорим впервые, профессия</td><td>конкретный: уже упоминали, он один такой, ясно из ситуации</td><td>в общем смысле, имена, города</td></tr>
+<tr><td><span class="en">I saw a film.</span></td><td><span class="en">The film was great.</span></td><td><span class="en">I like music.</span></td></tr>
+<tr><td><span class="en">She is a doctor.</span></td><td><span class="en">Open the window, please.</span></td><td><span class="en">He lives in London.</span></td></tr></table>
+<p><b>an</b> ставится перед гласным звуком: <span class="en">an apple</span>, <span class="en">an engineer</span>, <span class="en">an hour</span> (h не читается).</p>
+<p><b>the</b> — когда предмет единственный: <span class="en">the sun</span>, <span class="en">the kitchen</span> (в этом доме).</p>
+<p>Без артикля — устойчивые выражения: <b>at home, at work, go to bed, have breakfast</b>.</p>
+<p>Исчисляемое существительное в единственном числе не может стоять совсем без ничего: <span class="bad">I am student.</span></p>`,
+ en:`<p>The main idea: does the listener know exactly which thing you mean?</p>
+<table><tr><th>a / an</th><th>the</th><th>no article</th></tr>
+<tr><td>one of many, first mention, a job</td><td>a specific one: mentioned before, the only one, clear from the situation</td><td>in general, names, cities</td></tr>
+<tr><td><span class="en">I saw a film.</span></td><td><span class="en">The film was great.</span></td><td><span class="en">I like music.</span></td></tr>
+<tr><td><span class="en">She is a doctor.</span></td><td><span class="en">Open the window, please.</span></td><td><span class="en">He lives in London.</span></td></tr></table>
+<p><b>an</b> goes before a vowel sound: <span class="en">an apple</span>, <span class="en">an engineer</span>, <span class="en">an hour</span> (silent h).</p>
+<p><b>the</b> when there is only one: <span class="en">the sun</span>, <span class="en">the kitchen</span> (in this house).</p>
+<p>No article in fixed phrases: <b>at home, at work, go to bed, have breakfast</b>.</p>
+<p>A singular countable noun cannot stand with nothing at all: <span class="bad">I am student.</span></p>`},
+ rules:{a:{ru:'a / an — «один из», первое упоминание или профессия; an перед гласным звуком.',en:'a / an — one of many, first mention or a job; an before a vowel sound.'},
+  b:{ru:'the — когда понятно, какой именно: уже упоминали, он один, ясно из ситуации.',en:'the — when it is clear which one: mentioned before, the only one, clear from the situation.'},
+  c:{ru:'Без артикля: в общем смысле (I like music), имена и города, at home, have breakfast.',en:'No article: general meaning (I like music), names and cities, at home, have breakfast.'}},
+ items:[
+ ['mc','She is ___ doctor.',['a','an','the'],0,'a'],
+ ['mc','I ate ___ apple.',['a','an','the'],1,'a'],
+ ['mc','I have a dog and a cat. ___ dog is black.',['A','An','The'],2,'b'],
+ ['mc','___ sun is very hot today.',['A','An','The'],2,'b'],
+ ['mc','I like ___ music.',['—','a','the'],0,'c'],
+ ['mc','He lives in ___ London.',['—','a','the'],0,'c'],
+ ['gap','Can you open ___ window, please?','the','b'],
+ ['gap','I waited for ___ hour.','an','a'],
+ ['gap','My brother is ___ engineer.','an','a'],
+ ['gap','We saw ___ film last night. The film was great.','a','a'],
+ ['build','Это старый дом.','It is an old house.','a',['a']],
+ ['tr','У меня есть машина. Машина новая.','I have a car. The car is new.|I have got a car. The car is new.','b'],
+ '|',
+ ['mc','What time do you have ___ breakfast?',['—','a','the'],0,'c'],
+ ['gap','Where is ___ kitchen?','the','b'],
+ ['gap','She works in ___ office in the city centre.','an','a'],
+ ['fix','I am student.','I am a student.','a'],
+ ['fix','The life is beautiful.','Life is beautiful.','c'],
+ ['tr','Он учитель.','He is a teacher.','a'],
+ ['dict','I bought a book and an umbrella. The book was cheap.','b']],
+ fw:{ru:"Напиши короткий рассказ из 5–6 предложений о том, что ты купил или увидел: при первом упоминании a / an, дальше the.",en:"Write a short story of 5–6 sentences about something you bought or saw: a / an at first mention, then the."}},
+
+{id:'some',ru:'Количество: some, any, much, many',en:'some / any, much / many',
+ th:{ru:`<p>Существительные бывают <b>исчисляемые</b> (a book, two books) и <b>неисчисляемые</b> (water, money, time, bread, information). У неисчисляемых нет множественного числа и артикля a: <span class="bad">an information</span>, <span class="bad">moneys</span>.</p>
+<table><tr><th>some</th><th>any</th></tr>
+<tr><td>утверждения</td><td>вопросы и отрицания</td></tr>
+<tr><td><span class="en">I have some friends.</span></td><td><span class="en">Do you have any friends?</span></td></tr>
+<tr><td><span class="en">I bought some bread.</span></td><td><span class="en">We don't have any bread.</span></td></tr></table>
+<table><tr><th>many</th><th>much</th></tr>
+<tr><td>с исчисляемыми во множественном числе</td><td>с неисчисляемыми</td></tr>
+<tr><td><span class="en">How many books?</span></td><td><span class="en">How much money?</span></td></tr>
+<tr><td><span class="en">not many people</span></td><td><span class="en">not much time</span></td></tr></table>
+<p><b>a lot of</b> подходит к любым существительным и обычно стоит в утверждениях: <span class="en">a lot of friends</span>, <span class="en">a lot of time</span>.</p>`,
+ en:`<p>Nouns are <b>countable</b> (a book, two books) or <b>uncountable</b> (water, money, time, bread, information). Uncountable nouns have no plural and no a: <span class="bad">an information</span>, <span class="bad">moneys</span>.</p>
+<table><tr><th>some</th><th>any</th></tr>
+<tr><td>positive sentences</td><td>questions and negatives</td></tr>
+<tr><td><span class="en">I have some friends.</span></td><td><span class="en">Do you have any friends?</span></td></tr>
+<tr><td><span class="en">I bought some bread.</span></td><td><span class="en">We don't have any bread.</span></td></tr></table>
+<table><tr><th>many</th><th>much</th></tr>
+<tr><td>with plural countable nouns</td><td>with uncountable nouns</td></tr>
+<tr><td><span class="en">How many books?</span></td><td><span class="en">How much money?</span></td></tr>
+<tr><td><span class="en">not many people</span></td><td><span class="en">not much time</span></td></tr></table>
+<p><b>a lot of</b> works with any noun and is usual in positive sentences: <span class="en">a lot of friends</span>, <span class="en">a lot of time</span>.</p>`},
+ rules:{a:{ru:'some — в утверждениях; any — в вопросах и отрицаниях.',en:'some in positive sentences; any in questions and negatives.'},
+  b:{ru:'many + исчисляемые во множественном числе; much + неисчисляемые.',en:'many + plural countable nouns; much + uncountable nouns.'},
+  c:{ru:'Неисчисляемые (water, money, bread, information) — без множественного числа и без a.',en:'Uncountable nouns (water, money, bread, information) have no plural and no a.'},
+  d:{ru:'a lot of подходит к любым существительным.',en:'a lot of works with any noun.'}},
+ items:[
+ ['mc','I have ___ friends in Moscow.',['some','any','much'],0,'a'],
+ ['mc',"We don't have ___ milk.",['any','some','many'],0,'a'],
+ ['mc','Are there ___ eggs in the fridge?',['any','some','much'],0,'a'],
+ ['mc','How ___ money do you have?',['much','many','any'],0,'b'],
+ ['mc','How ___ books did you read?',['many','much','some'],0,'b'],
+ ['mc','Can I have some ___?',['water','waters','a water'],0,'c'],
+ ['gap',"There isn't ___ time.",'much|any','b'],
+ ['gap','I bought ___ bread and cheese.','some','a'],
+ ['gap','How ___ people were at the party?','many','b'],
+ ['gap','She has a ___ of friends.','lot','d'],
+ ['build','У тебя есть вопросы?','Do you have any questions?','a',['some']],
+ ['tr','Сколько это стоит?','How much is it?|How much does it cost?|How much is this?|How much does this cost?','b'],
+ '|',
+ ['mc',"I don't drink ___ coffee.",['much','many','some'],0,'b'],
+ ['gap',"There aren't ___ chairs in the room.",'any|many','a'],
+ ['gap',"I would like ___ tea, please.",'some','a'],
+ ['fix','I need an information.','I need some information.|I need information.','c'],
+ ['fix','How much apples do you want?','How many apples do you want?','b'],
+ ['tr','У меня нет денег.','I do not have any money.|I have no money.|I have not got any money.|I do not have money.','a'],
+ ['dict','We have a lot of time but not much money.','d']],
+ fw:{ru:"Опиши, что есть у тебя в холодильнике или на рабочем месте: что есть (some, a lot of) и чего мало или нет (not much, not many, not any). 5 предложений.",en:"Describe what is in your fridge or at your workplace: what there is (some, a lot of) and what there is little or none of (not much, not many, not any). 5 sentences."}}
+]},
+{ru:'Местоимения и предлоги',en:'Pronouns and prepositions',units:[
+{id:'pron',ru:'Местоимения: I, me, my, mine',en:'I / me / my / mine',
+ th:{ru:`<p>У каждого местоимения четыре формы.</p>
+<table><tr><th>кто (перед глаголом)</th><th>кого, кому (после глагола, предлога)</th><th>чей + существительное</th><th>чей (без существительного)</th></tr>
+<tr><td>I</td><td>me</td><td>my</td><td>mine</td></tr>
+<tr><td>you</td><td>you</td><td>your</td><td>yours</td></tr>
+<tr><td>he</td><td>him</td><td>his</td><td>his</td></tr>
+<tr><td>she</td><td>her</td><td>her</td><td>hers</td></tr>
+<tr><td>it</td><td>it</td><td>its</td><td>—</td></tr>
+<tr><td>we</td><td>us</td><td>our</td><td>ours</td></tr>
+<tr><td>they</td><td>them</td><td>their</td><td>theirs</td></tr></table>
+<ul><li><span class="en">I know him.</span> <span class="en">He knows me.</span></li><li><span class="en">This is my book.</span> <span class="en">This book is mine.</span></li><li><span class="en">Talk to her.</span> <span class="en">Wait for us.</span></li></ul>
+<p>В английском нет слова «свой»: выбираем по лицу. <span class="en">He gave me his number.</span> <span class="en">I love my job.</span></p>
+<p><b>its</b> — «его» про предмет или животное; <b>it's</b> = it is.</p>`,
+ en:`<p>Each pronoun has four forms.</p>
+<table><tr><th>subject (before the verb)</th><th>object (after a verb or preposition)</th><th>possessive + noun</th><th>possessive without a noun</th></tr>
+<tr><td>I</td><td>me</td><td>my</td><td>mine</td></tr>
+<tr><td>you</td><td>you</td><td>your</td><td>yours</td></tr>
+<tr><td>he</td><td>him</td><td>his</td><td>his</td></tr>
+<tr><td>she</td><td>her</td><td>her</td><td>hers</td></tr>
+<tr><td>it</td><td>it</td><td>its</td><td>—</td></tr>
+<tr><td>we</td><td>us</td><td>our</td><td>ours</td></tr>
+<tr><td>they</td><td>them</td><td>their</td><td>theirs</td></tr></table>
+<ul><li><span class="en">I know him.</span> <span class="en">He knows me.</span></li><li><span class="en">This is my book.</span> <span class="en">This book is mine.</span></li><li><span class="en">Talk to her.</span> <span class="en">Wait for us.</span></li></ul>
+<p><b>its</b> is the possessive of it; <b>it's</b> = it is.</p>`},
+ rules:{a:{ru:'Перед глаголом — I, he, she, we, they. После глагола или предлога — me, him, her, us, them.',en:'Before the verb: I, he, she, we, they. After a verb or preposition: me, him, her, us, them.'},
+  b:{ru:'my / your / his / her / our / their — перед существительным.',en:'my / your / his / her / our / their go before a noun.'},
+  c:{ru:'mine / yours / hers / ours / theirs — без существительного.',en:'mine / yours / hers / ours / theirs stand without a noun.'},
+  d:{ru:"its = «его» (про предмет); it's = it is.",en:"its is possessive; it's = it is."}},
+ items:[
+ ['mc','I know ___.',['he','him','his'],1,'a'],
+ ['mc','This is ___ book.',['my','me','mine'],0,'b'],
+ ['mc','This book is ___.',['my','me','mine'],2,'c'],
+ ['mc','She loves ___ children.',['her','she','hers'],0,'b'],
+ ['mc','Can you help ___?',['we','us','our'],1,'a'],
+ ['mc','The dog is eating ___ food.',['its',"it's",'it'],0,'d'],
+ ['gap','I like Anna. I often talk to ___.','her','a'],
+ ['gap','We live here. This is ___ house.','our','b'],
+ ['gap','They are my friends. I like ___.','them','a'],
+ ['gap','Is this your pen? — Yes, it is ___.','mine','c'],
+ ['build','Он дал мне свой номер.','He gave me his number.','a',['my']],
+ ['tr','Это их машина.','This is their car.|It is their car.|That is their car.','b'],
+ '|',
+ ['mc','___ are waiting for you.',['They','Them','Their'],0,'a'],
+ ['gap','Tom is here. Do you want to speak to ___?','him','a'],
+ ['gap','My car is old, but ___ is new. (you)','yours','c'],
+ ['fix','This is mine book.','This is my book.','b'],
+ ['fix','She gave he a present.','She gave him a present.','a'],
+ ['tr','Позвони мне завтра.','Call me tomorrow.|Phone me tomorrow.|Ring me tomorrow.','a'],
+ ['dict','Their house is bigger than ours.','c']],
+ fw:{ru:"Опиши свою семью или друзей: кто они, что у них есть, что ты для них делаешь. Используй him, her, them, my, his, their. 5 предложений.",en:"Describe your family or friends: who they are, what they have, what you do for them. Use him, her, them, my, his, their. 5 sentences."}},
+
+{id:'prep',ru:'Предлоги времени и места: in, on, at',en:'in / on / at',
+ th:{ru:`<p>Три предлога, которые работают и для времени, и для места.</p>
+<p><b>Время:</b></p>
+<table><tr><th>at</th><th>on</th><th>in</th></tr>
+<tr><td>точное время</td><td>день, дата</td><td>месяц, год, сезон, часть дня</td></tr>
+<tr><td><span class="en">at five o'clock</span><br><span class="en">at night</span></td><td><span class="en">on Monday</span><br><span class="en">on 5 May</span></td><td><span class="en">in May</span>, <span class="en">in 2005</span><br><span class="en">in the morning</span></td></tr></table>
+<p>Перед <b>last, next, this, every</b> предлог не нужен: <span class="en">See you next week.</span> <span class="bad">on next week</span></p>
+<p><b>Место:</b></p>
+<table><tr><th>in</th><th>on</th><th>at</th></tr>
+<tr><td>внутри</td><td>на поверхности</td><td>точка, место как «пункт»</td></tr>
+<tr><td><span class="en">in the room</span><br><span class="en">in Moscow</span></td><td><span class="en">on the table</span><br><span class="en">on the wall</span></td><td><span class="en">at the bus stop</span><br><span class="en">at home</span>, <span class="en">at work</span></td></tr></table>`,
+ en:`<p>Three prepositions that work for both time and place.</p>
+<p><b>Time:</b></p>
+<table><tr><th>at</th><th>on</th><th>in</th></tr>
+<tr><td>clock time</td><td>day, date</td><td>month, year, season, part of the day</td></tr>
+<tr><td><span class="en">at five o'clock</span><br><span class="en">at night</span></td><td><span class="en">on Monday</span><br><span class="en">on 5 May</span></td><td><span class="en">in May</span>, <span class="en">in 2005</span><br><span class="en">in the morning</span></td></tr></table>
+<p>No preposition before <b>last, next, this, every</b>: <span class="en">See you next week.</span> <span class="bad">on next week</span></p>
+<p><b>Place:</b></p>
+<table><tr><th>in</th><th>on</th><th>at</th></tr>
+<tr><td>inside</td><td>on a surface</td><td>a point, a place as a location</td></tr>
+<tr><td><span class="en">in the room</span><br><span class="en">in Moscow</span></td><td><span class="en">on the table</span><br><span class="en">on the wall</span></td><td><span class="en">at the bus stop</span><br><span class="en">at home</span>, <span class="en">at work</span></td></tr></table>`},
+ rules:{a:{ru:'Время: at — точное время и at night; on — день и дата; in — месяц, год, сезон, часть дня.',en:'Time: at for clock times and at night; on for days and dates; in for months, years, seasons, parts of the day.'},
+  b:{ru:'Перед last, next, this, every предлог не ставится.',en:'No preposition before last, next, this, every.'},
+  c:{ru:'Место: in — внутри; on — на поверхности; at — точка (at home, at work, at the bus stop).',en:'Place: in = inside; on = on a surface; at = a point (at home, at work, at the bus stop).'}},
+ items:[
+ ['mc',"I get up ___ seven o'clock.",['at','on','in'],0,'a'],
+ ['mc','We have English ___ Monday.',['at','on','in'],1,'a'],
+ ['mc','My birthday is ___ May.',['at','on','in'],2,'a'],
+ ['mc','The keys are ___ the table.',['at','on','in'],1,'c'],
+ ['mc','She lives ___ Moscow.',['at','on','in'],2,'c'],
+ ['mc','I saw him ___ last week.',['—','on','in'],0,'b'],
+ ['gap','He was born ___ 2005.','in','a'],
+ ['gap','I usually read ___ night.','at','a'],
+ ['gap','Is your mother ___ home?','at','c'],
+ ['gap','There is a picture ___ the wall.','on','c'],
+ ['build','Мы встретимся в пятницу утром.','We will meet on Friday morning.','a',['in']],
+ ['tr','Я работаю по субботам.','I work on Saturdays.|I work on Saturday.','a'],
+ '|',
+ ['mc','I drink coffee ___ the morning.',['at','on','in'],2,'a'],
+ ['gap','The meeting is ___ 5 May.','on','a'],
+ ['gap','I am waiting ___ the bus stop.','at','c'],
+ ['gap','The milk is ___ the fridge.','in','c'],
+ ['fix','See you on next Monday.','See you next Monday.','b'],
+ ['fix','I was in home yesterday.','I was at home yesterday.','c'],
+ ['tr','Он на работе.','He is at work.','c'],
+ ['dict','I will see you on Sunday at six in the evening.','a']],
+ fw:{ru:"Опиши свою обычную неделю: что, когда и где ты делаешь. Используй at, on, in для времени и места. 5–6 предложений.",en:"Describe your usual week: what you do, when and where. Use at, on, in for time and place. 5–6 sentences."}}
 ]}];
-const SOON=['Modal verbs: can, must, should (модальные глаголы)','Articles: a / an / the (артикли)','Pronouns and possessives (местоимения)','Prepositions of time and place (предлоги)','Comparatives and superlatives (сравнение прилагательных)'];
+const SOON=['Comparatives and superlatives (сравнение прилагательных)','Adverbs (наречия)','Passive voice (страдательный залог)','Infinitive and -ing (инфинитив и герундий)','Conditionals: if (условные предложения)','Question words and word order (вопросы и порядок слов)'];
 
 /* ================= helpers ================= */
 const $=(s,r=document)=>r.querySelector(s);
@@ -1147,6 +1516,34 @@ function speak(text){
 }
 document.addEventListener('click',e=>{const t=e.target.closest('.en');if(t)speak(t.textContent)});
 
+/* ================= tap-to-translate =================
+   Uses Лексика's native translator. Replies come back through window.__nb of the main frame,
+   so that function is wrapped once and our own request ids are kept apart from the reader's. */
+const TB={seq:9000000,cb:new Map(),cache:new Map()};
+(function(){try{const w=EMB?PARENT:window,orig=w.__nb;
+  w.__nb=(id,ok,val)=>{const c=TB.cb.get(id);if(c){TB.cb.delete(id);ok?c.res(val):c.rej(val);return}if(typeof orig==='function')orig(id,ok,val)}}catch(e){}})();
+function nativeCall(type,data,ms=15000){return new Promise((res,rej)=>{if(!MH){rej();return}const id=++TB.seq;TB.cb.set(id,{res,rej});setTimeout(()=>{if(TB.cb.delete(id))rej()},ms);try{MH.postMessage({id,type,data})}catch(e){TB.cb.delete(id);rej()}})}
+let tipT=0;
+function tip(html,ms){let t=$('#tip');if(!t){t=document.createElement('div');t.id='tip';document.body.appendChild(t);t.addEventListener('click',e=>{if(!e.target.closest('button'))t.hidden=true})}
+  t.innerHTML=html;t.hidden=false;clearTimeout(tipT);tipT=setTimeout(()=>{t.hidden=true},ms||9000);return t}
+async function showTr(word,ctx){
+  const key=word.toLowerCase();
+  const head=`<b>${esc(word)}</b>`,more=ctx&&ctx.trim().split(/\s+/).length>1?'<button class="linkbtn" id="tipSent">Перевести всё предложение</button>':'';
+  if(!MH){tip(head+' <span>— перевод по нажатию работает в приложении на iPhone.</span>',5000);return}
+  const paint=tr=>{const t=tip(head+' <span>— '+esc(tr)+'</span>'+more);const b=t.querySelector('#tipSent');
+    if(b)b.onclick=async e=>{e.stopPropagation();b.disabled=true;b.textContent='Перевожу…';
+      try{const r=await nativeCall('translateSentence',{text:ctx},25000);tip(`<span>${esc(ctx)}</span><br><b>${esc(String(r&&r.tr||'—'))}</b>`,15000)}catch(err){tip(head+' <span>— не удалось перевести предложение.</span>',4000)}}};
+  if(TB.cache.has(key)){paint(TB.cache.get(key));return}
+  tip(head+' <span>— …</span>');
+  try{const r=await nativeCall('translate',{text:word,ctx:ctx||'',isPhrase:false});let tr=String(r&&r.tr||'').trim();if(!tr)throw 0;
+    if(r.lemma&&String(r.lemma).toLowerCase()!==key)tr+=' · форма от '+r.lemma;
+    TB.cache.set(key,tr);paint(tr)}
+  catch(e){tip(head+' <span>— не удалось перевести. Нужен интернет или установленный в iOS языковой пакет.</span>',5000)}
+}
+document.addEventListener('click',e=>{const w=e.target.closest('.tw');if(!w)return;
+  let box=w.closest('.q,.right');if(box){box=box.cloneNode(true);box.querySelectorAll('.blank').forEach(b=>b.replaceWith('…'))}const ctx=box?box.textContent.replace(/\s+/g,' ').replace(/\([^)]*\)\s*$/,'').trim():'';
+  showTr(w.textContent,ctx)});
+
 /* ================= views ================= */
 let view={name:'course'},session=null;
 const SPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
@@ -1189,7 +1586,7 @@ function renderCourse(){
         <span class="dots">${u.steps.map((_,i)=>`<i class="${i<d?'on':''}"></i>`).join('')}</span></button>`;
     });
   });
-  h+=`<div class="sec-title">Дальше в курсе</div><div class="soon">${SOON.map(esc).join(' · ')}<br><br>Эти темы добавятся следующими — движок уже готов, нужен только материал.</div>`;
+  h+=`<div class="sec-title">Дальше в курсе</div><div class="soon">${SOON.map(esc).join(' · ')}<br><br>Эти темы добавятся следующими.</div>`;
   $('#view').innerHTML=h;
   $('#revBtn')&&($('#revBtn').onclick=startReview);
   document.querySelectorAll('.unit[data-u]').forEach(b=>b.onclick=()=>go('unit',b.dataset.u));
@@ -1200,7 +1597,7 @@ function renderUnit(){
   const d=stepsDone(u);
   let h=`<div class="muted">${esc(u.ru)}</div><div class="row" style="justify-content:space-between"><span class="task">Теория</span>
     <span class="seg" role="group" aria-label="Язык теории"><button data-l="ru" aria-pressed="${S.lang==='ru'}">Русский</button><button data-l="en" aria-pressed="${S.lang==='en'}">English</button></span></div>
-    <div class="panel theory">${u.th[S.lang]||u.th.ru}<div class="small muted">Нажми на английский пример, чтобы услышать его.</div></div>
+    <div class="panel theory">${u.th[S.lang]||u.th.ru}<div class="small muted">Нажми на английский пример, чтобы услышать его. В заданиях нажатие на слово показывает перевод.</div></div>
     <span class="task">Практика</span>`;
   u.steps.forEach((ids,i)=>{
     const done=i<d,open=i<=d,c=curFor(u,i);
@@ -1325,7 +1722,11 @@ function startExtra(){
   startSession({kind:'extra',q:shuffle(w.slice(0,10))});
 }
 function proper(w){return w==='I'||/^(I'm|I've|Tom|Anna|London|Russia|English|French|TV|Paris|Moscow|Canada)$/.test(w)}
-function fillBlank(q,a){return esc(q.replace(/\s*\([^)]*\)\s*$/,'')).replace('___','<b>'+esc(a)+'</b>')}
+const NOART='—';
+/* raw English text → tappable words (tap = translation) */
+function twrap(t){return String(t).split(/([A-Za-z]+(?:['’][A-Za-z]+)*)/).map((x,i)=>i%2?`<span class="tw">${esc(x)}</span>`:esc(x)).join('')}
+function qHtml(q){const a=String(q).split('___');return a.map(twrap).join('<span class="blank"></span>')}
+function fillBlank(q,a){const t=q.replace(/\s*\([^)]*\)\s*$/,'').split('___');return a===NOART?twrap(t.join('').replace(/\s+/g,' ').trim())+' <span class="muted small">(без артикля и предлога)</span>':twrap(t[0])+'<b>'+twrap(a)+'</b>'+twrap(t[1]||'')}
 const TASK={mc:'Выбери вариант',gap:'Впиши пропущенное',build:'Собери предложение',tr:'Переведи на английский',fix:'Исправь ошибку',dict:'Напиши то, что слышишь'};
 
 function renderSession(){
@@ -1336,12 +1737,12 @@ function renderSession(){
   let mode=it.t;if(mode==='mc'&&(s.kind!=='step'||it.u!==s.unit)&&it.q.includes('___')&&rec&&rec.b>=1&&canon(it.ans[0]).split(' ').every(w=>AUX.has(w)))mode='gap';
   s.state={it,mode,shown:Date.now(),pick:null,tiles:null,line:[],done:false};
   let h=`<div class="sess-top"><button class="icon-btn" id="quit" aria-label="Закрыть">${CLOSE}</button><div class="bar"><i style="width:${Math.round(100*s.i/s.q.length)}%"></i></div><span class="small muted">${s.i+1} / ${s.q.length}</span></div>
-    <div class="task">${TASK[mode]}${s.kind!=='step'||it.u!==s.unit?' · '+esc(UNIT(it.u).en):''}</div>`;
+    <div class="task">${mode==='mc'&&it.o.includes(NOART)?'Выбери вариант («—» значит ничего не нужно)':TASK[mode]}${s.kind!=='step'||it.u!==s.unit?' · '+esc(UNIT(it.u).en):''}</div>`;
   const input=`<input class="inp" id="ans" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" placeholder="Ответ по-английски">`;
-  if(mode==='mc')h+=`<div class="q">${esc(it.q).replace('___','<span class="blank"></span>')}</div><div class="opts">${shuffle(it.o.map((o,i)=>i)).map(i=>`<button class="opt" data-i="${i}" aria-pressed="false">${esc(it.o[i])}</button>`).join('')}</div>`;
-  else if(mode==='gap')h+=`<div class="q">${esc(it.q).replace('___','<span class="blank"></span>')}</div>${input}`;
+  if(mode==='mc')h+=`<div class="q">${qHtml(it.q)}</div><div class="opts">${shuffle(it.o.map((o,i)=>i)).map(i=>`<button class="opt" data-i="${i}" aria-pressed="false">${esc(it.o[i])}</button>`).join('')}</div>`;
+  else if(mode==='gap')h+=`<div class="q">${qHtml(it.q)}</div>${input}`;
   else if(mode==='tr')h+=`<div class="q">${esc(it.q)}</div>${input}`;
-  else if(mode==='fix')h+=`<div class="q"><span class="wrong">${esc(it.q)}</span></div><div class="small muted">Напиши предложение целиком, уже без ошибки.</div>${input}`;
+  else if(mode==='fix')h+=`<div class="q"><span class="wrong">${twrap(it.q)}</span></div><div class="small muted">Напиши предложение целиком, уже без ошибки.</div>${input}`;
   else if(mode==='dict')h+=`<button class="say" id="say" aria-label="Прослушать">${SPK}</button><div class="small muted" style="text-align:center">Можно слушать сколько угодно раз.</div>${input}`;
   else if(mode==='build'){
     const words=it.ans[0].replace(/[.?!,]/g,'').split(' ').map((w,i)=>i===0&&!proper(w)?w.toLowerCase():w);
@@ -1392,8 +1793,8 @@ function showFeedback(){
   const s=session,st=s.state,it=st.it,r=st.r,u=UNIT(it.u);
   document.querySelectorAll('.opt,.tile,#ans').forEach(e=>e.disabled=true);
   const rule=u.rules[it.rule],why=rule?(rule[S.lang]||rule.ru):'';
-  const full=(it.t==='mc'||it.t==='gap')&&it.q.includes('___')?fillBlank(it.q,it.ans[0]):esc(it.ans[0]);
-  const plain=(it.t==='mc'||it.t==='gap')&&it.q.includes('___')?it.q.replace('___',it.ans[0]).replace(/\s*\([^)]*\)\s*$/,''):it.ans[0];
+  const full=(it.t==='mc'||it.t==='gap')&&it.q.includes('___')?fillBlank(it.q,it.ans[0]):twrap(it.ans[0]);
+  const plain=(it.t==='mc'||it.t==='gap')&&it.q.includes('___')?it.q.replace('___',it.ans[0]===NOART?'':it.ans[0]).replace(/\s*\([^)]*\)\s*$/,'').replace(/\s+/g,' '):it.ans[0];
   const f=$('#foot');f.className='foot '+r.res;
   let h=`<div class="wrap"><div class="verdict">${r.res==='ok'?'Верно':r.res==='typo'?'Верно, но есть помарка':'Неверно'}</div>`;
   if(r.res==='typo')h+=`<div class="small">Ты написал <b>${esc(r.got)}</b>, правильно — <b>${esc(r.want)}</b>.</div>`;
