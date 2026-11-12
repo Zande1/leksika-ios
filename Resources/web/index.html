@@ -121,6 +121,27 @@ textarea{min-height:160px;resize:vertical;font-family:var(--f-read);line-height:
 .ctx{font-family:var(--f-read);font-size:15px;line-height:1.5;background:var(--bg);border-radius:10px;padding:10px 12px}
 .ctx mark{background:var(--l2);color:inherit;border-radius:4px;padding:0 2px}
 .pg[hidden]{display:none}
+.player{position:fixed;left:0;right:0;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px));z-index:24;background:var(--surface);border-top:1px solid var(--line)}
+.player .in{max-width:720px;margin:0 auto;display:grid;grid-template-columns:auto auto auto 1fr auto;gap:8px;align-items:center;padding:7px max(12px,env(safe-area-inset-left,0px))}
+.player button{border:1px solid var(--line);background:var(--bg);border-radius:10px;height:40px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;padding:0 8px}
+.player button svg{width:20px;height:20px}
+.player #pbPlay{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);min-width:56px}
+.player .info{font-size:12.5px;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.has-player main{padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 82px)}
+body.has-player .toast{bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 68px)}
+body.sheet-open .player{display:none}
+.cw{cursor:pointer;border-radius:4px}
+.cw.tg{background:var(--l2);padding:0 2px}
+.cw:active{background:var(--accent-soft)}
+.wtools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.wtools select{border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:6px 10px;font-size:13px;font-weight:600}
+.wtools .lab{font-size:12px;color:var(--muted);font-weight:700}
+.wrow .lv small{display:block;font-size:11px;white-space:nowrap}
+.wrow.sel{background:var(--accent-soft)}
+.selbar{position:sticky;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 8px);margin-top:10px;background:var(--ink);color:var(--bg);border-radius:14px;padding:10px 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;z-index:5}
+.selbar b{flex:1;font-size:13px;min-width:90px}
+.selbar button{border:0;border-radius:9px;padding:8px 10px;font-weight:700;font-size:13px;background:var(--bg);color:var(--ink)}
+.selbar button.del{background:var(--danger);color:#fff}
 .pager{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-top:6px}
 .pager .btn{justify-content:center;padding:13px 10px;font-size:15px}
 .pager .mid{text-align:center;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -204,6 +225,13 @@ textarea{min-height:160px;resize:vertical;font-family:var(--f-read);line-height:
 </div></nav>
 <input type="file" id="fileIn" accept=".txt,.md,.srt,.vtt,.html,.htm,.xhtml,.epub,.docx,.pdf,text/plain,application/pdf,application/epub+zip" hidden>
 <input type="file" id="backupIn" accept=".json,application/json" hidden>
+<div class="player" id="player" hidden><div class="in">
+  <button id="pbPrev" aria-label="Предыдущее предложение"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+  <button id="pbPlay" aria-label="Слушать"></button>
+  <button id="pbNext" aria-label="Следующее предложение"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+  <span class="info" id="pbInfo"></span>
+  <button id="pbRate" aria-label="Скорость"></button>
+</div></div>
 <div id="sheetRoot"></div>
 <div class="toast" id="toast" hidden></div>
 
@@ -416,7 +444,7 @@ function initLocal(){
   if(!data&&natL)data={};
   if(data){S.lessons=new Map(Object.entries(natL||data.lessons||{}));S.words=new Map(Object.entries(data.words||{}));S.kn=new Map(Object.entries(data.kn||{}));S.prog=data.prog||{};S.days=data.days||{}}
   else S.lessons.set('sample',{title:SAMPLE.title,text:SAMPLE.text,created:Date.now()});
-  dayRec();persistLocal();renderView();
+  dayRec();tidyOnce();persistLocal();renderView();
 }
 function initDb(){
   const got={},conf={};const names=['lessons','vocab','prog','days'];let ready=false;
@@ -424,7 +452,7 @@ function initDb(){
     if(names.every(n=>conf[n])){offline=false;if(!ready)becomeReady();else changed();return}
     if(ready)changed();
   };
-  const becomeReady=()=>{ready=true;clearTimeout(t1);loadErr='';mode='db';rebuildVocab();dayRec();renderView();snapStats();migrateOld()};
+  const becomeReady=()=>{ready=true;clearTimeout(t1);loadErr='';mode='db';rebuildVocab();dayRec();renderView();snapStats();migrateOld();tidyOnce()};
   const t1=setTimeout(()=>{if(ready)return;if(names.every(n=>got[n])){offline=true;becomeReady()}else{loadErr='Не удаётся связаться с хранилищем — проверь интернет. Данные появятся, как только связь восстановится.';renderView()}},7000);
   const mark=(n,snap)=>{got[n]=1;if(!(snap.metadata&&snap.metadata.fromCache))conf[n]=1;tryReady()};
   const fail=n=>e=>{toast('Связь с хранилищем прервана ('+(e&&e.code||'ошибка')+')');if(!ready){loadErr='Хранилище недоступно.';renderView()}};
@@ -479,14 +507,35 @@ function speak(text,onend){
     wd=setTimeout(chk,est);
   },40);
 }
-function stopReading(){if(!reading)return;reading=null;spkTok++;if(NATIVE)NB.post('stop');else try{speechSynthesis.cancel()}catch(e){}document.querySelectorAll('.sent.playing').forEach(x=>x.classList.remove('playing'));const b=$('#readBtn');if(b)b.textContent='▶ Слушать'}
+function stopReading(){if(!reading)return;reading=null;spkTok++;if(NATIVE)NB.post('stop');else try{speechSynthesis.cancel()}catch(e){}document.querySelectorAll('.sent.playing').forEach(x=>x.classList.remove('playing'));syncPlayer()}
+/* ---- player bar: the sentence being read is remembered, so «pause» then «play» continues from it ---- */
+let playIdx=-1;
+const PB_PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg>',PB_PAUSE='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
+function pageSents(){const pg=pages[pageIdx];return [...(pg?pg.el:document).querySelectorAll('.sent')].map(e=>+e.dataset.i)}
+function syncPlayer(){
+  const p=$('#player');if(!p)return;const on=view==='read'&&mode!=='loading'&&!!curLesson&&S.lessons.has(curLesson)&&spans.length>0;
+  p.hidden=!on;document.body.classList.toggle('has-player',on);if(!on)return;
+  const ids=pageSents(),pos=ids.indexOf(playIdx);
+  const b=$('#pbPlay');b.innerHTML=reading?PB_PAUSE:PB_PLAY;b.setAttribute('aria-label',reading?'Пауза':'Слушать');
+  $('#pbInfo').textContent=ids.length?(pos<0?`${ids.length} предл. на странице`:`Предложение ${pos+1} из ${ids.length}`):'';
+  $('#pbRate').textContent=rate+'×';
+}
+function playToggle(){
+  if(reading){stopReading();return}
+  closeSheet();const ids=pageSents();if(!ids.length)return;
+  if(ids.includes(playIdx)){readFrom(playIdx);return}
+  const n=firstVisibleSpan();const st=spans[n]&&spans[n].closest('.sent');readFrom(st&&ids.includes(+st.dataset.i)?+st.dataset.i:ids[0]);
+}
+function playStep(d){const ids=pageSents();if(!ids.length)return;closeSheet();let p=ids.indexOf(playIdx);p=p<0?0:Math.max(0,Math.min(ids.length-1,p+d));readFrom(ids[p])}
+function cycleRate(){rate=rate>=1?0.7:rate>=0.9?1:0.9;LS.set('lx-rate',rate);const r=$('#rateBtn');if(r)r.textContent=`Скорость ${rate}×`;syncPlayer();if(reading)readFrom(playIdx)}
+$('#pbPlay').onclick=playToggle;$('#pbPrev').onclick=()=>playStep(-1);$('#pbNext').onclick=()=>playStep(1);$('#pbRate').onclick=cycleRate;
 function readFrom(i){
   const sents=[...document.querySelectorAll('#text .sent')];
   if(i>=sents.length){stopReading();return}
   const pgEl=sents[i].closest('.pg');
   /* listening stops at the end of the page: the reader turns it, so its words are counted and marked as usual */
   if(pgEl&&pgEl.hidden){stopReading();toast('Страница дослушана. Нажми «Далее», чтобы перейти к следующей.');return}
-  const token={};reading=token;const b=$('#readBtn');if(b)b.textContent='■ Стоп';
+  const token={};reading=token;playIdx=i;syncPlayer();
   sents.forEach(x=>x.classList.remove('playing'));sents[i].classList.add('playing');
   const r=sents[i].getBoundingClientRect();if(r.top<70||r.bottom>innerHeight*0.6)sents[i].scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
   speak(sents[i].textContent,()=>{if(reading===token)readFrom(i+1)});
@@ -722,6 +771,7 @@ function renderView(){
   if(mode==='loading'){$('#title').textContent='Лексика';v.innerHTML=`<div class="empty">${loadErr?esc(loadErr):'<span class="spin"></span> Загружаю тексты и слова…'}</div>`;return}
   updateBadge();
   ({library:renderLibrary,read:renderReader,words:renderWords,cards:renderCards,progress:renderProgress})[view]();
+  syncPlayer();
   if(offline)v.insertAdjacentHTML('afterbegin','<div class="banner" id="offBanner">Нет связи — показаны сохранённые данные. Изменения отправятся, когда интернет вернётся.</div>');
 }
 
@@ -854,6 +904,7 @@ function showPage(i){
     $('#pgPrev').onclick=()=>{stopReading();closeSheet();showPage(pageIdx-1);scrollTo(0,0);savePos(true)};
     $('#pgNext')&&($('#pgNext').onclick=()=>{stopReading();closeSheet();nextPage(false)})}
   const hint=$('#pgHint');if(hint)hint.hidden=last||pages.length<2;
+  syncPlayer();
 }
 /* auto=true when listening runs over the page end: words count as read, but nothing is marked as known */
 function nextPage(auto){
@@ -909,7 +960,7 @@ function renderReader(){
   parsed=parseText(l.text||'');
   const nx=nextLessonId();
   $('#view').innerHTML=`${l.course?`<div class="small muted">${esc(l.course)}</div>`:''}
-    <div class="toolbar"><button class="btn primary" id="readBtn">▶ Слушать</button><button class="btn" id="rateBtn">Скорость ${rate}×</button>${voiceSelectHtml()}</div>
+    <div class="toolbar"><button class="btn" id="rateBtn">Скорость ${rate}×</button>${voiceSelectHtml()}</div>
     ${IS_IOS&&!NATIVE&&voices.length&&vScore(voices[0])<2&&!LS.get('lx-tts-tip-off',false)?'<div class="note" id="ttsTip">Нужен живой голос (Ava Premium)? iOS не даёт его веб-страницам, но можно слушать через систему: включи «Проговаривание экрана» в Настройки → Универсальный доступ → Устный контент, выбери там Ava (Premium) и проведи двумя пальцами вниз от верхнего края экрана. <button class="btn ghost sm" id="ttsTipOff">Понятно</button></div>':''}
     <div class="legend"><span><i style="background:var(--new)"></i>новое</span><span><i style="background:var(--l1)"></i>изучаю</span><span><i></i>знаю</span><span>Зажми слово и веди пальцем — выделится фраза</span></div>
     <div class="text" id="text" style="--fs:${fs}px">${parsed.html}</div>
@@ -925,8 +976,7 @@ function renderReader(){
   paintWords();renderReaderStats();bindVoiceSel();
   $('#fsUp').onclick=()=>{fs=Math.min(30,fs+2);LS.set('lx-fs',fs);$('#text').style.setProperty('--fs',fs+'px')};
   $('#fsDown').onclick=()=>{fs=Math.max(14,fs-2);LS.set('lx-fs',fs);$('#text').style.setProperty('--fs',fs+'px')};
-  $('#readBtn').onclick=()=>{if(reading)stopReading();else{closeSheet();const n=firstVisibleSpan();const s=spans[n]&&spans[n].closest('.sent');readFrom(s?+s.dataset.i:0)}};
-  $('#rateBtn').onclick=e=>{rate=rate>=1?0.7:rate>=0.9?1:0.9;LS.set('lx-rate',rate);e.currentTarget.textContent=`Скорость ${rate}×`};
+  $('#rateBtn').onclick=cycleRate;
   $('#finish').onclick=finishLesson;
   $('#ttsTipOff')&&($('#ttsTipOff').onclick=()=>{LS.set('lx-tts-tip-off',true);$('#ttsTip').remove()});
   $('#nextL')&&($('#nextL').onclick=()=>openLesson(nx));
@@ -1030,11 +1080,33 @@ function createLingq(extra,s=sheet){
   saveWord({k:s.k,w:s.display,tr:'',lemma:'',ipa:'',note:'',ctx:s.ctx,status:1,interval:0,ease:2.5,due:now,reps:0,created:now,...(s.phrase?{phrase:true}:{}),...extra});
   bump('created');
 }
+/* variants: no repeats, at most three, lower case unless the English word itself is capitalised */
+/* one pass over the saved words: remove repeated variants and stray capitals left by the old translator */
+function tidyOnce(){
+  if(LS.get('lx-trclean1',false))return;LS.set('lx-trclean1',true);
+  for(const w of [...S.words.values()]){const t=cleanTr(w.tr,w.w||w.k);if(t&&t!==w.tr)saveWord({...w,tr:t})}
+}
+function cleanTr(tr,disp){
+  const keep=/^[A-Z]/.test(String(disp||''));const seen=new Set();const out=[];
+  for(let t of String(tr||'').split(/[,;]/)){t=t.trim().replace(/\s+/g,' ');if(!t)continue;
+    if(!keep&&!/[A-ZА-ЯЁ]/.test(t.slice(1)))t=t[0].toLowerCase()+t.slice(1);
+    const k=t.toLowerCase();if(seen.has(k))continue;seen.add(k);out.push(t);if(out.length===3)break}
+  return out.join(', ');
+}
+async function relook(){
+  const s=sheet;if(!s||s.loading)return;const cur=S.words.get(s.k);s.loading=true;s.err='';updateSheet();
+  try{const r=await lookup(s.display,s.ctx||(cur&&cur.ctx)||'',s.phrase);
+    const data={tr:cleanTr(r.tr,s.display),lemma:String(r.lemma||''),pos:String(r.pos||''),note:String(r.note||'')};
+    lookCache.set(s.k,data);s.lookup=data;s.loading=false;
+    if(data.tr&&cur)saveWord({...S.words.get(s.k),tr:data.tr,lemma:data.lemma||cur.lemma||'',pos:data.pos||cur.pos||''});
+  }catch(e){s.loading=false;s.err=sampleError(e)||'Не удалось перевести'}
+  if(sheet===s){const inp=$('#trInput');if(inp)inp.blur();updateSheet()}
+}
 async function fetchLookup(){
   const s=sheet;if(!s)return;s.loading=true;s.err='';updateSheet();
   try{
     const r=await lookup(s.display,s.ctx,s.phrase);
-    const data={tr:String(r.tr||''),lemma:String(r.lemma||''),ipa:String(r.ipa||'').replace(/^\/|\/$/g,''),note:String(r.note||'')};
+    const data={tr:cleanTr(r.tr,s.display),lemma:String(r.lemma||''),pos:String(r.pos||''),ipa:String(r.ipa||'').replace(/^\/|\/$/g,''),note:String(r.note||'')};
     lookCache.set(s.k,data);s.lookup=data;s.loading=false;
     const cur=S.words.get(s.k);
     if(!cur&&statusOf(s.k)===0)createLingq(data,s);
@@ -1042,7 +1114,20 @@ async function fetchLookup(){
   }catch(e){s.loading=false;s.err=sampleError(e);if(!S.words.get(s.k)&&statusOf(s.k)===0)createLingq({},s)}
   if(sheet===s)updateSheet();
 }
-function closeSheet(){if(!sheet)return;if(sheet.ctl)sheet.ctl.abort();sheet=null;$('#sheetRoot').innerHTML='';document.body.classList.remove('sheet-open');paintWords()}
+function closeSheet(){if(!sheet)return;if(sheet.ctl)sheet.ctl.abort();sheet=null;$('#sheetRoot').innerHTML='';document.body.classList.remove('sheet-open');paintWords();
+  /* the sheet can be opened from a flashcard: show the edited translation right away */
+  if(view==='cards'&&session){const c=session.cur,w=c&&S.words.get(c.k);
+    if(w&&c.opts&&c.answered===null&&LS.get('lx-dir','en')!=='ru'){const o=c.opts.find(x=>x.ok);if(o)o.t=shortTr(w.tr)}
+    renderCards()}
+}
+/* a context sentence whose every word can be tapped, with the studied word highlighted */
+function ctxWords(ctx,disp){
+  if(!ctx)return '';const t=(disp||'').match(WORD_RE);let a=-1,b=-1;
+  if(t){const m=ctx.match(new RegExp('(^|[^'+LT+'])('+t.map(reEsc).join('[^'+LT+']+')+')(?!['+LT+'])','i'));if(m){a=m.index+m[1].length;b=a+m[2].length}}
+  let out='',last=0,m;const re=new RegExp(WORD_RE.source,'g');
+  while((m=re.exec(ctx))){const s0=m.index,e0=s0+m[0].length;out+=esc(ctx.slice(last,s0))+`<span class="cw${s0>=a&&e0<=b?' tg':''}" data-k="${esc(norm(m[0]))}">${esc(m[0])}</span>`;last=e0}
+  return out+esc(ctx.slice(last));
+}
 function markCtx(ctx,disp){const t=(disp||'').match(WORD_RE);if(!ctx)return '';if(!t)return esc(ctx);const re=new RegExp('(^|[^'+LT+'])('+t.map(reEsc).join('[^'+LT+']+')+')(?!['+LT+'])','i');const m=ctx.match(re);if(!m)return esc(ctx);const a=m.index+m[1].length;return esc(ctx.slice(0,a))+'<mark>'+esc(m[2])+'</mark>'+esc(ctx.slice(a+m[2].length))}
 function buildSheet(){
   const s=sheet;
@@ -1087,7 +1172,7 @@ function updateSheet(){
       ${canAI()&&ctx&&!s.explain?`<button class="btn sm" data-act="explain" ${s.expLoading?'disabled':''}>${s.expLoading?'<span class="spin"></span> ':''}Объяснить</button>`:''}</div>
     ${s.range?`<div class="row"><span class="small muted">Фраза:</span><button class="btn sm" data-act="ext" data-d="-1" ${s.range[0]===0?'disabled':''}>＋ слово слева</button><button class="btn sm" data-act="ext" data-d="1" ${s.range[1]>=spans.length-1?'disabled':''}>＋ слово справа</button>${s.phrase?'<button class="btn sm" data-act="shrink">Только первое слово</button>':''}</div>`:''}`);
   for(const b of $('#shLv').children)b.setAttribute('aria-pressed',String(+b.dataset.lv===st));
-  setHtml('shFoot',`${w?'<button class="btn ghost sm danger" data-act="del">Убрать из моих слов</button>':''}${!w&&!s.lookup&&!s.loading&&canTr()?'<button class="btn sm" data-act="look">Перевести</button>':''}
+  setHtml('shFoot',`${w&&canTr()?`<button class="btn sm" data-act="relook" ${s.loading?'disabled':''}>↻ Перевести заново</button>`:''}${w?'<button class="btn ghost sm danger" data-act="del">Убрать из моих слов</button>':''}${!w&&!s.lookup&&!s.loading&&canTr()?'<button class="btn sm" data-act="look">Перевести</button>':''}
     <a class="btn ghost sm" href="https://translate.google.com/?sl=en&tl=ru&text=${encodeURIComponent(s.display)}" target="_blank" rel="noopener">Google ↗</a>
     <a class="btn ghost sm" href="https://dictionary.cambridge.org/dictionary/english-russian/${encodeURIComponent((d.lemma||s.display).toLowerCase())}" target="_blank" rel="noopener">Cambridge ↗</a>`);
 }
@@ -1101,6 +1186,7 @@ async function onSheetClick(e){
     case 'sent':speak(ctx);break;
     case 'readfrom':{const si=s.si;closeSheet();readFrom(si);break}
     case 'look':fetchLookup();break;
+    case 'relook':relook();break;
     case 'phrase':{const p=S.words.get(b.dataset.k);if(p)openSheet(p.k,p.w,p.ctx||ctx,s.si,true,null,null);break}
     case 'del':removeWord(s.k);closeSheet();break;
     case 'ext':{const d=+b.dataset.d;let [i,j]=s.range;if(d<0)i=Math.max(0,i-1);else j=Math.min(spans.length-1,j+1);if(j-i<=11)openRange(i,j);break}
@@ -1133,14 +1219,21 @@ function fitSheetToKeyboard(){
 }
 
 /* ================= words ================= */
-let wFilter='learn', wQuery='', wLimit=300;
+let wFilter='learn', wQuery='', wLimit=300, wLevel=0, wSort=LS.get('lx-wsort','new'), wSel=null, wDelArm=false;
+function dueLabel(w,now){if((w.status||1)>=5)return '';if(isDue(w,now))return 'сегодня';const n=Math.round((dayStart(w.due||now)-dayStart(now))/864e5);return n<=1?'завтра':'через '+n+' дн'}
 function renderWords(){
   $('#title').textContent='Мои слова';
   $('#view').innerHTML=`<input type="search" id="wq" placeholder="Поиск по слову или переводу" value="${esc(wQuery)}">
     <div class="chips">${[['learn','Изучаю'],['due','К повторению'],['phr','Фразы'],['done','Выучено'],['ign','Игнор'],['all','Все']].map(([k,t])=>`<button class="chip" data-f="${k}" aria-pressed="${wFilter===k}">${t}</button>`).join('')}</div>
+    <div class="wtools"><span class="lab">Уровень</span><div class="chips">${[0,1,2,3,4].map(n=>`<button class="chip" data-wl="${n}" aria-pressed="${wLevel===n}">${n||'Все'}</button>`).join('')}</div></div>
+    <div class="wtools"><select id="wsort" aria-label="Сортировка">${[['new','Сначала новые'],['due','Скоро повтор'],['hard','Больше ошибок'],['az','По алфавиту']].map(([k,t])=>`<option value="${k}" ${wSort===k?'selected':''}>${t}</option>`).join('')}</select>
+      <button class="btn sm" id="wSelBtn">${wSel?'Отменить выбор':'Выбрать несколько'}</button></div>
     <div id="wl"></div>`;
   $('#wq').oninput=e=>{wQuery=e.target.value;wLimit=300;renderWordList()};
-  document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{wFilter=c.dataset.f;wLimit=300;document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));renderWordList()});
+  document.querySelectorAll('.chip[data-f]').forEach(c=>c.onclick=()=>{wFilter=c.dataset.f;wLimit=300;document.querySelectorAll('.chip[data-f]').forEach(x=>x.setAttribute('aria-pressed',x===c));renderWordList()});
+  document.querySelectorAll('.chip[data-wl]').forEach(c=>c.onclick=()=>{wLevel=+c.dataset.wl;wLimit=300;document.querySelectorAll('.chip[data-wl]').forEach(x=>x.setAttribute('aria-pressed',x===c));renderWordList()});
+  $('#wsort').onchange=e=>{wSort=e.target.value;LS.set('lx-wsort',wSort);renderWordList()};
+  $('#wSelBtn').onclick=()=>{wSel=wSel?null:new Set();wDelArm=false;renderWords()};
   renderWordList();
 }
 function renderWordList(){
@@ -1149,12 +1242,28 @@ function renderWordList(){
   if(wFilter==='ign')arr=[...S.kn].filter(([k,v])=>v===2&&(!q||k.includes(q))).map(([k])=>({k,w:k,tr:'',status:-1}));
   else arr=[...S.words.values()].filter(w=>{const s=w.status||1;
     if(wFilter==='learn'&&s===5)return false;if(wFilter==='done'&&s!==5)return false;if(wFilter==='due'&&(s===5||!isDue(w,now)))return false;if(wFilter==='phr'&&!w.phrase)return false;
-    return !q||w.k.includes(q)||(w.tr||'').toLowerCase().includes(q)}).sort((a,b)=>(b.created||0)-(a.created||0));
+    if(wLevel&&s!==wLevel)return false;
+    return !q||w.k.includes(q)||(w.tr||'').toLowerCase().includes(q)}).sort(wSort==='az'?(a,b)=>a.k<b.k?-1:1:wSort==='due'?(a,b)=>((a.status||1)===5)-((b.status||1)===5)||(a.due||0)-(b.due||0):wSort==='hard'?(a,b)=>(b.lapses||0)-(a.lapses||0)||(b.created||0)-(a.created||0):(a,b)=>(b.created||0)-(a.created||0));
+  if(wSel)for(const k of [...wSel])if(!arr.some(w=>w.k===k))wSel.delete(k);
   if(!arr.length){box.innerHTML=`<div class="empty">${S.words.size?'Ничего не найдено.':'Здесь появятся слова и фразы, на которые ты нажмёшь при чтении.'}</div>`;return}
   box.innerHTML=`<div class="small muted" style="margin-bottom:8px">${fmtN(arr.length)} записей</div><div class="wlist">`+arr.slice(0,wLimit).map(w=>{const s=w.status||1;
-    return `<button class="wrow" data-k="${esc(w.k)}"><span class="dot" style="background:${s===5?'var(--accent)':s===-1?'var(--line)':'var(--l'+s+')'}"></span><span class="tx"><b>${esc(w.w||w.k)}</b><div>${s===-1?'игнорируется':esc(w.tr||'— без перевода')}</div></span><span class="lv">${s===5?'✓':s===-1?'—':s+'/4'}</span></button>`}).join('')+'</div>'+
-    (arr.length>wLimit?`<button class="btn" id="wMore" style="margin-top:10px">Показать ещё ${fmtN(Math.min(300,arr.length-wLimit))}</button>`:'');
-  box.querySelectorAll('.wrow').forEach(r=>r.onclick=()=>{const w=S.words.get(r.dataset.k);if(w)openSheet(w.k,w.w||w.k,w.ctx||'',null,!!w.phrase);else openSheet(r.dataset.k,r.dataset.k,'',null,false)});
+    const on=wSel&&wSel.has(w.k),dl=s>0&&s<5?dueLabel(w,now):'';
+    return `<button class="wrow${on?' sel':''}" data-k="${esc(w.k)}">${wSel?`<span style="font-size:18px;width:20px">${on?'☑':'☐'}</span>`:`<span class="dot" style="background:${s===5?'var(--accent)':s===-1?'var(--line)':'var(--l'+s+')'}"></span>`}<span class="tx"><b>${esc(w.w||w.k)}</b><div>${s===-1?'игнорируется':esc(w.tr||'— без перевода')}</div></span><span class="lv">${s===5?'✓':s===-1?'—':s+'/4'}${dl?`<small>${dl}</small>`:''}${(w.lapses||0)>=3?`<small>ошибок: ${w.lapses}</small>`:''}</span></button>`}).join('')+'</div>'+
+    (arr.length>wLimit?`<button class="btn" id="wMore" style="margin-top:10px">Показать ещё ${fmtN(Math.min(300,arr.length-wLimit))}</button>`:'')+
+    (wSel?`<div class="selbar"><b>Выбрано: ${wSel.size}</b>${wFilter==='ign'?'':'<button data-bulk="known">✓ Знаю</button><button data-bulk="ign">Игнор</button>'}<button data-bulk="del" class="del">${wDelArm?'Точно удалить?':'Удалить'}</button><button data-bulk="all">Все</button></div>`:'');
+  box.querySelectorAll('[data-bulk]').forEach(b=>b.onclick=()=>{const act=b.dataset.bulk,keys=[...wSel];
+    if(act==='all'){arr.slice(0,wLimit).forEach(w=>wSel.add(w.k));wDelArm=false;renderWordList();return}
+    if(!keys.length)return;
+    if(act==='del'&&!wDelArm){wDelArm=true;renderWordList();return}
+    for(const k of keys){const w=S.words.get(k);
+      if(act==='known'){if(w)saveWord({...w,status:5,streak:0,due:now+60*864e5})}
+      else if(act==='ign'){if(w)vocabWrite(k,null,2);else setKn([k],2)}
+      else if(w)removeWord(k);else setKn([k],0)}
+    toast(act==='known'?`В известные: ${keys.length}`:act==='ign'?`В игнор: ${keys.length}`:`Удалено: ${keys.length}`);
+    wSel=null;wDelArm=false;renderWords()});
+  box.querySelectorAll('.wrow').forEach(r=>r.onclick=()=>{
+    if(wSel){const k=r.dataset.k;wSel.has(k)?wSel.delete(k):wSel.add(k);wDelArm=false;renderWordList();return}
+    const w=S.words.get(r.dataset.k);if(w)openSheet(w.k,w.w||w.k,w.ctx||'',null,!!w.phrase);else openSheet(r.dataset.k,r.dataset.k,'',null,false)});
   $('#wMore')&&($('#wMore').onclick=()=>{wLimit+=300;renderWordList()});
 }
 
@@ -1190,7 +1299,11 @@ function buildChoice(w,dir){
   const ans=x=>dir==='ru'?(x.w||x.k):shortTr(x.tr);
   const right=ans(w);if(!right||(dir!=='ru'&&!w.tr))return null;
   const seen=new Set([right.toLowerCase()]);const out=[];
-  const pools=[[...S.words.values()].filter(x=>x.k!==w.k&&x.tr&&!!x.phrase===!!w.phrase),[...S.words.values()].filter(x=>x.k!==w.k&&x.tr)];
+  /* wrong options of the same kind as the right one (verb with verbs, adjective with adjectives), so the form gives nothing away */
+  const kind=x=>{if(x.phrase)return 'p';const p={verb:'v',adjective:'a',noun:'n',adverb:'d'}[x.pos];if(p)return p;
+    const f=String(x.tr||'').split(',')[0].trim().toLowerCase();return /(ть|ться|чь|тись|ти)$/.test(f)?'v':/(ый|ий|ой|ая|яя|ое|ее|ые|ие)$/.test(f)?'a':'n'};
+  const all=[...S.words.values()].filter(x=>x.k!==w.k&&x.tr),kw=kind(w);
+  const pools=[all.filter(x=>kind(x)===kw),all.filter(x=>!!x.phrase===!!w.phrase),all];
   for(const pool of pools){for(const x of shuffle(pool)){const a=ans(x);if(!a||seen.has(a.toLowerCase()))continue;seen.add(a.toLowerCase());out.push(a);if(out.length===3)break}if(out.length===3)break}
   if(out.length<3)return null;
   return shuffle([right,...out]).map(t=>({t,ok:t===right}));
@@ -1228,9 +1341,9 @@ function renderCards(){
     ss.cur={k:w.k,mode,opts,answered:null,revealed:false};
   }
   const c=ss.cur;const ru=dir==='ru'&&!!w.tr;
-  const word=esc(w.w||w.k);const ctxH=w.ctx?`<div class="ctx" style="text-align:left">${markCtx(w.ctx,w.w||w.k)}</div>`:'';
+  const word=esc(w.w||w.k);const ctxH=w.ctx?`<div class="ctx" style="text-align:left">${ctxWords(w.ctx,w.w||w.k)}</div>`:'';
   const wordBlock=`<div class="row" style="justify-content:center"><div class="big">${word}</div><button class="icon-btn" id="cSpk" aria-label="Озвучить">${SPK}</button></div>`;
-  const trBlock=`<div class="ans">${w.ipa?`<div class="sw-ipa">[${esc(w.ipa)}]</div>`:''}<div class="sw-tr">${esc(w.tr||'— перевод не добавлен')}</div>${w.note?`<div class="small muted">${esc(w.note)}</div>`:''}</div>`;
+  const trBlock=`<div class="ans">${w.ipa?`<div class="sw-ipa">[${esc(w.ipa)}]</div>`:''}<div class="sw-tr">${esc(w.tr||'— перевод не добавлен')}</div>${w.lemma&&norm(w.lemma)!==w.k&&!w.phrase?`<div class="small muted">словарная форма: ${esc(w.lemma)}</div>`:''}${w.note?`<div class="small muted">${esc(w.note)}</div>`:''}</div>`;
   const shown=c.answered!==null||c.revealed;
   const ctxFront=!ctxH||shown||c.ctxOpen?ctxH:`<button class="btn ghost sm" id="ctxShow">Показать предложение</button>`;
   let front=ru?`<div class="big" style="font-family:var(--f-ui);font-size:24px">${esc(w.tr)}</div>`:wordBlock+ctxFront;
@@ -1248,7 +1361,10 @@ function renderCards(){
   $('#view').innerHTML=`<div class="progress"><i style="width:${Math.min(100,done/total*100)}%"></i></div>
     <div class="card">${front}${shown?back:''}</div>
     ${actions}
-    <div class="row"><button class="btn ghost" id="quit">Закончить</button><span class="small muted">Уровень ${lv===5?'✓':lv+'/4'} · ${Math.min(done+1,total)} из ${total}</span>${c.answered===null&&!c.revealed?`<button class="btn ghost sm" id="knowIt" style="margin-left:auto">Знаю ✓</button>`:''}</div>`;
+    <div class="row"><button class="btn ghost" id="quit">Закончить</button><span class="small muted">Ур. ${lv===5?'✓':lv+'/4'} · ${Math.min(done+1,total)} из ${total}</span><button class="btn ghost sm" id="cEdit" style="margin-left:auto">✎ Изменить</button>${c.answered===null&&!c.revealed?`<button class="btn ghost sm" id="knowIt">Знаю ✓</button>`:''}</div>
+    ${ctxH&&(shown||c.ctxOpen||ru&&shown)?'<div class="small muted" style="text-align:center">Нажми на любое слово в предложении, чтобы открыть его перевод.</div>':''}`;
+  $('#cEdit').onclick=()=>openSheet(w.k,w.w||w.k,w.ctx||'',null,!!w.phrase);
+  document.querySelectorAll('#view .card .cw').forEach(e=>e.onclick=()=>openSheet(e.dataset.k,e.textContent,w.ctx,null,false));
   $('#cSpk')&&($('#cSpk').onclick=()=>speak(w.w||w.k));
   $('#ctxShow')&&($('#ctxShow').onclick=()=>{c.ctxOpen=true;renderCards()});
   $('#quit').onclick=()=>{session=null;renderView()};

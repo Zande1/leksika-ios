@@ -91,23 +91,36 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
 
     private func translateWord(_ text: String, context: String, isPhrase: Bool) async throws -> [String: Any] {
         let lemma = isPhrase ? "" : Lemma.of(text, in: context)
+        let pos = isPhrase ? "" : WordClass.of(text, in: context)
         async let apple: String? = try? await withTimeout(4) { try await self.translator.translate(text) }
         async let google: GoogleResult? = try? await Google.translate(text, dictionary: !isPhrase)
         let a = await apple
         let g = await google
 
+        // Dictionary meanings of the same part of speech as in the sentence come first,
+        // so a verb in the text is not explained with adjectives and nouns.
+        var ordered: [String] = []
+        if !pos.isEmpty, let entry = g?.byPos.first(where: { $0.pos == pos }) {
+            ordered.append(contentsOf: entry.terms.prefix(3))
+        }
+        if ordered.isEmpty {
+            ordered = [a, g?.main].compactMap { $0 }
+            if !isPhrase { ordered.append(contentsOf: g?.alternatives ?? []) }
+        }
+        // A phrase gets one translation: two machine versions of the same phrase are noise.
+        let limit = isPhrase ? 1 : 3
         var options: [String] = []
         var seen = Set<String>()
-        for candidate in [a, g?.main].compactMap({ $0 }) + (g?.alternatives ?? []) {
+        for candidate in ordered {
             let t = candidate.trimmingCharacters(in: .whitespacesAndNewlines)
             let key = t.lowercased()
             if t.isEmpty || seen.contains(key) || key == text.lowercased() { continue }
             seen.insert(key)
             options.append(t)
-            if options.count == 3 { break }
+            if options.count == limit { break }
         }
         if options.isEmpty { throw URLError(.cannotParseResponse) }
-        return ["tr": options.joined(separator: ", "), "lemma": lemma, "ipa": "", "note": ""]
+        return ["tr": options.joined(separator: ", "), "lemma": lemma, "pos": pos, "ipa": "", "note": ""]
     }
 
     private func translateSentence(_ text: String) async throws -> String {
@@ -264,9 +277,15 @@ final class Translator {
 
 // MARK: - Online dictionary alternatives (fallback / extra meanings)
 
+struct PosTerms: Sendable {
+    let pos: String
+    let terms: [String]
+}
+
 struct GoogleResult: Sendable {
     let main: String
     let alternatives: [String]
+    let byPos: [PosTerms]
 }
 
 enum Google {
@@ -289,15 +308,19 @@ enum Google {
             .compactMap { ($0 as? [Any])?.first as? String }
             .joined()
         var alts: [String] = []
+        var byPos: [PosTerms] = []
         if dictionary, arr.count > 1, let entries = arr[1] as? [Any] {
             for e in entries {
                 if let e = e as? [Any], e.count > 1, let terms = e[1] as? [String] {
                     alts.append(contentsOf: terms.prefix(3))
+                    if let name = e[0] as? String {
+                        byPos.append(PosTerms(pos: name.lowercased(), terms: terms))
+                    }
                 }
             }
         }
         if main.isEmpty && alts.isEmpty { throw URLError(.cannotParseResponse) }
-        return GoogleResult(main: main, alternatives: alts)
+        return GoogleResult(main: main, alternatives: alts, byPos: byPos)
     }
 }
 
@@ -319,6 +342,30 @@ enum Lemma {
         }
         if result.isEmpty && !context.isEmpty { return of(word, in: "") }
         return result.lowercased()
+    }
+}
+
+// MARK: - Part of speech in context (on-device)
+
+enum WordClass {
+    /// "noun", "verb", "adjective", "adverb", or "" when the tagger is not sure.
+    static func of(_ word: String, in context: String) -> String {
+        let source = context.isEmpty ? word : context
+        let tagger = NLTagger(tagSchemes: [.lexicalClass])
+        tagger.string = source
+        var result = ""
+        tagger.enumerateTags(in: source.startIndex..<source.endIndex, unit: .word, scheme: .lexicalClass,
+                             options: [.omitPunctuation, .omitWhitespace]) { tag, range in
+            if source[range].lowercased() == word.lowercased() {
+                if tag == NLTag.noun { result = "noun" }
+                else if tag == NLTag.verb { result = "verb" }
+                else if tag == NLTag.adjective { result = "adjective" }
+                else if tag == NLTag.adverb { result = "adverb" }
+                return false
+            }
+            return true
+        }
+        return result
     }
 }
 
