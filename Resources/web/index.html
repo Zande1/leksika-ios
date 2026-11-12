@@ -484,7 +484,8 @@ function readFrom(i){
   const sents=[...document.querySelectorAll('#text .sent')];
   if(i>=sents.length){stopReading();return}
   const pgEl=sents[i].closest('.pg');
-  if(pgEl&&pgEl.hidden){const k=pages.findIndex(p=>p.el===pgEl);if(k===pageIdx+1)nextPage(true);else if(k>=0)showPage(k)}
+  /* listening stops at the end of the page: the reader turns it, so its words are counted and marked as usual */
+  if(pgEl&&pgEl.hidden){stopReading();toast('Страница дослушана. Нажми «Далее», чтобы перейти к следующей.');return}
   const token={};reading=token;const b=$('#readBtn');if(b)b.textContent='■ Стоп';
   sents.forEach(x=>x.classList.remove('playing'));sents[i].classList.add('playing');
   const r=sents[i].getBoundingClientRect();if(r.top<70||r.bottom>innerHeight*0.6)sents[i].scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
