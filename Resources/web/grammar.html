@@ -157,6 +157,109 @@ textarea.out{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;min-heigh
 .urow .bar{grid-column:1/-1}
 .field{display:flex;justify-content:space-between;align-items:center;gap:12px}
 select{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 10px}
+
+/* ================= look, second version =================
+   One idea carries the look: text marked by hand. Ink-blue is the pen (actions, links, new words),
+   highlighter yellow marks what is active or in progress. Everything else stays quiet. */
+:root{
+  --bg:#F3F4F7; --surface:#FFFFFF; --ink:#12151B; --muted:#646C7C; --line:#E4E7EC;
+  --accent:#2748E0; --accent-ink:#FFFFFF; --accent-soft:#E6EBFF;
+  --mark:#FFD84A; --mark-ink:#12151B; --mark-soft:#FFF4C2;
+  --danger:#D03A26; --danger-soft:#FCE5E0; --good:#1B9450; --good-soft:#DDF4E6; --warn:#8A5A00; --warn-soft:#FFF0C2;
+  --play:#FFF1B0; --shadow:rgba(18,21,27,.12);
+  --f-ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  --f-read:ui-serif,"New York","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --nav-h:62px; --r:20px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D0F13; --surface:#171A20; --ink:#ECEEF3; --muted:#969FB0; --line:#272B33;
+  --accent:#8FA5FF; --accent-ink:#0A1233; --accent-soft:#1B2347;
+  --mark:#F2C63C; --mark-ink:#12151B; --mark-soft:#3B3212;
+  --danger:#FF8A75; --danger-soft:#3D1D17; --good:#5FCB84; --good-soft:#15321F; --warn:#FFD25E; --warn-soft:#3A3013;
+  --play:rgba(242,198,60,.22); --shadow:rgba(0,0,0,.55); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D0F13; --surface:#171A20; --ink:#ECEEF3; --muted:#969FB0; --line:#272B33;
+  --accent:#8FA5FF; --accent-ink:#0A1233; --accent-soft:#1B2347;
+  --mark:#F2C63C; --mark-ink:#12151B; --mark-soft:#3B3212;
+  --danger:#FF8A75; --danger-soft:#3D1D17; --good:#5FCB84; --good-soft:#15321F; --warn:#FFD25E; --warn-soft:#3A3013;
+  --play:rgba(242,198,60,.22); --shadow:rgba(0,0,0,.55); color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+body{font-family:var(--f-ui);font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+header.top{background:color-mix(in srgb,var(--bg) 78%,transparent);-webkit-backdrop-filter:saturate(1.6) blur(18px);backdrop-filter:saturate(1.6) blur(18px);border-bottom:0}
+header.top .wrap{min-height:60px;padding-block:8px}
+header.top h1{font-size:28px;font-weight:800;letter-spacing:-.03em}
+main .wrap{gap:16px;padding-block:8px 18px}
+/* bottom bar: the active section is marked with the highlighter */
+nav.tabs{background:color-mix(in srgb,var(--surface) 84%,transparent);-webkit-backdrop-filter:saturate(1.6) blur(20px);backdrop-filter:saturate(1.6) blur(20px);border-top:1px solid var(--line)}
+nav.tabs .in{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:1fr}
+nav.tabs button{font-size:11px;font-weight:600;gap:4px;letter-spacing:0;color:var(--muted);overflow:visible}
+nav.tabs button svg{width:24px;height:24px;padding:3px 14px;box-sizing:content-box;border-radius:999px;transition:background .18s}
+nav.tabs button[aria-current="page"]{color:var(--ink);font-weight:700}
+nav.tabs button[aria-current="page"] svg{background:var(--mark);color:var(--mark-ink)}
+nav.tabs .badge{top:4px;left:calc(50% + 10px);background:var(--accent);color:var(--accent-ink);font-weight:700}
+.btn{border-radius:14px;padding:11px 16px;font-size:15px;font-weight:600;border-color:var(--line);transition:transform .08s,background .15s}
+.btn:active,.icon-btn:active,.opt:active,.chip:active{transform:scale(.97)}
+.btn.primary{box-shadow:0 6px 16px color-mix(in srgb,var(--accent) 30%,transparent)}
+.btn.sm{padding:8px 12px;font-size:14px;border-radius:12px}
+.btn.ghost{background:transparent;border-color:transparent}
+.icon-btn{border-radius:14px;width:44px;height:44px}
+.panel{border-radius:var(--r);padding:18px;gap:12px;border-color:transparent;box-shadow:0 1px 2px rgba(18,21,27,.05),0 0 0 1px var(--line)}
+.panel h2{font-size:18px;letter-spacing:-.01em}
+.small{font-size:14px}
+.note{border-style:solid;border-radius:16px;font-size:14px;padding:12px 14px;background:transparent}
+.chip{padding:8px 14px;font-size:14px;border-radius:999px}
+.chip[aria-pressed="true"]{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+input[type=text],input[type=search],textarea,select{border-radius:14px;background:var(--surface);padding:12px 14px}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.toast{border-radius:16px;padding:12px 16px;font-size:15px;box-shadow:0 10px 30px var(--shadow)}
+.toast button{color:var(--mark)}
+@media (prefers-reduced-motion: reduce){.btn,.icon-btn,.opt,.chip,nav.tabs button svg{transition:none}.btn:active,.icon-btn:active,.opt:active,.chip:active{transform:none}}
+
+/* ---- Грамматика ---- */
+nav.tabs .in{grid-template-columns:none}
+.task,.sec-title{text-transform:none;letter-spacing:0;font-size:14px;font-weight:700;color:var(--muted)}
+.sec-title{font-size:17px;color:var(--ink);letter-spacing:-.01em;margin:14px 2px -4px}
+.chip{border:0;background:var(--mark);color:var(--mark-ink)}
+.chip.gray{background:var(--line);color:var(--muted)}
+.bar{height:10px;border-radius:999px}
+.bar i{border-radius:999px}
+.hero .pct{font-size:52px;letter-spacing:-.04em}
+.unit{border-radius:var(--r);padding:16px;border-color:transparent;box-shadow:0 1px 2px rgba(18,21,27,.05),0 0 0 1px var(--line);grid-template-columns:44px 1fr auto}
+.unit .num{width:44px;height:44px;font-size:16px}
+.unit.done .num{background:var(--mark);color:var(--mark-ink)}
+.unit .tt{font-size:17px;letter-spacing:-.01em}
+.unit .ru{font-size:14px}
+.unit .sub{font-size:13px}
+.unit .dots i{width:8px;height:8px}
+.unit .dots i.on{background:var(--accent)}
+.unit.test{box-shadow:none;border:1.5px dashed var(--line)}
+.soon{border-radius:var(--r);font-size:14px;padding:16px}
+.theory{font-size:17px;line-height:1.55}
+.theory table{font-size:16px;border-radius:12px;overflow:hidden}
+.theory th{font-size:13px}
+.en{border-bottom:0;background:linear-gradient(transparent 62%,var(--mark-soft) 62%)}
+.seg{border-radius:14px;border:0;background:var(--line);padding:3px;gap:3px}
+.seg button{border-radius:11px;padding:8px 12px;font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px var(--shadow)}
+.q{font-size:26px;letter-spacing:-.01em;line-height:1.35}
+.q .blank{border-bottom:3px solid var(--mark);min-width:64px}
+.opt{border-radius:18px;padding:16px 18px;font-size:18px;border-width:1.5px}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.inp{border-radius:18px;padding:16px;font-size:19px;border-width:1.5px}
+.tile{border-radius:14px;padding:10px 14px;font-size:18px;box-shadow:0 2px 0 var(--line)}
+.tiles.line{border-bottom:2px solid var(--line)}
+.say{width:88px;height:88px;box-shadow:0 10px 24px color-mix(in srgb,var(--accent) 35%,transparent)}
+.foot{border-top:0;border-radius:28px 28px 0 0;box-shadow:0 -12px 36px var(--shadow)}
+.foot .wrap{padding-block:18px 14px}
+.verdict{font-size:20px;letter-spacing:-.01em}
+.right{font-size:19px}
+.btn.big{border-radius:18px;padding:16px 18px;font-size:17px}
+.stat{border-radius:var(--r);padding:16px;border-color:transparent;box-shadow:0 1px 2px rgba(18,21,27,.05),0 0 0 1px var(--line)}
+.stat .v{font-size:30px;letter-spacing:-.03em}
+.stat .l{font-size:13px}
+.days i{background:var(--accent);border-radius:6px 6px 2px 2px}
+#tip{border-radius:18px;padding:14px 16px;box-shadow:0 12px 32px var(--shadow)}
+select{border-radius:14px}
 </style>
 </head><body>
 <header class="top"><div class="wrap"><button class="icon-btn" id="backBtn" hidden aria-label="Назад"></button><h1 id="title">Грамматика</h1><div class="row" id="topActions"></div></div></header>
@@ -2109,6 +2212,237 @@ const SECTIONS=[
  ['tr','Он спросил, как меня зовут.','He asked what my name was.|He asked me what my name was.','d'],
  ['dict','She said that she could not come because she was ill.','a']],
  fw:{ru:"Вспомни недавний разговор и перескажи его: кто что сказал и кто что спросил. 5–6 предложений с said, told, asked.",en:"Think of a recent conversation and report it: who said what and who asked what. 5–6 sentences with said, told, asked."}}
+]},
+{ru:'Дополнительные темы',en:'More practice',units:[
+{id:'imp',ru:"Просьбы и предложения: сделай, давай сделаем",en:"Imperative and let's",
+ th:{ru:`<p><b>Повелительное наклонение</b> — просьба, указание, совет. Это просто первая форма глагола, без подлежащего.</p>
+<ul><li><span class="en">Open the window, please.</span></li><li><span class="en">Be careful!</span></li><li><span class="en">Sit down.</span></li></ul>
+<p>Отрицание — <b>Don't</b> + глагол:</p>
+<ul><li><span class="en">Don't touch that.</span></li><li><span class="en">Don't be late.</span></li></ul>
+<p><b>Let's</b> + глагол — «давай, давайте» (предложение сделать что-то вместе). Отрицание — <b>Let's not</b>:</p>
+<ul><li><span class="en">Let's go for a walk.</span></li><li><span class="en">Let's not go out tonight.</span></li></ul>
+<p>После let's глагол без to: <span class="bad">Let's to go.</span></p>
+<p>Слово <b>please</b> в начале или в конце делает просьбу вежливой.</p>`,
+ en:`<p>The <b>imperative</b> gives an instruction, a request or advice. It is the base form of the verb with no subject.</p>
+<ul><li><span class="en">Open the window, please.</span></li><li><span class="en">Be careful!</span></li><li><span class="en">Sit down.</span></li></ul>
+<p>The negative is <b>Don't</b> + verb:</p>
+<ul><li><span class="en">Don't touch that.</span></li><li><span class="en">Don't be late.</span></li></ul>
+<p><b>Let's</b> + verb makes a suggestion for you and me together. The negative is <b>Let's not</b>:</p>
+<ul><li><span class="en">Let's go for a walk.</span></li><li><span class="en">Let's not go out tonight.</span></li></ul>
+<p>No to after let's: <span class="bad">Let's to go.</span></p>
+<p><b>please</b> at the beginning or the end makes a request polite.</p>`},
+ rules:{a:{ru:'Просьба или указание — первая форма глагола без подлежащего: Open the door.',en:'A request or instruction is the base form with no subject: Open the door.'},
+  b:{ru:"Отрицание: Don't + глагол (Don't be late).",en:"Negative: Don't + verb (Don't be late)."},
+  c:{ru:"Let's + глагол без to — «давай»; отрицание: Let's not.",en:"Let's + verb without to; negative: Let's not."}},
+ items:[
+ ['mc','___ the window, please.',['Open','Opens','To open'],0,'a'],
+ ['mc','___ late!',["Don't be",'Not be',"Don't are"],0,'b'],
+ ['mc','It is a nice day. ___ go for a walk.',["Let's",'Let','We let'],0,'c'],
+ ['mc',"Let's ___ a taxi.",['take','to take','taking'],0,'c'],
+ ['mc','___ quiet, please. The baby is sleeping.',['Be','Are','Is'],0,'a'],
+ ['mc',"I am tired. Let's ___ go out tonight.",['not',"don't",'no'],0,'c'],
+ ['gap','___ touch that! It is hot.',"Don't|Do not",'b'],
+ ['gap','___ go to the cinema tonight. (давай)',"Let's|Let us",'c'],
+ ['gap','___ down, please. (sit)','Sit','a'],
+ ['gap','Please ___ me your name. (tell)','tell','a'],
+ ['build','Не забудь ключи.',"Don't forget your keys.",'b',['not']],
+ ['tr','Давай поедим.',"Let's eat.|Let us eat.|Let's have something to eat.",'c'],
+ '|',
+ ['mc','___ worry. Everything is fine.',["Don't",'Not',"Doesn't"],0,'b'],
+ ['gap','___ careful! The road is wet.','Be','a'],
+ ['gap',"Let's ___ about it now. (not / talk)",'not talk','c'],
+ ['fix','You open the door, please.','Open the door, please.|Please open the door.','a'],
+ ['fix',"Let's to go home.","Let's go home.",'c'],
+ ['tr','Не открывай окно.',"Don't open the window.|Do not open the window.",'b'],
+ ['dict',"Come in and sit down. Don't be afraid.",'a']],
+ fw:{ru:"Напиши 5 коротких инструкций для гостя у тебя дома (что делать и чего не делать) и 2 предложения с let's.",en:"Write 5 short instructions for a guest in your home (what to do and what not to do) and 2 suggestions with let's."}},
+
+{id:'tooenough',ru:'Слишком и достаточно',en:'too and enough',
+ th:{ru:`<p><b>too</b> — «слишком», больше, чем нужно. Стоит перед прилагательным.</p>
+<ul><li><span class="en">This coffee is too hot.</span></li><li><span class="en">She speaks too fast.</span></li></ul>
+<p><b>enough</b> — «достаточно». Место зависит от того, с чем оно стоит:</p>
+<table><tr><th>после прилагательного</th><th>перед существительным</th></tr>
+<tr><td><span class="en">big enough</span></td><td><span class="en">enough money</span></td></tr>
+<tr><td><span class="en">He is not old enough.</span></td><td><span class="en">We have enough time.</span></td></tr></table>
+<p>Частая ошибка — русский порядок слов: <span class="bad">enough big</span>.</p>
+<p>С существительными «слишком много» — это <b>too much</b> (неисчисляемые) и <b>too many</b> (исчисляемые):</p>
+<ul><li><span class="en">too much noise</span></li><li><span class="en">too many people</span></li></ul>
+<p>Не путай too и very: <span class="en">very hot</span> — просто очень горячий, <span class="en">too hot</span> — настолько, что это проблема.</p>`,
+ en:`<p><b>too</b> means more than is good. It goes before an adjective.</p>
+<ul><li><span class="en">This coffee is too hot.</span></li><li><span class="en">She speaks too fast.</span></li></ul>
+<p><b>enough</b> means as much as is needed. Its place depends on the word it goes with:</p>
+<table><tr><th>after an adjective</th><th>before a noun</th></tr>
+<tr><td><span class="en">big enough</span></td><td><span class="en">enough money</span></td></tr>
+<tr><td><span class="en">He is not old enough.</span></td><td><span class="en">We have enough time.</span></td></tr></table>
+<p>A common mistake: <span class="bad">enough big</span>.</p>
+<p>With nouns use <b>too much</b> (uncountable) and <b>too many</b> (countable):</p>
+<ul><li><span class="en">too much noise</span></li><li><span class="en">too many people</span></li></ul>
+<p>too is not very: <span class="en">very hot</span> is simply very hot; <span class="en">too hot</span> is a problem.</p>`},
+ rules:{a:{ru:'too + прилагательное = слишком (и это плохо).',en:'too + adjective = more than is good.'},
+  b:{ru:'Прилагательное + enough: big enough, old enough.',en:'Adjective + enough: big enough, old enough.'},
+  c:{ru:'enough + существительное: enough money, enough time.',en:'enough + noun: enough money, enough time.'},
+  d:{ru:'too much + неисчисляемое; too many + исчисляемое.',en:'too much + uncountable; too many + countable.'}},
+ items:[
+ ['mc','This coffee is ___ hot. I cannot drink it.',['too','enough','very much'],0,'a'],
+ ['mc','He is not old ___ to drive.',['enough','too','much'],0,'b'],
+ ['mc','We do not have ___ time.',['enough','too','too many'],0,'c'],
+ ['mc','There are too ___ people here.',['many','much','enough'],0,'d'],
+ ['mc','I ate too ___ cake.',['much','many','enough'],0,'d'],
+ ['mc','The bag is big ___ for all my things.',['enough','too','much'],0,'b'],
+ ['gap','The shoes are ___ small for me. I need a bigger size.','too','a'],
+ ['gap','Is the room warm ___?','enough','b'],
+ ['gap','I have not got ___ money to buy it.','enough','c'],
+ ['gap','You work too ___.','much','d'],
+ ['build','Этот чай слишком горячий.','This tea is too hot.','a',['enough']],
+ ['tr','У нас достаточно времени.','We have enough time.|We have got enough time.','c'],
+ '|',
+ ['mc','She speaks ___ fast. I cannot understand her.',['too','enough','too much'],0,'a'],
+ ['gap','He is not tall ___ to play basketball.','enough','b'],
+ ['gap','There is too ___ noise here.','much','d'],
+ ['fix','The room is enough big.','The room is big enough.','b'],
+ ['fix','I have too much friends.','I have too many friends.','d'],
+ ['tr','Она слишком устала.','She is too tired.','a'],
+ ['dict','It is too late and we do not have enough money.','c']],
+ fw:{ru:"Опиши место, которое тебе не нравится (город, квартиру, кафе): чего там слишком много и чего недостаточно. 5 предложений.",en:"Describe a place you don't like (a city, a flat, a café): what there is too much of and what there isn't enough of. 5 sentences."}},
+
+{id:'afew',ru:'Несколько и немного',en:'a few and a little',
+ th:{ru:`<p>Оба выражения значат «немного, некоторое количество», но используются с разными существительными.</p>
+<table><tr><th>a few</th><th>a little</th></tr>
+<tr><td>с исчисляемыми во множественном числе</td><td>с неисчисляемыми</td></tr>
+<tr><td><span class="en">a few friends</span></td><td><span class="en">a little water</span></td></tr>
+<tr><td><span class="en">a few minutes</span></td><td><span class="en">a little time</span></td></tr></table>
+<p>a little также стоит перед прилагательным: <span class="en">I am a little tired.</span></p>
+<p>Без артикля <b>few</b> и <b>little</b> значат «мало, почти нет» — с отрицательным оттенком:</p>
+<ul><li><span class="en">I have a few friends.</span> — есть несколько, и это хорошо.</li><li><span class="en">I have few friends.</span> — мало, почти нет.</li><li><span class="en">There is little time left.</span> — времени почти не осталось.</li></ul>`,
+ en:`<p>Both mean «some, a small amount», but they go with different nouns.</p>
+<table><tr><th>a few</th><th>a little</th></tr>
+<tr><td>with plural countable nouns</td><td>with uncountable nouns</td></tr>
+<tr><td><span class="en">a few friends</span></td><td><span class="en">a little water</span></td></tr>
+<tr><td><span class="en">a few minutes</span></td><td><span class="en">a little time</span></td></tr></table>
+<p>a little also goes before an adjective: <span class="en">I am a little tired.</span></p>
+<p>Without the article, <b>few</b> and <b>little</b> mean «not many, not much» and sound negative:</p>
+<ul><li><span class="en">I have a few friends.</span> — some, which is fine.</li><li><span class="en">I have few friends.</span> — almost none.</li><li><span class="en">There is little time left.</span> — almost no time.</li></ul>`},
+ rules:{a:{ru:'a few + исчисляемые во множественном числе.',en:'a few + plural countable nouns.'},
+  b:{ru:'a little + неисчисляемые (и перед прилагательным: a little tired).',en:'a little + uncountable nouns (and before an adjective: a little tired).'},
+  c:{ru:'few / little без a — «мало, почти нет».',en:'few / little without a mean «almost none».'}},
+ items:[
+ ['mc','I have ___ friends in London.',['a few','a little','much'],0,'a'],
+ ['mc','Can I have ___ milk in my coffee?',['a little','a few','many'],0,'b'],
+ ['mc','We have ___ minutes before the train.',['a few','a little','much'],0,'a'],
+ ['mc','She speaks ___ English.',['a little','a few','many'],0,'b'],
+ ['mc','He has ___ friends. He is very lonely.',['few','a few','little'],0,'c'],
+ ['mc','There is ___ time left. Hurry up!',['little','few','a few'],0,'c'],
+ ['gap','I need a ___ days to think.','few','a'],
+ ['gap','Add a ___ salt, please.','little','b'],
+ ['gap','I bought a ___ books yesterday.','few','a'],
+ ['gap','There is a ___ water in the bottle.','little','b'],
+ ['build','У меня есть несколько вопросов.','I have a few questions.','a',['little']],
+ ['tr','Я немного устал.','I am a little tired.|I am a bit tired.|I am a little bit tired.','b'],
+ '|',
+ ['mc','Only ___ people came to the meeting.',['a few','a little','much'],0,'a'],
+ ['gap','Could you give me a ___ help?','little','b'],
+ ['gap','We have very ___ money, so we cannot go.','little','c'],
+ ['fix','I have a little friends here.','I have a few friends here.','a'],
+ ['fix','There are a few milk in the fridge.','There is a little milk in the fridge.','b'],
+ ['tr','Подожди несколько минут.','Wait a few minutes.|Wait for a few minutes.|Wait a few minutes please.|Please wait a few minutes.','a'],
+ ['dict','I have a few ideas and a little time.','a']],
+ fw:{ru:"Напиши 5 предложений о том, чего у тебя немного: несколько друзей, немного свободного времени, несколько планов на выходные.",en:"Write 5 sentences about things you have a small amount of: a few friends, a little free time, a few plans for the weekend."}},
+
+{id:'irr',ru:'Неправильные глаголы: три формы',en:'Irregular verbs: three forms',
+ th:{ru:`<p>У каждого английского глагола три формы. У правильных вторая и третья — просто <b>-ed</b>. У неправильных их нужно выучить.</p>
+<table><tr><th>первая</th><th>вторая</th><th>третья</th></tr>
+<tr><td>после did, will, can, to</td><td>Past Simple</td><td>Present Perfect, пассив</td></tr>
+<tr><td><span class="en">Did you go?</span></td><td><span class="en">I went.</span></td><td><span class="en">I have gone.</span></td></tr></table>
+<p>Глаголы этой темы:</p>
+<table><tr><td>go — went — gone</td><td>see — saw — seen</td><td>take — took — taken</td></tr>
+<tr><td>write — wrote — written</td><td>eat — ate — eaten</td><td>give — gave — given</td></tr>
+<tr><td>buy — bought — bought</td><td>break — broke — broken</td><td>speak — spoke — spoken</td></tr>
+<tr><td>know — knew — known</td><td>drink — drank — drunk</td><td>do — did — done</td></tr>
+<tr><td>come — came — come</td><td>find — found — found</td><td>think — thought — thought</td></tr></table>
+<p>Самая частая ошибка — вторая форма вместо третьей: <span class="bad">I have ate</span>, <span class="bad">He has broke</span>. И наоборот, прошедшая форма после did: <span class="bad">She didn't came</span>.</p>`,
+ en:`<p>Every English verb has three forms. For regular verbs the second and third are simply <b>-ed</b>. Irregular ones have to be learned.</p>
+<table><tr><th>base</th><th>past</th><th>participle</th></tr>
+<tr><td>after did, will, can, to</td><td>Past Simple</td><td>Present Perfect, passive</td></tr>
+<tr><td><span class="en">Did you go?</span></td><td><span class="en">I went.</span></td><td><span class="en">I have gone.</span></td></tr></table>
+<p>The verbs in this unit:</p>
+<table><tr><td>go — went — gone</td><td>see — saw — seen</td><td>take — took — taken</td></tr>
+<tr><td>write — wrote — written</td><td>eat — ate — eaten</td><td>give — gave — given</td></tr>
+<tr><td>buy — bought — bought</td><td>break — broke — broken</td><td>speak — spoke — spoken</td></tr>
+<tr><td>know — knew — known</td><td>drink — drank — drunk</td><td>do — did — done</td></tr>
+<tr><td>come — came — come</td><td>find — found — found</td><td>think — thought — thought</td></tr></table>
+<p>The commonest mistake is the past form instead of the participle: <span class="bad">I have ate</span>, <span class="bad">He has broke</span>. And a past form after did: <span class="bad">She didn't came</span>.</p>`},
+ rules:{a:{ru:'Вторая форма — для Past Simple: I went, she gave.',en:'The past form is for the Past Simple: I went, she gave.'},
+  b:{ru:'Третья форма — после have / has и в пассиве: I have gone, it was broken.',en:'The participle goes after have / has and in the passive: I have gone, it was broken.'},
+  c:{ru:"После did / didn't — первая форма.",en:"After did / didn't use the base form."}},
+ items:[
+ ['gap!','go → ___ → gone','went','a'],
+ ['gap!','see → saw → ___','seen','b'],
+ ['gap!','take → ___ → taken','took','a'],
+ ['gap!','write → wrote → ___','written','b'],
+ ['gap!','eat → ___ → eaten','ate','a'],
+ ['gap!','give → gave → ___','given','b'],
+ ['gap!','buy → ___ → bought','bought','a'],
+ ['gap!','break → broke → ___','broken','b'],
+ ['gap!','speak → ___ → spoken','spoke','a'],
+ ['gap!','know → knew → ___','known','b'],
+ ['gap!','drink → ___ → drunk','drank','a'],
+ ['gap!','do → did → ___','done','b'],
+ '|',
+ ['gap!','come → ___ → come','came','a'],
+ ['gap!','find → found → ___','found','b'],
+ ['gap!','think → ___ → thought','thought','a'],
+ ['gap!','I have never ___ this film. (see)','seen','b'],
+ ['gap!','She ___ me a present yesterday. (give)','gave','a'],
+ ['gap!','Did you ___ the letter? (write)','write','c'],
+ ['mc','He has ___ his leg.',['broken','broke','break'],0,'b'],
+ ['mc','We ___ to Sochi last summer.',['went','gone','go'],0,'a'],
+ ['fix','I have ate all the cake.','I have eaten all the cake.','b'],
+ ['fix',"She didn't came.","She didn't come.",'c']],
+ fw:{ru:"Выбери пять глаголов из таблицы и напиши с каждым два предложения: одно во вчерашнем дне (вторая форма), одно с have (третья форма).",en:"Pick five verbs from the table and write two sentences with each: one about yesterday (past form) and one with have (participle)."}}
+]},
+{lv:'b',ru:'Дополнительные темы',en:'More practice',units:[
+{id:'unless',ru:'Если не: unless',en:'unless',
+ th:{ru:`<p><b>unless</b> значит «если не». Это то же самое, что <b>if … not</b>.</p>
+<table><tr><td><span class="en">I will not go unless you come with me.</span></td></tr>
+<tr><td><span class="en">I will not go if you do not come with me.</span></td></tr></table>
+<p>Отрицание уже есть внутри unless, поэтому глагол после него стоит в утвердительной форме:</p>
+<ul><li><span class="en">Unless you study, you will fail.</span></li><li><span class="bad">Unless you don't study, you will fail.</span></li></ul>
+<p>Как и после if, после unless идёт настоящее время, даже когда речь о будущем:</p>
+<ul><li><span class="en">Unless it rains, we will play tennis.</span></li><li><span class="bad">Unless it will rain, …</span></li></ul>
+<p>unless часто используется в предупреждениях: <span class="en">You will be late unless you hurry.</span></p>`,
+ en:`<p><b>unless</b> means <b>if … not</b>.</p>
+<table><tr><td><span class="en">I will not go unless you come with me.</span></td></tr>
+<tr><td><span class="en">I will not go if you do not come with me.</span></td></tr></table>
+<p>The negative is already inside unless, so the verb after it is positive:</p>
+<ul><li><span class="en">Unless you study, you will fail.</span></li><li><span class="bad">Unless you don't study, you will fail.</span></li></ul>
+<p>As after if, use the present after unless, even when talking about the future:</p>
+<ul><li><span class="en">Unless it rains, we will play tennis.</span></li><li><span class="bad">Unless it will rain, …</span></li></ul>
+<p>unless is common in warnings: <span class="en">You will be late unless you hurry.</span></p>`},
+ rules:{a:{ru:'unless = if … not («если не»).',en:'unless = if … not.'},
+  b:{ru:'После unless глагол в утвердительной форме: отрицание уже внутри.',en:'The verb after unless is positive: the negative is already inside.'},
+  c:{ru:'После unless — настоящее время, как после if.',en:'After unless use the present, as after if.'}},
+ items:[
+ ['mc','I will not go ___ you come with me.',['unless','if','when'],0,'a'],
+ ['mc','Unless it ___, we will play tennis.',['rains',"doesn't rain",'will rain'],0,'b'],
+ ['mc','You will be late ___ you hurry.',['unless','if','because'],0,'a'],
+ ['mc','___ you study, you will fail.',['Unless','If','When'],0,'a'],
+ ['mc','We will go out unless it ___ too cold.',['is',"isn't",'will be'],0,'b'],
+ ['mc','I cannot help you unless you ___ me the truth.',['tell',"don't tell",'will tell'],0,'c'],
+ ['gap','She will not come ___ you invite her.','unless','a'],
+ ['gap','Unless he ___ soon, we will leave without him. (arrive)','arrives','c'],
+ ['gap','If you ___ hurry, you will miss the bus. (not)','do not','a'],
+ ['gap','___ you have a ticket, you cannot get in.','Unless','a'],
+ ['build','Я не пойду, если ты не пойдёшь.','I will not go unless you go.','a',['if']],
+ ['tr','Мы опоздаем, если не поторопимся.','We will be late unless we hurry.|We will be late if we do not hurry.|Unless we hurry, we will be late.|If we do not hurry, we will be late.|We will be late unless we hurry up.|We will be late if we do not hurry up.','a'],
+ '|',
+ ['mc','Do not call me ___ it is urgent.',['unless','when','because'],0,'a'],
+ ['gap','I will not tell anyone unless you ___ me to. (ask)','ask','c'],
+ ['gap','Unless you ___ more, you will always be tired. (sleep)','sleep','c'],
+ ['fix',"Unless you don't study, you will fail.",'Unless you study, you will fail.','b'],
+ ['fix','Unless it will rain, we will go.','Unless it rains, we will go.','c'],
+ ['tr','Он не поможет, если ты не попросишь.','He will not help unless you ask.|He will not help unless you ask him.|He will not help you unless you ask.|He will not help you unless you ask him.|He will not help if you do not ask.|He will not help if you do not ask him.|He will not help you if you do not ask.|He will not help you if you do not ask him.','a'],
+ ['dict','We will not start unless everyone is here.','a']],
+ fw:{ru:"Напиши 5 предупреждений или условий с unless: что не случится, если не выполнить условие.",en:"Write 5 warnings or conditions with unless: what will not happen if the condition is not met."}}
 ]}];
 const SOON={a:[],b:['Modals of deduction: must be, might be, can\'t be (предположения)','Third conditional: If I had known… (нереальное прошлое)','Passive in other tenses (пассив в других временах)','Relative clauses: who, which, that (придаточные)','Gerund and infinitive in depth (герундий и инфинитив)','Future forms compared (сравнение будущих времён)','Articles in depth (артикли подробнее)','Phrasal verbs (фразовые глаголы)']};
 const LEVELS=[{id:'a',name:'Elementary',cefr:'A1–A2'},{id:'b',name:'Intermediate',cefr:'B1'}];
@@ -2234,7 +2568,10 @@ function plural(n,a,b,c){const m=n%100,k=n%10;return (m>10&&m<20)?c:k===1?a:(k>=
 /* embedded in Лексика (iframe) or standalone page */
 let PARENT=null;try{if(window.parent&&window.parent!==window&&window.parent.document)PARENT=window.parent}catch(e){}
 const EMB=!!(PARENT&&typeof PARENT.__closeGrammar==='function');
-if(EMB){document.documentElement.classList.add('emb');const th=PARENT.document.documentElement.getAttribute('data-theme');if(th)document.documentElement.setAttribute('data-theme',th)}
+if(EMB)document.documentElement.classList.add('emb');
+function applyTheme(){const t=LS.get('lx-theme','auto'),r=document.documentElement;if(t==='light'||t==='dark')r.setAttribute('data-theme',t);else r.removeAttribute('data-theme');
+  if(EMB)try{const pr=PARENT.document.documentElement;if(t==='light'||t==='dark')pr.setAttribute('data-theme',t);else pr.removeAttribute('data-theme')}catch(e){}}
+applyTheme();
 function handler(w){try{return w&&w.webkit&&w.webkit.messageHandlers&&w.webkit.messageHandlers.native||null}catch(e){return null}}
 const MH=handler(window)||(EMB?handler(PARENT):null);
 function post(type,data){try{MH.postMessage({id:0,type,data})}catch(e){}}
@@ -2287,7 +2624,8 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){flushAct()
 const fmtTime=sec=>{const m=Math.round((sec||0)/60);return m<60?m+' мин':Math.floor(m/60)+' ч '+(m%60)+' мин'};
 const stepsDone=u=>Math.min(S.steps[u.id]||0,u.steps.length);
 const unitDone=u=>stepsDone(u)>=u.steps.length;
-const unlocked=u=>u.k===1||unitDone(UNITS[u.n-2]);   /* the first topic of every level is always open */
+const prevInLevel=u=>UNITS.find(x=>x.lv===u.lv&&x.k===u.k-1),nextInLevel=u=>UNITS.find(x=>x.lv===u.lv&&x.k===u.k+1);
+const unlocked=u=>u.k===1||unitDone(prevInLevel(u));   /* the first topic of every level is always open */
 const unitMastered=u=>unitDone(u)&&u.list.every(it=>(S.items[it.id]||{}).b>=MASTER);
 const lvUnits=lv=>UNITS.filter(u=>u.lv===lv);
 const coursePct=(lv=S.lv)=>{const us=lvUnits(lv);return Math.round(100*us.reduce((s,u)=>s+stepsDone(u),0)/Math.max(1,us.reduce((s,u)=>s+u.steps.length,0)))};
@@ -2552,12 +2890,14 @@ function renderSettings(){
   $('#title').textContent='Настройки';
   $('#view').innerHTML=`<div class="panel">
     <div class="field"><span>Язык теории и пояснений</span><span class="seg"><button data-l="ru" aria-pressed="${S.lang==='ru'}">Русский</button><button data-l="en" aria-pressed="${S.lang==='en'}">English</button></span></div>
+    <div class="field"><span>Оформление</span><span class="seg">${[['auto','Как в системе'],['light','Светлое'],['dark','Тёмное']].map(([k,t])=>`<button data-th="${k}" aria-pressed="${LS.get('lx-theme','auto')===k}">${t}</button>`).join('')}</span></div>
     <div class="field"><span>Цель на день, ответов</span><select id="goal">${[10,20,30,50].map(g=>`<option ${g===S.goal?'selected':''}>${g}</option>`).join('')}</select></div>
     <div class="field"><span>Озвучивать правильный ответ</span><span class="seg"><button data-s="1" aria-pressed="${!!S.sound}">Да</button><button data-s="0" aria-pressed="${!S.sound}">Нет</button></span></div></div>
     <div class="panel"><h2>Проверка ответов</h2><div class="small muted">Регистр и знаки препинания не учитываются. Сокращения равны полной форме: don't = do not, I'm = I am. Одна опечатка в длинном слове прощается с пометкой, но не там, где одна буква и есть грамматика: play / plays, окончания -s, -ed, -ing.</div></div>
     <div class="panel"><h2>Сброс</h2><div class="small muted">Удаляет прогресс и статистику грамматики. Тексты свободного письма, а также слова и тексты Лексики остаются.</div><button class="btn danger" id="reset">Сбросить прогресс</button></div>`;
   document.querySelectorAll('.seg [data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render()});
   document.querySelectorAll('.seg [data-s]').forEach(b=>b.onclick=()=>{S.sound=b.dataset.s==='1';save();render()});
+  document.querySelectorAll('.seg [data-th]').forEach(b=>b.onclick=()=>{LS.set('lx-theme',b.dataset.th);applyTheme();render()});
   $('#goal').onchange=e=>{S.goal=+e.target.value;save()};
   $('#reset').onclick=e=>{const b=e.currentTarget;if(b.dataset.arm){pendAct=0;S.items={};S.steps={};S.days={};S.log=[];S.tests={};delete S.curs;saveNow();go('course')}else{b.dataset.arm=1;b.textContent='Нажми ещё раз, чтобы удалить всё'}};
 }
@@ -2737,7 +3077,7 @@ function renderSummary(){
     if(passed&&s.step+1>before){S.steps[u.id]=s.step+1}
     if(S.curs&&S.curs[u.id]&&S.curs[u.id].step===s.step)delete S.curs[u.id];
     saveNow();
-    const nextU=UNITS[u.n];
+    const nextU=nextInLevel(u);
     extra=!passed?`<div><b>Шаг не засчитан.</b> Нужно хотя бы ${Math.round(STEP_PASS*100)}% верных с первой попытки. Перечитай теорию и пройди шаг ещё раз.</div>`:unitDone(u)?(before<u.steps.length?`<div>Тема «${esc(u.en)}» пройдена.${nextU?' Открыта следующая: «'+esc(nextU.en)+'».':''}</div>`:'')
       :`<div>Шаг ${s.step+1} пройден. Впереди шаг ${s.step+2}.</div>`;
   }else saveNow();

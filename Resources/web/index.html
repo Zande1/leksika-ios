@@ -2,8 +2,6 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Лексика">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
 /* Layout: one-column reading app — sticky top bar, fixed bottom tab bar, non-modal bottom sheet for words */
 :root{
@@ -212,16 +210,136 @@ body.sheet-open .player{display:none}
 @keyframes sp{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion: reduce){.spin{animation:none}.sent{transition:none}}
 .empty{text-align:center;padding:30px 10px;color:var(--muted)}
+
+/* ================= look, second version =================
+   One idea carries the look: text marked by hand. Ink-blue is the pen (actions, links, new words),
+   highlighter yellow marks what is active or in progress. Everything else stays quiet. */
+:root{
+  --bg:#F3F4F7; --surface:#FFFFFF; --ink:#12151B; --muted:#646C7C; --line:#E4E7EC;
+  --accent:#2748E0; --accent-ink:#FFFFFF; --accent-soft:#E6EBFF;
+  --mark:#FFD84A; --mark-ink:#12151B; --mark-soft:#FFF4C2;
+  --danger:#D03A26; --danger-soft:#FCE5E0; --good:#1B9450; --good-soft:#DDF4E6; --warn:#8A5A00; --warn-soft:#FFF0C2;
+  --play:#FFF1B0; --shadow:rgba(18,21,27,.12);
+  --f-ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  --f-read:ui-serif,"New York","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --nav-h:62px; --r:20px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D0F13; --surface:#171A20; --ink:#ECEEF3; --muted:#969FB0; --line:#272B33;
+  --accent:#8FA5FF; --accent-ink:#0A1233; --accent-soft:#1B2347;
+  --mark:#F2C63C; --mark-ink:#12151B; --mark-soft:#3B3212;
+  --danger:#FF8A75; --danger-soft:#3D1D17; --good:#5FCB84; --good-soft:#15321F; --warn:#FFD25E; --warn-soft:#3A3013;
+  --play:rgba(242,198,60,.22); --shadow:rgba(0,0,0,.55); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D0F13; --surface:#171A20; --ink:#ECEEF3; --muted:#969FB0; --line:#272B33;
+  --accent:#8FA5FF; --accent-ink:#0A1233; --accent-soft:#1B2347;
+  --mark:#F2C63C; --mark-ink:#12151B; --mark-soft:#3B3212;
+  --danger:#FF8A75; --danger-soft:#3D1D17; --good:#5FCB84; --good-soft:#15321F; --warn:#FFD25E; --warn-soft:#3A3013;
+  --play:rgba(242,198,60,.22); --shadow:rgba(0,0,0,.55); color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+body{font-family:var(--f-ui);font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+header.top{background:color-mix(in srgb,var(--bg) 78%,transparent);-webkit-backdrop-filter:saturate(1.6) blur(18px);backdrop-filter:saturate(1.6) blur(18px);border-bottom:0}
+header.top .wrap{min-height:60px;padding-block:8px}
+header.top h1{font-size:28px;font-weight:800;letter-spacing:-.03em}
+main .wrap{gap:16px;padding-block:8px 18px}
+/* bottom bar: the active section is marked with the highlighter */
+nav.tabs{background:color-mix(in srgb,var(--surface) 84%,transparent);-webkit-backdrop-filter:saturate(1.6) blur(20px);backdrop-filter:saturate(1.6) blur(20px);border-top:1px solid var(--line)}
+nav.tabs .in{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:1fr}
+nav.tabs button{font-size:11px;font-weight:600;gap:4px;letter-spacing:0;color:var(--muted);overflow:visible}
+nav.tabs button svg{width:24px;height:24px;padding:3px 14px;box-sizing:content-box;border-radius:999px;transition:background .18s}
+nav.tabs button[aria-current="page"]{color:var(--ink);font-weight:700}
+nav.tabs button[aria-current="page"] svg{background:var(--mark);color:var(--mark-ink)}
+nav.tabs .badge{top:4px;left:calc(50% + 10px);background:var(--accent);color:var(--accent-ink);font-weight:700}
+.btn{border-radius:14px;padding:11px 16px;font-size:15px;font-weight:600;border-color:var(--line);transition:transform .08s,background .15s}
+.btn:active,.icon-btn:active,.opt:active,.chip:active{transform:scale(.97)}
+.btn.primary{box-shadow:0 6px 16px color-mix(in srgb,var(--accent) 30%,transparent)}
+.btn.sm{padding:8px 12px;font-size:14px;border-radius:12px}
+.btn.ghost{background:transparent;border-color:transparent}
+.icon-btn{border-radius:14px;width:44px;height:44px}
+.panel{border-radius:var(--r);padding:18px;gap:12px;border-color:transparent;box-shadow:0 1px 2px rgba(18,21,27,.05),0 0 0 1px var(--line)}
+.panel h2{font-size:18px;letter-spacing:-.01em}
+.small{font-size:14px}
+.note{border-style:solid;border-radius:16px;font-size:14px;padding:12px 14px;background:transparent}
+.chip{padding:8px 14px;font-size:14px;border-radius:999px}
+.chip[aria-pressed="true"]{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+input[type=text],input[type=search],textarea,select{border-radius:14px;background:var(--surface);padding:12px 14px}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.toast{border-radius:16px;padding:12px 16px;font-size:15px;box-shadow:0 10px 30px var(--shadow)}
+.toast button{color:var(--mark)}
+@media (prefers-reduced-motion: reduce){.btn,.icon-btn,.opt,.chip,nav.tabs button svg{transition:none}.btn:active,.icon-btn:active,.opt:active,.chip:active{transform:none}}
+
+/* ---- Лексика ---- */
+.field label,.label{text-transform:none;letter-spacing:0;font-size:14px;font-weight:700;color:var(--muted)}
+.lesson,.tile,.card,.wlist,.course-parts{border-color:transparent;box-shadow:0 1px 2px rgba(18,21,27,.05),0 0 0 1px var(--line)}
+.lesson{border-radius:var(--r);padding:18px}
+.lesson h3{font-size:20px;letter-spacing:-.01em}
+.lesson .pct b{font-size:22px}
+.bar{height:8px;border-radius:999px}
+.wlist,.course-parts{border-radius:var(--r)}
+.wrow{padding:14px 16px}
+.wrow .tx b{font-size:18px}
+.wrow .tx div{font-size:14px}
+.part{padding:14px 16px}
+.tile{border-radius:var(--r);padding:16px}
+.tile b{font-size:28px;letter-spacing:-.02em}
+.tile span{font-size:13px}
+.big-num{font-size:56px;letter-spacing:-.04em}
+.progress{height:10px;border-radius:999px}
+.progress i{border-radius:999px}
+.steps i{height:10px;border-radius:999px}
+.steps i.on{background:var(--mark)}
+.text{line-height:1.85}
+.w{border-radius:6px}
+.s0{background:var(--accent-soft)}
+.sent.playing{background:var(--play)}
+.card{border-radius:28px;padding:28px 20px;min-height:300px}
+.card .big{font-size:38px;letter-spacing:-.01em}
+.opt{border-radius:18px;padding:16px 18px;font-size:17px;border-color:var(--line)}
+.grades2 button{border-radius:18px;padding:18px 8px}
+.big-btn{border-radius:18px;padding:16px;font-size:17px}
+.sheet{border-radius:28px 28px 0 0;border-top:0;box-shadow:0 -16px 40px var(--shadow)}
+.grab i{width:44px;background:var(--muted);opacity:.35}
+.sw-word{font-size:28px}
+.ctx{border-radius:14px;font-size:16px;padding:12px 14px}
+.levels button{border-radius:14px;padding:11px 0;font-size:15px;background:var(--surface)}
+.pager .btn{border-radius:18px;padding:15px 10px;font-size:16px}
+.player{background:color-mix(in srgb,var(--surface) 88%,transparent);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.player button{border-radius:14px;height:44px;background:var(--surface)}
+.player #pbPlay{border-radius:999px;min-width:64px;box-shadow:0 6px 16px color-mix(in srgb,var(--accent) 30%,transparent)}
+.selbar{border-radius:20px;padding:12px 14px;box-shadow:0 10px 30px var(--shadow)}
+.wtools select{border-radius:999px;padding:8px 12px;font-size:14px}
+.legend{font-size:13px}
+.endbox{border-top:0;background:var(--surface);border-radius:var(--r);padding:18px;box-shadow:0 0 0 1px var(--line)}
+/* start screen */
+.today-date{font-size:15px;color:var(--muted);margin-top:-6px}
+.next{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center;text-align:left;width:100%;background:var(--surface);border:0;border-radius:var(--r);padding:18px;box-shadow:0 1px 2px rgba(18,21,27,.05),0 0 0 1px var(--line);color:var(--ink)}
+.next .k{font-size:14px;font-weight:700;color:var(--muted)}
+.next .t{font-size:20px;font-weight:700;letter-spacing:-.01em;overflow-wrap:anywhere;font-family:var(--f-read)}
+.next .d{font-size:14px;color:var(--muted);grid-column:1}
+.next .go{grid-row:1/4;grid-column:2;width:48px;height:48px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px color-mix(in srgb,var(--accent) 30%,transparent)}
+.next .go svg{width:22px;height:22px}
+.next .n{font-size:20px;font-weight:800;letter-spacing:-.01em}
+.next .n mark{background:linear-gradient(transparent 55%,var(--mark) 55%);color:inherit;padding:0 3px}
+.next.idle .go{background:var(--line);color:var(--muted);box-shadow:none}
+.viewseg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;background:var(--line);border-radius:14px;padding:3px;gap:3px}
+.viewseg button{border:0;background:none;border-radius:11px;padding:9px 8px;font-weight:700;font-size:14px;color:var(--muted)}
+.viewseg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px var(--shadow)}
+.setrow{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.setrow .d{font-size:13px;color:var(--muted)}
+.sw{position:relative;width:52px;height:32px;border-radius:999px;border:0;background:var(--line);flex:none;transition:background .15s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .15s}
+.sw[aria-pressed="true"]{background:var(--accent)}
+.sw[aria-pressed="true"]::after{transform:translateX(20px)}
+
 </style>
 
 <header class="top"><div class="wrap"><h1 id="title">Лексика</h1><div class="row" id="topActions"></div></div></header>
 <main><div class="wrap" id="view"></div></main>
 <nav class="tabs" aria-label="Разделы"><div class="in">
+  <button data-go="today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></svg>Сегодня</button>
   <button data-go="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M13 4h5.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H13z"/></svg>Тексты</button>
   <button data-go="read"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 6h14M5 10h14M5 14h9M5 18h6"/></svg>Чтение</button>
-  <button data-go="words"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h3M4 12h3M4 17h3M10 7h10M10 12h10M10 17h10"/></svg>Слова</button>
-  <button data-go="cards"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="7" width="14" height="13" rx="2"/><path d="M7 4h12a2 2 0 0 1 2 2v11"/></svg>Карточки<span class="badge" id="dueBadge" hidden></span></button>
-  <button data-go="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Прогресс</button>
+  <button data-go="words"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="7" width="14" height="13" rx="2"/><path d="M7 4h12a2 2 0 0 1 2 2v11"/></svg>Слова<span class="badge" id="dueBadge" hidden></span></button>
 </div></nav>
 <input type="file" id="fileIn" accept=".txt,.md,.srt,.vtt,.html,.htm,.xhtml,.epub,.docx,.pdf,text/plain,application/pdf,application/epub+zip" hidden>
 <input type="file" id="backupIn" accept=".json,application/json" hidden>
@@ -745,12 +863,60 @@ function buildParts(r){
 }
 
 /* ================= routing / render ================= */
-const VIEWS=['library','read','words','cards','progress'];
-let view=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):'library';
+const VIEWS=['today','library','read','words','cards','progress'];
+const TAB_OF={cards:'words',progress:'today'};
+let view=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):'today';
 let curLesson=LS.get('lx-lesson',null), parsed=null, session=null;
 addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(VIEWS.includes(v)&&v!==view){if(view==='read')savePos(true);view=v;stopReading();closeSheet();session=null;renderView();if(view!=='read')scrollTo(0,0)}});
-document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>{location.hash=b.dataset.go});
+document.querySelectorAll('nav.tabs button[data-go]').forEach(b=>b.onclick=()=>{location.hash=b.dataset.go});
 
+/* ---- settings kept on the device ---- */
+const autoKnown=()=>LS.get('lx-autoknown',true), autoLingq=()=>LS.get('lx-autolingq',true);
+function applyTheme(){const t=LS.get('lx-theme','auto'),set=r=>{if(t==='light'||t==='dark')r.setAttribute('data-theme',t);else r.removeAttribute('data-theme')};
+  set(document.documentElement);const f=document.querySelector('#gramLayer iframe');try{if(f&&f.contentDocument)set(f.contentDocument.documentElement)}catch(e){}}
+applyTheme();
+const viewSeg=cur=>`<div class="viewseg" role="group" aria-label="Слова или карточки"><button data-vs="words" aria-pressed="${cur==='words'}">Список слов</button><button data-vs="cards" aria-pressed="${cur==='cards'}">Карточки${dueKeys().length?' · '+dueKeys().length:''}</button></div>`;
+function bindViewSeg(){document.querySelectorAll('.viewseg [data-vs]').forEach(b=>b.onclick=()=>{location.hash=b.dataset.vs})}
+const GO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
+function gramInfo(){
+  if(!document.getElementById('gramTab'))return null;
+  let g=null;try{g=window.__NATIVE_GRAMMAR}catch(e){}
+  if(!g||typeof g!=='object')g=LS.get('gr1',null);
+  const t=today();let due=0;if(g)for(const v of Object.values(g.items||{}))if(v&&v.d<=t)due++;
+  const d=(g&&g.days&&g.days[t])||{};return {due,n:d.n||0,goal:(g&&g.goal)||20,started:!!(g&&Object.keys(g.items||{}).length)};
+}
+function renderToday(){
+  $('#title').textContent='Сегодня';
+  const now=new Date(),days=S.days||{},t=today(),tr=days[t]||{};
+  let streak=0;{const d=new Date();for(let n=0;n<3650;n++){const r=days[today(d)];const act=r&&((r.read||0)+(r.reviews||0)+(r.created||0)>0);if(act)streak++;else if(today(d)!==t)break;d.setDate(d.getDate()-1)}}
+  $('#topActions').innerHTML=streak?`<span class="chip" aria-pressed="true">${streak} дн. подряд</span>`:'';
+  const l=curLesson&&S.lessons.get(curLesson),due=dueKeys().length,g=gramInfo();
+  let readCard;
+  if(l){const total=lessonInfo(curLesson).total||1,pr=S.prog[curLesson]||{},pct=Math.min(100,Math.round((pr.pos||0)/total*100));
+    readCard=`<button class="next" data-next="read"><span class="k">Чтение</span><span class="t">${esc(l.title)}</span><span class="d">${isDone(curLesson)&&!pr.pos?'Урок пройден':'Прочитано '+pct+'%'}${l.course?' · '+esc(l.course):''}</span><span class="go">${GO}</span></button>`}
+  else readCard=`<button class="next" data-next="library"><span class="k">Чтение</span><span class="t">Выбери текст</span><span class="d">Открой любой текст во вкладке «Тексты»</span><span class="go">${GO}</span></button>`;
+  const gained=knownCount()-(tr.startKnown??knownCount());
+  $('#view').innerHTML=`<div class="today-date">${now.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'})}</div>
+    ${readCard}
+    <button class="next ${due?'':'idle'}" data-next="cards"><span class="k">Карточки</span><span class="n">${due?`<mark>${due}</mark> к повторению`:'На сегодня всё повторено'}</span><span class="d">${learningCount()} слов и фраз в изучении</span><span class="go">${GO}</span></button>
+    ${g?`<button class="next ${g.due||!g.started?'':'idle'}" data-next="grammar"><span class="k">Грамматика</span><span class="n">${g.due?`<mark>${g.due}</mark> к повторению`:g.started?'Продолжить курс':'Начать курс'}</span><span class="d">Сегодня ответов: ${g.n} из ${g.goal}</span><span class="go">${GO}</span></button>`:''}
+    <span class="label">За сегодня</span>
+    <div class="tiles">
+      <div class="tile"><b>${fmtN(tr.read||0)}</b><span>слов прочитано</span></div>
+      <div class="tile"><b>${fmtMin(tr.rsec)}</b><span>время чтения</span></div>
+      <div class="tile"><b>${gained>=0?'+':''}${fmtN(gained)}</b><span>известных слов</span></div>
+      <div class="tile"><b>${fmtN(tr.reviews||0)}</b><span>ответов в карточках</span></div>
+    </div>
+    <button class="btn" data-next="progress" style="justify-content:center">Вся статистика и данные</button>
+    <div class="panel keep-open"><h2>Настройки</h2>
+      <div class="setrow" style="flex-direction:column;align-items:stretch;gap:8px"><span>Оформление</span><div class="viewseg">${[['auto','Системное'],['light','Светлое'],['dark','Тёмное']].map(([k,n])=>`<button data-th="${k}" aria-pressed="${LS.get('lx-theme','auto')===k}">${n}</button>`).join('')}</div></div>
+      <div class="setrow"><span>«Далее» отмечает синие слова известными<div class="d">Как в LingQ. Выключи, если хочешь отмечать слова только вручную.</div></span><button class="sw" data-sw="lx-autoknown" aria-pressed="${autoKnown()}" aria-label="Отмечать синие слова известными"></button></div>
+      <div class="setrow"><span>Нажатие на слово сразу добавляет его в изучаемые<div class="d">Если выключить, слово добавится, только когда выберешь ему уровень.</div></span><button class="sw" data-sw="lx-autolingq" aria-pressed="${autoLingq()}" aria-label="Сразу добавлять слово в изучаемые"></button></div>
+    </div>`;
+  document.querySelectorAll('[data-next]').forEach(b=>b.onclick=()=>{const k=b.dataset.next;if(k==='grammar'){const gt=document.getElementById('gramTab');if(gt)gt.click()}else location.hash=k});
+  document.querySelectorAll('[data-th]').forEach(b=>b.onclick=()=>{LS.set('lx-theme',b.dataset.th);applyTheme();renderToday()});
+  document.querySelectorAll('[data-sw]').forEach(b=>b.onclick=()=>{LS.set(b.dataset.sw,b.getAttribute('aria-pressed')!=='true');renderToday()});
+}
 let pend=false;
 function changed(){if(pend)return;pend=true;requestAnimationFrame(()=>{pend=false;if(mode==='loading')return;updateBadge();snapStats();
   const bn=$('#offBanner');if(bn)bn.hidden=!offline;
@@ -759,18 +925,19 @@ function changed(){if(pend)return;pend=true;requestAnimationFrame(()=>{pend=fals
   else if(view==='words')renderWordList();
   else if(view==='progress'&&!$('#view .keep-open'))renderView();
   else if(view==='cards'&&!session)renderView();
+  else if(view==='today')renderView();
   if(sheet)updateSheet();})}
 
 function dueKeys(){const now=Date.now();return [...S.words.values()].filter(w=>(w.status||1)<5&&isDue(w,now)).sort((a,b)=>(a.due||0)-(b.due||0)).map(w=>w.k)}
 function updateBadge(){const n=mode==='loading'?0:dueKeys().length;const b=$('#dueBadge');b.hidden=!n;b.textContent=n>99?'99+':n}
 
 function renderView(){
-  document.querySelectorAll('nav.tabs button').forEach(b=>{if(b.dataset.go===view)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+  document.querySelectorAll('nav.tabs button').forEach(b=>{if(b.dataset.go===(TAB_OF[view]||view))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
   $('#topActions').innerHTML='';
   const v=$('#view');
   if(mode==='loading'){$('#title').textContent='Лексика';v.innerHTML=`<div class="empty">${loadErr?esc(loadErr):'<span class="spin"></span> Загружаю тексты и слова…'}</div>`;return}
   updateBadge();
-  ({library:renderLibrary,read:renderReader,words:renderWords,cards:renderCards,progress:renderProgress})[view]();
+  ({today:renderToday,library:renderLibrary,read:renderReader,words:renderWords,cards:renderCards,progress:renderProgress})[view]();
   syncPlayer();
   if(offline)v.insertAdjacentHTML('afterbegin','<div class="banner" id="offBanner">Нет связи — показаны сохранённые данные. Изменения отправятся, когда интернет вернётся.</div>');
 }
@@ -893,6 +1060,12 @@ function buildPages(){
     div.appendChild(p);cnt+=c;n+=c;pages[pages.length-1].to=n;
   }
 }
+/* a quick horizontal swipe turns the page; a long press still selects a phrase */
+(function(){let sx=0,sy=0,st=0;
+  addEventListener('touchstart',e=>{if(view!=='read'||e.touches.length!==1){st=0;return}sx=e.touches[0].clientX;sy=e.touches[0].clientY;st=Date.now()},{passive:true});
+  addEventListener('touchend',e=>{if(!st||view!=='read'||sheet||pages.length<2)return;const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy,dt=Date.now()-st;st=0;
+    if(dt>600||Math.abs(dx)<90||Math.abs(dy)>50||document.querySelector('.w.pick')||e.target.closest('.player,nav,.sheet'))return;
+    const b=dx<0?$('#pgNext'):$('#pgPrev');if(b&&!b.disabled)b.click()},{passive:true})})();
 function pageOf(n){const i=pages.findIndex(p=>n>=p.from&&n<p.to);return i<0?0:i}
 function showPage(i){
   if(!pages.length)return;
@@ -910,7 +1083,7 @@ function showPage(i){
 function nextPage(auto){
   const id=curLesson,from=pageIdx,pg=pages[from];if(!pg||from>=pages.length-1)return;
   const prev={...(S.prog[id]||{})},rd0=prev.rd||0;
-  const keys=auto?[]:[...new Set([...pg.el.querySelectorAll('.w')].map(e=>e.dataset.k))].filter(k=>statusOf(k)===0);
+  const keys=auto||!autoKnown()?[]:[...new Set([...pg.el.querySelectorAll('.w')].map(e=>e.dataset.k))].filter(k=>statusOf(k)===0);
   if(keys.length)setKn(keys,1);
   const add=Math.max(0,pg.to-rd0);if(add)bump('read',add);
   const tm=timedPage(add);
@@ -965,7 +1138,7 @@ function renderReader(){
     <div class="legend"><span><i style="background:var(--new)"></i>новое</span><span><i style="background:var(--l1)"></i>изучаю</span><span><i></i>знаю</span><span>Зажми слово и веди пальцем — выделится фраза</span></div>
     <div class="text" id="text" style="--fs:${fs}px">${parsed.html}</div>
     <div class="pager" id="pager" hidden></div>
-    <span class="small muted" id="pgHint" hidden>«Далее» засчитывает слова страницы как прочитанные и отмечает её синие слова как известные. Отменить можно сразу после нажатия.</span>
+    <span class="small muted" id="pgHint" hidden>${autoKnown()?'«Далее» засчитывает слова страницы как прочитанные и отмечает её синие слова как известные. Отменить можно сразу после нажатия.':'«Далее» засчитывает слова страницы как прочитанные. Синие слова остаются синими, пока не отметишь их сам.'} Страницы можно листать и свайпом.</span>
     <div class="endbox" id="endbox"><div class="stats" id="rStats"></div>
       <div class="row"><button class="btn primary" id="finish"></button>${nx?`<button class="btn" id="nextL">Следующий урок →</button>`:''}</div>
       <span class="small muted">«Завершить урок» отмечает оставшиеся синие слова как известные и засчитывает прочитанные слова. Это можно отменить.</span></div>`;
@@ -986,7 +1159,7 @@ function renderReader(){
   if(pos>0&&spans[pos]){requestAnimationFrame(()=>{const y=spans[pos].getBoundingClientRect().top+scrollY-90;scrollTo(0,Math.max(0,y))})}else scrollTo(0,0);
 }
 function finishLesson(){
-  const id=curLesson;const keys=[...lessonInfo(id).keys].filter(k=>statusOf(k)===0);
+  const id=curLesson;const keys=autoKnown()?[...lessonInfo(id).keys].filter(k=>statusOf(k)===0):[];
   const prev={...(S.prog[id]||{})};
   /* pages already turned were counted then; only the rest of the lesson is added here */
   const all=spans.length||lessonInfo(id).total,rd0=Math.min(prev.rd||0,all),total=all-rd0;
@@ -1013,7 +1186,7 @@ function renderReaderStats(){
   const l=curLesson&&S.lessons.get(curLesson);const box=$('#rStats');if(!l||!box)return;
   const st=keyStats(lessonInfo(curLesson).keys);
   box.innerHTML=`<div><b>${st.fresh}</b><span>новых</span></div><div><b>${st.learn}</b><span>изучаю</span></div><div><b>${st.known}</b><span>знаю</span></div><div><b>${st.n?Math.round(st.known/st.n*100):0}%</b><span>известно</span></div>`;
-  const b=$('#finish');const d=isDone(curLesson);b.textContent=d?(st.fresh?`Пройти ещё раз (+${st.fresh} в известные)`:'Пройти ещё раз'):`Завершить урок${st.fresh?` (+${st.fresh} в известные)`:''}`;
+  const b=$('#finish');const d=isDone(curLesson),fr=autoKnown()?st.fresh:0;b.textContent=d?(fr?`Пройти ещё раз (+${fr} в известные)`:'Пройти ещё раз'):`Завершить урок${fr?` (+${fr} в известные)`:''}`;
 }
 
 /* ---- tap / long-press selection ---- */
@@ -1074,8 +1247,9 @@ function openSheet(k,display,ctx,si,isPhrase,phList,range){
   buildSheet();paintWords();
   if(LS.get('lx-autospeak',true))speak(sheet.display);
 }
-function createLingq(extra,s=sheet){
+function createLingq(extra,s=sheet,manual=false){
   if(S.words.has(s.k))return;
+  if(!manual&&!autoLingq())return;
   const now=Date.now();
   saveWord({k:s.k,w:s.display,tr:'',lemma:'',ipa:'',note:'',ctx:s.ctx,status:1,interval:0,ease:2.5,due:now,reps:0,created:now,...(s.phrase?{phrase:true}:{}),...extra});
   bump('created');
@@ -1150,7 +1324,7 @@ function buildSheet(){
   const inp=$('#trInput');
   inp.addEventListener('input',()=>fitTr(inp));
   inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();inp.blur()}});
-  inp.addEventListener('change',()=>{const v=inp.value.trim();const s=sheet;if(!s)return;const cur=S.words.get(s.k);if(cur){if(cur.tr!==v)saveWord({...cur,tr:v})}else if(v){s.lookup={...(s.lookup||{}),tr:v};createLingq({...s.lookup},s)}});
+  inp.addEventListener('change',()=>{const v=inp.value.trim();const s=sheet;if(!s)return;const cur=S.words.get(s.k);if(cur){if(cur.tr!==v)saveWord({...cur,tr:v})}else if(v){s.lookup={...(s.lookup||{}),tr:v};createLingq({...s.lookup},s,true)}});
   // swipe down to close
   let y0=null;const g=$('#grab');
   g.addEventListener('touchstart',e=>{y0=e.touches[0].clientY},{passive:true});
@@ -1163,7 +1337,7 @@ function updateSheet(){
   const s=sheet;if(!s||!$('#sheet'))return;
   const w=S.words.get(s.k);const st=statusOf(s.k);const d=w||s.lookup||{};
   const ctx=s.ctx||(w&&w.ctx)||'';
-  setHtml('shMeta',`${s.phrase?'<div class="small muted">Фраза</div>':''}${(d.ipa||d.lemma)?`<div class="sw-ipa">${d.ipa?'['+esc(d.ipa)+']':''}${d.lemma&&norm(d.lemma)!==s.k?`${d.ipa?' · ':''}словарная форма: <b>${esc(d.lemma)}</b>`:''}</div>`:''}${s.loading?'<div class="muted small"><span class="spin"></span> Перевожу…</div>':''}${s.err?`<div class="small" style="color:var(--danger)">${esc(s.err)}</div>`:''}`);
+  setHtml('shMeta',`${s.phrase?'<div class="small muted">Фраза</div>':''}${(d.ipa||d.lemma)?`<div class="sw-ipa">${d.ipa?'['+esc(d.ipa)+']':''}${d.lemma&&norm(d.lemma)!==s.k?`${d.ipa?' · ':''}словарная форма: <b>${esc(d.lemma)}</b>`:''}</div>`:''}${s.loading?'<div class="muted small"><span class="spin"></span> Перевожу…</div>':''}${!w&&st===0&&!autoLingq()?'<div class="small muted">Слово ещё не в изучаемых. Выбери уровень, чтобы добавить его.</div>':''}${s.err?`<div class="small" style="color:var(--danger)">${esc(s.err)}</div>`:''}`);
   const inp=$('#trInput');if(document.activeElement!==inp){const v=d.tr||'';if(inp.value!==v)inp.value=v;inp.placeholder=s.loading?'…':'Впиши свой перевод'}fitTr(inp);
   const phs=s.phList.map(pk=>S.words.get(pk)).filter(Boolean);
   setHtml('shDyn',`${d.note?`<div class="small muted">${esc(d.note)}</div>`:''}
@@ -1212,7 +1386,7 @@ function setLevel(n){
     saveWord(upd);
   }
   else if(n===5&&!tr&&!s.phrase)setKn([s.k],1);
-  else createLingq({...(s.lookup||{}),tr:tr||(s.lookup&&s.lookup.tr)||'',status:n,...(n===5?{due:now+30*864e5}:{})});
+  else createLingq({...(s.lookup||{}),tr:tr||(s.lookup&&s.lookup.tr)||'',status:n,...(n===5?{due:now+30*864e5}:{})},s,true);
   if(n===5&&view==='read')setTimeout(closeSheet,150);
 }
 function fitSheetToKeyboard(){
@@ -1227,12 +1401,13 @@ const wordsN=n=>{const m=n%100,k=n%10;return fmtN(n)+' '+((m>10&&m<20)?'слов
 function dueLabel(w,now){if((w.status||1)>=5)return '';if(isDue(w,now))return 'сегодня';const n=Math.round((dayStart(w.due||now)-dayStart(now))/864e5);return n<=1?'завтра':'через '+n+' дн'}
 function renderWords(){
   $('#title').textContent='Мои слова';
-  $('#view').innerHTML=`<input type="search" id="wq" placeholder="Поиск по слову или переводу" value="${esc(wQuery)}">
+  $('#view').innerHTML=`${viewSeg('words')}<input type="search" id="wq" placeholder="Поиск по слову или переводу" value="${esc(wQuery)}">
     <div class="chips">${[['learn','Изучаю'],['due','К повторению'],['phr','Фразы'],['done','Выучено'],['ign','Игнор'],['all','Все']].map(([k,t])=>`<button class="chip" data-f="${k}" aria-pressed="${wFilter===k}">${t}</button>`).join('')}</div>
     <div class="wtools"><span class="lab">Уровень</span><div class="chips">${[0,1,2,3,4].map(n=>`<button class="chip" data-wl="${n}" aria-pressed="${wLevel===n}">${n||'Все'}</button>`).join('')}</div></div>
     <div class="wtools"><select id="wsort" aria-label="Сортировка">${[['new','Сначала новые'],['due','Скоро повтор'],['hard','Больше ошибок'],['az','По алфавиту']].map(([k,t])=>`<option value="${k}" ${wSort===k?'selected':''}>${t}</option>`).join('')}</select>
       <button class="btn sm" id="wSelBtn">${wSel?'Отменить выбор':'Выбрать несколько'}</button></div>
     <div id="wl"></div>`;
+  bindViewSeg();
   $('#wq').oninput=e=>{wQuery=e.target.value;wLimit=300;renderWordList()};
   document.querySelectorAll('.chip[data-f]').forEach(c=>c.onclick=()=>{wFilter=c.dataset.f;wLimit=300;document.querySelectorAll('.chip[data-f]').forEach(x=>x.setAttribute('aria-pressed',x===c));renderWordList()});
   document.querySelectorAll('.chip[data-wl]').forEach(c=>c.onclick=()=>{wLevel=+c.dataset.wl;wLimit=300;document.querySelectorAll('.chip[data-wl]').forEach(x=>x.setAttribute('aria-pressed',x===c));renderWordList()});
@@ -1318,7 +1493,7 @@ function renderCards(){
   const auto=LS.get('lx-autospeak',true);const dir=LS.get('lx-dir','en');
   if(!session){
     const due=dueKeys();const learning=learningCount();
-    $('#view').innerHTML=`<div class="panel" style="align-items:flex-start"><div class="big-num">${due.length}</div><div class="muted">карточек к повторению сейчас</div>
+    $('#view').innerHTML=`${viewSeg('cards')}<div class="panel" style="align-items:flex-start"><div class="big-num">${due.length}</div><div class="muted">карточек к повторению сейчас</div>
       <div class="row"><button class="btn primary" id="startDue" ${due.length?'':'disabled'}>Начать повторение</button>
       ${!due.length&&learning?'<button class="btn" id="startAhead">Повторить заранее</button>':''}</div></div>
       <div class="panel"><div class="chips"><button class="chip" data-dir="en" aria-pressed="${dir==='en'}">Английский → русский</button><button class="chip" data-dir="ru" aria-pressed="${dir==='ru'}">Русский → английский</button></div>
@@ -1326,6 +1501,7 @@ function renderCards(){
       <div class="row small">Голос: ${voiceSelectHtml()}</div></div>
       <div class="note">Как растёт уровень: два правильных ответа подряд (в разные дни) — уровень выше. После уровня 4 слово становится известным ✓. Ошибка — уровень ниже, и слово вернётся через 10 минут. На уровнях 1–2 выбираешь перевод из четырёх, на 3–4 сначала вспоминаешь сам.</div>
       ${!S.words.size?'<div class="empty">Карточки появляются из слов и фраз, которые ты отмечаешь при чтении.</div>':''}`;
+    bindViewSeg();
     $('#autoSp').onchange=e=>LS.set('lx-autospeak',e.target.checked);
     document.querySelectorAll('[data-dir]').forEach(b=>b.onclick=()=>{LS.set('lx-dir',b.dataset.dir);renderCards()});
     bindVoiceSel();
@@ -1511,8 +1687,6 @@ init();
 </script>
 <!-- grammar-hook: adds the «Грамматика» tab; the trainer lives in grammar.html and opens in a frame so Лексика keeps its state -->
 <style>
-nav.tabs .in{grid-template-columns:repeat(6,1fr)}
-nav.tabs button{font-size:9.5px;letter-spacing:-.03em;overflow:hidden}
 #gramLayer{position:fixed;inset:0;z-index:100;background:var(--bg);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}
 #gramLayer iframe{display:block;width:100%;height:100%;border:0;background:var(--bg)}
 </style>
@@ -1528,7 +1702,9 @@ nav.tabs button{font-size:9.5px;letter-spacing:-.03em;overflow:hidden}
     if(!layer){layer=document.createElement('div');layer.id='gramLayer';layer.innerHTML='<iframe src="grammar.html" title="Грамматика"></iframe>';document.body.appendChild(layer)}
     layer.hidden=false;
   });
-  window.__closeGrammar=function(){if(layer)layer.hidden=true};
+  window.__closeGrammar=function(){if(layer)layer.hidden=true;try{if(view==='today')renderView()}catch(e){}};
+  /* the start screen shows a grammar card only once this tab exists */
+  try{if(view==='today'&&mode!=='loading')renderView()}catch(e){}
 })();
 </script>
 </body></html>
