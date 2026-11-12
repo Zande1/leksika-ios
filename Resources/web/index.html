@@ -811,13 +811,13 @@ function renderLibrary(){
   for(const it of items){
     if(!it.c){
       const inf=lessonInfo(it.id);const st=keyStats(inf.keys);const pr=S.prog[it.id]||{};
-      h+=`<div class="lesson-wrap">${lessonCard(it.id,it.l.title,`${fmtN(inf.total)} слов · ${st.fresh} новых · ${st.learn} изучаю${isDone(it.id)?` · пройден${pr.reads>1?' ×'+pr.reads:''}`:''}`,st)}
+      h+=`<div class="lesson-wrap">${lessonCard(it.id,it.l.title,`${wordsN(inf.total)} · ${st.fresh} новых · ${st.learn} изучаю${isDone(it.id)?` · пройден${pr.reads>1?' ×'+pr.reads:''}`:''}`,st)}
         <div class="lesson-actions"><button class="btn ghost sm danger" data-del="${esc(it.id)}">${delArm===it.id?'Точно удалить?':'Удалить'}</button></div></div>`;
     }else{
       const c=it.c;c.lessons.sort((a,b)=>(a[1].order||0)-(b[1].order||0));
       const keys=new Set();let total=0,done=0;for(const [id] of c.lessons){const inf=lessonInfo(id);for(const k of inf.keys)keys.add(k);total+=inf.total;if(isDone(id))done++}
       const st=keyStats(keys);const open=openCourses.has(c.id);
-      h+=`<div class="lesson-wrap">${lessonCard('c:'+c.id,c.title,`${c.lessons.length} уроков · ${fmtN(total)} слов · пройдено ${done}`,st)}`;
+      h+=`<div class="lesson-wrap">${lessonCard('c:'+c.id,c.title,`${c.lessons.length} уроков · ${wordsN(total)} · пройдено ${done}`,st)}`;
       if(open)h+=`<div class="course-parts">`+c.lessons.map(([id,l],i)=>{const s2=keyStats(lessonInfo(id).keys);const d=isDone(id);return `<button class="part" data-open="${esc(id)}"><span class="${d?'ok':'muted'}">${d?'✓':i+1}</span><span class="t">${esc(l.title)}</span><span class="p">${s2.n?Math.round(s2.known/s2.n*100):0}%</span></button>`}).join('')+`</div>`;
       h+=`<div class="lesson-actions"><button class="btn ghost sm" data-cont="${esc(c.id)}">Продолжить</button><button class="btn ghost sm danger" data-delc="${esc(c.id)}">${delArm==='c:'+c.id?'Удалить все уроки?':'Удалить'}</button></div></div>`;
     }
@@ -1114,7 +1114,10 @@ async function fetchLookup(){
   }catch(e){s.loading=false;s.err=sampleError(e);if(!S.words.get(s.k)&&statusOf(s.k)===0)createLingq({},s)}
   if(sheet===s)updateSheet();
 }
-function closeSheet(){if(!sheet)return;if(sheet.ctl)sheet.ctl.abort();sheet=null;$('#sheetRoot').innerHTML='';document.body.classList.remove('sheet-open');paintWords();
+function closeSheet(){if(!sheet)return;if(sheet.ctl)sheet.ctl.abort();
+  /* a translation still being typed is saved before the sheet goes away */
+  {const inp=$('#trInput'),cur=S.words.get(sheet.k);if(inp&&cur&&document.activeElement===inp){const v=inp.value.trim();if(cur.tr!==v)saveWord({...cur,tr:v})}}
+  sheet=null;$('#sheetRoot').innerHTML='';document.body.classList.remove('sheet-open');paintWords();
   /* the sheet can be opened from a flashcard: show the edited translation right away */
   if(view==='cards'&&session){const c=session.cur,w=c&&S.words.get(c.k);
     if(w&&c.opts&&c.answered===null&&LS.get('lx-dir','en')!=='ru'){const o=c.opts.find(x=>x.ok);if(o)o.t=shortTr(w.tr)}
@@ -1147,7 +1150,7 @@ function buildSheet(){
   const inp=$('#trInput');
   inp.addEventListener('input',()=>fitTr(inp));
   inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();inp.blur()}});
-  inp.addEventListener('change',()=>{const v=inp.value.trim();const s=sheet;const cur=S.words.get(s.k);if(cur){if(cur.tr!==v)saveWord({...cur,tr:v})}else if(v){s.lookup={...(s.lookup||{}),tr:v};createLingq({...s.lookup},s)}});
+  inp.addEventListener('change',()=>{const v=inp.value.trim();const s=sheet;if(!s)return;const cur=S.words.get(s.k);if(cur){if(cur.tr!==v)saveWord({...cur,tr:v})}else if(v){s.lookup={...(s.lookup||{}),tr:v};createLingq({...s.lookup},s)}});
   // swipe down to close
   let y0=null;const g=$('#grab');
   g.addEventListener('touchstart',e=>{y0=e.touches[0].clientY},{passive:true});
@@ -1220,6 +1223,7 @@ function fitSheetToKeyboard(){
 
 /* ================= words ================= */
 let wFilter='learn', wQuery='', wLimit=300, wLevel=0, wSort=LS.get('lx-wsort','new'), wSel=null, wDelArm=false;
+const wordsN=n=>{const m=n%100,k=n%10;return fmtN(n)+' '+((m>10&&m<20)?'слов':k===1?'слово':(k>=2&&k<=4)?'слова':'слов')};
 function dueLabel(w,now){if((w.status||1)>=5)return '';if(isDue(w,now))return 'сегодня';const n=Math.round((dayStart(w.due||now)-dayStart(now))/864e5);return n<=1?'завтра':'через '+n+' дн'}
 function renderWords(){
   $('#title').textContent='Мои слова';

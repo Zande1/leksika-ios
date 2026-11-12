@@ -140,6 +140,8 @@ textarea.out{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;min-heigh
 #tip{position:fixed;left:12px;right:12px;top:calc(var(--sat) + 10px);z-index:40;background:var(--ink);color:var(--bg);border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.4;box-shadow:0 8px 24px var(--shadow)}
 #tip b{font-family:var(--f-read);font-size:17px}
 #tip .linkbtn{color:inherit;opacity:.8;display:block;margin-top:8px}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--danger);background:var(--danger-soft)}
 .linkbtn{background:none;border:0;padding:0;color:var(--muted);font-size:13px;text-decoration:underline;align-self:flex-start}
 
 /* stats */
@@ -270,7 +272,7 @@ const SECTIONS=[
  ['fix','Where your car is?','Where is your car?','d'],
  ['fix','They not are at home.','They are not at home.','a'],
  ['tr','Почему ты грустный?','Why are you sad?','d'],
- ['tr','Это не моя сумка.','This is not my bag.|It is not my bag.','a']],
+ ['tr','Это не моя сумка.','This is not my bag.|It is not my bag.|That is not my bag.','a']],
  fw:{ru:"Напиши 3 вопроса, которые ты задал бы новому знакомому, и 2 предложения о том, кем ты не являешься или где тебя сейчас нет.",en:"Write 3 questions you would ask a new acquaintance and 2 sentences about what you are not or where you are not right now."}},
 
 {id:'pc1',ru:"Настоящее длительное: утверждение",en:"Present Continuous: I am doing",
@@ -281,6 +283,7 @@ const SECTIONS=[
 <table><tr><td>обычно</td><td>work → working, read → reading</td></tr>
 <tr><td>-e на конце убираем</td><td>make → making, write → writing</td></tr>
 <tr><td>краткая гласная + одна согласная: удваиваем</td><td>run → running, sit → sitting, swim → swimming</td></tr></table>
+<p>Согласная удваивается только в ударном слоге: open → opening, visit → visiting.</p>
 <p>Слова-подсказки: <b>now, at the moment, Look!, Listen!</b></p>`,
  en:`<p><b>Present Continuous</b> is for something happening right now. Form: <b>am / is / are + verb-ing</b>.</p>
 <ul><li><span class="en">I am working.</span></li><li><span class="en">She is reading a book.</span></li><li><span class="en">They are playing football.</span></li></ul>
@@ -289,6 +292,7 @@ const SECTIONS=[
 <table><tr><td>usually</td><td>work → working, read → reading</td></tr>
 <tr><td>drop final -e</td><td>make → making, write → writing</td></tr>
 <tr><td>short vowel + one consonant: double it</td><td>run → running, sit → sitting, swim → swimming</td></tr></table>
+<p>The consonant doubles only in a stressed syllable: open → opening, visit → visiting.</p>
 <p>Signal words: <b>now, at the moment, Look!, Listen!</b></p>`},
  rules:{a:{ru:'am / is / are + глагол с -ing. Обе части обязательны.',en:'am / is / are + verb-ing. Both parts are required.'},
   b:{ru:'Написание: make → making (без e); run → running, swim → swimming (удвоение).',en:'Spelling: make → making (drop e); run → running, swim → swimming (double the consonant).'},
@@ -656,7 +660,7 @@ const SECTIONS=[
  ['fix','Where you were yesterday?','Where were you yesterday?','b'],
  ['fix','They was not at work.','They were not at work.','a'],
  ['tr','Я был дома вчера.','I was at home yesterday.|Yesterday I was at home.|I was home yesterday.|Yesterday I was home.','a'],
- ['tr','Вы были в Лондоне?','Were you in London?','b']],
+ ['tr','Вы были в Лондоне вчера?','Were you in London yesterday?|Were you in London yesterday','b']],
  fw:{ru:"Напиши 5 предложений о вчерашнем дне или о детстве: где ты был, каким был день, кто был рядом.",en:"Write 5 sentences about yesterday or your childhood: where you were, what the day was like, who was with you."}},
 
 {id:'past1',ru:"Прошедшее простое: утверждение",en:"Past Simple: worked, went",
@@ -665,7 +669,7 @@ const SECTIONS=[
 <table><tr><td>обычно</td><td>work → worked, watch → watched</td></tr>
 <tr><td>на -e: только -d</td><td>live → lived, like → liked</td></tr>
 <tr><td>согласная + y → -ied</td><td>study → studied (но play → played)</td></tr>
-<tr><td>краткая гласная + согласная: удвоение</td><td>stop → stopped, plan → planned</td></tr></table>
+<tr><td>краткая ударная гласная + согласная: удвоение</td><td>stop → stopped, plan → planned (но open → opened)</td></tr></table>
 <p><b>Неправильные глаголы</b> имеют свою форму, её нужно запомнить:</p>
 <table><tr><td>go → <b>went</b></td><td>have → <b>had</b></td><td>see → <b>saw</b></td></tr>
 <tr><td>come → <b>came</b></td><td>buy → <b>bought</b></td><td>make → <b>made</b></td></tr>
@@ -678,7 +682,7 @@ const SECTIONS=[
 <table><tr><td>usually</td><td>work → worked, watch → watched</td></tr>
 <tr><td>ends in -e: just -d</td><td>live → lived, like → liked</td></tr>
 <tr><td>consonant + y → -ied</td><td>study → studied (but play → played)</td></tr>
-<tr><td>short vowel + consonant: double it</td><td>stop → stopped, plan → planned</td></tr></table>
+<tr><td>short stressed vowel + consonant: double it</td><td>stop → stopped, plan → planned (but open → opened)</td></tr></table>
 <p><b>Irregular verbs</b> have their own form, which you have to learn:</p>
 <table><tr><td>go → <b>went</b></td><td>have → <b>had</b></td><td>see → <b>saw</b></td></tr>
 <tr><td>come → <b>came</b></td><td>buy → <b>bought</b></td><td>make → <b>made</b></td></tr>
@@ -854,7 +858,7 @@ const SECTIONS=[
  ['gap','He fell while he ___ football. (play)','was playing','c'],
  ['gap','What ___ when you heard the news? (you / do)','were you doing','a'],
  ['fix','I was knowing the answer.','I knew the answer.','d'],
- ['tr','Когда я вышел, шёл дождь.','It was raining when I went out.|When I went out, it was raining.|It was raining when I left.|When I left, it was raining.','a'],
+ ['tr','Когда я вышел, шёл дождь.','It was raining when I went out.|When I went out, it was raining.|It was raining when I left.|When I left, it was raining.|It was raining when I went outside.|When I went outside, it was raining.','a'],
  ['dict','I was having a shower when the phone rang.','a'],
  ['mc','We ___ dinner when the lights went out.',['were having','had','have'],0,'a'],
  ['gap','I ___ my phone while I was running. (lose)','lost','a'],
@@ -955,7 +959,7 @@ const SECTIONS=[
  ['gap','She ___ the film last week. (see)','saw','a'],
  ['gap','I ___ this film three times. (see)','have seen','b'],
  ['build','Ты когда-нибудь был в Лондоне?','Have you ever been to London?','d',['was']],
- ['tr','Я уже поел.','I have already eaten.','c'],
+ ['tr','Я уже поел.','I have already eaten.|I have eaten already.','c'],
  '|',
  ['mc','They ___ two years ago.',['got married','have got married','have married'],0,'a'],
  ['gap','Has the bus come ___?','yet','c'],
@@ -1098,10 +1102,10 @@ const SECTIONS=[
  '|',
  ['mc','Birds can ___.',['fly','flies','to fly'],0,'a'],
  ['gap','I ___ swim when I was a child, but now I can. (not)','could not','c'],
- ['gap','What ___ you see in the picture?','can','b'],
+ ['gap','What ___ you see in the picture?','can|do','b'],
  ['fix','He cans play chess.','He can play chess.','a'],
  ['fix','I can to help you.','I can help you.','a'],
- ['tr','Вы не могли бы мне помочь?','Could you help me?|Could you help me please?|Can you help me?|Can you help me please?','d'],
+ ['tr','Вы не могли бы мне помочь?','Could you help me?|Could you help me please?|Can you help me?|Can you help me please?|Could you please help me?|Can you please help me?','d'],
  ['dict','I can read English but I cannot speak it well.','a'],
  ['mc','___ I use your phone?',['Can','Am','Do'],0,'d'],
  ['gap','She ___ ride a bike when she was four.','could','c'],
@@ -1148,7 +1152,7 @@ const SECTIONS=[
  ['gap','They ___ to wait for two hours yesterday.','had','d'],
  ['fix','She must to go.','She must go.','a'],
  ['fix','He have to work today.','He has to work today.','b'],
- ['tr','Я должен идти.','I must go.|I have to go.','a'],
+ ['tr','Я должен идти.','I must go.|I have to go.|I need to go.|I have got to go.','a'],
  ['dict','You must not be late and you have to bring your passport.','c'],
  ['mc','I ___ finish this today. My boss needs it.',['have to','has to','having to'],0,'b'],
  ['gap','You ___ touch that. It is dangerous. (not)','must not','c'],
@@ -1180,7 +1184,7 @@ const SECTIONS=[
  ['mc','He should ___ a doctor.',['see','sees','to see'],0,'a'],
  ['mc','I think you ___ buy this jacket. It looks great.',['should','must to','have'],0,'c'],
  ['mc','It is late. I think we ___ go home.',['should','are','do'],0,'c'],
- ['gap','It is cold. You ___ take a coat.','should','c'],
+ ['gap','It is cold. You ___ take a coat.','should|must','c'],
  ['gap','What ___ I do?','should','b'],
  ['gap','You ___ drive so fast. It is dangerous. (not)','should not','b'],
  ['gap','She should ___ more water. (drink)','drink','a'],
@@ -1192,10 +1196,10 @@ const SECTIONS=[
  ['gap','Children ___ watch TV all day. (not)','should not','b'],
  ['fix','You should to study more.','You should study more.','a'],
  ['fix','He shoulds call his mother.','He should call his mother.','a'],
- ['tr','Что мне надеть?','What should I wear?|What should I put on?','b'],
+ ['tr','Что мне надеть?','What should I wear?|What should I put on?|What shall I wear?','b'],
  ['dict','You should not worry. Everything will be fine.','b'],
  ['mc','You ___ see this film. It is great.',['should','should to','shoulding'],0,'c'],
- ['gap','___ we take a taxi?','Should','b'],
+ ['gap','___ we take a taxi?','Should|Shall','b'],
  ['fix',"You don't should smoke.","You shouldn't smoke.",'b']],
  fw:{ru:"Друг хочет выучить английский за год. Дай ему 5 советов: что стоит делать и чего не стоит (should / shouldn't).",en:"A friend wants to learn English in a year. Give 5 pieces of advice: what they should and shouldn't do."}}
 ]},
@@ -1226,7 +1230,7 @@ const SECTIONS=[
  ['mc','There ___ any milk in the fridge. (not)',["isn't","aren't","doesn't"],0,'b'],
  ['mc','There ___ a lot of people at the party last night.',['were','was','are'],0,'c'],
  ['mc','___ a good film on TV tonight.',['There is','It is','There are'],0,'d'],
- ['gap','There ___ many students in the class.','are','a'],
+ ['gap','There ___ many students in the class.','are|were','a'],
  ['gap','___ there any shops in your street?','Are','b'],
  ['gap','There ___ a park here ten years ago.','was','c'],
  ['gap','Look! There ___ a taxi.','is','a'],
@@ -1234,7 +1238,7 @@ const SECTIONS=[
  ['tr','На столе есть телефон.','There is a phone on the table.|There is a telephone on the table.','d'],
  '|',
  ['mc','How many days ___ in a week?',['are there','is there','there are'],0,'b'],
- ['gap','There ___ a problem with my computer.','is','a'],
+ ['gap','There ___ a problem with my computer.','is|was','a'],
  ['gap','There ___ any chairs in the room. (not)','are not','b'],
  ['fix','There is three books on the shelf.','There are three books on the shelf.','a'],
  ['fix','It is a cat under the bed.','There is a cat under the bed.','d'],
@@ -1269,7 +1273,7 @@ const SECTIONS=[
   c:{ru:'Без артикля: в общем смысле (I like music), имена и города, at home, have breakfast.',en:'No article: general meaning (I like music), names and cities, at home, have breakfast.'}},
  items:[
  ['mc','She is ___ doctor.',['a','an','the'],0,'a'],
- ['mc','I ate ___ apple.',['a','an','the'],1,'a'],
+ ['mc','I ate ___ apple.',['a','an','—'],1,'a'],
  ['mc','I have a dog and a cat. ___ dog is black.',['A','An','The'],2,'b'],
  ['mc','___ sun is very hot today.',['A','An','The'],2,'b'],
  ['mc','I like ___ music.',['—','a','the'],0,'c'],
@@ -1303,6 +1307,7 @@ const SECTIONS=[
 <tr><td>с исчисляемыми во множественном числе</td><td>с неисчисляемыми</td></tr>
 <tr><td><span class="en">How many books?</span></td><td><span class="en">How much money?</span></td></tr>
 <tr><td><span class="en">not many people</span></td><td><span class="en">not much time</span></td></tr></table>
+<p>В просьбах и предложениях тоже <b>some</b>, хотя по форме это вопрос: <span class="en">Can I have some water?</span> <span class="en">Would you like some tea?</span></p>
 <p><b>a lot of</b> подходит к любым существительным и обычно стоит в утверждениях: <span class="en">a lot of friends</span>, <span class="en">a lot of time</span>.</p>`,
  en:`<p>Nouns are <b>countable</b> (a book, two books) or <b>uncountable</b> (water, money, time, bread, information). Uncountable nouns have no plural and no a: <span class="bad">an information</span>, <span class="bad">moneys</span>.</p>
 <table><tr><th>some</th><th>any</th></tr>
@@ -1313,8 +1318,9 @@ const SECTIONS=[
 <tr><td>with plural countable nouns</td><td>with uncountable nouns</td></tr>
 <tr><td><span class="en">How many books?</span></td><td><span class="en">How much money?</span></td></tr>
 <tr><td><span class="en">not many people</span></td><td><span class="en">not much time</span></td></tr></table>
+<p>Requests and offers also take <b>some</b>, although they are questions: <span class="en">Can I have some water?</span> <span class="en">Would you like some tea?</span></p>
 <p><b>a lot of</b> works with any noun and is usual in positive sentences: <span class="en">a lot of friends</span>, <span class="en">a lot of time</span>.</p>`},
- rules:{a:{ru:'some — в утверждениях; any — в вопросах и отрицаниях.',en:'some in positive sentences; any in questions and negatives.'},
+ rules:{a:{ru:'some — в утверждениях, а также в просьбах и предложениях; any — в вопросах и отрицаниях.',en:'some in positive sentences and in requests and offers; any in questions and negatives.'},
   b:{ru:'many + исчисляемые во множественном числе; much + неисчисляемые.',en:'many + plural countable nouns; much + uncountable nouns.'},
   c:{ru:'Неисчисляемые (water, money, bread, information) — без множественного числа и без a.',en:'Uncountable nouns (water, money, bread, information) have no plural and no a.'},
   d:{ru:'a lot of подходит к любым существительным.',en:'a lot of works with any noun.'}},
@@ -1341,7 +1347,7 @@ const SECTIONS=[
  ['dict','We have a lot of time but not much money.','d'],
  ['mc','There are not ___ people here.',['many','much','a lot'],0,'b'],
  ['gap','Do you have ___ brothers or sisters?','any','a'],
- ['fix','I have many money.','I have a lot of money.|I have much money.','d']],
+ ['fix','I have many money.','I have a lot of money.|I have lots of money.','d']],
  fw:{ru:"Опиши, что есть у тебя в холодильнике или на рабочем месте: что есть (some, a lot of) и чего мало или нет (not much, not many, not any). 5 предложений.",en:"Describe what is in your fridge or at your workplace: what there is (some, a lot of) and what there is little or none of (not much, not many, not any). 5 sentences."}}
 ]},
 {ru:'Местоимения и предлоги',en:'Pronouns and prepositions',units:[
@@ -1505,7 +1511,7 @@ const SECTIONS=[
 <tr><td>big → <b>the biggest</b>, hot → <b>the hottest</b></td><td>interesting → <b>the most interesting</b></td></tr>
 <tr><td>happy → <b>the happiest</b></td><td>difficult → <b>the most difficult</b></td></tr></table>
 <p>Исключения: good → <b>the best</b>, bad → <b>the worst</b>.</p>
-<p>Перед превосходной степенью всегда стоит <b>the</b>. После неё место обозначается через <b>in</b>:</p>
+<p>Перед превосходной степенью стоит <b>the</b> (но после my, his, her — без the: my best friend). После неё место обозначается через <b>in</b>:</p>
 <ul><li><span class="en">It is the tallest building in the city.</span></li><li><span class="en">She is the best student in the class.</span></li><li><span class="en">This is the best film I have ever seen.</span></li></ul>`,
  en:`<p>We pick one thing out of all the others.</p>
 <table><tr><th>short words: the + -est</th><th>long words: the most + word</th></tr>
@@ -1513,7 +1519,7 @@ const SECTIONS=[
 <tr><td>big → <b>the biggest</b>, hot → <b>the hottest</b></td><td>interesting → <b>the most interesting</b></td></tr>
 <tr><td>happy → <b>the happiest</b></td><td>difficult → <b>the most difficult</b></td></tr></table>
 <p>Irregular: good → <b>the best</b>, bad → <b>the worst</b>.</p>
-<p>A superlative always takes <b>the</b>. The place after it uses <b>in</b>:</p>
+<p>A superlative takes <b>the</b> (but not after my, his, her: my best friend). The place after it uses <b>in</b>:</p>
 <ul><li><span class="en">It is the tallest building in the city.</span></li><li><span class="en">She is the best student in the class.</span></li><li><span class="en">This is the best film I have ever seen.</span></li></ul>`},
  rules:{a:{ru:'Короткие слова: the + -est (the oldest, the biggest).',en:'Short words: the + -est (the oldest, the biggest).'},
   b:{ru:'Длинные слова: the most + прилагательное.',en:'Long words: the most + adjective.'},
@@ -1568,7 +1574,7 @@ const SECTIONS=[
  ['mc','He drives very ___.',['carefully','careful','care'],0,'a'],
  ['mc','She is a ___ driver.',['careful','carefully','care'],0,'a'],
  ['mc','You speak English very ___.',['well','good','goodly'],0,'c'],
- ['mc','He works ___.',['hard','hardly','harder'],0,'c'],
+ ['mc','He works ___.',['hard','hardly','hardy'],0,'c'],
  ['mc','You look ___ today.',['happy','happily','happiness'],0,'d'],
  ['mc','easy →',['easily','easyly','easly'],0,'b'],
  ['gap','Please speak ___. (slow)','slowly','b'],
@@ -1576,7 +1582,7 @@ const SECTIONS=[
  ['gap','She sings ___. (beautiful)','beautifully','b'],
  ['gap','He runs very ___. (fast)','fast','c'],
  ['build','Он говорит очень тихо.','He speaks very quietly.','a',['quiet']],
- ['tr','Я плохо спал.','I slept badly.|I did not sleep well.','b'],
+ ['tr','Я плохо спал.','I slept badly.|I did not sleep well.|I slept poorly.','b'],
  '|',
  ['mc','The soup smells ___.',['good','well','goodly'],0,'d'],
  ['mc','The train arrived ___.',['late','lately','latest'],0,'c'],
@@ -1670,12 +1676,12 @@ const SECTIONS=[
  ['tr','Эти книги мои.','These books are mine.','b'],
  '|',
  ['mc','Where is ___ office?',["the manager's",'the manager','manager'],0,'a'],
- ['mc','My ___ names are Tom and Ann.',["brothers'","brother's",'brother'],0,'a'],
+ ['mc','My ___ names are Tom and Dan.',["brothers'","brother's",'brother'],0,'a'],
  ['gap!','This is my ___ room. (sister)',"sister's",'a'],
  ['gap','Who is ___ man over there? (this / that)','that','b'],
  ['fix','This is the car of my father.',"This is my father's car.",'a'],
  ['fix','This books are interesting.','These books are interesting.','b'],
- ['tr','Как зовут твою собаку?',"What is your dog's name?|What is the name of your dog?",'a'],
+ ['tr','Как зовут твою собаку?',"What is your dog's name?|What is the name of your dog?|What is your dog called?",'a'],
  ['dict',"These are my friend's keys and those are mine.",'b']],
  fw:{ru:"Опиши вещи вокруг себя и чьи они: 5 предложений с 's и this / that / these / those.",en:"Describe the things around you and whose they are: 5 sentences with 's and this / that / these / those."}},
 
@@ -1714,7 +1720,7 @@ const SECTIONS=[
  ['gap','He needs ___ harder. (work)','to work','a'],
  ['gap','I like ___ books. (read)','reading|to read','c'],
  ['build','Я хочу выучить английский.','I want to learn English.','a',['learning']],
- ['tr','Она любит танцевать.','She likes dancing.|She loves dancing.|She likes to dance.|She loves to dance.','c'],
+ ['tr','Она любит танцевать.','She likes dancing.|She loves dancing.|She likes to dance.|She loves to dance.|She enjoys dancing.','c'],
  '|',
  ['mc','They plan ___ a house.',['to buy','buying','buy'],0,'a'],
  ['gap','It stopped ___. (rain)','raining','b'],
@@ -1765,7 +1771,7 @@ const SECTIONS=[
  ['gap','Coffee ___ in Brazil. (grow)','is grown','a'],
  ['gap','I ___ to the party. (not / invite)','was not invited','b'],
  ['build','Этот мост был построен в 2010 году.','This bridge was built in 2010.','b',['is']],
- ['tr','Здесь говорят по-английски.','English is spoken here.','d'],
+ ['tr','Здесь говорят по-английски. (пассив)','English is spoken here.','d'],
  '|',
  ['mc','Where ___ these phones made?',['are','is','do'],0,'a'],
  ['gap','The film ___ in 2015. (make)','was made','b'],
@@ -1773,7 +1779,7 @@ const SECTIONS=[
  ['gap','When ___ this house built?','was','b'],
  ['fix','The window was broke yesterday.','The window was broken yesterday.','b'],
  ['fix','This song is sing by children.','This song is sung by children.','a'],
- ['tr','Меня не пригласили.','I was not invited.','b'],
+ ['tr','Меня не пригласили. (пассив)','I was not invited.','b'],
  ['dict','The bridge was built in two years.','b']],
  fw:{ru:"Опиши вещь, которой пользуешься на работе или дома: где она сделана, из чего, когда куплена или построена. 5 предложений с пассивом.",en:"Describe something you use at work or at home: where it is made, what it is made of, when it was bought or built. 5 sentences with the passive."}},
 
@@ -1896,7 +1902,7 @@ const SECTIONS=[
  ['mc','___ did you move here? — In 2020.',['When','How long','How much'],0,'d'],
  ['mc','___ have you been married?',['How long','When','How long ago'],0,'d'],
  ['gap','He has been ill ___ Monday.','since','b'],
- ['gap','I have not seen him ___ a long time.','for','a'],
+ ['gap','I have not seen him ___ a long time.','for|in','a'],
  ['gap','They got married five years ___.','ago','c'],
  ['gap','I ___ here two years ago. (come)','came','c'],
  ['build','Я не видел её с прошлого года.','I have not seen her since last year.','b',['for']],
@@ -1945,7 +1951,7 @@ const SECTIONS=[
  ['gap','They ___ when I called. (not / leave)','had not left','c'],
  ['gap','After she ___ dinner, she went to bed. (have)','had had|had','b'],
  ['build','Когда я пришёл, они уже ушли.','When I came they had already left.','b',['have']],
- ['tr','Я никогда раньше не был там.','I had never been there before.','a'],
+ ['tr','До той поездки я никогда там не был.','I had never been there before that trip.|Before that trip I had never been there.|I had never been there before the trip.|Before the trip I had never been there.|I had never been there before.','a'],
  '|',
  ['mc','She told me she ___ the book.',['had read','has read','reads'],0,'b'],
  ['gap','By the time we arrived, everyone ___ home. (go)','had gone','b'],
@@ -2044,7 +2050,7 @@ const SECTIONS=[
  ['gap','Where ___ you live if you could live anywhere?','would','a'],
  ['fix','If I would have a car, I would drive to work.','If I had a car, I would drive to work.','b'],
  ['fix','If I was rich, I will buy a boat.','If I were rich, I would buy a boat.|If I was rich, I would buy a boat.','a'],
- ['tr','Если бы я был тобой, я бы остался.','If I were you, I would stay.','c'],
+ ['tr','На твоём месте я бы остался.','If I were you, I would stay.|If I was you, I would stay.|I would stay if I were you.|I would stay if I was you.|In your place I would stay.','c'],
  ['dict','If I had more free time I would learn to play the guitar.','a']],
  fw:{ru:"Представь, что у тебя есть год свободного времени и неограниченные деньги. Что бы ты сделал? 5–6 предложений с if и would.",en:"Imagine you had a free year and unlimited money. What would you do? 5–6 sentences with if and would."}},
 
@@ -2107,6 +2113,115 @@ const SECTIONS=[
 const SOON={a:[],b:['Modals of deduction: must be, might be, can\'t be (предположения)','Third conditional: If I had known… (нереальное прошлое)','Passive in other tenses (пассив в других временах)','Relative clauses: who, which, that (придаточные)','Gerund and infinitive in depth (герундий и инфинитив)','Future forms compared (сравнение будущих времён)','Articles in depth (артикли подробнее)','Phrasal verbs (фразовые глаголы)']};
 const LEVELS=[{id:'a',name:'Elementary',cefr:'A1–A2'},{id:'b',name:'Intermediate',cefr:'B1'}];
 
+/* ---- test-only questions: never shown in practice, so a test measures the rule and not the memory of a sentence.
+   Wrong options here are real forms, so the choice has to be made by meaning. Last field is 'topic:rule'. ---- */
+const TQ={
+'a-present':[
+ ['mc','My sister and I ___ students.',['am','is','are'],2,'be1:c'],
+ ['mc','___ your brother work or study?',['Does','Is','Do'],0,'ps3:a'],
+ ['mc','She ___ coffee. She prefers tea.',["doesn't like","isn't liking","don't like"],0,'ps2:b'],
+ ['mc','Be quiet, please. The baby ___.',['is sleeping','sleeps','sleep'],0,'pcps:a'],
+ ['mc','Water ___ at zero degrees.',['freezes','is freezing','freeze'],0,'pcps:b'],
+ ['mc','"___ you tired?" — "No, I am fine."',['Are','Do','Have'],0,'be2:b'],
+ ['mc','He ___ a car, so he goes to work by bus.',["hasn't got","isn't","doesn't"],0,'hgot:b'],
+ ['gap','What ___ your father do? — He is a doctor.','does','ps3:c'],
+ ['gap','Look! Those boys ___ in the river. (swim)','are swimming','pc1:a'],
+ ['fix','She not is at home.','She is not at home.','be2:a']],
+'a-past':[
+ ['mc','We ___ at home last night. We went to the cinema.',["weren't","didn't","wasn't"],0,'was:b'],
+ ['mc','I ___ her at the party, but I did not talk to her.',['saw','was seeing','see'],0,'past1:c'],
+ ['mc','"___ you enjoy the film?" — "Yes, it was great."',['Did','Were','Was'],0,'past2:b'],
+ ['mc','When the teacher came in, the students ___.',['were talking','talked already','talk'],0,'pastcs:a'],
+ ['mc','He opened the door and ___ into the room.',['walked','was walking','walks'],0,'pastcs:b'],
+ ['gap','Where ___ you born?','were','was:b'],
+ ['gap','She ___ not come to work yesterday.','did','past2:a'],
+ ['fix','Did you went to the shop?','Did you go to the shop?','past2:c']],
+'a-present-perfect':[
+ ['mc','I ___ my homework. Can I go out now?',['have finished','finished yesterday','finish'],0,'pp1:d'],
+ ['mc','We ___ this film last week.',['saw','have seen','seen'],0,'pp2:a'],
+ ['mc','She has ___ been to Japan. She wants to go one day.',['never','ever','yet'],0,'pp2:b'],
+ ['mc','"Have you eaten?" — "Not ___."',['yet','already','just'],0,'pp2:c'],
+ ['gap','How many times ___ you been to London?','have','pp2:b'],
+ ['gap','He ___ his keys an hour ago. (lose)','lost','pp2:a'],
+ ['fix','I have went to the doctor.','I have gone to the doctor.|I have been to the doctor.|I went to the doctor.','pp1:b']],
+'a-future':[
+ ['mc','I have decided. I ___ look for a new job.',['am going to','will to','going'],0,'gt:c'],
+ ['mc','"I am cold." — "I ___ close the window."',['will','am going','going to'],0,'will:c'],
+ ['mc','Look at that car! It ___ crash!',['is going to','will to','goes'],0,'gt:c'],
+ ['mc','I think she ___ pass the exam. She is very clever.',['will','is','going'],0,'will:c'],
+ ['gap','We ___ not going to wait any longer.','are','gt:b'],
+ ['gap','Do not worry. I ___ not tell anyone.','will','will:b']],
+'a-modal-verbs':[
+ ['mc','You ___ park here. Look at the sign: "No parking".',["mustn't","don't have to","needn't to"],0,'must:c'],
+ ['mc','It is Saturday. You ___ get up early.',["don't have to","mustn't","can't"],0,'must:c'],
+ ['mc','You look ill. You ___ see a doctor.',['should','can','must to'],0,'should:c'],
+ ['mc','I ___ swim when I was three, but I learned at six.',["couldn't","can't","shouldn't"],0,'can:c'],
+ ['mc','___ you pass me the salt, please?',['Could','Should','Must'],0,'can:d'],
+ ['mc','In England you ___ drive on the left.',['have to','should to','can to'],0,'must:b'],
+ ['gap','She ___ to wear a uniform at work.','has','must:b'],
+ ['fix','You must to be quiet.','You must be quiet.','must:a']],
+'a-nouns-and-articles':[
+ ['mc','___ a letter for you on the table.',['There is','It is','There are'],0,'there:d'],
+ ['mc','I bought a jacket and a shirt. ___ jacket was expensive.',['The','A','—'],0,'art:b'],
+ ['mc','She is ___ honest person.',['an','a','the'],0,'art:a'],
+ ['mc','We do not have ___ bread. Can you buy some?',['any','some','many'],0,'some:a'],
+ ['mc','How ___ sugar do you take in your tea?',['much','many','any'],0,'some:b'],
+ ['mc','My sister is ___ student at Moscow University.',['a','the','—'],0,'art:a'],
+ ['gap','Are ___ any good restaurants near here?','there','there:b'],
+ ['fix','I have a good news.','I have good news.|I have some good news.','some:c']],
+'a-pronouns-and-prepositions':[
+ ['mc','This is not my coat. ___ is black.',['Mine','My','Me'],0,'pron:c'],
+ ['mc','Our neighbours are nice. We like ___.',['them','they','their'],0,'pron:a'],
+ ['mc',"The film starts ___ eight o'clock.",['at','on','in'],0,'prep:a'],
+ ['mc','I will see you ___ Friday evening.',['on','in','at'],0,'prep:a'],
+ ['mc','She was born ___ July.',['in','on','at'],0,'prep:a'],
+ ['mc','We are meeting ___ next Tuesday.',['—','on','in'],0,'prep:b'],
+ ['gap','Give ___ the book, please. I want to read it. (I)','me','pron:a'],
+ ['gap','The children are playing ___ the garden.','in','prep:c']],
+'a-adjectives-and-adverbs':[
+ ['mc','Russia is ___ country in the world.',['the biggest','bigger','the most big'],0,'sup:a'],
+ ['mc','My new phone is ___ than my old one.',['better','best','more good'],0,'comp:c'],
+ ['mc','Please drive ___. The road is wet.',['carefully','careful','care'],0,'adv:a'],
+ ['mc','This is ___ book I have ever read.',['the most interesting','more interesting','the interestingest'],0,'sup:b'],
+ ['mc','You look ___. What happened?',['sad','sadly','sadness'],0,'adv:d'],
+ ['gap','Which is ___: the Volga or the Thames? (long)','longer','comp:a'],
+ ['gap','She speaks French very ___. (good)','well','adv:c'],
+ ['fix','This hotel is more cheap than that one.','This hotel is cheaper than that one.','comp:a']],
+'a-questions':[
+ ['mc','___ did you go to bed last night? — At midnight.',['When','Where','Who'],0,'wh:a'],
+ ['mc',"___ bag is this? — It is Anna's.",['Whose','Who','What'],0,'wh:a'],
+ ['mc','Who ___ you this watch?',['gave','did give','did gave'],0,'wh:b'],
+ ['mc','How ___ does this jacket cost?',['much','many','long'],0,'wh:c'],
+ ['mc','___ do you go to the dentist? — Twice a year.',['How often','How long','How many'],0,'wh:c'],
+ ['gap','What are you thinking ___?','about|of','wh:d'],
+ ['fix','Where does she lives?','Where does she live?','wh:a']],
+'a-more-structures':[
+ ['mc','I enjoy ___ to music in the evening.',['listening','to listen','listen'],0,'inf:b'],
+ ['mc','She decided ___ a new car.',['to buy','buying','buy'],0,'inf:a'],
+ ['mc','These houses ___ in 1950.',['were built','built','are built'],0,'pass:b'],
+ ['mc','If I ___ her, I will give her your message.',['see','will see','saw'],0,'if1:a'],
+ ['mc','___ books on the top shelf are mine.',['Those','That','This'],0,'poss:b'],
+ ['mc','Paper ___ from wood.',['is made','makes','is making'],0,'pass:a'],
+ ['gap','We will start when everyone ___ here. (be)','is','if1:a'],
+ ['fix','This is the bag of my sister.',"This is my sister's bag.",'poss:a']],
+'b-tenses-in-depth':[
+ ['mc',"I ___ here since nine o'clock and nobody has come.",['have been waiting','am waiting','wait'],0,'ppc:b'],
+ ['mc','She has worked here ___ three years.',['for','since','ago'],0,'forsince:a'],
+ ['mc','When we arrived, the film ___.',['had already started','has already started','already starts'],0,'pastperf:b'],
+ ['mc','I ___ play football every day, but now I do not have time.',['used to','use to','am used'],0,'usedto:a'],
+ ['mc','He started this job two years ___.',['ago','for','since'],0,'forsince:c'],
+ ['gap','How long ___ you known each other?','have','ppc:d'],
+ ['fix',"I didn't used to like fish.","I didn't use to like fish.",'usedto:b']],
+'b-conditions-and-reporting':[
+ ['mc','If I ___ a lot of money, I would buy a house by the sea.',['had','have','would have'],0,'if2:a'],
+ ['mc','If it ___ tomorrow, we will stay at home.',['rains','rained','would rain'],0,'if2:d'],
+ ['mc','She said she ___ tired.',['was','is','be'],0,'reported:a'],
+ ['mc','He ___ me that he would be late.',['told','said','say'],0,'reported:b'],
+ ['mc','She asked me where I ___.',['worked','did work','do I work'],0,'reported:d'],
+ ['gap','If I ___ you, I would take the job.','were|was','if2:c'],
+ ['fix','He said me the truth.','He told me the truth.','reported:b']]
+};
+
 /* ================= helpers ================= */
 const $=(s,r=document)=>r.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -2140,6 +2255,10 @@ SECTIONS.forEach((sec,si)=>{sec.lv=sec.lv||'a';sec.id=sec.lv+'-'+sec.en.toLowerC
   u.steps=[ids.slice(0,half),ids.slice(half,n)];if(n<ids.length)u.steps.push(ids.slice(n));
   UNITS.push(u)})});
 const UNIT=id=>UNITS.find(u=>u.id===id);
+const NPRACT=ITEMS.size;
+Object.keys(TQ).forEach(sid=>{TQ[sid]=TQ[sid].map((r,i)=>{const [uid,rule]=r[r.length-1].split(':'),t=r[0];const it={id:'tq.'+sid+'.'+i,u:uid,t,strict:false,test:true,rule,extra:[]};
+  if(t==='mc'){it.q=r[1];it.o=r[2];it.c=r[3];it.ans=[r[2][r[3]]]}else{it.q=r[1];it.ans=r[2].split('|')}
+  ITEMS.set(it.id,it);return it.id})});
 const TOTAL_STEPS=UNITS.reduce((s,u)=>s+u.steps.length,0);
 
 const IV=[1,1,3,7,16,35];       /* days until the next review, by box */
@@ -2149,7 +2268,7 @@ let S={v:1,lang:'ru',lv:'a',goal:20,sound:true,items:{},steps:{},days:{},free:{}
   let d=null;
   try{d=EMB?PARENT.__NATIVE_GRAMMAR:window.__NATIVE_GRAMMAR}catch(e){}
   if(!d||typeof d!=='object')d=LS.get('gr1',null);
-  if(d&&typeof d==='object'){S=Object.assign(S,d);S.items=S.items||{};S.steps=S.steps||{};S.days=S.days||{};S.free=S.free||{};S.log=Array.isArray(S.log)?S.log:[];S.tests=S.tests||{};if(!LEVELS.some(l=>l.id===S.lv))S.lv='a'}
+  if(d&&typeof d==='object'){S=Object.assign(S,d);S.items=S.items||{};S.steps=S.steps||{};S.days=S.days||{};S.free=S.free||{};S.log=Array.isArray(S.log)?S.log:[];S.tests=S.tests||{};if(S.cur){S.curs={[S.cur.unit]:S.cur};delete S.cur}if(!LEVELS.some(l=>l.id===S.lv))S.lv='a'}
 })();
 let saveT=0;
 function saveNow(){clearTimeout(saveT);saveT=0;LS.set('gr1',S);if(MH)post('saveGrammar',JSON.stringify(S));if(EMB)try{PARENT.__NATIVE_GRAMMAR=JSON.parse(JSON.stringify(S))}catch(e){}}
@@ -2172,23 +2291,34 @@ const unlocked=u=>u.k===1||unitDone(UNITS[u.n-2]);   /* the first topic of every
 const unitMastered=u=>unitDone(u)&&u.list.every(it=>(S.items[it.id]||{}).b>=MASTER);
 const lvUnits=lv=>UNITS.filter(u=>u.lv===lv);
 const coursePct=(lv=S.lv)=>{const us=lvUnits(lv);return Math.round(100*us.reduce((s,u)=>s+stepsDone(u),0)/Math.max(1,us.reduce((s,u)=>s+u.steps.length,0)))};
-const PASS=80;
+const PASS=80,STEP_PASS=0.6;
 function dueIds(){const t=dayKey();return Object.keys(S.items).filter(id=>ITEMS.has(id)&&S.items[id].d<=t).sort((a,b)=>S.items[a].d<S.items[b].d?-1:1)}
 function streak(){let n=0,d=new Date();if(!(S.days[dayKey(d)]||{}).n)d.setDate(d.getDate()-1);while((S.days[dayKey(d)]||{}).n){n++;d.setDate(d.getDate()-1)}return n}
 function dayRec(){const k=dayKey();return S.days[k]||(S.days[k]={n:0,ok:0,sec:0})}
 
 /* ================= answer checking ================= */
-function canon(s){
+/* Normalises an answer. 's after a pronoun can be «is» or «has» and 'd can be «would» or «had»,
+   so those are kept as placeholders and canonAll() returns every reading. */
+function canonBase(s){
   s=String(s).toLowerCase().replace(/[’‘`ʼ]/g,"'").replace(/[.,!?;:"“”«»()—–-]+/g,' ');
-  s=s.replace(/\b(do|does|did|is|are|was|were|have|has)nt\b/g,'$1 not').replace(/\bim\b/g,'i am');
+  s=s.replace(/\b(do|does|did|is|are|was|were|have|has|had|could|should|would|must)nt\b/g,'$1 not').replace(/\bcant\b/g,'cannot').replace(/\bwont\b/g,'will not').replace(/\bim\b/g,'i am');
   s=s.replace(/\bcan't\b/g,'cannot').replace(/\bcan not\b/g,'cannot').replace(/\bwon't\b/g,'will not').replace(/n't\b/g,' not')
      .replace(/\bi'm\b/g,'i am').replace(/'re\b/g,' are').replace(/'ve\b/g,' have').replace(/'ll\b/g,' will')
      .replace(/\b(he|she|it|that|there|what|where|who|how|here|when|why)'s got\b/g,'$1 has got')
-     .replace(/\b(he|she|it|that|there|what|where|who|how|here|when|why)'s\b/g,'$1 is');
+     .replace(/\b(he|she|it|that|there|what|where|who|how|here|when|why)'s\b/g,'$1 \u0001')
+     .replace(/\b(i|you|he|she|it|we|they|that|there|who|what)'d\b/g,'$1 \u0002');
   return s.replace(/\s+/g,' ').trim();
 }
+function canonAll(s){
+  let out=[canonBase(s)];
+  for(const [ch,opts] of [['\u0001',['is','has']],['\u0002',['would','had']]])
+    while(out[0].includes(ch)&&out.length<=8)out=out.flatMap(x=>opts.map(o=>x.replace(ch,o)));
+  return out;
+}
+const canon=s=>canonAll(s)[0];
 const AUX=new Set(['am','is','are','not','do','does','did','was','were','have','has']);
-const VOCAB=new Set();
+/* forms of irregular verbs: typing one of them instead of another is grammar, never a slip */
+const VOCAB=new Set('be am is are was were been do does did done go goes went gone have has had see saw seen come came make made take took taken get got give gave given find found know knew known think thought say said tell told write wrote written read eat ate eaten drink drank drunk buy bought bring brought break broke broken speak spoke spoken sing sang sung swim swam swum run ran begin began begun leave left lose lost meet met pay paid put send sent sit sat sleep slept stand stood steal stole stolen teach taught wear wore worn win won build built grow grew grown fall fell fallen feel felt forget forgot forgotten hear heard keep kept drive drove driven fly flew flown choose chose chosen sell sold spend spent become became catch caught cut hit let hold held'.split(' '));
 ITEMS.forEach(it=>{[...(it.ans||[]),...(it.o||[]),...(it.extra||[]),(it.t==='tr'||it.t==='build')?'':it.q||''].forEach(x=>canon(x).split(' ').forEach(w=>w&&VOCAB.add(w)))});
 /* one-character slip: returns the position of the difference, or -1 */
 function slip(a,b){
@@ -2201,15 +2331,20 @@ function slip(a,b){
    the word is 4+ letters, the typed word is not another real word of the course (play / plays),
    and the difference is not inside an -s / -ed / -ing ending. */
 function check(user,answers,strict){
-  const u=canon(user);if(!u)return {res:'bad'};
-  for(const a of answers)if(canon(a)===u)return {res:'ok'};
-  if(!strict)for(const a of answers){
-    const A=canon(a).split(' '),U=u.split(' ');if(A.length!==U.length)continue;
-    let diff=-1,many=false;for(let i=0;i<A.length;i++)if(A[i]!==U[i]){if(diff>=0){many=true;break}diff=i}
+  const U=canonAll(user);if(!U[0])return {res:'bad'};
+  const A=answers.flatMap(a=>canonAll(a));
+  for(const u of U)if(A.includes(u))return {res:'ok'};
+  if(!strict)for(const a of A)for(const u of U){
+    const aw=a.split(' '),uw=u.split(' ');if(aw.length!==uw.length)continue;
+    let diff=-1,many=false;for(let i=0;i<aw.length;i++)if(aw[i]!==uw[i]){if(diff>=0){many=true;break}diff=i}
     if(many||diff<0)continue;
-    const w=A[diff],g=U[diff],p=slip(g,w);
+    const w=aw[diff],g=uw[diff],p=slip(g,w);
     if(p<0||w.length<4||VOCAB.has(g))continue;
+    /* the last letter of a word is an ending (money / moneys, work / worked): grammar, not a slip */
+    if(w.length===g.length?p===w.length-1:p===Math.min(w.length,g.length))continue;
     if(/(s|ed|ing)$/.test(w)&&p>=w.length-3)continue;
+    /* a missing or extra doubled letter is a spelling rule (written / writen, getting / geting) */
+    const L=w.length>g.length?w:g;if(w.length!==g.length&&/(ing|ed|en|er|est)$/.test(L)&&(L[p]===L[p-1]||L[p]===L[p+1]))continue;
     return {res:'typo',want:w,got:g};
   }
   return {res:'bad'};
@@ -2298,16 +2433,18 @@ function renderCourse(){
         <span class="num">${unitDone(u)?'✓':u.k}</span><span><span class="tt">${esc(u.en)}</span><br><span class="ru">${esc(u.ru)}</span><br><span class="sub">${sub}</span></span>
         <span class="dots">${u.steps.map((_,i)=>`<i class="${i<d?'on':''}"></i>`).join('')}</span></button>`;
     });
-    h+=testCard(sec.id,sec.units,'Section test','Тест раздела: '+sec.ru,Math.min(15,testPool(sec.units,15).length));
+    h+=testCard(sec.id,sec.units,'Section test','Тест раздела: '+sec.ru,15);
   });
   const soon=SOON[S.lv]||[];
   if(soon.length)h+=`<div class="sec-title">Дальше в курсе</div><div class="soon">${soon.map(esc).join(' · ')}<br><br>Уровень ${L.name} ещё дописывается: эти темы добавятся следующими.</div>`;
-  else{h+=`<div class="sec-title">Итог уровня</div>`+testCard('level-'+S.lv,mine,'Final test: '+L.name,'Итоговый тест уровня '+L.cefr,30)
+  else{h+=`<div class="sec-title">Итог уровня</div>`+testCard('level-'+S.lv,mine,'Final test: '+L.name,'Итоговый тест уровня '+L.cefr,levelTestSize(S.lv))
     +`<div class="soon">Это все темы уровня ${L.name}. Дальше грамматика закрепляется повторением, свободным письмом и чтением.</div>`}
   $('#view').innerHTML=h;
   document.querySelectorAll('.lvseg [data-lv]').forEach(b=>b.onclick=()=>{S.lv=b.dataset.lv;save();render();scrollTo(0,0)});
   document.querySelectorAll('.unit[data-test]').forEach(b=>b.onclick=()=>{const key=b.dataset.test,sec=SECTIONS.find(x=>x.id===key);
-    sec?startTest(key,sec.units,15,'Section test: '+sec.en):startTest(key,lvUnits(key.slice(6)),30,'Final test')});
+    if(sec){startTest(key,sec.units,15,'Section test: '+sec.en,TQ[sec.id]||[],8);return}
+    const lv=key.slice(6),us=lvUnits(lv),n=levelTestSize(lv);
+    startTest(key,us,n,'Final test',SECTIONS.filter(x=>x.lv===lv).flatMap(x=>TQ[x.id]||[]),Math.max(0,n-us.length))});
   $('#revBtn')&&($('#revBtn').onclick=startReview);
   document.querySelectorAll('.unit[data-u]').forEach(b=>b.onclick=()=>go('unit',b.dataset.u));
 }
@@ -2324,6 +2461,7 @@ function renderUnit(){
     h+=`<div class="panel step"><div><b>Шаг ${i+1}. ${['Узнаём форму','Строим сами','Закрепляем вперемешку'][i]}</b><div class="small muted">${ids.length} ${plural(ids.length,'задание','задания','заданий')}${i===2&&u.n>1?' + несколько из прошлых тем':''}${c?` · сделано ${c.i} из ${c.q.length}`:done?' · пройден':''}</div></div>
       <button class="btn ${done&&!c?'':'primary'}" data-step="${i}" ${open?'':'disabled'}>${c?'Продолжить':done?'Ещё раз':open?'Начать':'Закрыт'}</button></div>`;
   });
+  if(!unitDone(u))h+=`<button class="btn" id="skipBtn">Уже знаю эту тему: сдать тестом (10 вопросов)</button>`;
   if(u.fw)h+=`<span class="task">Свободное письмо · в прогресс не идёт</span>
     <div class="panel"><div>${esc(u.fw[S.lang]||u.fw.ru)}</div>
     <textarea class="inp" id="fw" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Пиши по-английски, своими словами">${esc((S.free[u.id]||{}).t||'')}</textarea>
@@ -2339,6 +2477,7 @@ function renderUnit(){
       q=shuffle(q.concat(prev));
     }
     startSession({kind:'step',unit:u.id,step:i,q})});
+  $('#skipBtn')&&($('#skipBtn').onclick=()=>startTest('skip-'+u.id,[u],10,'Topic test: '+u.en,[],0));
   const fw=$('#fw');if(fw)fw.oninput=()=>{const t=fw.value;if(t.trim())S.free[u.id]={t,at:dayKey()};else delete S.free[u.id];save()};
 }
 
@@ -2353,7 +2492,7 @@ function renderReview(){
       :`<div class="panel"><h2>На сегодня всё повторено</h2><div class="muted">Завтра вернётся: ${tomorrow}. Можно потренироваться дополнительно — на интервалы это не повлияет, но ошибки вернут задание в очередь.</div><button class="btn big" id="extraBtn">Смешанная практика: 10 заданий</button></div>`;
     const boxes=[0,0,0];seen.forEach(id=>{const b=S.items[id].b;boxes[b<=1?0:b<MASTER?1:2]++});
     h+=`<div class="grid2"><div class="stat"><div class="v">${boxes[0]}</div><div class="l">новые и сложные</div></div><div class="stat"><div class="v">${boxes[1]}</div><div class="l">закрепляются</div></div>
-      <div class="stat"><div class="v">${boxes[2]}</div><div class="l">освоены</div></div><div class="stat"><div class="v">${ITEMS.size-seen.length}</div><div class="l">ещё не встречались</div></div></div>`;
+      <div class="stat"><div class="v">${boxes[2]}</div><div class="l">освоены</div></div><div class="stat"><div class="v">${Math.max(0,NPRACT-seen.filter(id=>!ITEMS.get(id).test).length)}</div><div class="l">ещё не встречались</div></div></div>`;
   }
   $('#view').innerHTML=h;
   $('#toCourse')&&($('#toCourse').onclick=()=>go('course'));
@@ -2372,7 +2511,7 @@ function renderStats(){
     <div class="stat"><div class="v">${st}</div><div class="l">${plural(st,'день','дня','дней')} подряд</div></div>
     <div class="stat"><div class="v">${day.n} / ${S.goal}</div><div class="l">ответов сегодня</div></div>
     <div class="stat"><div class="v">${n?Math.round(100*ok/n)+'%':'—'}</div><div class="l">верных с первой попытки</div></div>
-    <div class="stat"><div class="v">${mast} / ${ITEMS.size}</div><div class="l">заданий освоено</div></div>
+    <div class="stat"><div class="v">${mast} / ${NPRACT}</div><div class="l">заданий освоено</div></div>
     <div class="stat"><div class="v">${fmtTime(Math.max(day.act||0,day.sec||0))}</div><div class="l">в грамматике сегодня</div></div>
     <div class="stat"><div class="v">${fmtTime(act)}</div><div class="l">в грамматике всего</div></div>
     <div class="stat"><div class="v">${fmtTime(sec)}</div><div class="l">из них над заданиями</div></div></div>
@@ -2420,16 +2559,16 @@ function renderSettings(){
   document.querySelectorAll('.seg [data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render()});
   document.querySelectorAll('.seg [data-s]').forEach(b=>b.onclick=()=>{S.sound=b.dataset.s==='1';save();render()});
   $('#goal').onchange=e=>{S.goal=+e.target.value;save()};
-  $('#reset').onclick=e=>{const b=e.currentTarget;if(b.dataset.arm){pendAct=0;S.items={};S.steps={};S.days={};S.log=[];S.tests={};delete S.cur;saveNow();go('course')}else{b.dataset.arm=1;b.textContent='Нажми ещё раз, чтобы удалить всё'}};
+  $('#reset').onclick=e=>{const b=e.currentTarget;if(b.dataset.arm){pendAct=0;S.items={};S.steps={};S.days={};S.log=[];S.tests={};delete S.curs;saveNow();go('course')}else{b.dataset.arm=1;b.textContent='Нажми ещё раз, чтобы удалить всё'}};
 }
 
 /* ================= sessions ================= */
 /* an unfinished step is kept so that leaving it (back to the theory or the course) loses nothing */
 function keepCur(i){
   const s=session;if(!s||s.kind!=='step')return;
-  S.cur={unit:s.unit,step:s.step,q:s.q.slice(),i,total:s.total,right:s.right,wrong:s.wrong,typos:s.typos,tried:[...s.tried],again:s.again};save();
+  (S.curs=S.curs||{})[s.unit]={unit:s.unit,step:s.step,q:s.q.slice(),i,total:s.total,right:s.right,wrong:s.wrong,typos:s.typos,tried:[...s.tried],again:s.again};save();
 }
-function curFor(u,step){const c=S.cur;return c&&c.unit===u.id&&(step===undefined||c.step===step)&&c.i>0&&c.i<c.q.length&&c.q.every(id=>ITEMS.has(id))?c:null}
+function curFor(u,step){const c=(S.curs||{})[u.id];return c&&c.unit===u.id&&(step===undefined||c.step===step)&&c.i>0&&c.i<c.q.length&&c.q.every(id=>ITEMS.has(id))?c:null}
 function startSession(o){
   let q=o.q.filter(id=>ITEMS.has(id)&&(CAN_SPEAK||ITEMS.get(id).t!=='dict'));
   if(!q.length)return;
@@ -2439,12 +2578,16 @@ function startSession(o){
 }
 /* ---- tests: questions from the finished topics, no hints, no explanations until the end.
    A wrong answer sends the item back to review; a right one does not move its interval. ---- */
-function testPool(units,n){
-  const per=Math.max(1,Math.ceil(n/units.length));let out=[];
-  units.forEach(u=>{out=out.concat(shuffle(u.list.filter(it=>it.t==='mc'||it.t==='gap'||it.t==='fix'||it.t==='tr').map(it=>it.id)).slice(0,per))});
-  return shuffle(out).slice(0,n);
+function testPool(units,n,tq=[],ownN=0){
+  const own=shuffle(tq).slice(0,Math.min(tq.length,ownN)),rest=n-own.length;
+  const per=Math.max(1,Math.ceil(rest/units.length));let out=[];
+  shuffle(units).forEach(u=>{out=out.concat(shuffle(u.list.filter(it=>it.t==='mc'||it.t==='gap'||it.t==='fix'||it.t==='tr').map(it=>it.id)).slice(0,per))});
+  /* every topic keeps at least one question when there is room for it */
+  const first=[],more=[];const seenU=new Set();for(const id of out){const u=ITEMS.get(id).u;(seenU.has(u)?more:first).push(id);seenU.add(u)}
+  return shuffle(own.concat(shuffle(first).concat(shuffle(more)).slice(0,rest)));
 }
-function startTest(key,units,n,title){startSession({kind:'test',key,title,units:units.map(u=>u.id),res:[],q:testPool(units,n)})}
+function startTest(key,units,n,title,tq,ownN){startSession({kind:'test',key,title,units:units.map(u=>u.id),res:[],q:testPool(units,n,tq||[],ownN||0)})}
+function levelTestSize(lv){return Math.min(50,lvUnits(lv).length*5)}
 function testAnswer(it,r,given){
   const s=session,ok=r.res!=='bad',t=dayKey();
   s.res.push({id:it.id,g:given,ok});ok?s.right++:s.wrong++;
@@ -2454,24 +2597,29 @@ function testAnswer(it,r,given){
 }
 function renderTestResult(){
   const s=session,n=s.res.length,pct=n?Math.round(100*s.right/n):0,prev=S.tests[s.key]||{};
-  if(!s.saved){s.saved=true;S.tests[s.key]={best:Math.max(prev.best||0,pct),last:pct,at:dayKey(),n:(prev.n||0)+1};saveNow()}
+  const skipU=s.key.startsWith('skip-')?UNIT(s.key.slice(5)):null;
+  if(!s.saved){s.saved=true;
+    if(skipU){if(pct>=PASS){S.steps[skipU.id]=skipU.steps.length;if(S.curs)delete S.curs[skipU.id]}}
+    else S.tests[s.key]={best:Math.max(prev.best||0,pct),last:pct,at:dayKey(),n:(prev.n||0)+1};
+    saveNow()}
   const by=new Map();s.res.forEach(x=>{const u=UNIT(ITEMS.get(x.id).u),e=by.get(u.id)||{u,ok:0,n:0};e.n++;if(x.ok)e.ok++;by.set(u.id,e)});
   const weak=[...by.values()].filter(e=>e.ok<e.n).sort((a,b)=>a.ok/a.n-b.ok/b.n);
   const bad=s.res.filter(x=>!x.ok);
   let h=`<div class="panel" style="text-align:center;padding:26px 16px"><div class="task">${esc(s.title)}</div>
     <div style="font-size:44px;font-weight:800;letter-spacing:-.02em">${pct}%</div>
     <div class="muted">верно ${s.right} из ${n}</div>
-    <div><b>${pct>=PASS?'Тест пройден: материал закреплён.':`До зачёта нужно ${PASS}%. Повтори слабые темы и попробуй ещё раз.`}</b></div></div>`;
+    <div><b>${skipU?(pct>=PASS?'Тема засчитана. Её задания всё равно появятся в повторении.':`Тема не засчитана: нужно ${PASS}%. Пройди её по шагам.`):pct>=PASS?'Тест пройден: материал закреплён.':`До зачёта нужно ${PASS}%. Повтори слабые темы и попробуй ещё раз.`}</b></div></div>`;
   if(weak.length)h+=`<div class="panel"><h2>Где были ошибки</h2>${weak.map(e=>`<div class="urow"><span>${esc(e.u.en)}<br><span class="small muted">${esc(e.u.ru)}</span></span><b>${e.ok} из ${e.n}</b></div>`).join('')}</div>`;
   if(bad.length)h+=`<div class="panel"><h2>Разбор ошибок</h2>${bad.map(x=>{const it=ITEMS.get(x.id),u=UNIT(it.u),rule=u.rules[it.rule];
     const right=(it.t==='mc'||it.t==='gap')&&it.q.includes('___')?fillBlank(it.q,it.ans[0]):twrap(it.ans[0]);
     return `<div class="mist"><div class="small muted">${it.t==='tr'||it.t==='fix'?esc(it.q):''}</div><div class="right">${right}</div>
       <div class="small">Твой ответ: <span class="wrongtxt">${esc(x.g||'—')}</span></div>${rule?`<div class="why">${esc(rule[S.lang]||rule.ru)}</div>`:''}</div>`}).join('')}
     <div class="small muted">Эти задания вернутся в повторении завтра.</div></div>`;
-  h+=`<button class="btn primary big" id="doneBtn">К курсу</button>`;
-  $('#view').innerHTML=h;$('#doneBtn').onclick=()=>go('course');
+  h+=`<button class="btn primary big" id="doneBtn">${skipU?'К теме':'К курсу'}</button>`;
+  $('#view').innerHTML=h;$('#doneBtn').onclick=()=>skipU?go('unit',skipU.id):go('course');
 }
-function startReview(){const d=dueIds().slice(0,15);if(d.length)startSession({kind:'review',q:shuffle(d)})}
+/* oldest first, but mixed across topics: shuffle the 45 oldest and take 15 */
+function startReview(){const d=shuffle(dueIds().slice(0,45)).slice(0,15);if(d.length)startSession({kind:'review',q:d})}
 function startExtra(){
   const seen=Object.keys(S.items).filter(id=>ITEMS.has(id));
   const w=shuffle(seen).sort((a,b)=>(S.items[b].w||0)-(S.items[b].r||0)-((S.items[a].w||0)-(S.items[a].r||0)));
@@ -2492,7 +2640,7 @@ function renderSession(){
   /* in review, a multiple-choice gap that was already answered right once becomes a typed gap */
   let mode=it.t;if(mode==='mc'&&s.kind!=='test'&&(s.kind!=='step'||it.u!==s.unit)&&it.q.includes('___')&&rec&&rec.b>=1&&canon(it.ans[0]).split(' ').every(w=>AUX.has(w)))mode='gap';
   s.state={it,mode,shown:Date.now(),pick:null,tiles:null,line:[],done:false};
-  let h=`<div class="sess-top"><button class="icon-btn" id="quit" aria-label="Закрыть">${CLOSE}</button><div class="bar"><i style="width:${Math.round(100*s.i/s.q.length)}%"></i></div><span class="small muted">${s.i+1} / ${s.q.length}</span></div>
+  let h=`<div class="sess-top"><button class="icon-btn" id="quit" aria-label="Закрыть">${CLOSE}</button><div class="bar"><i style="width:${Math.round(100*Math.min(s.i,s.total)/s.total)}%"></i></div><span class="small muted">${s.i<s.total?(s.i+1)+' / '+s.total:'ошибки: ещё '+(s.q.length-s.i)}</span></div>
     <div class="task">${mode==='mc'&&it.o.includes(NOART)?'Выбери вариант («—» значит ничего не нужно)':TASK[mode]}${s.kind==='test'?(mode==='gap'?' · '+esc(UNIT(it.u).en):''):s.kind!=='step'||it.u!==s.unit?' · '+esc(UNIT(it.u).en):''}</div>`;
   const input=`<input class="inp" id="ans" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" placeholder="Ответ по-английски">`;
   if(mode==='mc')h+=`<div class="q">${qHtml(it.q)}</div><div class="opts">${shuffle(it.o.map((o,i)=>i)).map(i=>`<button class="opt" data-i="${i}" aria-pressed="false">${esc(it.o[i])}</button>`).join('')}</div>`;
@@ -2507,7 +2655,9 @@ function renderSession(){
   }
   h+=`<div class="foot" id="foot"><div class="wrap"><button class="btn primary big" id="checkBtn" disabled>${s.kind==='test'?'Ответить':'Проверить'}</button></div></div>`;
   $('#view').innerHTML=h;
-  $('#quit').onclick=()=>{saveNow();const k=s.kind,u=s.unit;session=null;k==='step'?go('unit',u):k==='test'?go('course'):go('review')};
+  $('#quit').onclick=()=>{
+    if(s.kind==='test'&&!s.quitArm){s.quitArm=true;tip('Выйти из теста? Результат не сохранится. Нажми крестик ещё раз, чтобы выйти.',4500);return}
+    saveNow();const k=s.kind,u=s.unit;session=null;k==='step'?go('unit',u):k==='test'?go('course'):go('review')};
   const cb=$('#checkBtn');cb.onclick=submit;
   if(mode==='mc')document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(s.state.done)return;s.state.pick=+b.dataset.i;document.querySelectorAll('.opt').forEach(x=>x.setAttribute('aria-pressed',x===b));cb.disabled=false});
   if(mode==='build'){
@@ -2544,20 +2694,23 @@ function grade(it,ok,typo,given){
   if(ok){rec.r++;if(wasDue){rec.b=Math.min(rec.b+1,IV.length-1);rec.d=addDays(IV[rec.b])}}
   else{rec.w++;rec.b=0;rec.d=addDays(1);S.log.push({id:it.id,g:String(given||'').slice(0,120),at:t});if(S.log.length>150)S.log=S.log.slice(-150)}
   const d=dayRec();d.n++;if(ok)d.ok++;d.sec+=Math.min(90,Math.round((Date.now()-s.state.shown)/1000));
+  if(d.n===S.goal)tip('Дневная цель выполнена: '+S.goal+' ответов.',4000);
   s.state.rec={first:true};save();
 }
 function showFeedback(){
   const s=session,st=s.state,it=st.it,r=st.r,u=UNIT(it.u);
   document.querySelectorAll('.opt,.tile,#ans').forEach(e=>e.disabled=true);
+  if(st.mode==='mc')document.querySelectorAll('.opt').forEach(b=>{const i=+b.dataset.i;if(i===it.c)b.classList.add('right');else if(i===st.pick)b.classList.add('wrong')});
   const rule=u.rules[it.rule],why=rule?(rule[S.lang]||rule.ru):'';
   const full=(it.t==='mc'||it.t==='gap')&&it.q.includes('___')?fillBlank(it.q,it.ans[0]):twrap(it.ans[0]);
   const plain=(it.t==='mc'||it.t==='gap')&&it.q.includes('___')?it.q.replace('___',it.ans[0]===NOART?'':it.ans[0]).replace(/\s*\([^)]*\)\s*$/,'').replace(/\s+/g,' '):it.ans[0];
   const f=$('#foot');f.className='foot '+r.res;
   let h=`<div class="wrap"><div class="verdict">${r.res==='ok'?'Верно':r.res==='typo'?'Верно, но есть помарка':'Неверно'}</div>`;
   if(r.res==='typo')h+=`<div class="small">Ты написал <b>${esc(r.got)}</b>, правильно — <b>${esc(r.want)}</b>.</div>`;
+  if(r.res==='bad'&&st.mode!=='mc'&&String(st.given||'').trim())h+=`<div class="small">Твой ответ: <span class="wrongtxt">${esc(st.given)}</span></div>`;
   if(r.res!=='ok'||it.t==='dict')h+=`<div class="right">${full}</div>`;
   if(why&&r.res!=='ok')h+=`<div class="why">${esc(why)}</div>`;
-  if(r.res==='bad'&&(it.t==='tr'||it.t==='fix')&&st.mode!=='mc')h+=`<button class="linkbtn" id="mine">Мой вариант тоже верный — засчитать</button>`;
+  if(r.res==='bad'&&(it.t==='tr'||it.t==='fix'||it.t==='gap')&&st.mode!=='mc')h+=`<button class="linkbtn" id="mine">Мой вариант тоже верный — засчитать</button>`;
   h+=`<button class="btn primary big" id="nextBtn">Дальше</button></div>`;
   f.innerHTML=h;
   $('#nextBtn').onclick=next;
@@ -2580,11 +2733,12 @@ function renderSummary(){
   let extra='';
   if(s.kind==='step'){
     const u=UNIT(s.unit),before=stepsDone(u);
-    if(s.step+1>before){S.steps[u.id]=s.step+1}
-    if(S.cur&&S.cur.unit===u.id&&S.cur.step===s.step)delete S.cur;
+    const passed=!n||s.right/n>=STEP_PASS;
+    if(passed&&s.step+1>before){S.steps[u.id]=s.step+1}
+    if(S.curs&&S.curs[u.id]&&S.curs[u.id].step===s.step)delete S.curs[u.id];
     saveNow();
     const nextU=UNITS[u.n];
-    extra=unitDone(u)?(before<u.steps.length?`<div>Тема «${esc(u.en)}» пройдена.${nextU?' Открыта следующая: «'+esc(nextU.en)+'».':''}</div>`:'')
+    extra=!passed?`<div><b>Шаг не засчитан.</b> Нужно хотя бы ${Math.round(STEP_PASS*100)}% верных с первой попытки. Перечитай теорию и пройди шаг ещё раз.</div>`:unitDone(u)?(before<u.steps.length?`<div>Тема «${esc(u.en)}» пройдена.${nextU?' Открыта следующая: «'+esc(nextU.en)+'».':''}</div>`:'')
       :`<div>Шаг ${s.step+1} пройден. Впереди шаг ${s.step+2}.</div>`;
   }else saveNow();
   $('#view').innerHTML=`<div class="panel" style="text-align:center;padding:26px 16px"><div class="task">Готово</div>
