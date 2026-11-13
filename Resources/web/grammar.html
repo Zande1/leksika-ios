@@ -2160,7 +2160,58 @@ const SECTIONS=[
  ['tr','Раньше здесь был парк.','There used to be a park here.','a'],
  ['dict','I used to work at night but now I work during the day.','a'],
  ['mc','I ___ to the gym yesterday.',['went','used to go','use to go'],0,'c']],
- fw:{ru:"Сравни свою жизнь пять или десять лет назад и сейчас: что ты делал раньше и чего не делал. 5 предложений с used to и didn't use to.",en:"Compare your life five or ten years ago with now: what you used to do and what you didn't use to do. 5 sentences."}}
+ fw:{ru:"Сравни свою жизнь пять или десять лет назад и сейчас: что ты делал раньше и чего не делал. 5 предложений с used to и didn't use to.",en:"Compare your life five or ten years ago with now: what you used to do and what you didn't use to do. 5 sentences."}},
+
+{id:'fut',ru:'Будущее: что выбрать',en:'Future forms compared',
+ th:{ru:`<p>В английском нет одного «будущего времени». Форма зависит от того, <b>как</b> мы смотрим на будущее событие.</p>
+<table><tr><th>Форма</th><th>Когда</th><th>Пример</th></tr>
+<tr><td>will</td><td>решил только что; обещание; мнение-прогноз</td><td><span class="en">I'll help you.</span></td></tr>
+<tr><td>be going to</td><td>решил заранее; видно, что сейчас случится</td><td><span class="en">I am going to buy a car.</span></td></tr>
+<tr><td>Present Continuous</td><td>уже договорился: есть время и место</td><td><span class="en">I am meeting Tom at six.</span></td></tr>
+<tr><td>Present Simple</td><td>расписание</td><td><span class="en">The train leaves at nine.</span></td></tr></table>
+<p>Одна и та же ситуация, разный взгляд:</p>
+<ul><li><span class="en">I'll call her.</span> — решил в эту секунду.</li><li><span class="en">I am going to call her.</span> — уже собирался.</li><li><span class="en">I am calling her at five.</span> — мы договорились о звонке.</li></ul>
+<p>Прогноз: <span class="en">I think it will rain.</span> — моё мнение. <span class="en">Look at the clouds. It is going to rain.</span> — вижу признаки.</p>`,
+ en:`<p>English has no single future tense. The form depends on <b>how</b> we see the future event.</p>
+<table><tr><th>Form</th><th>When</th><th>Example</th></tr>
+<tr><td>will</td><td>a decision made now; a promise; an opinion about the future</td><td><span class="en">I'll help you.</span></td></tr>
+<tr><td>be going to</td><td>a decision made earlier; something we can see is about to happen</td><td><span class="en">I am going to buy a car.</span></td></tr>
+<tr><td>Present Continuous</td><td>an arrangement with a time and place</td><td><span class="en">I am meeting Tom at six.</span></td></tr>
+<tr><td>Present Simple</td><td>a timetable</td><td><span class="en">The train leaves at nine.</span></td></tr></table>
+<p>The same situation, seen differently:</p>
+<ul><li><span class="en">I'll call her.</span> — decided this second.</li><li><span class="en">I am going to call her.</span> — I already intended to.</li><li><span class="en">I am calling her at five.</span> — we have arranged it.</li></ul>
+<p>Predictions: <span class="en">I think it will rain.</span> — my opinion. <span class="en">Look at the clouds. It is going to rain.</span> — I can see the signs.</p>`},
+ rules:{a:{ru:'will — решение в момент речи, обещание, прогноз-мнение (I think…).',en:'will — a decision made now, a promise, an opinion about the future (I think…).'},
+  b:{ru:'be going to — намерение, решённое заранее, или прогноз по явным признакам.',en:'be going to — an intention decided earlier, or a prediction from visible signs.'},
+  c:{ru:'Present Continuous — договорённость: названы время, место или люди.',en:'Present Continuous — an arrangement: a time, place or people are fixed.'},
+  d:{ru:'Present Simple — расписание транспорта, уроков, сеансов.',en:'Present Simple — timetables for transport, lessons, shows.'}},
+ items:[
+ ['mc','The phone is ringing. — I ___ it.',['will get','am going to get','get'],0,'a'],
+ ['mc','We have already decided: we ___ a new car next month.',['are going to buy','will buy','buy'],0,'b'],
+ ['mc','I cannot come on Friday. I ___ the dentist at three.',['am seeing','will see','see'],0,'c'],
+ ['mc','The train ___ at 7.15 tomorrow morning.',['leaves','is going to leave','will leaving'],0,'d'],
+ ['mc','Look at that car! It ___ crash!',['is going to','will','does'],0,'b'],
+ ['mc','I think Spain ___ the match.',['will win','is winning','wins'],0,'a'],
+ ['gap','Do not worry, I ___ tell anyone. (not)',"will not|won't",'a'],
+ ['gap','What time ___ the film start tonight?','does','d'],
+ ['gap','She ___ going to study medicine. She decided last year.','is','b'],
+ ['gap','We ___ having dinner with my parents on Sunday. It is all arranged.','are','c'],
+ ['build','Обещаю, я позвоню тебе завтра.','I promise I will call you tomorrow.','a',['am']],
+ ['tr','Что ты делаешь в субботу вечером?','What are you doing on Saturday evening?|What are you doing on Saturday night?|What are you going to do on Saturday evening?|What are you going to do on Saturday night?|What are you doing Saturday evening?|What are you doing Saturday night?','c'],
+ ['dict','I am meeting Anna at six and then we are going to see a film.','c'],
+ '|',
+ ['mc','It is very cold in here. — Is it? I ___ the window.',['will close','am closing','close'],0,'a'],
+ ['mc','I have bought some paint. I ___ the kitchen this weekend.',['am going to paint','will paint','paint'],0,'b'],
+ ['mc','The lesson ___ at nine every Monday, so do not be late tomorrow.',['starts','is starting','is going to start'],0,'d'],
+ ['gap','Look at those clouds. It is ___ to rain.','going','b'],
+ ['gap','I am tired. I think I ___ go to bed early tonight.',"will|'ll",'a'],
+ ['gap','My flight ___ at 10.40 on Friday. (leave)','leaves','d'],
+ ['fix','Wait, I am going to help you with that bag.','Wait, I will help you with that bag.','a'],
+ ['fix','I think it is raining tomorrow.','I think it will rain tomorrow.|I think it is going to rain tomorrow.','a'],
+ ['tr','Я собираюсь учить испанский в следующем году.','I am going to learn Spanish next year.|I am going to study Spanish next year.','b'],
+ ['tr','Поезд прибывает в шесть.',"The train arrives at six.|The train arrives at 6.|The train arrives at six o'clock.|The train comes at six.|The train gets in at six.",'d'],
+ ['build','Я думаю, она сдаст экзамен.','I think she will pass the exam.','a',['is']]],
+ fw:{ru:"Напиши о своих планах: что ты решил сделать в этом году (going to), с кем и когда ты уже договорился на этой неделе (Present Continuous) и что, по-твоему, случится через пять лет (will). 6 предложений.",en:"Write about your plans: what you have decided to do this year (going to), what you have arranged for this week (Present Continuous) and what you think will happen in five years (will). 6 sentences."}}
 ]},
 {lv:'b',ru:'Условия и косвенная речь',en:'Conditions and reporting',units:[
 {id:'if2',ru:'Нереальное условие: если бы',en:'Second conditional: If I had…, I would…',
@@ -2268,7 +2319,59 @@ const SECTIONS=[
  ['tr','Он спросил, как меня зовут.','He asked what my name was.|He asked me what my name was.','d'],
  ['dict','She said that she could not come because she was ill.','a'],
  ['mc','"I am leaving." → She said she ___.',['was leaving','is leaving','leaves'],0,'a']],
- fw:{ru:"Вспомни недавний разговор и перескажи его: кто что сказал и кто что спросил. 5–6 предложений с said, told, asked.",en:"Think of a recent conversation and report it: who said what and who asked what. 5–6 sentences with said, told, asked."}}
+ fw:{ru:"Вспомни недавний разговор и перескажи его: кто что сказал и кто что спросил. 5–6 предложений с said, told, asked.",en:"Think of a recent conversation and report it: who said what and who asked what. 5–6 sentences with said, told, asked."}},
+
+{id:'if3',ru:'Нереальное прошлое: если бы тогда',en:'Third conditional: If I had known…',
+ th:{ru:`<p>Третий тип условных — о прошлом, которое уже не изменить: «если бы тогда…, то…».</p>
+<table><tr><th>часть с if</th><th>главная часть</th></tr>
+<tr><td>Past Perfect (had + 3-я форма)</td><td>would have + 3-я форма</td></tr>
+<tr><td><span class="en">If I had known,</span></td><td><span class="en">I would have come.</span></td></tr>
+<tr><td><span class="en">If we had left earlier,</span></td><td><span class="en">we would have caught the train.</span></td></tr></table>
+<p>На деле всё было наоборот: я не знал и не пришёл; мы вышли поздно и опоздали.</p>
+<p>После if не ставится would: <span class="bad">If I would have known, …</span></p>
+<p>Вместо would бывают <b>could have</b> («смог бы») и <b>might have</b> («возможно, …бы»): <span class="en">If you had asked, I could have helped.</span></p>
+<p>Сравни со вторым типом:</p>
+<ul><li><span class="en">If I had money, I would buy it.</span> — сейчас денег нет.</li><li><span class="en">If I had had money, I would have bought it.</span> — тогда денег не было.</li></ul>`,
+ en:`<p>The third conditional is about a past that cannot be changed.</p>
+<table><tr><th>the if part</th><th>the main part</th></tr>
+<tr><td>Past Perfect (had + past participle)</td><td>would have + past participle</td></tr>
+<tr><td><span class="en">If I had known,</span></td><td><span class="en">I would have come.</span></td></tr>
+<tr><td><span class="en">If we had left earlier,</span></td><td><span class="en">we would have caught the train.</span></td></tr></table>
+<p>In reality the opposite happened: I did not know and did not come; we left late and missed it.</p>
+<p>No would after if: <span class="bad">If I would have known, …</span></p>
+<p>Instead of would you can use <b>could have</b> or <b>might have</b>: <span class="en">If you had asked, I could have helped.</span></p>
+<p>Compare with the second conditional:</p>
+<ul><li><span class="en">If I had money, I would buy it.</span> — I have no money now.</li><li><span class="en">If I had had money, I would have bought it.</span> — I had no money then.</li></ul>`},
+ rules:{a:{ru:'if + had + третья форма, would have + третья форма: прошлое, которого не было.',en:'if + had + past participle, would have + past participle: a past that did not happen.'},
+  b:{ru:'После if — had, а не would have: If I had known.',en:'After if use had, not would have: If I had known.'},
+  c:{ru:'could have — смог бы; might have — возможно, …бы.',en:'could have — would have been able to; might have — perhaps would have.'},
+  d:{ru:'Воображаемое настоящее → второй тип: if + Past Simple, would + глагол.',en:'An imaginary present → second conditional: if + Past Simple, would + verb.'}},
+ items:[
+ ['mc','If I ___ about the party, I would have come.',['had known','knew','would have known'],0,'a'],
+ ['mc','If we had left earlier, we ___ the train.',['would have caught','would catch','had caught'],0,'a'],
+ ['mc','She would have passed if she ___ harder.',['had studied','would have studied','studies'],0,'b'],
+ ['mc','If you had asked me, I ___ you.',['could have helped','could help','can help'],0,'c'],
+ ['mc','I am not rich. If I ___ rich, I would travel more.',['were','had been','would be'],0,'d'],
+ ['mc','If it ___ yesterday, we would have gone to the beach.',["hadn't rained","didn't rain","wouldn't have rained"],0,'a'],
+ ['gap','If I had seen you, I ___ have said hello.','would','a'],
+ ['gap','If she ___ taken a taxi, she would not have been late.','had','b'],
+ ['gap','We would have won if we ___ better. (play)','had played','a'],
+ ['gap','If he had not helped me, I ___ have finished on time. (not)',"would not|wouldn't|could not|couldn't",'a'],
+ ['build','Если бы я знал, я бы тебе сказал.','If I had known I would have told you.','a',['knew']],
+ ['tr','Если бы ты позвонил, я бы пришёл.','If you had called, I would have come.|If you had called me, I would have come.|If you had phoned, I would have come.|If you had phoned me, I would have come.|I would have come if you had called.|I would have come if you had called me.|If you had rung, I would have come.','a'],
+ ['dict','If I had taken the job I would have moved to London.','a'],
+ '|',
+ ['mc','If I ___ my keys, I would not have been locked out.',["hadn't lost","didn't lose","wouldn't have lost"],0,'b'],
+ ['mc','If the weather had been better, we ___ have gone for a walk, but I am not sure.',['might','will','had'],0,'c'],
+ ['gap','What would you have done if you ___ in my place? (be)','had been','a'],
+ ['gap','If I ___ the alarm, I would have got up on time. (hear)','had heard','a'],
+ ['gap','If you had told me, I ___ have lent you the money. (can)','could','c'],
+ ['fix','If I would have known, I would have helped.','If I had known, I would have helped.','b'],
+ ['fix','If she had studied, she would pass the exam last week.','If she had studied, she would have passed the exam last week.','a'],
+ ['tr','Если бы мы вышли раньше, мы бы не опоздали.','If we had left earlier, we would not have been late.|We would not have been late if we had left earlier.|If we had left earlier, we would not have come late.|If we had gone out earlier, we would not have been late.|If we had left earlier, we would have been on time.','a'],
+ ['build','Я бы помог тебе вчера, если бы ты попросил.','I would have helped you yesterday if you had asked.','b',['did']],
+ ['mc','I do not know her number. If I ___ it, I would call her now.',['knew','had known','would know'],0,'d']],
+ fw:{ru:"Вспомни три решения из прошлого и напиши, что было бы, если бы ты поступил иначе. Потом одно предложение о том, что ты мог бы сделать, но не сделал (could have). 5–6 предложений.",en:"Think of three past decisions and write what would have happened if you had acted differently. Then one sentence about something you could have done but did not. 5–6 sentences."}}
 ]},
 {ru:'Дополнительные темы',en:'More practice',units:[
 {id:'imp',ru:"Просьбы и предложения: сделай, давай сделаем",en:"Imperative and let's",
@@ -2457,6 +2560,342 @@ const SECTIONS=[
  ['fix',"She didn't came.","She didn't come.",'c']],
  fw:{ru:"Выбери пять глаголов из таблицы и напиши с каждым два предложения: одно во вчерашнем дне (вторая форма), одно с have (третья форма).",en:"Pick five verbs from the table and write two sentences with each: one about yesterday (past form) and one with have (participle)."}}
 ]},
+{lv:'b',ru:'Модальные глаголы и пассив',en:'Modals and passive',units:[
+{id:'deduce',ru:'Предположения: должно быть, возможно, не может быть',en:"Deduction: must be, might be, can't be",
+ th:{ru:`<p>Модальные глаголы показывают, насколько мы уверены в своей догадке.</p>
+<table><tr><th>Уверенность</th><th>Форма</th><th>Пример</th></tr>
+<tr><td>уверен, что да</td><td>must</td><td><span class="en">She must be tired.</span> — Она, должно быть, устала.</td></tr>
+<tr><td>возможно</td><td>might / may / could</td><td><span class="en">He might be at home.</span> — Возможно, он дома.</td></tr>
+<tr><td>уверен, что нет</td><td>can't</td><td><span class="en">It can't be true.</span> — Не может быть, что это правда.</td></tr></table>
+<p>Противоположность <b>must</b> в этом значении — <b>can't</b>, а не mustn't. <span class="bad">It mustn't be true.</span></p>
+<p>Догадка о прошлом: модальный глагол + <b>have</b> + третья форма.</p>
+<ul><li><span class="en">The ground is wet. It must have rained.</span> — наверняка шёл дождь.</li><li><span class="en">She might have missed the bus.</span> — возможно, опоздала на автобус.</li><li><span class="en">He can't have done it.</span> — не мог он этого сделать.</li></ul>`,
+ en:`<p>Modal verbs show how sure we are about a guess.</p>
+<table><tr><th>How sure</th><th>Form</th><th>Example</th></tr>
+<tr><td>sure it is true</td><td>must</td><td><span class="en">She must be tired.</span></td></tr>
+<tr><td>possible</td><td>might / may / could</td><td><span class="en">He might be at home.</span></td></tr>
+<tr><td>sure it is not true</td><td>can't</td><td><span class="en">It can't be true.</span></td></tr></table>
+<p>The opposite of <b>must</b> in this meaning is <b>can't</b>, not mustn't. <span class="bad">It mustn't be true.</span></p>
+<p>A guess about the past: modal + <b>have</b> + past participle.</p>
+<ul><li><span class="en">The ground is wet. It must have rained.</span></li><li><span class="en">She might have missed the bus.</span></li><li><span class="en">He can't have done it.</span></li></ul>`},
+ rules:{a:{ru:'must + глагол — уверен, что это так (логический вывод).',en:'must + verb — I am sure it is true (a logical conclusion).'},
+  b:{ru:"can't + глагол — уверен, что это не так. Не mustn't.",en:"can't + verb — I am sure it is not true. Not mustn't."},
+  c:{ru:'might / may / could — возможно, но не уверен.',en:'might / may / could — possible, but I am not sure.'},
+  d:{ru:"О прошлом: must / might / can't + have + третья форма.",en:"About the past: must / might / can't + have + past participle."}},
+ items:[
+ ['mc','She has been working all day. She ___ be tired.',['must',"can't",'might not'],0,'a'],
+ ['mc','He has just eaten a big dinner. He ___ be hungry.',["can't",'must','might'],0,'b'],
+ ['mc','I am not sure where Tom is. He ___ be at the gym.',['might','must',"can't"],0,'c'],
+ ['mc','The lights are off. They ___ be at home.',["can't","mustn't",'must'],0,'b'],
+ ['mc','The ground is wet. It ___ rained last night.',['must have','must',"can't have"],0,'d'],
+ ['mc','You ___ be serious! That is a crazy idea.',["can't",'must','might'],0,'b'],
+ ['gap','It is only five. She ___ be at work, but I am not sure.','might|may|could','c'],
+ ['gap','He drives a Ferrari. He ___ be rich.','must','a'],
+ ['gap','I cannot find my phone. I must ___ left it at home.','have','d'],
+ ['gap','She ___ be his sister. They look completely different.',"can't|cannot|couldn't",'b'],
+ ['build','Он, должно быть, очень устал.','He must be very tired.','a',['can']],
+ ['tr','Возможно, она дома.','She might be at home.|She may be at home.|She could be at home.|She might be home.|She may be home.|She could be home.|Maybe she is at home.|Perhaps she is at home.|Maybe she is home.','c'],
+ ['dict','He is not answering. He might be busy or he must have left his phone at home.','d'],
+ '|',
+ ['mc','Take an umbrella. It ___ rain later.',['might','must',"can't"],0,'c'],
+ ['mc','Nobody opened the door. They ___ gone out.',['must have','must',"can't"],0,'d'],
+ ['mc','He ___ have stolen it. He was with me all evening.',["can't",'must','might'],0,'d'],
+ ['gap','You have been travelling for twenty hours. You ___ be exhausted.','must','a'],
+ ['gap','She is not here yet. She might ___ missed the bus.','have','d'],
+ ['gap','That ___ be true. I do not believe it.',"can't|cannot",'b'],
+ ['fix',"This mustn't be Tom, he is in London.","This can't be Tom, he is in London.|This cannot be Tom, he is in London.",'b'],
+ ['fix','She must be tired yesterday.','She must have been tired yesterday.','d'],
+ ['tr','Это не может быть правдой.',"It can't be true.|This can't be true.|That can't be true.|It cannot be true.|This cannot be true.|That cannot be true.",'b'],
+ ['tr','Он, должно быть, забыл.','He must have forgotten.|He must have forgotten about it.|He must have forgotten it.','d'],
+ ['build','Они, возможно, опоздают.','They might be late.','c',['must']]],
+ fw:{ru:"Посмотри вокруг или вспомни знакомого, которого давно не видел. Напиши 5 догадок: что сейчас происходит (must be, might be, can't be) и что могло случиться раньше (must have, might have).",en:"Look around you, or think of a friend you have not seen for a long time. Write 5 guesses: what is happening now (must be, might be, can't be) and what may have happened earlier (must have, might have)."}},
+
+{id:'pass2',ru:'Пассив в других временах',en:'Passive: has been done, is being done',
+ th:{ru:`<p>Пассив — это всегда <b>be + третья форма</b>. Чтобы поменять время, меняем только be.</p>
+<table><tr><th>Время</th><th>Форма</th><th>Пример</th></tr>
+<tr><td>Present Perfect</td><td>have / has been + 3-я</td><td><span class="en">The letter has been sent.</span> — Письмо отправлено.</td></tr>
+<tr><td>Present Continuous</td><td>am / is / are being + 3-я</td><td><span class="en">The road is being repaired.</span> — Дорогу ремонтируют.</td></tr>
+<tr><td>Past Continuous</td><td>was / were being + 3-я</td><td><span class="en">The room was being cleaned.</span> — В комнате шла уборка.</td></tr>
+<tr><td>Будущее</td><td>will be + 3-я</td><td><span class="en">You will be told.</span> — Вам сообщат.</td></tr>
+<tr><td>Модальные</td><td>can / must / should be + 3-я</td><td><span class="en">It must be done today.</span></td></tr></table>
+<p>Не путай <b>been</b> и <b>being</b>: been идёт после have, being — после be.</p>
+<p>Если подлежащее само выполняет действие, пассив не нужен: <span class="en">They have repaired the road.</span> — <span class="en">The road has been repaired.</span></p>`,
+ en:`<p>The passive is always <b>be + past participle</b>. To change the tense, change only be.</p>
+<table><tr><th>Tense</th><th>Form</th><th>Example</th></tr>
+<tr><td>Present Perfect</td><td>have / has been + participle</td><td><span class="en">The letter has been sent.</span></td></tr>
+<tr><td>Present Continuous</td><td>am / is / are being + participle</td><td><span class="en">The road is being repaired.</span></td></tr>
+<tr><td>Past Continuous</td><td>was / were being + participle</td><td><span class="en">The room was being cleaned.</span></td></tr>
+<tr><td>Future</td><td>will be + participle</td><td><span class="en">You will be told.</span></td></tr>
+<tr><td>Modals</td><td>can / must / should be + participle</td><td><span class="en">It must be done today.</span></td></tr></table>
+<p>Do not mix up <b>been</b> and <b>being</b>: been follows have, being follows be.</p>
+<p>If the subject does the action, use the active: <span class="en">They have repaired the road.</span> — <span class="en">The road has been repaired.</span></p>`},
+ rules:{a:{ru:'Present Perfect: have / has been + третья форма.',en:'Present Perfect: have / has been + past participle.'},
+  b:{ru:'Continuous: am / is / are (was / were) being + третья форма.',en:'Continuous: am / is / are (was / were) being + past participle.'},
+  c:{ru:'Будущее и модальные: will be / can be / must be + третья форма.',en:'Future and modals: will be / can be / must be + past participle.'},
+  d:{ru:'Подлежащее само выполняет действие → актив, без be + третья форма.',en:'The subject does the action → active, no be + participle.'}},
+ items:[
+ ['mc','The room ___ cleaned yet.',["hasn't been","hasn't","isn't been"],0,'a'],
+ ['mc','The bridge ___ repaired at the moment.',['is being','is been','has being'],0,'b'],
+ ['mc','The results ___ announced tomorrow.',['will be','will','are been'],0,'c'],
+ ['mc','This work must ___ today.',['be finished','finish','been finished'],0,'c'],
+ ['mc','I cannot find my car. It ___ stolen!',['has been','has','is been'],0,'a'],
+ ['mc','The company ___ three new shops this year.',['has opened','has been opened','is being opened'],0,'d'],
+ ['gap','The letter has already ___ sent.','been','a'],
+ ['gap','A new school is ___ built near our house.','being','b'],
+ ['gap','The meeting will ___ held on Monday.','be','c'],
+ ['gap','The windows ___ been washed. They look great.','have','a'],
+ ['build','Мою машину сейчас ремонтируют.','My car is being repaired now.','b',['been']],
+ ['tr','Работа уже сделана.','The work has already been done.|The work has been done already.|The job has already been done.|The job has been done already.|The work is already done.|The job is already done.','a'],
+ ['dict','The road is being repaired and it will be opened next week.','b'],
+ '|',
+ ['mc','When I came, the room ___ cleaned, so I waited outside.',['was being','was been','has been'],0,'b'],
+ ['mc','Tickets can ___ online.',['be bought','buy','been bought'],0,'c'],
+ ['mc','They ___ the road for two weeks now.',['have been repairing','have been repaired','are being repaired'],0,'d'],
+ ['gap','Nothing can ___ done about it.','be','c'],
+ ['gap','Has the email ___ sent yet?','been','a'],
+ ['gap','I think we are ___ followed.','being','b'],
+ ['fix','The report has already sent.','The report has already been sent.','a'],
+ ['fix','The film will showed on TV tonight.','The film will be shown on TV tonight.','c'],
+ ['tr','Эта проблема будет решена завтра.','This problem will be solved tomorrow.|The problem will be solved tomorrow.|This problem will be resolved tomorrow.|This issue will be solved tomorrow.|This issue will be resolved tomorrow.|This problem will be fixed tomorrow.','c'],
+ ['tr','Меня пригласили на вечеринку.','I have been invited to the party.|I was invited to the party.|I have been invited to a party.|I was invited to a party.','a'],
+ ['build','Это можно сделать за час.','It can be done in an hour.','c',['do']]],
+ fw:{ru:"Опиши, что изменилось в твоём городе или на работе: что уже сделано (has been built), что делают сейчас (is being repaired) и что будет сделано (will be opened). 5–6 предложений.",en:"Describe changes in your town or at work: what has been done, what is being done now and what will be done. 5–6 sentences."}}
+]},
+{lv:'b',ru:'Придаточные и глагольные конструкции',en:'Clauses and verb patterns',units:[
+{id:'rel',ru:'Придаточные: который, где, чей',en:'Relative clauses: who, which, that, where',
+ th:{ru:`<p>Придаточное уточняет, о ком или о чём речь: «человек, <i>который живёт рядом</i>».</p>
+<table><tr><th>Слово</th><th>О чём</th><th>Пример</th></tr>
+<tr><td>who / that</td><td>люди</td><td><span class="en">the woman who lives next door</span></td></tr>
+<tr><td>which / that</td><td>предметы, животные</td><td><span class="en">the book which I bought</span></td></tr>
+<tr><td>where</td><td>место</td><td><span class="en">the town where I was born</span></td></tr>
+<tr><td>whose</td><td>чей</td><td><span class="en">a girl whose father is a pilot</span></td></tr></table>
+<p><b>Когда слово можно опустить.</b> Если сразу после него идёт подлежащее (I, you, we, the man…), who / which / that не обязательны:</p>
+<ul><li><span class="en">the film that we saw</span> = <span class="en">the film we saw</span></li><li><span class="en">the man who I met</span> = <span class="en">the man I met</span></li></ul>
+<p>Если после него сразу глагол — опускать нельзя: <span class="en">the man who lives here</span>.</p>
+<p>Местоимение внутри придаточного не повторяют: <span class="bad">the book which I bought it</span>.</p>
+<p>Запятая перед таким придаточным, в отличие от русского, не ставится.</p>`,
+ en:`<p>A relative clause tells us which person or thing we mean.</p>
+<table><tr><th>Word</th><th>For</th><th>Example</th></tr>
+<tr><td>who / that</td><td>people</td><td><span class="en">the woman who lives next door</span></td></tr>
+<tr><td>which / that</td><td>things, animals</td><td><span class="en">the book which I bought</span></td></tr>
+<tr><td>where</td><td>places</td><td><span class="en">the town where I was born</span></td></tr>
+<tr><td>whose</td><td>possession</td><td><span class="en">a girl whose father is a pilot</span></td></tr></table>
+<p><b>Leaving the word out.</b> If a subject (I, you, we, the man…) comes right after it, who / which / that are optional:</p>
+<ul><li><span class="en">the film that we saw</span> = <span class="en">the film we saw</span></li><li><span class="en">the man who I met</span> = <span class="en">the man I met</span></li></ul>
+<p>If a verb comes right after it, you cannot leave it out: <span class="en">the man who lives here</span>.</p>
+<p>Do not repeat the pronoun inside the clause: <span class="bad">the book which I bought it</span>.</p>
+<p>Unlike Russian, there is no comma before this kind of clause.</p>`},
+ rules:{a:{ru:'who / that — о людях; which / that — о предметах.',en:'who / that for people; which / that for things.'},
+  b:{ru:'where — о месте; whose — «чей».',en:'where for places; whose for possession.'},
+  c:{ru:'Если дальше идёт подлежащее, who / which / that можно опустить; если глагол — нельзя.',en:'If a subject follows, who / which / that can be left out; if a verb follows, it cannot.'},
+  d:{ru:'В придаточном не повторяем he, it, them: the book which I bought.',en:'Do not repeat he, it, them in the clause: the book which I bought.'}},
+ items:[
+ ['mc','The woman ___ lives next door is a doctor.',['who','which','whose'],0,'a'],
+ ['mc','This is the book ___ I told you about.',['which','who','where'],0,'a'],
+ ['mc','That is the hotel ___ we stayed last year.',['where','which','who'],0,'b'],
+ ['mc','I know a girl ___ father is a pilot.',['whose','who','which'],0,'b'],
+ ['mc','The film ___ we saw was great.',['that','who','where'],0,'a'],
+ ['mc','The man ___ I met yesterday is my new boss.',['—','which','whose'],0,'c'],
+ ['gap','I have a friend ___ speaks five languages.','who|that','a'],
+ ['gap','This is the town ___ I was born.','where','b'],
+ ['gap','Is this the phone ___ you lost?','which|that','a'],
+ ['gap','She is the woman ___ car was stolen.','whose','b'],
+ ['build','Это человек, который помог мне.','This is the man who helped me.','a',['which']],
+ ['tr','Мне нравятся люди, которые много читают.','I like people who read a lot.|I like people that read a lot.|I like people who read much.|I like people who read a lot of books.','a'],
+ ['dict','The shop where I bought this jacket is near the station.','b'],
+ '|',
+ ['mc','The keys ___ were on the table have disappeared.',['that','who','—'],0,'c'],
+ ['mc','Have you found the keys ___ you lost?',['—','who','whose'],0,'c'],
+ ['gap','The people ___ live upstairs are very noisy.','who|that','a'],
+ ['gap','The restaurant ___ we had dinner was very expensive.','where','b'],
+ ['gap','I met a man ___ brother works with you.','whose','b'],
+ ['fix','The man who he lives here is a teacher.','The man who lives here is a teacher.|The man that lives here is a teacher.','d'],
+ ['fix','This is the book which I bought it yesterday.','This is the book which I bought yesterday.|This is the book that I bought yesterday.|This is the book I bought yesterday.','d'],
+ ['fix','I know a woman which works in a bank.','I know a woman who works in a bank.|I know a woman that works in a bank.','a'],
+ ['tr','Это дом, где я вырос.','This is the house where I grew up.|This is the house I grew up in.|This is the house in which I grew up.|This is the house that I grew up in.|That is the house where I grew up.|It is the house where I grew up.|This is the home where I grew up.','b'],
+ ['tr','Фильм, который мы смотрели вчера, был скучным.','The film which we watched yesterday was boring.|The film that we watched yesterday was boring.|The film we watched yesterday was boring.|The movie we watched yesterday was boring.|The movie that we watched yesterday was boring.|The movie which we watched yesterday was boring.|The film we saw yesterday was boring.|The film that we saw yesterday was boring.|The film which we saw yesterday was boring.|The movie we saw yesterday was boring.|The movie that we saw yesterday was boring.','c'],
+ ['build','Это девушка, чей брат работает со мной.','This is the girl whose brother works with me.','b',['who']]],
+ fw:{ru:"Опиши пять людей, мест или вещей из своей жизни, не называя их прямо: «Это человек, который…», «Это место, где…», «Это вещь, которую…».",en:"Describe five people, places or things from your life without naming them: This is a person who…, This is the place where…, This is a thing which…"}},
+
+{id:'ginf',ru:'Инфинитив и -ing: трудные случаи',en:'to do and doing in depth',
+ th:{ru:`<p>Четыре случая, где выбор между <b>to</b> и <b>-ing</b> чаще всего даёт ошибки.</p>
+<p><b>1. После предлога — всегда -ing.</b></p>
+<ul><li><span class="en">I am interested in learning Spanish.</span></li><li><span class="en">Thank you for helping me.</span></li><li><span class="en">She left without saying goodbye.</span></li><li><span class="en">I am looking forward to seeing you.</span> — здесь to тоже предлог.</li></ul>
+<p><b>2. Глаголы, у которых to и -ing значат разное.</b></p>
+<table><tr><th>с to</th><th>с -ing</th></tr>
+<tr><td><span class="en">I stopped to rest.</span> — остановился, чтобы отдохнуть</td><td><span class="en">I stopped smoking.</span> — бросил курить</td></tr>
+<tr><td><span class="en">Remember to call.</span> — не забудь позвонить</td><td><span class="en">I remember calling.</span> — помню, что звонил</td></tr>
+<tr><td><span class="en">I tried to open it.</span> — пытался открыть</td><td><span class="en">Try turning it off.</span> — попробуй выключить</td></tr></table>
+<p><b>3. Хочу, чтобы ты…</b> Глагол + человек + to: <span class="en">I want you to come.</span> <span class="en">She asked me to wait.</span> <span class="en">He told us to sit down.</span> Оборот с that здесь не используется.</p>
+<p><b>4. make и let — без to.</b> <span class="en">She made me wait.</span> — заставила ждать. <span class="en">Let me help.</span> — позволь помочь.</p>`,
+ en:`<p>Four cases where the choice between <b>to</b> and <b>-ing</b> causes most mistakes.</p>
+<p><b>1. After a preposition, always -ing.</b></p>
+<ul><li><span class="en">I am interested in learning Spanish.</span></li><li><span class="en">Thank you for helping me.</span></li><li><span class="en">She left without saying goodbye.</span></li><li><span class="en">I am looking forward to seeing you.</span> — to is a preposition here.</li></ul>
+<p><b>2. Verbs where to and -ing mean different things.</b></p>
+<table><tr><th>with to</th><th>with -ing</th></tr>
+<tr><td><span class="en">I stopped to rest.</span> — stopped in order to rest</td><td><span class="en">I stopped smoking.</span> — gave it up</td></tr>
+<tr><td><span class="en">Remember to call.</span> — do not forget</td><td><span class="en">I remember calling.</span> — I have a memory of it</td></tr>
+<tr><td><span class="en">I tried to open it.</span> — made an effort</td><td><span class="en">Try turning it off.</span> — do it as an experiment</td></tr></table>
+<p><b>3. Verb + person + to.</b> <span class="en">I want you to come.</span> <span class="en">She asked me to wait.</span> <span class="en">He told us to sit down.</span> No that-clause here.</p>
+<p><b>4. make and let, no to.</b> <span class="en">She made me wait.</span> <span class="en">Let me help.</span></p>`},
+ rules:{a:{ru:'После предлога (in, for, at, of, without, to в look forward to) — всегда -ing.',en:'After a preposition (in, for, at, of, without, to in look forward to) always -ing.'},
+  b:{ru:'stop / remember / forget / try: с to — цель или намерение, с -ing — само действие.',en:'stop / remember / forget / try: to = purpose or intention, -ing = the activity itself.'},
+  c:{ru:'want / ask / tell + человек + to + глагол: I want you to come.',en:'want / ask / tell + person + to + verb: I want you to come.'},
+  d:{ru:'make и let + человек + глагол без to.',en:'make and let + person + verb without to.'}},
+ items:[
+ ['mc','I am interested in ___ Spanish.',['learning','to learn','learn'],0,'a'],
+ ['mc','She left without ___ goodbye.',['saying','to say','say'],0,'a'],
+ ['mc','I want you ___ me the truth.',['to tell','tell','telling'],0,'c'],
+ ['mc','My parents let me ___ out late.',['stay','to stay','staying'],0,'d'],
+ ['mc','He stopped ___ two years ago. He feels much better now.',['smoking','to smoke','smoke'],0,'b'],
+ ['mc','Remember ___ the door when you leave.',['to lock','locking','lock'],0,'b'],
+ ['gap','Thank you for ___ me. (help)','helping','a'],
+ ['gap','She asked me ___ for her. (wait)','to wait','c'],
+ ['gap','The film made me ___. (cry)','cry','d'],
+ ['gap','I am looking forward to ___ you. (see)','seeing','a'],
+ ['build','Я хочу, чтобы ты пришёл.','I want you to come.','c',['that']],
+ ['tr','Он сказал мне подождать.','He told me to wait.|He asked me to wait.','c'],
+ ['dict','She is good at cooking but she never remembers to buy salt.','a'],
+ '|',
+ ['mc','We were tired, so we stopped ___ a coffee.',['to have','having','have'],0,'b'],
+ ['mc','I will never forget ___ the sea for the first time.',['seeing','to see','see'],0,'b'],
+ ['mc','The teacher told us ___ quiet.',['to be','be','being'],0,'c'],
+ ['gap','I am tired of ___ for him. (wait)','waiting','a'],
+ ['gap','Do not let him ___ the car. (drive)','drive','d'],
+ ['gap','I tried ___ the window, but it was stuck. (open)','to open','b'],
+ ['fix','She made me to wait for an hour.','She made me wait for an hour.','d'],
+ ['fix','I want that you help me.','I want you to help me.','c'],
+ ['fix','He is good at to play chess.','He is good at playing chess.','a'],
+ ['tr','Не забудь позвонить маме.',"Don't forget to call your mother.|Don't forget to call your mum.|Don't forget to call mum.|Don't forget to call mom.|Don't forget to call your mom.|Don't forget to phone your mother.|Don't forget to phone your mum.|Don't forget to ring your mum.|Don't forget to call mother.|Remember to call your mother.|Remember to call your mum.|Remember to call mum.|Remember to call mom.|Remember to call your mom.",'b'],
+ ['build','Позволь мне помочь тебе.','Let me help you.','d',['to']]],
+ fw:{ru:"Напиши 6 предложений о себе: что ты бросил делать, что тебя заставляли делать в детстве, чего ты ждёшь с нетерпением, о чём тебя недавно просили и что ты никогда не забудешь.",en:"Write 6 sentences about yourself: something you stopped doing, something you were made to do as a child, something you are looking forward to, something you were asked to do recently, and something you will never forget doing."}}
+]},
+{lv:'b',ru:'Артикли и фразовые глаголы',en:'Articles and phrasal verbs',units:[
+{id:'art2',ru:'Артикли: трудные случаи',en:'Articles in depth',
+ th:{ru:`<p>Три зоны, где артикль чаще всего ставят неправильно.</p>
+<p><b>1. Вообще или конкретно.</b> Когда говорим о чём-то в общем смысле, артикля нет. Когда о конкретном, известном обоим — the.</p>
+<table><tr><th>в общем</th><th>конкретно</th></tr>
+<tr><td><span class="en">I love music.</span></td><td><span class="en">I liked the music at the party.</span></td></tr>
+<tr><td><span class="en">Life is short.</span></td><td><span class="en">the life of a sailor</span></td></tr>
+<tr><td><span class="en">Dogs are friendly.</span></td><td><span class="en">The dogs next door are noisy.</span></td></tr></table>
+<p><b>2. Географические названия.</b></p>
+<table><tr><th>с the</th><th>без артикля</th></tr>
+<tr><td>реки, моря, океаны: the Volga, the Black Sea, the Atlantic</td><td>города, континенты: Moscow, Europe</td></tr>
+<tr><td>горные цепи: the Alps, the Caucasus</td><td>отдельные горы, озёра: Elbrus, Lake Baikal</td></tr>
+<tr><td>страны-«союзы» и во мн. числе: the USA, the UK, the Netherlands</td><td>остальные страны: Russia, France</td></tr></table>
+<p><b>3. Место по назначению.</b> Если человек там по прямому назначению, артикля нет: <span class="en">go to school</span>, <span class="en">be in hospital</span>, <span class="en">go to bed</span>, <span class="en">at work</span>, <span class="en">at home</span>.</p>
+<p>И ещё: the — с тем, что одно на свете (the sun, the moon, the world), с превосходной степенью (the best) и с музыкальными инструментами (play the guitar).</p>`,
+ en:`<p>Three areas where articles go wrong most often.</p>
+<p><b>1. General or specific.</b> No article when we mean something in general. Use the for something specific that both people know.</p>
+<table><tr><th>general</th><th>specific</th></tr>
+<tr><td><span class="en">I love music.</span></td><td><span class="en">I liked the music at the party.</span></td></tr>
+<tr><td><span class="en">Life is short.</span></td><td><span class="en">the life of a sailor</span></td></tr>
+<tr><td><span class="en">Dogs are friendly.</span></td><td><span class="en">The dogs next door are noisy.</span></td></tr></table>
+<p><b>2. Place names.</b></p>
+<table><tr><th>with the</th><th>no article</th></tr>
+<tr><td>rivers, seas, oceans: the Volga, the Black Sea, the Atlantic</td><td>cities, continents: Moscow, Europe</td></tr>
+<tr><td>mountain ranges: the Alps, the Caucasus</td><td>single mountains, lakes: Elbrus, Lake Baikal</td></tr>
+<tr><td>union-type and plural countries: the USA, the UK, the Netherlands</td><td>other countries: Russia, France</td></tr></table>
+<p><b>3. A place used for its purpose.</b> No article: <span class="en">go to school</span>, <span class="en">be in hospital</span>, <span class="en">go to bed</span>, <span class="en">at work</span>, <span class="en">at home</span>.</p>
+<p>Also: the with unique things (the sun, the moon, the world), superlatives (the best) and musical instruments (play the guitar).</p>`},
+ rules:{a:{ru:'В общем смысле — без артикля; конкретное, известное обоим — the.',en:'General meaning — no article; specific and known to both — the.'},
+  b:{ru:'the — реки, моря, океаны, горные цепи, страны-«союзы»; без артикля — города, обычные страны, озёра.',en:'the — rivers, seas, oceans, mountain ranges, union-type countries; no article — cities, most countries, lakes.'},
+  c:{ru:'Место по назначению — без артикля: go to school, in hospital, go to bed, at work.',en:'A place used for its purpose — no article: go to school, in hospital, go to bed, at work.'},
+  d:{ru:'the — единственное в своём роде, превосходная степень, музыкальные инструменты.',en:'the — unique things, superlatives, musical instruments.'}},
+ items:[
+ ['mc','I love ___ music, but I did not like the music at the party.',['—','the','a'],0,'a'],
+ ['mc','Can you turn down ___ music, please? I am trying to sleep.',['the','—','a'],0,'a'],
+ ['mc','We sailed down ___ Volga.',['the','—','a'],0,'b'],
+ ['mc','She lives in ___ France.',['—','the','a'],0,'b'],
+ ['mc','He is from ___ United States.',['the','—','an'],0,'b'],
+ ['mc','The children go to ___ school by bus.',['—','the','a'],0,'c'],
+ ['mc','It is late. I am going to ___ bed.',['—','the','a'],0,'c'],
+ ['mc','She plays ___ violin very well.',['the','—','a'],0,'d'],
+ ['gap','What is ___ longest river in Russia?','the','d'],
+ ['gap','Elbrus is in ___ Caucasus.','the','b'],
+ ['gap','I do not like ___ coffee they make here.','the','a'],
+ ['build','Жизнь прекрасна.','Life is beautiful.','a',['the']],
+ ['tr','Она в больнице.','She is in hospital.|She is in the hospital.|She is at the hospital.','c'],
+ ['dict','The Volga is the longest river in Europe and it flows into the Caspian Sea.','b'],
+ '|',
+ ['mc','Lake Baikal is in ___ Siberia.',['—','the','a'],0,'b'],
+ ['mc','Do you like ___ dogs?',['—','the','a'],0,'a'],
+ ['mc','Where are ___ dogs? I cannot see them in the garden.',['the','—','a'],0,'a'],
+ ['mc','Dad is still at ___ work.',['—','the','a'],0,'c'],
+ ['mc','We crossed ___ Atlantic by ship.',['the','—','an'],0,'b'],
+ ['gap','The sun rises in ___ east.','the','d'],
+ ['gap','They live in ___ Netherlands.','the','b'],
+ ['fix','I like the nature.','I like nature.','a'],
+ ['fix','She went to the bed early.','She went to bed early.','c'],
+ ['fix','He lives in the Moscow.','He lives in Moscow.','b'],
+ ['tr','Я люблю музыку.','I love music.|I like music.','a'],
+ ['build','Он играет на гитаре каждый вечер.','He plays the guitar every evening.','d',['a']]],
+ fw:{ru:"Напиши 6 предложений о географии: реки, моря, горы и страны, где ты был или хочешь побывать. Затем два предложения о том, что ты любишь вообще (музыку, кофе, природу).",en:"Write 6 sentences about geography: rivers, seas, mountains and countries you have visited or want to visit. Then two sentences about things you like in general (music, coffee, nature)."}},
+
+{id:'phr',ru:'Фразовые глаголы',en:'Phrasal verbs',
+ th:{ru:`<p>Фразовый глагол — это глагол + короткое слово (up, off, out, on, for, after). Вместе они значат не то, что по отдельности: <b>give</b> — давать, <b>give up</b> — бросить, сдаться.</p>
+<table><tr><th>Глагол</th><th>Значение</th><th>Пример</th></tr>
+<tr><td>get up</td><td>вставать</td><td><span class="en">I get up at seven.</span></td></tr>
+<tr><td>turn on / off</td><td>включить / выключить</td><td><span class="en">Turn off the light.</span></td></tr>
+<tr><td>put on / take off</td><td>надеть / снять</td><td><span class="en">Put on your coat.</span></td></tr>
+<tr><td>look for</td><td>искать</td><td><span class="en">I am looking for my keys.</span></td></tr>
+<tr><td>look after</td><td>присматривать</td><td><span class="en">She looks after the children.</span></td></tr>
+<tr><td>give up</td><td>бросить</td><td><span class="en">He gave up smoking.</span></td></tr>
+<tr><td>find out</td><td>узнать, выяснить</td><td><span class="en">I found out the truth.</span></td></tr>
+<tr><td>pick up</td><td>поднять, забрать</td><td><span class="en">Pick up the phone.</span></td></tr>
+<tr><td>grow up</td><td>вырасти</td><td><span class="en">I grew up in Kazan.</span></td></tr>
+<tr><td>run out of</td><td>закончиться (о запасе)</td><td><span class="en">We have run out of milk.</span></td></tr></table>
+<p><b>Порядок слов.</b> У многих глаголов дополнение-существительное может стоять и в середине, и в конце: <span class="en">Turn off the light.</span> = <span class="en">Turn the light off.</span></p>
+<p>Но короткое местоимение (it, them, me) — только в середине: <span class="en">Turn it off.</span> <span class="bad">Turn off it.</span></p>
+<p>Некоторые глаголы не разделяются вообще: <span class="en">look for my keys</span>, <span class="en">look after them</span>.</p>`,
+ en:`<p>A phrasal verb is a verb + a short word (up, off, out, on, for, after). Together they mean something new: <b>give</b> but <b>give up</b> = stop doing.</p>
+<table><tr><th>Verb</th><th>Meaning</th><th>Example</th></tr>
+<tr><td>get up</td><td>leave your bed</td><td><span class="en">I get up at seven.</span></td></tr>
+<tr><td>turn on / off</td><td>start / stop a device</td><td><span class="en">Turn off the light.</span></td></tr>
+<tr><td>put on / take off</td><td>clothes on / off</td><td><span class="en">Put on your coat.</span></td></tr>
+<tr><td>look for</td><td>try to find</td><td><span class="en">I am looking for my keys.</span></td></tr>
+<tr><td>look after</td><td>take care of</td><td><span class="en">She looks after the children.</span></td></tr>
+<tr><td>give up</td><td>stop doing</td><td><span class="en">He gave up smoking.</span></td></tr>
+<tr><td>find out</td><td>discover</td><td><span class="en">I found out the truth.</span></td></tr>
+<tr><td>pick up</td><td>lift, collect</td><td><span class="en">Pick up the phone.</span></td></tr>
+<tr><td>grow up</td><td>become an adult</td><td><span class="en">I grew up in Kazan.</span></td></tr>
+<tr><td>run out of</td><td>have none left</td><td><span class="en">We have run out of milk.</span></td></tr></table>
+<p><b>Word order.</b> With many verbs a noun object can go in the middle or at the end: <span class="en">Turn off the light.</span> = <span class="en">Turn the light off.</span></p>
+<p>But a short pronoun (it, them, me) goes only in the middle: <span class="en">Turn it off.</span> <span class="bad">Turn off it.</span></p>
+<p>Some verbs never split: <span class="en">look for my keys</span>, <span class="en">look after them</span>.</p>`},
+ rules:{a:{ru:'Смысл — у всего сочетания: give up = бросить, find out = узнать, run out of = закончиться.',en:'The meaning belongs to the whole phrase: give up, find out, run out of.'},
+  b:{ru:'Местоимение it / them / me ставится в середину: turn it off, pick them up.',en:'A pronoun (it / them / me) goes in the middle: turn it off, pick them up.'},
+  c:{ru:'Существительное — в середине или в конце: take off your shoes / take your shoes off.',en:'A noun can go in the middle or at the end: take off your shoes / take your shoes off.'},
+  d:{ru:'Не разделяются: look for, look after, get up, get on.',en:'These never split: look for, look after, get up, get on.'}},
+ items:[
+ ['mc','It is dark. Can you turn ___ the light?',['on','off','up'],0,'a'],
+ ['mc','I am looking ___ my keys. Have you seen them?',['for','after','at'],0,'a'],
+ ['mc','She gave ___ smoking last year.',['up','off','out'],0,'a'],
+ ['mc','The TV is too loud. Please turn ___.',['it down','down it','it on'],0,'b'],
+ ['mc','It is cold. Put your coat ___.',['on','off','up'],0,'c'],
+ ['mc','Who looks ___ the children when you are at work?',['after','for','up'],0,'d'],
+ ['gap','I usually get ___ at seven.','up','d'],
+ ['gap','Take ___ your shoes before you come in.','off','c'],
+ ['gap','We have run ___ of milk.','out','a'],
+ ['gap','I do not know this word. I will look it ___ in the dictionary.','up','b'],
+ ['build','Выключи его, пожалуйста.','Please turn it off.|Turn it off please.','b',['on']],
+ ['tr','Я ищу свой телефон.','I am looking for my phone.|I am looking for my telephone.|I am searching for my phone.|I am looking for my mobile.','d'],
+ ['dict','She woke up late, put on her coat and ran out of the house.','a'],
+ '|',
+ ['mc','Where did you grow ___?',['up','on','out'],0,'a'],
+ ['mc','I found ___ that he was lying.',['out','up','off'],0,'a'],
+ ['mc','These are my glasses. Can you pick ___, please?',['them up','up them','them on'],0,'b'],
+ ['mc','Sorry I interrupted you. Please go ___.',['on','off','out'],0,'a'],
+ ['gap','He is on holiday now. He will come ___ on Monday.','back','a'],
+ ['gap','Here is the form. Please fill it ___.','in|out','b'],
+ ['gap','Can you look ___ my cat while I am away?','after','d'],
+ ['fix','I picked up it at the station.','I picked it up at the station.','b'],
+ ['fix','She is looking her keys for.','She is looking for her keys.','d'],
+ ['tr','Он бросил курить.','He gave up smoking.|He has given up smoking.|He stopped smoking.|He quit smoking.|He has stopped smoking.|He has quit smoking.','a'],
+ ['tr','Сними куртку.','Take off your jacket.|Take your jacket off.|Take off the jacket.|Take the jacket off.|Take off your coat.|Take your coat off.','c'],
+ ['build','Я вырос в маленьком городе.','I grew up in a small town.','a',['on']]],
+ fw:{ru:"Опиши своё утро и вечер, используя не меньше шести фразовых глаголов: wake up, get up, put on, turn on, turn off, take off, look for, pick up, come back.",en:"Describe your morning and evening using at least six phrasal verbs: wake up, get up, put on, turn on, turn off, take off, look for, pick up, come back."}}
+]},
 {lv:'b',ru:'Дополнительные темы',en:'More practice',units:[
 {id:'unless',ru:'Если не: unless',en:'unless',
  th:{ru:`<p><b>unless</b> значит «если не». Это то же самое, что <b>if … not</b>.</p>
@@ -2501,6 +2940,7 @@ const SECTIONS=[
  ['dict','We will not start unless everyone is here.','a']],
  fw:{ru:"Напиши 5 предупреждений или условий с unless: что не случится, если не выполнить условие.",en:"Write 5 warnings or conditions with unless: what will not happen if the condition is not met."}}
 ]}];
+/* ---- extended reference per topic: full tables, fine points, typical mistakes of Russian speakers (Russian only) ---- */
 /* ---- extended reference per topic: full tables, fine points, typical mistakes of Russian speakers (Russian only) ---- */
 const MORE={
 "be1": "<h4>Где в английском нужен be, а в русском глагола нет<\/h4><div class=\"tw\"><table><tr><th>Что сообщаем<\/th><th>Пример<\/th><\/tr><tr><td>кто человек, профессия<\/td><td><span class=\"en\">He is a doctor.<\/span><\/td><\/tr><tr><td>возраст<\/td><td><span class=\"en\">I am twenty-one.<\/span><\/td><\/tr><tr><td>состояние, чувство<\/td><td><span class=\"en\">I am hungry.<\/span> <span class=\"en\">She is afraid.<\/span><\/td><\/tr><tr><td>место<\/td><td><span class=\"en\">They are in Moscow.<\/span><\/td><\/tr><tr><td>погода, время, расстояние<\/td><td><span class=\"en\">It is cold.<\/span> <span class=\"en\">It is five o'clock.<\/span><\/td><\/tr><tr><td>цена<\/td><td><span class=\"en\">It is ten dollars.<\/span><\/td><\/tr><\/table><\/div><h4>Тонкости<\/h4><ul><li><b>you<\/b> всегда с <b>are<\/b>, даже если это один человек: <span class=\"en\">You are my friend.<\/span><\/li><li>Краткая форма возможна и после существительного: <span class=\"en\">Tom's at work.<\/span> <span class=\"en\">My sister's a nurse.<\/span> В разговоре почти всегда говорят кратко, в деловом письме пишут полностью.<\/li><li>В безличных фразах («Холодно», «Поздно») нужно подлежащее <b>it<\/b>: <span class=\"en\">It is late.<\/span><\/li><li>С одной профессией нужен артикль <b>a / an<\/b>: <span class=\"en\">I am an engineer.<\/span> Во множественном числе артикля нет: <span class=\"en\">We are engineers.<\/span><\/li><li>Слова-ловушки: <b>people<\/b>, <b>police<\/b> — множественное число (<span class=\"en\">People are different.<\/span>); <b>news<\/b>, <b>money<\/b> — единственное (<span class=\"en\">The news is good.<\/span>); <b>everybody<\/b>, <b>everyone<\/b> — тоже единственное (<span class=\"en\">Everybody is here.<\/span>).<\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">I student.<\/span><span class=\"en\">I am a student.<\/span><small>глагол нельзя пропускать<\/small><\/li><li><span class=\"bad\">I have 21 years.<\/span><span class=\"en\">I am 21.<\/span><small>возраст — через be<\/small><\/li><li><span class=\"bad\">I am agree.<\/span><span class=\"en\">I agree.<\/span><small>agree — уже глагол, be не нужен<\/small><\/li><li><span class=\"bad\">Cold today.<\/span><span class=\"en\">It is cold today.<\/span><small>нужно подлежащее it<\/small><\/li><li><span class=\"bad\">My parents is at home.<\/span><span class=\"en\">My parents are at home.<\/span><\/li><\/ul>",
@@ -2547,9 +2987,17 @@ const MORE={
 "tooenough": "<h4>Порядок слов<\/h4><div class=\"tw\"><table><tr><th>Конструкция<\/th><th>Пример<\/th><\/tr><tr><td>too + прилагательное или наречие<\/td><td><span class=\"en\">too expensive<\/span>, <span class=\"en\">too quickly<\/span><\/td><\/tr><tr><td>too much + неисчисляемое<\/td><td><span class=\"en\">too much sugar<\/span><\/td><\/tr><tr><td>too many + исчисляемое<\/td><td><span class=\"en\">too many cars<\/span><\/td><\/tr><tr><td>прилагательное или наречие + enough<\/td><td><span class=\"en\">warm enough<\/span>, <span class=\"en\">fast enough<\/span><\/td><\/tr><tr><td>enough + существительное<\/td><td><span class=\"en\">enough time<\/span>, <span class=\"en\">enough chairs<\/span><\/td><\/tr><\/table><\/div><h4>Продолжение с to и for<\/h4><ul><li><span class=\"en\">I am too tired to walk.<\/span> — слишком устал, чтобы идти.<\/li><li><span class=\"en\">The bag is too heavy for me to carry.<\/span><\/li><li><span class=\"en\">She is old enough to drive.<\/span><\/li><li><span class=\"en\">We have enough money to buy it.<\/span><\/li><\/ul><h4>too и very<\/h4><p><b>very<\/b> просто усиливает. <b>too<\/b> значит «больше, чем можно или нужно», то есть это проблема: <span class=\"en\">The tea is very hot.<\/span> — горячий, но пить можно. <span class=\"en\">The tea is too hot.<\/span> — пить нельзя. Поэтому «I am too happy» звучит странно.<\/p><h4>not … enough = too<\/h4><p><span class=\"en\">The room is not big enough.<\/span> = <span class=\"en\">The room is too small.<\/span><\/p><h4>Усилить too<\/h4><p><span class=\"en\">much too expensive<\/span>, <span class=\"en\">far too long<\/span>, <span class=\"en\">a bit too late<\/span>. Нельзя «too much expensive».<\/p><h4>too much после глагола<\/h4><p><span class=\"en\">He talks too much.<\/span> <span class=\"en\">I ate too much.<\/span><\/p><h4>Другое too<\/h4><p>В конце предложения <b>too<\/b> значит «тоже»: <span class=\"en\">I like it too.<\/span> В отрицании вместо него <b>either<\/b>: <span class=\"en\">I don't like it either.<\/span><\/p><h4>enough без существительного<\/h4><p><span class=\"en\">That's enough.<\/span> <span class=\"en\">I have had enough.<\/span> — «С меня хватит».<\/p><h4>Рядом: so и such<\/h4><p><span class=\"en\">It was so cold that we went home.<\/span> <span class=\"en\">It was such a cold day that we went home.<\/span><\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">too much expensive<\/span><span class=\"en\">too expensive<\/span><\/li><li><span class=\"bad\">enough big<\/span><span class=\"en\">big enough<\/span><\/li><li><span class=\"bad\">money enough<\/span><span class=\"en\">enough money<\/span><\/li><li><span class=\"bad\">too many money<\/span><span class=\"en\">too much money<\/span><\/li><li><span class=\"bad\">I am too happy to see you.<\/span><span class=\"en\">I am very happy to see you.<\/span><small>too = «чересчур»<\/small><\/li><li><span class=\"bad\">I am not enough old.<\/span><span class=\"en\">I am not old enough.<\/span><\/li><\/ul>",
 "afew": "<h4>Четыре формы<\/h4><div class=\"tw\"><table><tr><th><\/th><th>Исчисляемые<\/th><th>Неисчисляемые<\/th><th>Отношение<\/th><\/tr><tr><td>с артиклем<\/td><td>a few friends<\/td><td>a little time<\/td><td>немного, но есть — хорошо<\/td><\/tr><tr><td>без артикля<\/td><td>few friends<\/td><td>little time<\/td><td>мало, почти нет — плохо<\/td><\/tr><\/table><\/div><p><span class=\"en\">I have a few friends here.<\/span> — есть с кем общаться. <span class=\"en\">I have few friends here.<\/span> — мне одиноко.<\/p><h4>Как говорят на самом деле<\/h4><p><b>few<\/b> и <b>little<\/b> без артикля звучат книжно. В разговоре вместо них: <span class=\"en\">not many friends<\/span>, <span class=\"en\">not much time<\/span>, <span class=\"en\">hardly any money<\/span>. Или с very: <span class=\"en\">very few people<\/span>, <span class=\"en\">very little money<\/span>.<\/p><h4>Усилители<\/h4><div class=\"tw\"><table><tr><th>Выражение<\/th><th>Смысл<\/th><\/tr><tr><td>only a few, only a little<\/td><td>совсем немного<\/td><\/tr><tr><td>quite a few<\/td><td>довольно много (!)<\/td><\/tr><tr><td>just a little<\/td><td>чуть-чуть<\/td><\/tr><\/table><\/div><h4>fewer и less<\/h4><p><b>fewer<\/b> — с исчисляемыми, <b>less<\/b> — с неисчисляемыми: <span class=\"en\">fewer cars<\/span>, <span class=\"en\">less traffic<\/span>. В разговоре <b>less<\/b> часто ставят везде, в письме лучше различать.<\/p><h4>a bit<\/h4><p>Разговорная замена <b>a little<\/b>: <span class=\"en\">a bit tired<\/span>, <span class=\"en\">a bit of time<\/span>, <span class=\"en\">Wait a bit.<\/span><\/p><h4>a little не только о количестве<\/h4><ul><li>Перед прилагательным и сравнительной степенью — «немного»: <span class=\"en\">a little tired<\/span>, <span class=\"en\">a little better<\/span>.<\/li><li><b>little<\/b> как прилагательное — «маленький»: <span class=\"en\">a little house<\/span>.<\/li><\/ul><h4>Рядом по смыслу<\/h4><p><b>a couple of<\/b> — пара; <b>several<\/b> — несколько, обычно больше, чем a few; <b>some<\/b> — какое-то количество.<\/p><h4>С of<\/h4><p>Перед <b>the, my, these, them<\/b> нужен of: <span class=\"en\">a few of my friends<\/span>, <span class=\"en\">a little of the cake<\/span>, <span class=\"en\">a few of them<\/span>.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">a few money<\/span><span class=\"en\">a little money<\/span><\/li><li><span class=\"bad\">a little friends<\/span><span class=\"en\">a few friends<\/span><\/li><li><span class=\"bad\">I have little time, so I can help you.<\/span><span class=\"en\">I have a little time, so I can help you.<\/span><small>little без a = «почти нет»<\/small><\/li><li><span class=\"bad\">a few of people<\/span><span class=\"en\">a few people<\/span><\/li><li><span class=\"bad\">less people<\/span><span class=\"en\">fewer people<\/span><small>в письменной речи<\/small><\/li><\/ul>",
 "irr": "<h4>Как устроены неправильные глаголы<\/h4><p>Их удобнее учить не по алфавиту, а группами с одинаковым рисунком.<\/p><div class=\"tw\"><table><tr><th>Рисунок<\/th><th>Глаголы<\/th><\/tr><tr><td>все три формы одинаковы<\/td><td>cut, put, cost, hit, let, shut, hurt, read<\/td><\/tr><tr><td>вторая и третья одинаковы, -ought / -aught<\/td><td>buy – bought, bring – brought, think – thought, catch – caught, teach – taught<\/td><\/tr><tr><td>вторая и третья одинаковы, -t<\/td><td>keep – kept, sleep – slept, feel – felt, leave – left, meet – met, send – sent, spend – spent, build – built, lose – lost<\/td><\/tr><tr><td>вторая и третья одинаковы, другое<\/td><td>say – said, pay – paid, make – made, have – had, hear – heard, tell – told, sell – sold, find – found, sit – sat, win – won, get – got, stand – stood<\/td><\/tr><tr><td>i – a – u<\/td><td>begin – began – begun, drink – drank – drunk, swim – swam – swum, sing – sang – sung, ring – rang – rung<\/td><\/tr><tr><td>третья на -en<\/td><td>write – wrote – written, drive – drove – driven, speak – spoke – spoken, break – broke – broken, choose – chose – chosen, take – took – taken, give – gave – given, eat – ate – eaten, fall – fell – fallen, forget – forgot – forgotten<\/td><\/tr><tr><td>третья на -n<\/td><td>see – saw – seen, know – knew – known, grow – grew – grown, fly – flew – flown, do – did – done, go – went – gone<\/td><\/tr><tr><td>первая и третья одинаковы<\/td><td>come – came – come, become – became – become, run – ran – run<\/td><\/tr><\/table><\/div><h4>Что читается не так, как пишется<\/h4><div class=\"tw\"><table><tr><th>Слово<\/th><th>Как звучит<\/th><\/tr><tr><td>read (2-я и 3-я)<\/td><td>как «red»<\/td><\/tr><tr><td>said<\/td><td>[sed], коротко<\/td><\/tr><tr><td>heard<\/td><td>[hə:d]<\/td><\/tr><tr><td>bought, caught, thought<\/td><td>долгий [o:], без «gh»<\/td><\/tr><tr><td>ate<\/td><td>[et] или [eit]<\/td><\/tr><\/table><\/div><h4>Пары, которые путают<\/h4><div class=\"tw\"><table><tr><th>Глаголы<\/th><th>Формы<\/th><\/tr><tr><td>fall (падать) и feel (чувствовать)<\/td><td>fall – fell – fallen; feel – felt – felt<\/td><\/tr><tr><td>bring (приносить) и buy (покупать)<\/td><td>bring – brought; buy – bought<\/td><\/tr><tr><td>teach (учить) и think (думать)<\/td><td>teach – taught; think – thought<\/td><\/tr><tr><td>leave (уходить) и live (жить)<\/td><td>leave – left; live – lived<\/td><\/tr><\/table><\/div><h4>Два варианта<\/h4><p><b>learned / learnt, dreamed / dreamt, burned / burnt<\/b> — оба верны; формы на -t чаще в британском английском. В американском третья форма от get — <b>gotten<\/b>.<\/p><h4>been и gone<\/h4><p><span class=\"en\">He has been to Paris.<\/span> — был и вернулся. <span class=\"en\">He has gone to Paris.<\/span> — уехал и ещё там.<\/p><h4>Как учить<\/h4><p>По одной группе за раз и сразу в предложениях: <span class=\"en\">I buy – I bought – I have bought.<\/span> Три формы без примера забываются быстрее.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">I have went there.<\/span><span class=\"en\">I have gone there.<\/span><\/li><li><span class=\"bad\">I seen it yesterday.<\/span><span class=\"en\">I saw it yesterday.<\/span><\/li><li><span class=\"bad\">He has wrote a letter.<\/span><span class=\"en\">He has written a letter.<\/span><\/li><li><span class=\"bad\">She teached me.<\/span><span class=\"en\">She taught me.<\/span><\/li><li><span class=\"bad\">It costed ten dollars.<\/span><span class=\"en\">It cost ten dollars.<\/span><\/li><li><span class=\"bad\">I have drank two cups.<\/span><span class=\"en\">I have drunk two cups.<\/span><\/li><\/ul>",
-"unless": "<h4>Два способа сказать одно<\/h4><p><span class=\"en\">I won't go unless you come.<\/span> = <span class=\"en\">I won't go if you don't come.<\/span> <b>unless<\/b> можно понимать как «кроме случая, когда».<\/p><h4>Когда unless не подходит<\/h4><ul><li>Если «не-событие» само вызывает результат или чувство: <span class=\"en\">I'll be surprised if he doesn't come.<\/span> Здесь unless не работает.<\/li><li>В вопросах: <span class=\"en\">What will you do if you don't pass?<\/span><\/li><li>В нереальных условиях о настоящем обычно тоже if … not: <span class=\"en\">If he weren't so tired, he would come.<\/span><\/li><\/ul><h4>Грамматика та же, что у if<\/h4><ul><li>После unless — настоящее время о будущем: <span class=\"en\">Unless it rains, we'll go.<\/span><\/li><li>Запятая нужна, если unless стоит в начале.<\/li><li>Отрицание уже внутри слова, второе не ставят.<\/li><\/ul><h4>Соседние союзы<\/h4><div class=\"tw\"><table><tr><th>Союз<\/th><th>Смысл<\/th><th>Пример<\/th><\/tr><tr><td>as long as, provided (that)<\/td><td>только если<\/td><td><span class=\"en\">You can go as long as you are back by ten.<\/span><\/td><\/tr><tr><td>in case<\/td><td>на случай, если<\/td><td><span class=\"en\">Take an umbrella in case it rains.<\/span><\/td><\/tr><tr><td>or, or else, otherwise<\/td><td>иначе<\/td><td><span class=\"en\">Hurry up, or we'll be late.<\/span><\/td><\/tr><tr><td>even if<\/td><td>даже если<\/td><td><span class=\"en\">I'll go even if it rains.<\/span><\/td><\/tr><\/table><\/div><p><b>in case<\/b> — не «если»: зонт берём заранее, не дожидаясь дождя.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">Unless you don't hurry, we'll be late.<\/span><span class=\"en\">Unless you hurry, we'll be late.<\/span><\/li><li><span class=\"bad\">Unless it will rain, we'll go.<\/span><span class=\"en\">Unless it rains, we'll go.<\/span><\/li><li><span class=\"bad\">I'll be angry unless you call.<\/span><span class=\"en\">I'll be angry if you don't call.<\/span><small>причина чувства — «не-звонок»<\/small><\/li><\/ul>"
+"unless": "<h4>Два способа сказать одно<\/h4><p><span class=\"en\">I won't go unless you come.<\/span> = <span class=\"en\">I won't go if you don't come.<\/span> <b>unless<\/b> можно понимать как «кроме случая, когда».<\/p><h4>Когда unless не подходит<\/h4><ul><li>Если «не-событие» само вызывает результат или чувство: <span class=\"en\">I'll be surprised if he doesn't come.<\/span> Здесь unless не работает.<\/li><li>В вопросах: <span class=\"en\">What will you do if you don't pass?<\/span><\/li><li>В нереальных условиях о настоящем обычно тоже if … not: <span class=\"en\">If he weren't so tired, he would come.<\/span><\/li><\/ul><h4>Грамматика та же, что у if<\/h4><ul><li>После unless — настоящее время о будущем: <span class=\"en\">Unless it rains, we'll go.<\/span><\/li><li>Запятая нужна, если unless стоит в начале.<\/li><li>Отрицание уже внутри слова, второе не ставят.<\/li><\/ul><h4>Соседние союзы<\/h4><div class=\"tw\"><table><tr><th>Союз<\/th><th>Смысл<\/th><th>Пример<\/th><\/tr><tr><td>as long as, provided (that)<\/td><td>только если<\/td><td><span class=\"en\">You can go as long as you are back by ten.<\/span><\/td><\/tr><tr><td>in case<\/td><td>на случай, если<\/td><td><span class=\"en\">Take an umbrella in case it rains.<\/span><\/td><\/tr><tr><td>or, or else, otherwise<\/td><td>иначе<\/td><td><span class=\"en\">Hurry up, or we'll be late.<\/span><\/td><\/tr><tr><td>even if<\/td><td>даже если<\/td><td><span class=\"en\">I'll go even if it rains.<\/span><\/td><\/tr><\/table><\/div><p><b>in case<\/b> — не «если»: зонт берём заранее, не дожидаясь дождя.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">Unless you don't hurry, we'll be late.<\/span><span class=\"en\">Unless you hurry, we'll be late.<\/span><\/li><li><span class=\"bad\">Unless it will rain, we'll go.<\/span><span class=\"en\">Unless it rains, we'll go.<\/span><\/li><li><span class=\"bad\">I'll be angry unless you call.<\/span><span class=\"en\">I'll be angry if you don't call.<\/span><small>причина чувства — «не-звонок»<\/small><\/li><\/ul>",
+"fut": "<h4>Все способы в одной таблице<\/h4><div class=\"tw\"><table><tr><th>Форма<\/th><th>Что стоит за ней<\/th><th>Пример<\/th><\/tr><tr><td>will<\/td><td>решение сейчас, обещание, предложение, прогноз-мнение<\/td><td><span class=\"en\">I'll have the fish.<\/span> <span class=\"en\">I'll never forget you.<\/span><\/td><\/tr><tr><td>be going to<\/td><td>намерение, решённое раньше; видимые признаки<\/td><td><span class=\"en\">I am going to change my job.<\/span> <span class=\"en\">He is going to fall!<\/span><\/td><\/tr><tr><td>Present Continuous<\/td><td>договорённость с другими людьми<\/td><td><span class=\"en\">We are flying to Sochi on Friday.<\/span><\/td><\/tr><tr><td>Present Simple<\/td><td>расписание<\/td><td><span class=\"en\">The shop opens at ten tomorrow.<\/span><\/td><\/tr><tr><td>will be doing<\/td><td>действие будет идти в названный момент<\/td><td><span class=\"en\">This time tomorrow I will be flying.<\/span><\/td><\/tr><tr><td>be about to<\/td><td>вот-вот<\/td><td><span class=\"en\">The film is about to start.<\/span><\/td><\/tr><\/table><\/div><h4>Где разница почти не слышна<\/h4><p>Между <b>going to<\/b> и Present Continuous часто можно выбрать любое: <span class=\"en\">I am going to see Tom tonight.<\/span> ≈ <span class=\"en\">I am seeing Tom tonight.<\/span> Второе чуть определённее: Том тоже знает.<\/p><p>О прогнозах без видимых признаков тоже годятся оба: <span class=\"en\">I think it will be cold.<\/span> ≈ <span class=\"en\">I think it is going to be cold.<\/span><\/p><h4>Где разница важна<\/h4><ul><li>Ответ на новую для тебя информацию — только <b>will<\/b>: <span class=\"en\">— We have no milk. — OK, I'll buy some.<\/span> Если скажешь <span class=\"en\">I am going to buy some<\/span>, значит, знал заранее.<\/li><li>Present Continuous не годится для того, что от людей не зависит: <span class=\"en\">It is going to rain<\/span>, а не «It is raining tomorrow».<\/li><li>Расписание — не личный план: <span class=\"en\">My train leaves at six<\/span> (расписание), <span class=\"en\">I am leaving at six<\/span> (моё решение).<\/li><\/ul><h4>После when, if, as soon as, until<\/h4><p>Будущего времени нет ни в какой форме: <span class=\"en\">I'll call you when I get home.<\/span> <span class=\"en\">We'll start as soon as he arrives.<\/span><\/p><h4>Слова, которые тянут will<\/h4><p><b>I think, I hope, I am sure, probably, maybe, perhaps, I expect, I promise<\/b>: <span class=\"en\">I am sure you will like it.<\/span> <span class=\"en\">Maybe I will stay.<\/span><\/p><h4>shall<\/h4><p>С <b>I<\/b> и <b>we<\/b> в вопросе — предложение или просьба о совете: <span class=\"en\">Shall I help you?<\/span> <span class=\"en\">What shall we do?<\/span><\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">I will meet Anna at six, we agreed yesterday.<\/span><span class=\"en\">I am meeting Anna at six, we agreed yesterday.<\/span><small>уже договорились<\/small><\/li><li><span class=\"bad\">It is raining tomorrow.<\/span><span class=\"en\">It is going to rain tomorrow.<\/span><small>от людей не зависит<\/small><\/li><li><span class=\"bad\">— The phone! — I am going to answer.<\/span><span class=\"en\">— The phone! — I'll answer.<\/span><small>решил только что<\/small><\/li><li><span class=\"bad\">When I will arrive, I will call.<\/span><span class=\"en\">When I arrive, I will call.<\/span><\/li><li><span class=\"bad\">The film is starting at eight every day.<\/span><span class=\"en\">The film starts at eight every day.<\/span><\/li><\/ul>",
+"if3": "<h4>Формы и сокращения<\/h4><div class=\"tw\"><table><tr><th>Часть<\/th><th>Полно<\/th><th>Кратко<\/th><\/tr><tr><td>с if<\/td><td><span class=\"en\">If I had known<\/span><\/td><td><span class=\"en\">If I'd known<\/span><\/td><\/tr><tr><td>главная<\/td><td><span class=\"en\">I would have come<\/span><\/td><td><span class=\"en\">I'd have come<\/span> / <span class=\"en\">I would've come<\/span><\/td><\/tr><\/table><\/div><p><b>'d<\/b> в части с if — это <b>had<\/b>, в главной — <b>would<\/b>.<\/p><h4>Все три типа рядом<\/h4><div class=\"tw\"><table><tr><th>Тип<\/th><th>О чём<\/th><th>Пример<\/th><\/tr><tr><td>первый<\/td><td>реальное будущее<\/td><td><span class=\"en\">If I see him, I will tell him.<\/span><\/td><\/tr><tr><td>второй<\/td><td>воображаемое сейчас<\/td><td><span class=\"en\">If I saw him, I would tell him.<\/span><\/td><\/tr><tr><td>третий<\/td><td>прошлое, которого не было<\/td><td><span class=\"en\">If I had seen him, I would have told him.<\/span><\/td><\/tr><\/table><\/div><h4>could have и might have<\/h4><ul><li><span class=\"en\">If I had had more time, I could have finished.<\/span> — смог бы закончить.<\/li><li><span class=\"en\">If you had asked, she might have agreed.<\/span> — возможно, согласилась бы.<\/li><\/ul><h4>Смешанный тип<\/h4><p>Условие в прошлом, а следствие — сейчас: <span class=\"en\">If I had studied medicine, I would be a doctor now.<\/span> В главной части тогда обычный would + глагол.<\/p><h4>Сожаление<\/h4><ul><li><b>I wish<\/b> + Past Perfect: <span class=\"en\">I wish I had gone to university.<\/span> — «Жаль, что я не пошёл».<\/li><li><b>should have<\/b> + третья форма: <span class=\"en\">I should have called.<\/span> — «Надо было позвонить».<\/li><\/ul><h4>had had и had been<\/h4><p>Не опечатка: первое had — вспомогательное. <span class=\"en\">If I had had a car, I would have driven.<\/span> <span class=\"en\">If I had been there, I would have helped.<\/span><\/p><h4>Как это звучит по-русски<\/h4><p>Русское «если бы …, то … бы» одно и то же для настоящего и прошлого. По-английски надо решить: это про сейчас (второй тип) или про тогда (третий).<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">If I would have known, I would have come.<\/span><span class=\"en\">If I had known, I would have come.<\/span><\/li><li><span class=\"bad\">If I knew yesterday, I would have come.<\/span><span class=\"en\">If I had known yesterday, I would have come.<\/span><\/li><li><span class=\"bad\">If I had known, I would come yesterday.<\/span><span class=\"en\">If I had known, I would have come yesterday.<\/span><\/li><li><span class=\"bad\">If she had studied, she had passed.<\/span><span class=\"en\">If she had studied, she would have passed.<\/span><\/li><li><span class=\"bad\">I wish I went there last year.<\/span><span class=\"en\">I wish I had gone there last year.<\/span><\/li><\/ul>",
+"deduce": "<h4>Шкала уверенности<\/h4><div class=\"tw\"><table><tr><th>Насколько уверен<\/th><th>Сейчас<\/th><th>О прошлом<\/th><\/tr><tr><td>почти 100% да<\/td><td><span class=\"en\">He must be at home.<\/span><\/td><td><span class=\"en\">He must have left.<\/span><\/td><\/tr><tr><td>возможно<\/td><td><span class=\"en\">He might be at home.<\/span> (или may, could)<\/td><td><span class=\"en\">He might have left.<\/span><\/td><\/tr><tr><td>возможно, нет<\/td><td><span class=\"en\">He might not be at home.<\/span><\/td><td><span class=\"en\">He might not have left.<\/span><\/td><\/tr><tr><td>почти 100% нет<\/td><td><span class=\"en\">He can't be at home.<\/span><\/td><td><span class=\"en\">He can't have left.<\/span><\/td><\/tr><\/table><\/div><h4>Отрицания, которые путают<\/h4><ul><li><b>mustn't<\/b> — только запрет, для догадок не используется.<\/li><li><b>might not<\/b> — «возможно, нет». <b>couldn't<\/b> — «не может быть». Это не одно и то же: <span class=\"en\">He might not know.<\/span> — может, и не знает. <span class=\"en\">He couldn't know.<\/span> — никак не может знать.<\/li><li><b>can<\/b> в утверждении для догадки не используют: говорят <span class=\"en\">It could be true<\/span>, а не «It can be true».<\/li><\/ul><h4>Догадка о действии в процессе<\/h4><p>Модальный + be + -ing: <span class=\"en\">She must be sleeping.<\/span> <span class=\"en\">They might be waiting for us.<\/span><\/p><h4>Как это говорят по-русски<\/h4><p>«Должно быть», «наверняка», «по-видимому» → must. «Может быть», «возможно», «вдруг» → might. «Не может быть», «вряд ли» → can't. Слова <b>maybe<\/b> и <b>perhaps<\/b> тоже годятся, но стоят в начале и не меняют глагол: <span class=\"en\">Maybe he is at home.<\/span><\/p><h4>must: два значения<\/h4><p><span class=\"en\">You must be quiet.<\/span> — обязанность. <span class=\"en\">You must be tired.<\/span> — догадка. Различают по смыслу. В прошлом формы разные: обязанность — <span class=\"en\">I had to go<\/span>, догадка — <span class=\"en\">He must have gone<\/span>.<\/p><h4>Не путай с should have<\/h4><p><span class=\"en\">He must have called.<\/span> — уверен, что звонил. <span class=\"en\">He should have called.<\/span> — должен был позвонить, но не позвонил.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">It mustn't be true.<\/span><span class=\"en\">It can't be true.<\/span><\/li><li><span class=\"bad\">He must be tired yesterday.<\/span><span class=\"en\">He must have been tired yesterday.<\/span><\/li><li><span class=\"bad\">She can be at home.<\/span><span class=\"en\">She could be at home.<\/span><small>или might<\/small><\/li><li><span class=\"bad\">He must had left.<\/span><span class=\"en\">He must have left.<\/span><\/li><li><span class=\"bad\">Maybe he must be at home.<\/span><span class=\"en\">He must be at home.<\/span><small>одно слово уверенности на предложение<\/small><\/li><\/ul>",
+"pass2": "<h4>Пассив целиком<\/h4><div class=\"tw\"><table><tr><th>Время<\/th><th>Актив<\/th><th>Пассив<\/th><\/tr><tr><td>Present Simple<\/td><td><span class=\"en\">They clean it.<\/span><\/td><td><span class=\"en\">It is cleaned.<\/span><\/td><\/tr><tr><td>Present Continuous<\/td><td><span class=\"en\">They are cleaning it.<\/span><\/td><td><span class=\"en\">It is being cleaned.<\/span><\/td><\/tr><tr><td>Past Simple<\/td><td><span class=\"en\">They cleaned it.<\/span><\/td><td><span class=\"en\">It was cleaned.<\/span><\/td><\/tr><tr><td>Past Continuous<\/td><td><span class=\"en\">They were cleaning it.<\/span><\/td><td><span class=\"en\">It was being cleaned.<\/span><\/td><\/tr><tr><td>Present Perfect<\/td><td><span class=\"en\">They have cleaned it.<\/span><\/td><td><span class=\"en\">It has been cleaned.<\/span><\/td><\/tr><tr><td>Past Perfect<\/td><td><span class=\"en\">They had cleaned it.<\/span><\/td><td><span class=\"en\">It had been cleaned.<\/span><\/td><\/tr><tr><td>will<\/td><td><span class=\"en\">They will clean it.<\/span><\/td><td><span class=\"en\">It will be cleaned.<\/span><\/td><\/tr><tr><td>going to<\/td><td><span class=\"en\">They are going to clean it.<\/span><\/td><td><span class=\"en\">It is going to be cleaned.<\/span><\/td><\/tr><tr><td>модальные<\/td><td><span class=\"en\">They must clean it.<\/span><\/td><td><span class=\"en\">It must be cleaned.<\/span><\/td><\/tr><\/table><\/div><h4>been и being<\/h4><ul><li><b>been<\/b> — только после have / has / had: <span class=\"en\">has been done<\/span>.<\/li><li><b>being<\/b> — только после am / is / are / was / were: <span class=\"en\">is being done<\/span>.<\/li><li>Present Perfect Continuous в пассиве почти не используют.<\/li><\/ul><h4>Вопросы и отрицания<\/h4><p>Меняется только первый вспомогательный глагол: <span class=\"en\">Has it been sent?<\/span> <span class=\"en\">It hasn't been sent.<\/span> <span class=\"en\">Is it being repaired?<\/span> <span class=\"en\">Will it be finished?<\/span> <span class=\"en\">Can it be done?<\/span><\/p><h4>Инфинитив и -ing в пассиве<\/h4><ul><li>После глаголов с to: <span class=\"en\">I want to be told the truth.<\/span> <span class=\"en\">It needs to be done.<\/span><\/li><li>После предлогов и enjoy, like, hate: <span class=\"en\">I don't like being told what to do.<\/span><\/li><\/ul><h4>have something done<\/h4><p>Когда работу делает кто-то для тебя: <span class=\"en\">I had my car repaired.<\/span> — «Мне починили машину». <span class=\"en\">She is having her hair cut.<\/span> Это не пассив по форме, но по смыслу рядом.<\/p><h4>Когда пассив лучше, когда хуже<\/h4><p>Он уместен, если исполнитель неизвестен, не важен или очевиден: <span class=\"en\">My bike has been stolen.<\/span> В живой речи его меньше, чем в новостях и документах. Если исполнитель известен и важен, актив звучит естественнее.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">The letter has sent.<\/span><span class=\"en\">The letter has been sent.<\/span><\/li><li><span class=\"bad\">The road is been repaired.<\/span><span class=\"en\">The road is being repaired.<\/span><\/li><li><span class=\"bad\">It will finished tomorrow.<\/span><span class=\"en\">It will be finished tomorrow.<\/span><\/li><li><span class=\"bad\">It must to be done.<\/span><span class=\"en\">It must be done.<\/span><\/li><li><span class=\"bad\">The house has been build.<\/span><span class=\"en\">The house has been built.<\/span><\/li><li><span class=\"bad\">My car has being stolen.<\/span><span class=\"en\">My car has been stolen.<\/span><\/li><\/ul>",
+"rel": "<h4>Все слова<\/h4><div class=\"tw\"><table><tr><th>Слово<\/th><th>Заменяет<\/th><th>Пример<\/th><\/tr><tr><td>who<\/td><td>человек (подлежащее или дополнение)<\/td><td><span class=\"en\">the girl who called<\/span><\/td><\/tr><tr><td>whom<\/td><td>человек-дополнение, книжно<\/td><td><span class=\"en\">the man whom I met<\/span><\/td><\/tr><tr><td>which<\/td><td>предмет, животное<\/td><td><span class=\"en\">the car which broke down<\/span><\/td><\/tr><tr><td>that<\/td><td>человек или предмет, разговорно<\/td><td><span class=\"en\">the car that broke down<\/span><\/td><\/tr><tr><td>whose<\/td><td>чей<\/td><td><span class=\"en\">the boy whose bike was stolen<\/span><\/td><\/tr><tr><td>where<\/td><td>место<\/td><td><span class=\"en\">the café where we met<\/span><\/td><\/tr><tr><td>when<\/td><td>время<\/td><td><span class=\"en\">the day when we met<\/span><\/td><\/tr><tr><td>why<\/td><td>причина<\/td><td><span class=\"en\">the reason why I left<\/span><\/td><\/tr><\/table><\/div><h4>Два вида придаточных<\/h4><div class=\"tw\"><table><tr><th>Уточняющее<\/th><th>Добавляющее<\/th><\/tr><tr><td>без него непонятно, о ком речь<\/td><td>просто добавляет сведения<\/td><\/tr><tr><td>без запятых<\/td><td>в запятых<\/td><\/tr><tr><td>можно that, можно опустить слово<\/td><td>только who / which, опускать нельзя<\/td><\/tr><tr><td><span class=\"en\">The man who lives next door is a doctor.<\/span><\/td><td><span class=\"en\">My father, who lives in Kazan, is a doctor.<\/span><\/td><\/tr><\/table><\/div><h4>Когда слово опускают<\/h4><p>Только в уточняющем придаточном и только если оно не подлежащее: <span class=\"en\">the film (that) we saw<\/span>, <span class=\"en\">the people (who) I work with<\/span>. Проверка: после слова идёт подлежащее — можно убрать; идёт глагол — нельзя.<\/p><h4>Предлог<\/h4><p>В разговорной речи предлог уходит в конец: <span class=\"en\">the people I work with<\/span>, <span class=\"en\">the film I told you about<\/span>, <span class=\"en\">the house I grew up in<\/span>. В книжной — перед словом: <span class=\"en\">the house in which I grew up<\/span>.<\/p><h4>what — это не which<\/h4><p><b>what<\/b> = «то, что»: <span class=\"en\">I don't understand what you mean.<\/span> <span class=\"en\">What I need is rest.<\/span> После существительного what не ставят: <span class=\"en\">everything that I know<\/span>, а не «everything what I know».<\/p><h4>which ко всему предложению<\/h4><p><span class=\"en\">He passed the exam, which surprised everyone.<\/span> — «…что всех удивило».<\/p><h4>Запятые<\/h4><p>В русском запятая перед «который» обязательна. В английском уточняющее придаточное запятыми не выделяют.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">The man which lives here is my uncle.<\/span><span class=\"en\">The man who lives here is my uncle.<\/span><\/li><li><span class=\"bad\">This is the book which I bought it.<\/span><span class=\"en\">This is the book which I bought.<\/span><\/li><li><span class=\"bad\">The woman who her son is a pilot…<\/span><span class=\"en\">The woman whose son is a pilot…<\/span><\/li><li><span class=\"bad\">The city where I was born in…<\/span><span class=\"en\">The city where I was born…<\/span><small>или: the city I was born in<\/small><\/li><li><span class=\"bad\">Everything what he said was true.<\/span><span class=\"en\">Everything that he said was true.<\/span><\/li><li><span class=\"bad\">The man lives next door is a doctor.<\/span><span class=\"en\">The man who lives next door is a doctor.<\/span><small>подлежащее опускать нельзя<\/small><\/li><\/ul>",
+"ginf": "<h4>Предлоги, после которых чаще всего ошибаются<\/h4><div class=\"tw\"><table><tr><th>Выражение<\/th><th>Пример<\/th><\/tr><tr><td>be good / bad at<\/td><td><span class=\"en\">He is good at drawing.<\/span><\/td><\/tr><tr><td>be interested in<\/td><td><span class=\"en\">I am interested in learning Chinese.<\/span><\/td><\/tr><tr><td>be afraid of, be tired of<\/td><td><span class=\"en\">I am tired of waiting.<\/span><\/td><\/tr><tr><td>think about / of<\/td><td><span class=\"en\">I am thinking of changing my job.<\/span><\/td><\/tr><tr><td>thank for, sorry for<\/td><td><span class=\"en\">Sorry for being late.<\/span><\/td><\/tr><tr><td>instead of, without, before, after<\/td><td><span class=\"en\">Wash your hands before eating.<\/span><\/td><\/tr><tr><td>look forward to<\/td><td><span class=\"en\">I look forward to hearing from you.<\/span><\/td><\/tr><tr><td>be used to, get used to<\/td><td><span class=\"en\">I am used to getting up early.<\/span><\/td><\/tr><\/table><\/div><p>В последних двух строках <b>to<\/b> — предлог, а не часть инфинитива.<\/p><h4>Глаголы, меняющие смысл<\/h4><div class=\"tw\"><table><tr><th>Глагол<\/th><th>+ to<\/th><th>+ -ing<\/th><\/tr><tr><td>stop<\/td><td>остановиться, чтобы сделать<\/td><td>перестать делать<\/td><\/tr><tr><td>remember<\/td><td>не забыть сделать (впереди)<\/td><td>помнить, как делал (позади)<\/td><\/tr><tr><td>forget<\/td><td>забыть сделать<\/td><td>забыть, как делал<\/td><\/tr><tr><td>try<\/td><td>стараться, пытаться<\/td><td>попробовать как способ<\/td><\/tr><tr><td>regret<\/td><td>с сожалением сообщать<\/td><td>жалеть о сделанном<\/td><\/tr><tr><td>go on<\/td><td>перейти к новому делу<\/td><td>продолжать то же<\/td><\/tr><\/table><\/div><p>Общая подсказка: to смотрит вперёд, -ing — назад или на сам процесс.<\/p><h4>Глагол + человек + to<\/h4><p><b>want, ask, tell, advise, allow, expect, help, invite, teach, remind, would like<\/b>: <span class=\"en\">She reminded me to buy bread.<\/span> <span class=\"en\">They invited us to stay.<\/span> <span class=\"en\">I didn't expect him to come.<\/span><\/p><p>Отрицание — not перед to: <span class=\"en\">He told me not to worry.<\/span><\/p><h4>Без to<\/h4><ul><li><b>make, let<\/b> + человек + глагол: <span class=\"en\">Don't make me laugh.<\/span> <span class=\"en\">Let them go.<\/span><\/li><li>В пассиве у make to возвращается: <span class=\"en\">I was made to wait.<\/span><\/li><li><b>see, hear, watch, feel<\/b> + человек + глагол или -ing: <span class=\"en\">I saw him leave.<\/span> — всё действие. <span class=\"en\">I saw him leaving.<\/span> — в процессе.<\/li><li><b>had better, would rather<\/b>: <span class=\"en\">I would rather stay at home.<\/span><\/li><\/ul><h4>Глаголы только с -ing<\/h4><p><b>enjoy, finish, avoid, mind, suggest, keep, practise, imagine, miss, risk, can't help, can't stand, it's worth<\/b>: <span class=\"en\">It's worth trying.<\/span> <span class=\"en\">I can't help laughing.<\/span><\/p><p>После <b>suggest<\/b> нет «человек + to»: <span class=\"en\">He suggested going by train.<\/span><\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">I want that you come.<\/span><span class=\"en\">I want you to come.<\/span><\/li><li><span class=\"bad\">She made me to cry.<\/span><span class=\"en\">She made me cry.<\/span><\/li><li><span class=\"bad\">He suggested me to go.<\/span><span class=\"en\">He suggested going.<\/span><small>или: He suggested that I go<\/small><\/li><li><span class=\"bad\">I am looking forward to see you.<\/span><span class=\"en\">I am looking forward to seeing you.<\/span><\/li><li><span class=\"bad\">I stopped to smoke last year.<\/span><span class=\"en\">I stopped smoking last year.<\/span><small>бросил<\/small><\/li><li><span class=\"bad\">He told me to not worry.<\/span><span class=\"en\">He told me not to worry.<\/span><\/li><li><span class=\"bad\">I am used to get up early.<\/span><span class=\"en\">I am used to getting up early.<\/span><\/li><\/ul>",
+"art2": "<h4>Вообще или конкретно: проверка<\/h4><p>Спроси себя: можно ли добавить «вообще, любые»? Тогда артикля нет. Можно ли добавить «тот самый, вот этот»? Тогда the.<\/p><div class=\"tw\"><table><tr><th>В общем<\/th><th>Конкретно<\/th><\/tr><tr><td><span class=\"en\">I like coffee.<\/span><\/td><td><span class=\"en\">The coffee is cold.<\/span> — вот этот<\/td><\/tr><tr><td><span class=\"en\">Children need love.<\/span><\/td><td><span class=\"en\">The children are asleep.<\/span> — наши<\/td><\/tr><tr><td><span class=\"en\">History is interesting.<\/span><\/td><td><span class=\"en\">the history of Russia<\/span><\/td><\/tr><tr><td><span class=\"en\">Money is not everything.<\/span><\/td><td><span class=\"en\">Where is the money I gave you?<\/span><\/td><\/tr><\/table><\/div><p>Слово с <b>of<\/b> или придаточным после почти всегда становится конкретным и получает the.<\/p><h4>География целиком<\/h4><div class=\"tw\"><table><tr><th>С the<\/th><th>Без артикля<\/th><\/tr><tr><td>реки: the Volga, the Thames<\/td><td>города: Moscow, London<\/td><\/tr><tr><td>моря и океаны: the Black Sea, the Pacific<\/td><td>континенты: Asia, Africa<\/td><\/tr><tr><td>горные цепи: the Alps, the Urals<\/td><td>отдельные горы: Everest, Elbrus<\/td><\/tr><tr><td>группы островов: the Canaries<\/td><td>отдельные острова: Sakhalin, Crete<\/td><\/tr><tr><td>пустыни: the Sahara<\/td><td>озёра: Lake Baikal, Lake Ladoga<\/td><\/tr><tr><td>страны со словом-типом: the United Kingdom, the Russian Federation<\/td><td>страны: Russia, Germany, China<\/td><\/tr><tr><td>страны во мн. числе: the Netherlands, the Philippines<\/td><td>улицы и площади: Tverskaya Street, Red Square<\/td><\/tr><tr><td>стороны света как регионы: the north, the Far East<\/td><td>аэропорты, вокзалы, парки: Sheremetyevo, Gorky Park<\/td><\/tr><\/table><\/div><p>Гостиницы, театры, музеи, газеты — обычно с the: <span class=\"en\">the Hilton<\/span>, <span class=\"en\">the Bolshoi<\/span>, <span class=\"en\">the Hermitage<\/span>, <span class=\"en\">the Times<\/span>.<\/p><h4>Место по назначению и место как здание<\/h4><div class=\"tw\"><table><tr><th>Без артикля: по назначению<\/th><th>С the: просто здание<\/th><\/tr><tr><td><span class=\"en\">He is in hospital.<\/span> — он пациент<\/td><td><span class=\"en\">I went to the hospital to visit him.<\/span><\/td><\/tr><tr><td><span class=\"en\">The children are at school.<\/span> — учатся<\/td><td><span class=\"en\">The meeting is at the school.<\/span><\/td><\/tr><tr><td><span class=\"en\">He is in prison.<\/span> — сидит<\/td><td><span class=\"en\">She works at the prison.<\/span><\/td><\/tr><tr><td><span class=\"en\">We go to church on Sundays.<\/span> — на службу<\/td><td><span class=\"en\">The church is very old.<\/span><\/td><\/tr><\/table><\/div><p>Так же без артикля: <b>go to bed, go to work, at work, at home, go home, at university<\/b>. В американском английском говорят <span class=\"en\">in the hospital<\/span>.<\/p><h4>the с прилагательными и группами<\/h4><ul><li>Группа людей: <span class=\"en\">the rich<\/span>, <span class=\"en\">the young<\/span>, <span class=\"en\">the unemployed<\/span>.<\/li><li>Национальность как народ: <span class=\"en\">the French<\/span>, <span class=\"en\">the Japanese<\/span>.<\/li><li>Семья: <span class=\"en\">the Smiths<\/span>.<\/li><\/ul><h4>Устойчивые сочетания<\/h4><div class=\"tw\"><table><tr><th>С the<\/th><th>Без артикля<\/th><th>С a<\/th><\/tr><tr><td>in the morning, in the end, at the moment<\/td><td>at night, at first, by car, on foot<\/td><td>have a look, have a rest<\/td><\/tr><tr><td>the same, the only, the next day<\/td><td>last week, next year<\/td><td>in a hurry, for a while<\/td><\/tr><tr><td>on the left, on the radio<\/td><td>on TV, at lunch, by mistake<\/td><td>a lot of, a few<\/td><\/tr><\/table><\/div><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">I like the nature.<\/span><span class=\"en\">I like nature.<\/span><\/li><li><span class=\"bad\">The life is hard.<\/span><span class=\"en\">Life is hard.<\/span><\/li><li><span class=\"bad\">She is in the bed.<\/span><span class=\"en\">She is in bed.<\/span><\/li><li><span class=\"bad\">He lives in the Russia.<\/span><span class=\"en\">He lives in Russia.<\/span><\/li><li><span class=\"bad\">We swam in Black Sea.<\/span><span class=\"en\">We swam in the Black Sea.<\/span><\/li><li><span class=\"bad\">I listen to the music every day.<\/span><span class=\"en\">I listen to music every day.<\/span><\/li><li><span class=\"bad\">She plays piano.<\/span><span class=\"en\">She plays the piano.<\/span><\/li><\/ul>",
+"phr": "<h4>Три типа фразовых глаголов<\/h4><div class=\"tw\"><table><tr><th>Тип<\/th><th>Как себя ведёт<\/th><th>Примеры<\/th><\/tr><tr><td>без дополнения<\/td><td>после него ничего не нужно<\/td><td>get up, wake up, sit down, grow up, come back, go on, break down<\/td><\/tr><tr><td>разделяемые<\/td><td>дополнение в середине или в конце; местоимение только в середине<\/td><td>turn on / off, put on, take off, pick up, give up, find out, fill in, look up, throw away, switch off<\/td><\/tr><tr><td>неразделяемые<\/td><td>дополнение только в конце<\/td><td>look for, look after, get on / off (the bus), run out of, look forward to, get over<\/td><\/tr><\/table><\/div><h4>Порядок слов у разделяемых<\/h4><div class=\"tw\"><table><tr><th>Дополнение<\/th><th>Варианты<\/th><\/tr><tr><td>существительное<\/td><td><span class=\"en\">Turn off the TV.<\/span> = <span class=\"en\">Turn the TV off.<\/span><\/td><\/tr><tr><td>местоимение<\/td><td><span class=\"en\">Turn it off.<\/span> — только так<\/td><\/tr><tr><td>длинное дополнение<\/td><td>в конец: <span class=\"en\">Turn off the TV in the kitchen.<\/span><\/td><\/tr><\/table><\/div><h4>Глаголы на каждый день<\/h4><div class=\"tw\"><table><tr><th>Глагол<\/th><th>Значение<\/th><th>Пример<\/th><\/tr><tr><td>wake up<\/td><td>проснуться<\/td><td><span class=\"en\">I woke up at six.<\/span><\/td><\/tr><tr><td>get on / get off<\/td><td>сесть в / выйти из транспорта<\/td><td><span class=\"en\">Get off at the next stop.<\/span><\/td><\/tr><tr><td>come in / go out<\/td><td>войти / выйти<\/td><td><span class=\"en\">Come in!<\/span><\/td><\/tr><tr><td>sit down / stand up<\/td><td>сесть / встать<\/td><td><span class=\"en\">Please sit down.<\/span><\/td><\/tr><tr><td>go on<\/td><td>продолжать<\/td><td><span class=\"en\">Go on, I am listening.<\/span><\/td><\/tr><tr><td>come back<\/td><td>вернуться<\/td><td><span class=\"en\">When are you coming back?<\/span><\/td><\/tr><tr><td>hurry up<\/td><td>поторопиться<\/td><td><span class=\"en\">Hurry up!<\/span><\/td><\/tr><tr><td>look up<\/td><td>посмотреть в словаре, справочнике<\/td><td><span class=\"en\">Look it up online.<\/span><\/td><\/tr><tr><td>throw away<\/td><td>выбросить<\/td><td><span class=\"en\">Don't throw it away.<\/span><\/td><\/tr><tr><td>break down<\/td><td>сломаться (о технике)<\/td><td><span class=\"en\">The car broke down.<\/span><\/td><\/tr><tr><td>get on with<\/td><td>ладить<\/td><td><span class=\"en\">I get on well with my boss.<\/span><\/td><\/tr><tr><td>take off<\/td><td>взлететь; снять<\/td><td><span class=\"en\">The plane took off.<\/span><\/td><\/tr><\/table><\/div><h4>Одно сочетание — несколько значений<\/h4><p><span class=\"en\">take off<\/span> — снять одежду и взлететь. <span class=\"en\">pick up<\/span> — поднять, забрать человека, подхватить язык. <span class=\"en\">turn up<\/span> — прибавить звук и появиться. Смотри на контекст.<\/p><h4>Как их учить<\/h4><p>Не списком по глаголу (все сочетания с get), а по ситуациям: утро, дорога, телефон. И сразу целой фразой с дополнением.<\/p><h4>Одно слово вместо двух<\/h4><p>У многих есть «книжный» синоним: <b>give up<\/b> — quit, <b>find out<\/b> — discover, <b>go on<\/b> — continue, <b>come back<\/b> — return. В разговоре естественнее фразовый вариант.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">Turn off it.<\/span><span class=\"en\">Turn it off.<\/span><\/li><li><span class=\"bad\">I am looking my keys.<\/span><span class=\"en\">I am looking for my keys.<\/span><\/li><li><span class=\"bad\">Look the children after.<\/span><span class=\"en\">Look after the children.<\/span><\/li><li><span class=\"bad\">I get up me at seven.<\/span><span class=\"en\">I get up at seven.<\/span><small>«себя» не нужно<\/small><\/li><li><span class=\"bad\">Put off your coat.<\/span><span class=\"en\">Take off your coat.<\/span><small>put off = отложить<\/small><\/li><li><span class=\"bad\">I grew in Kazan.<\/span><span class=\"en\">I grew up in Kazan.<\/span><\/li><\/ul>"
 };
-const SOON={a:[],b:['Modals of deduction: must be, might be, can\'t be (предположения)','Third conditional: If I had known… (нереальное прошлое)','Passive in other tenses (пассив в других временах)','Relative clauses: who, which, that (придаточные)','Gerund and infinitive in depth (герундий и инфинитив)','Future forms compared (сравнение будущих времён)','Articles in depth (артикли подробнее)','Phrasal verbs (фразовые глаголы)']};
+const SOON={a:[],b:['Wishes and regrets: I wish, should have (сожаления)','Question tags: …, isn\'t it? (вопросы-хвостики)','both, either, neither, all, most (оба, ни один, все)','so and such, linking words (связки)','have something done (мне сделали)','Indirect questions: Could you tell me…? (вежливые вопросы)','Past habits and states: would, be used to (привычки)','Narrative tenses (времена в рассказе)']};
 const LEVELS=[{id:'a',name:'Elementary',cefr:'A1–A2'},{id:'b',name:'Intermediate',cefr:'B1'}];
 
 /* ---- test-only questions: never shown in practice, so a test measures the rule and not the memory of a sentence.
@@ -2650,7 +3098,10 @@ const TQ={
  ['mc','I ___ play football every day, but now I do not have time.',['used to','use to','am used'],0,'usedto:a'],
  ['mc','He started this job two years ___.',['ago','for','since'],0,'forsince:c'],
  ['gap','How long ___ you known each other?','have','ppc:d'],
- ['fix',"I didn't used to like fish.","I didn't use to like fish.",'usedto:b']],
+ ['fix',"I didn't used to like fish.","I didn't use to like fish.",'usedto:b'],
+ ['mc','"We have no bread." — "Really? I ___ some on my way home."',['will buy','am buying','buy'],0,'fut:a'],
+ ['mc','I cannot meet you tomorrow. I ___ to Kazan at ten, I have the ticket.',['am flying','will fly','fly'],0,'fut:c'],
+ ['mc','Be careful! You ___ drop those plates.',['are going to','will','are dropping'],0,'fut:b']],
 'b-conditions-and-reporting':[
  ['mc','If I ___ a lot of money, I would buy a house by the sea.',['had','have','would have'],0,'if2:a'],
  ['mc','If it ___ tomorrow, we will stay at home.',['rains','rained','would rain'],0,'if2:d'],
@@ -2658,7 +3109,10 @@ const TQ={
  ['mc','He ___ me that he would be late.',['told','said','say'],0,'reported:b'],
  ['mc','She asked me where I ___.',['worked','did work','do I work'],0,'reported:d'],
  ['gap','If I ___ you, I would take the job.','were|was','if2:c'],
- ['fix','He said me the truth.','He told me the truth.','reported:b']],
+ ['fix','He said me the truth.','He told me the truth.','reported:b'],
+ ['mc','If you ___ me yesterday, I would have helped you.',['had asked','asked','would have asked'],0,'if3:a'],
+ ['mc','We missed the flight. If we had left on time, we ___ it.',['would have caught','would catch','had caught'],0,'if3:a'],
+ ['fix','If I would have seen him, I would have told him.','If I had seen him, I would have told him.','if3:b']],
 'a-more-practice':[
  ['mc','It is cold in here. ___ the window, please.',['Close',"Let's",'Closing'],0,'imp:a'],
  ['mc','I am hungry. ___ have lunch.',["Let's",'Let',"Don't"],0,'imp:c'],
@@ -2669,6 +3123,39 @@ const TQ={
  ['gap!','Have you ___ your homework? (do)','done','irr:b'],
  ['gap!','We ___ pizza last night. (eat)','ate','irr:a'],
  ['fix','There are too much cars in the city.','There are too many cars in the city.','tooenough:d']],
+'b-modals-and-passive':[
+ ['mc','He has not eaten all day. He ___ be hungry.',['must',"can't",'might not'],0,'deduce:a'],
+ ['mc','She left an hour ago. She ___ be at home by now, but I am not sure.',['might','must',"can't"],0,'deduce:c'],
+ ['mc','That ___ be Anna. She is in Paris this week.',["can't","mustn't",'must'],0,'deduce:b'],
+ ['mc','The window is broken. Somebody ___ broken it during the night.',['must have','must',"can't have"],0,'deduce:d'],
+ ['mc','Your order ___ sent yet.',["hasn't been","hasn't","wasn't being"],0,'pass2:a'],
+ ['mc','Sorry, the lift ___ repaired at the moment.',['is being','has been','is been'],0,'pass2:b'],
+ ['mc','The winner ___ announced next week.',['will be','will','has been'],0,'pass2:c'],
+ ['gap','This form must ___ filled in by Friday.','be','pass2:c'],
+ ['fix','The new bridge has already opened by the mayor.','The new bridge has already been opened by the mayor.','pass2:a']],
+'b-clauses-and-verb-patterns':[
+ ['mc','The doctor ___ treated me was very kind.',['who','which','whose'],0,'rel:a'],
+ ['mc','That is the café ___ we first met.',['where','which','who'],0,'rel:b'],
+ ['mc','The boy ___ bike was stolen is crying.',['whose','who','which'],0,'rel:b'],
+ ['mc','The girl ___ sits next to me is from Italy.',['who','—','whose'],0,'rel:c'],
+ ['fix','This is the film that I told you about it.','This is the film that I told you about.|This is the film I told you about.|This is the film which I told you about.','rel:d'],
+ ['mc','He apologised for ___ late.',['being','to be','be'],0,'ginf:a'],
+ ['mc','I would like you ___ this letter.',['to read','read','reading'],0,'ginf:c'],
+ ['mc','The boss made us ___ late yesterday.',['work','to work','working'],0,'ginf:d'],
+ ['mc','I remember ___ him at a party last year.',['meeting','to meet','meet'],0,'ginf:b'],
+ ['fix','My parents did not let me to go out.','My parents did not let me go out.','ginf:d']],
+'b-articles-and-phrasal-verbs':[
+ ['mc','I think ___ money is not the most important thing in life.',['—','the','a'],0,'art2:a'],
+ ['mc','Thank you for ___ money you lent me.',['the','—','a'],0,'art2:a'],
+ ['mc','Have you ever been to ___ Alps?',['the','—','an'],0,'art2:b'],
+ ['mc','My sister lives in ___ Germany.',['—','the','a'],0,'art2:b'],
+ ['mc','What time do the children come home from ___ school?',['—','the','a'],0,'art2:c'],
+ ['mc','Can you play ___ piano?',['the','—','a'],0,'art2:d'],
+ ['mc','I cannot hear the radio. Can you turn ___?',['it up','up it','it off'],0,'phr:b'],
+ ['mc','My car broke down, so I am looking ___ a new one.',['for','after','up'],0,'phr:d'],
+ ['mc','We need to go shopping. We have run ___ of bread.',['out','off','up'],0,'phr:a'],
+ ['gap','She was born in Omsk, but she grew ___ in Moscow.','up','phr:a'],
+ ['fix','Your shoes are dirty. Take off them.','Your shoes are dirty. Take them off.','phr:b']],
 'b-more-practice':[
  ['mc','You will not pass the exam ___ you study harder.',['unless','if','when'],0,'unless:a'],
  ['mc','Unless she ___ now, she will miss the train.',['leaves',"doesn't leave",'will leave'],0,'unless:b'],
