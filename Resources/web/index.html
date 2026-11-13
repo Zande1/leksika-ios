@@ -134,7 +134,9 @@ body.sheet-open .player{display:none}
 .wtools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .wtools select{border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:6px 10px;font-size:13px;font-weight:600}
 .wtools .lab{font-size:12px;color:var(--muted);font-weight:700}
-.wrow .lv small{display:block;font-size:11px;white-space:nowrap}
+.wrow .lv{text-align:right;white-space:nowrap}
+.wrow .lv small{display:block;font-size:11px;white-space:nowrap;margin-top:2px}
+.wrow .lv small.lapse{display:inline-block;margin-top:5px;padding:2px 7px;border-radius:8px;background:var(--danger-soft,rgba(208,58,38,.14));color:var(--danger);font-weight:700}
 .wrow.sel{background:var(--accent-soft)}
 .selbar{position:sticky;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 8px);margin-top:10px;background:var(--ink);color:var(--bg);border-radius:14px;padding:10px 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;z-index:5}
 .selbar b{flex:1;font-size:13px;min-width:90px}
@@ -1398,7 +1400,8 @@ function fitSheetToKeyboard(){
 /* ================= words ================= */
 let wFilter='learn', wQuery='', wLimit=300, wLevel=0, wSort=LS.get('lx-wsort','new'), wSel=null, wDelArm=false;
 const wordsN=n=>{const m=n%100,k=n%10;return fmtN(n)+' '+((m>10&&m<20)?'слов':k===1?'слово':(k>=2&&k<=4)?'слова':'слов')};
-function dueLabel(w,now){if((w.status||1)>=5)return '';if(isDue(w,now))return 'сегодня';const n=Math.round((dayStart(w.due||now)-dayStart(now))/864e5);return n<=1?'завтра':'через '+n+' дн'}
+function errN(n){const a=n%10,b=n%100;return a===1&&b!==11?'ошибка':a>=2&&a<=4&&(b<12||b>14)?'ошибки':'ошибок'}
+function dueLabel(w,now){if((w.status||1)>=5)return '';if(isDue(w,now))return 'сегодня';const n=Math.round((dayStart(w.due||now)-dayStart(now))/864e5);return n<=1?'завтра':'через '+n+' дн.'}
 function renderWords(){
   $('#title').textContent='Мои слова';
   $('#view').innerHTML=`${viewSeg('words')}<input type="search" id="wq" placeholder="Поиск по слову или переводу" value="${esc(wQuery)}">
@@ -1427,7 +1430,7 @@ function renderWordList(){
   if(!arr.length){box.innerHTML=`<div class="empty">${S.words.size?'Ничего не найдено.':'Здесь появятся слова и фразы, на которые ты нажмёшь при чтении.'}</div>`;return}
   box.innerHTML=`<div class="small muted" style="margin-bottom:8px">${fmtN(arr.length)} записей</div><div class="wlist">`+arr.slice(0,wLimit).map(w=>{const s=w.status||1;
     const on=wSel&&wSel.has(w.k),dl=s>0&&s<5?dueLabel(w,now):'';
-    return `<button class="wrow${on?' sel':''}" data-k="${esc(w.k)}">${wSel?`<span style="font-size:18px;width:20px">${on?'☑':'☐'}</span>`:`<span class="dot" style="background:${s===5?'var(--accent)':s===-1?'var(--line)':'var(--l'+s+')'}"></span>`}<span class="tx"><b>${esc(w.w||w.k)}</b><div>${s===-1?'игнорируется':esc(w.tr||'— без перевода')}</div></span><span class="lv">${s===5?'✓':s===-1?'—':s+'/4'}${dl?`<small>${dl}</small>`:''}${(w.lapses||0)>=3?`<small>ошибок: ${w.lapses}</small>`:''}</span></button>`}).join('')+'</div>'+
+    return `<button class="wrow${on?' sel':''}" data-k="${esc(w.k)}">${wSel?`<span style="font-size:18px;width:20px">${on?'☑':'☐'}</span>`:`<span class="dot" style="background:${s===5?'var(--accent)':s===-1?'var(--line)':'var(--l'+s+')'}"></span>`}<span class="tx"><b>${esc(w.w||w.k)}</b><div>${s===-1?'игнорируется':esc(w.tr||'— без перевода')}</div></span><span class="lv">${s===5?'✓':s===-1?'—':'уровень '+s+' из 4'}${dl?`<small>повтор ${dl}</small>`:''}${(w.lapses||0)>=3?`<small class="lapse">${w.lapses} ${errN(w.lapses)}</small>`:''}</span></button>`}).join('')+'</div>'+
     (arr.length>wLimit?`<button class="btn" id="wMore" style="margin-top:10px">Показать ещё ${fmtN(Math.min(300,arr.length-wLimit))}</button>`:'')+
     (wSel?`<div class="selbar"><b>Выбрано: ${wSel.size}</b>${wFilter==='ign'?'':'<button data-bulk="known">✓ Знаю</button><button data-bulk="ign">Игнор</button>'}<button data-bulk="del" class="del">${wDelArm?'Точно удалить?':'Удалить'}</button><button data-bulk="all">Все</button></div>`:'');
   box.querySelectorAll('[data-bulk]').forEach(b=>b.onclick=()=>{const act=b.dataset.bulk,keys=[...wSel];
