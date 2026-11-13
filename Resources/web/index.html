@@ -333,6 +333,33 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);
 .sw[aria-pressed="true"]{background:var(--accent)}
 .sw[aria-pressed="true"]::after{transform:translateX(20px)}
 
+/* books, chapters, statistics by period */
+.backlink{align-self:flex-start;padding-left:6px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar.read{background:var(--line)}
+.bk-head{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.bk-meta{line-height:1.6;color:var(--muted)}
+.chap{display:flex;flex-direction:column;border-bottom:1px solid var(--line)}
+.chap:last-child{border-bottom:0}
+.chap-main{display:grid;grid-template-columns:26px 1fr auto;gap:12px;align-items:center;padding:14px 16px;border:0;background:none;text-align:left;width:100%;color:inherit}
+.chap-main .num{font-variant-numeric:tabular-nums;font-weight:700;text-align:center}
+.chap-main .num.ok{color:var(--accent)}
+.chap-main .tx{min-width:0;display:flex;flex-direction:column;gap:5px}
+.chap-main .tx b{font-family:var(--f-read);font-weight:600;font-size:17px;overflow-wrap:anywhere}
+.chap-main .m{font-size:13px;color:var(--muted)}
+.chap-main .cbar{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.chap-main .cbar i{display:block;height:100%;background:var(--accent);border-radius:999px}
+.chap-main .p{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--muted);min-width:42px;text-align:right}
+.chap-ed{display:flex;justify-content:flex-end;gap:4px;padding:0 12px 10px}
+.per{display:flex;flex-direction:column}
+.pr{display:grid;grid-template-columns:1fr auto;gap:5px 12px;padding:11px 0;border-top:1px solid var(--line);align-items:baseline}
+.pr:first-child{border-top:0}
+.pr .l{font-weight:700}
+.pr .l::first-letter{text-transform:uppercase}
+.pr .v{font-weight:800;font-variant-numeric:tabular-nums}
+.pr .t{grid-column:1/3;height:8px;border-radius:999px;background:var(--line);overflow:hidden}
+.pr .t i{display:block;height:100%;background:var(--accent);border-radius:999px}
+.pr .d{grid-column:1/3;font-size:13px;color:var(--muted)}
+.pr.none .l,.pr.none .v{color:var(--muted);font-weight:500}
 </style>
 
 <header class="top"><div class="wrap"><h1 id="title">Лексика</h1><div class="row" id="topActions"></div></div></header>
@@ -627,11 +654,12 @@ function speak(text,onend){
     wd=setTimeout(chk,est);
   },40);
 }
-function stopReading(){if(!reading)return;reading=null;spkTok++;if(NATIVE)NB.post('stop');else try{speechSynthesis.cancel()}catch(e){}document.querySelectorAll('.sent.playing').forEach(x=>x.classList.remove('playing'));syncPlayer()}
+function stopReading(){if(!reading)return;reading=null;pausedAt=playIdx;spkTok++;if(NATIVE)NB.post('stop');else try{speechSynthesis.cancel()}catch(e){}document.querySelectorAll('.sent.playing').forEach(x=>x.classList.remove('playing'));syncPlayer()}
 /* ---- player bar: the sentence being read is remembered, so «pause» then «play» continues from it ---- */
-let playIdx=-1;
+let playIdx=-1,pausedAt=-1;
+const speakable=e=>/[A-Za-z0-9]/.test(e.textContent);
 const PB_PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg>',PB_PAUSE='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
-function pageSents(){const pg=pages[pageIdx];return [...(pg?pg.el:document).querySelectorAll('.sent')].map(e=>+e.dataset.i)}
+function pageSents(){const pg=pages[pageIdx];return [...(pg?pg.el:document).querySelectorAll('.sent')].filter(speakable).map(e=>+e.dataset.i)}
 function syncPlayer(){
   const p=$('#player');if(!p)return;const on=view==='read'&&mode!=='loading'&&!!curLesson&&S.lessons.has(curLesson)&&spans.length>0;
   p.hidden=!on;document.body.classList.toggle('has-player',on);if(!on)return;
@@ -643,18 +671,19 @@ function syncPlayer(){
 function playToggle(){
   if(reading){stopReading();return}
   closeSheet();const ids=pageSents();if(!ids.length)return;
-  if(ids.includes(playIdx)){readFrom(playIdx);return}
-  const n=firstVisibleSpan();const st=spans[n]&&spans[n].closest('.sent');readFrom(st&&ids.includes(+st.dataset.i)?+st.dataset.i:ids[0]);
+  /* a fresh start reads the page from its first sentence; after a pause it goes on from the paused one */
+  readFrom(ids.includes(pausedAt)?pausedAt:ids[0]);
 }
 function playStep(d){const ids=pageSents();if(!ids.length)return;closeSheet();let p=ids.indexOf(playIdx);p=p<0?0:Math.max(0,Math.min(ids.length-1,p+d));readFrom(ids[p])}
 function cycleRate(){rate=rate>=1?0.7:rate>=0.9?1:0.9;LS.set('lx-rate',rate);const r=$('#rateBtn');if(r)r.textContent=`Скорость ${rate}×`;syncPlayer();if(reading)readFrom(playIdx)}
 $('#pbPlay').onclick=playToggle;$('#pbPrev').onclick=()=>playStep(-1);$('#pbNext').onclick=()=>playStep(1);$('#pbRate').onclick=cycleRate;
 function readFrom(i){
   const sents=[...document.querySelectorAll('#text .sent')];
-  if(i>=sents.length){stopReading();return}
+  if(i>=sents.length){stopReading();pausedAt=-1;return}
   const pgEl=sents[i].closest('.pg');
   /* listening stops at the end of the page: the reader turns it, so its words are counted and marked as usual */
-  if(pgEl&&pgEl.hidden){stopReading();toast('Страница дослушана. Нажми «Далее», чтобы перейти к следующей.');return}
+  if(pgEl&&pgEl.hidden){stopReading();pausedAt=-1;toast('Страница дослушана. Нажми «Далее», чтобы перейти к следующей.');return}
+  if(!speakable(sents[i])){readFrom(i+1);return}   /* dividers like *** are not read aloud */
   const token={};reading=token;playIdx=i;syncPlayer();
   sents.forEach(x=>x.classList.remove('playing'));sents[i].classList.add('playing');
   const r=sents[i].getBoundingClientRect();if(r.top<70||r.bottom>innerHeight*0.6)sents[i].scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
@@ -865,8 +894,8 @@ function buildParts(r){
 }
 
 /* ================= routing / render ================= */
-const VIEWS=['today','library','read','words','cards','progress'];
-const TAB_OF={cards:'words',progress:'today'};
+const VIEWS=['today','library','book','read','words','cards','progress'];
+const TAB_OF={cards:'words',progress:'today',book:'library'};
 let view=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):'today';
 let curLesson=LS.get('lx-lesson',null), parsed=null, session=null;
 addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(VIEWS.includes(v)&&v!==view){if(view==='read')savePos(true);view=v;stopReading();closeSheet();session=null;renderView();if(view!=='read')scrollTo(0,0)}});
@@ -923,7 +952,8 @@ let pend=false;
 function changed(){if(pend)return;pend=true;requestAnimationFrame(()=>{pend=false;if(mode==='loading')return;updateBadge();snapStats();
   const bn=$('#offBanner');if(bn)bn.hidden=!offline;
   if(view==='read'){paintWords();renderReaderStats()}
-  else if(view==='library'){if(!importState&&!libForm)renderView()}
+  else if(view==='library'){if(!importState&&!libForm&&!moveArm)renderView()}
+  else if(view==='book'){if(!bookForm&&!bookEdit)renderView()}
   else if(view==='words')renderWordList();
   else if(view==='progress'&&!$('#view .keep-open'))renderView();
   else if(view==='cards'&&!session)renderView();
@@ -939,14 +969,15 @@ function renderView(){
   const v=$('#view');
   if(mode==='loading'){$('#title').textContent='Лексика';v.innerHTML=`<div class="empty">${loadErr?esc(loadErr):'<span class="spin"></span> Загружаю тексты и слова…'}</div>`;return}
   updateBadge();
-  ({today:renderToday,library:renderLibrary,read:renderReader,words:renderWords,cards:renderCards,progress:renderProgress})[view]();
+  ({today:renderToday,library:renderLibrary,book:renderBook,read:renderReader,words:renderWords,cards:renderCards,progress:renderProgress})[view]();
   syncPlayer();
   if(offline)v.insertAdjacentHTML('afterbegin','<div class="banner" id="offBanner">Нет связи — показаны сохранённые данные. Изменения отправятся, когда интернет вернётся.</div>');
 }
 
 /* ================= library ================= */
-let libForm=null, delArm=null, importState=null;
-const openCourses=new Set(LS.get('lx-open',[]));
+let libForm=null, delArm=null, importState=null, moveArm=null;
+function bookSelect(id,cur,none){const bs=[...bookList().values()];if(!bs.length)return '';
+  return `<div class="field"><label for="${id}">Куда сохранить</label><select id="${id}"><option value="">${none}</option>${bs.map(b=>`<option value="${esc(b.id)}" ${b.id===cur?'selected':''}>В книгу «${esc(b.title)}»</option>`).join('')}</select></div>`}
 function renderLibrary(){
   $('#title').textContent='Тексты';
   let h=`<div class="row"><button class="btn primary" id="impBtn">Импорт файла</button><button class="btn" id="addBtn">Вставить текст</button>${canAI()?'<button class="btn" id="genBtn">Сгенерировать</button>':''}</div>`;
@@ -957,11 +988,13 @@ function renderLibrary(){
     else{const total=s.parts.reduce((a,p)=>a+p.words,0);
       h+=`<form class="panel" id="impForm"><h2>${esc(s.file)}</h2>
         <div class="field"><label for="impTitle">Название</label><input type="text" id="impTitle" value="${esc(s.title)}"></div>
+        ${bookSelect('impBook',importTarget,s.parts.length>1?'Новая книга':'Отдельный текст')}
         <div class="small muted">${s.parts.length>1?`${s.parts.length} уроков по ~${fmtN(Math.round(total/s.parts.length))} слов`:'1 урок'} · всего ${fmtN(total)} слов</div>
         ${s.parts.length>1?`<ol class="parts">${s.parts.slice(0,6).map(p=>`<li>${esc(p.title)} — ${fmtN(p.words)} сл.</li>`).join('')}${s.parts.length>6?`<li>… и ещё ${s.parts.length-6}</li>`:''}</ol>`:''}
         <div class="row"><button class="btn primary" type="submit" id="impGo">Импортировать</button><button class="btn ghost" type="button" id="impCancel">Отмена</button></div></form>`}
   }
   if(libForm==='add')h+=`<form class="panel" id="addForm"><div class="field"><label for="fTitle">Название</label><input type="text" id="fTitle" placeholder="Например: Shadow Slave, глава 12" required></div>
+    ${bookSelect('fBook',null,'Отдельный текст')}
     <div class="field"><label for="fText">Текст на английском</label><textarea id="fText" placeholder="Вставь сюда текст — статью, главу, субтитры…" required></textarea></div>
     <div class="row"><button class="btn primary" type="submit" id="addGo">Сохранить</button><button class="btn ghost" type="button" id="cancelF">Отмена</button></div></form>`;
   if(libForm==='gen')h+=`<form class="panel" id="genForm"><div class="field"><label for="gTopic">О чём текст</label><input type="text" id="gTopic" placeholder="Например: первый день на новой работе" required></div>
@@ -971,24 +1004,28 @@ function renderLibrary(){
   if(mode==='local'&&NATIVE&&!LS.get('lx-native-tip',false))h+=`<div class="note" id="natTip">Данные хранятся на этом iPhone. Чтобы перенести слова из веб-версии: там «Прогресс» → «Резервная копия», здесь «Прогресс» → «Восстановить из копии». <button class="btn ghost sm" id="natTipOff">Понятно</button></div>`;
   else if(mode==='local'&&!NATIVE)h+=`<div class="note">Сейчас всё сохраняется только в этом браузере. Открой страницу через Claude, чтобы прогресс синхронизировался между устройствами.</div>`;
 
-  const items=[];const courses=new Map();
-  for(const [id,l] of S.lessons){if(l.courseId){let c=courses.get(l.courseId);if(!c){c={id:l.courseId,title:l.course||'Курс',created:l.created||0,lessons:[]};courses.set(l.courseId,c);items.push({c})}c.lessons.push([id,l]);c.created=Math.max(c.created,l.created||0)}else items.push({id,l})}
+  const books=bookList(),items=[...books.values()].map(c=>({c}));
+  for(const [id,l] of S.lessons)if(!l.courseId)items.push({id,l});
   const lastOpen=LS.get('lx-recent',{});
   const when=it=>it.c?Math.max(it.c.created,...it.c.lessons.map(([id])=>lastOpen[id]||0)):Math.max(it.l.created||0,lastOpen[it.id]||0);
   items.sort((a,b)=>when(b)-when(a));
   if(!items.length)h+=`<div class="empty">Пока нет текстов. Импортируй файл, вставь текст или сгенерируй.</div>`;
   for(const it of items){
     if(!it.c){
-      const inf=lessonInfo(it.id);const st=keyStats(inf.keys);const pr=S.prog[it.id]||{};
-      h+=`<div class="lesson-wrap">${lessonCard(it.id,it.l.title,`${wordsN(inf.total)} · ${st.fresh} новых · ${st.learn} изучаю${isDone(it.id)?` · пройден${pr.reads>1?' ×'+pr.reads:''}`:''}`,st)}
-        <div class="lesson-actions"><button class="btn ghost sm danger" data-del="${esc(it.id)}">${delArm===it.id?'Точно удалить?':'Удалить'}</button></div></div>`;
+      const inf=lessonInfo(it.id);const st=keyStats(inf.keys);const pr=S.prog[it.id]||{},rp=readPct(it.id);
+      h+=`<div class="lesson-wrap">${lessonCard(it.id,it.l.title,`${wordsN(inf.total)} · ${st.fresh} новых · ${st.learn} изучаю${isDone(it.id)?` · пройден${pr.reads>1?' ×'+pr.reads:''}`:rp?` · прочитано ${rp}%`:''}`,st)}
+        <div class="lesson-actions"><button class="btn ghost sm" data-tobook="${esc(it.id)}">В книгу</button><button class="btn ghost sm danger" data-del="${esc(it.id)}">${delArm===it.id?'Точно удалить?':'Удалить'}</button></div>`;
+      if(moveArm===it.id)h+=`<form class="panel" id="mvForm"><div class="field"><label for="mvSel">В какую книгу перенести</label><select id="mvSel">${[...books.values()].map(c=>`<option value="${esc(c.id)}">${esc(c.title)}</option>`).join('')}<option value="">Новая книга…</option></select></div>
+        <div class="field" id="mvNameBox"><label for="mvName">Название новой книги</label><input type="text" id="mvName" value="${esc(it.l.title)}"></div>
+        <div class="row"><button class="btn primary" type="submit">Перенести</button><button class="btn ghost" type="button" id="mvCancel">Отмена</button></div></form>`;
+      h+=`</div>`;
     }else{
-      const c=it.c;c.lessons.sort((a,b)=>(a[1].order||0)-(b[1].order||0));
-      const keys=new Set();let total=0,done=0;for(const [id] of c.lessons){const inf=lessonInfo(id);for(const k of inf.keys)keys.add(k);total+=inf.total;if(isDone(id))done++}
-      const st=keyStats(keys);const open=openCourses.has(c.id);
-      h+=`<div class="lesson-wrap">${lessonCard('c:'+c.id,c.title,`${c.lessons.length} уроков · ${wordsN(total)} · пройдено ${done}`,st)}`;
-      if(open)h+=`<div class="course-parts">`+c.lessons.map(([id,l],i)=>{const s2=keyStats(lessonInfo(id).keys);const d=isDone(id);return `<button class="part" data-open="${esc(id)}"><span class="${d?'ok':'muted'}">${d?'✓':i+1}</span><span class="t">${esc(l.title)}</span><span class="p">${s2.n?Math.round(s2.known/s2.n*100):0}%</span></button>`}).join('')+`</div>`;
-      h+=`<div class="lesson-actions"><button class="btn ghost sm" data-cont="${esc(c.id)}">Продолжить</button><button class="btn ghost sm danger" data-delc="${esc(c.id)}">${delArm==='c:'+c.id?'Удалить все уроки?':'Удалить'}</button></div></div>`;
+      const c=it.c;let total=0,rd=0,done=0;for(const [id] of c.lessons){total+=lessonInfo(id).total;rd+=readWords(id);if(isDone(id))done++}
+      const pct=total?Math.round(rd/total*100):0;
+      h+=`<div class="lesson-wrap"><button class="lesson" data-open="c:${esc(c.id)}"><h3>${esc(c.title)}</h3><div class="meta">Книга · ${c.lessons.length} ${chapN(c.lessons.length)} · ${wordsN(total)} · пройдено ${done}</div>
+        <div class="pct"><b>${pct}%</b><span class="small muted">прочитано</span></div>
+        <div class="bar read"><i style="width:${total?rd/total*100:0}%;background:var(--accent)"></i></div></button>
+        <div class="lesson-actions"><button class="btn ghost sm" data-cont="${esc(c.id)}">${rd?'Продолжить чтение':'Начать читать'}</button></div></div>`;
     }
   }
   $('#view').innerHTML=h;
@@ -997,17 +1034,84 @@ function renderLibrary(){
   $('#addBtn').onclick=()=>{libForm=libForm==='add'?null:'add';renderView();$('#fTitle')&&$('#fTitle').focus()};
   $('#genBtn')&&($('#genBtn').onclick=()=>{libForm=libForm==='gen'?null:'gen';renderView();$('#gTopic')&&$('#gTopic').focus()});
   $('#cancelF')&&($('#cancelF').onclick=()=>{libForm=null;renderView()});
-  $('#impCancel')&&($('#impCancel').onclick=()=>{importState=null;renderView()});
-  const imf=$('#impForm');if(imf)imf.onsubmit=async e=>{e.preventDefault();await saveParts(importState.parts,$('#impTitle').value.trim()||importState.title)};
-  const af=$('#addForm');if(af)af.onsubmit=async e=>{e.preventDefault();const t=$('#fTitle').value.trim()||'Без названия';const parts=buildParts({title:t,sections:[{title:'',text:clean($('#fText').value)}]});if(!parts.length){toast('В тексте нет английских слов.');return}$('#addGo').disabled=true;await saveParts(parts,t)};
+  $('#impCancel')&&($('#impCancel').onclick=()=>{importState=null;importTarget=null;renderView()});
+  const imf=$('#impForm');if(imf)imf.onsubmit=async e=>{e.preventDefault();await saveParts(importState.parts,$('#impTitle').value.trim()||importState.title,($('#impBook')||{}).value||null)};
+  const af=$('#addForm');if(af)af.onsubmit=async e=>{e.preventDefault();const t=$('#fTitle').value.trim()||'Без названия';const parts=buildParts({title:t,sections:[{title:'',text:clean($('#fText').value)}]});if(!parts.length){toast('В тексте нет английских слов.');return}$('#addGo').disabled=true;await saveParts(parts,t,($('#fBook')||{}).value||null)};
   const gf=$('#genForm');if(gf)gf.onsubmit=async e=>{e.preventDefault();const go=$('#gGo');go.disabled=true;$('#gStatus').innerHTML='<span class="spin"></span> Пишу текст…';
     try{const r=await sample.json(`Write an original English reading text for a learner at CEFR level ${$('#gLevel').value} on this topic (topic given in Russian or English): "${$('#gTopic').value}". 180–260 words, 3–5 short paragraphs separated by a blank line, natural everyday language, a small story or clear structure. Reply with only JSON: {"title":"short English title","text":"the text"}`,{cache:false});
       if(!r||!r.text)throw {code:'invalid_json'};const id='l'+Date.now().toString(36);await putLesson(id,{title:String(r.title||'Новый текст'),text:String(r.text),created:Date.now()});libForm=null;openLesson(id)}
     catch(err){go.disabled=false;$('#gStatus').textContent=sampleError(err)||''}};
-  document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{const id=b.dataset.open;if(id.startsWith('c:')){const c=id.slice(2);openCourses.has(c)?openCourses.delete(c):openCourses.add(c);LS.set('lx-open',[...openCourses]);renderView()}else openLesson(id)});
-  document.querySelectorAll('[data-cont]').forEach(b=>b.onclick=()=>{const ls=[...S.lessons.entries()].filter(([,l])=>l.courseId===b.dataset.cont).sort((a,b)=>(a[1].order||0)-(b[1].order||0));const nx=ls.find(([id])=>!isDone(id))||ls[0];if(nx)openLesson(nx[0])});
+  document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{const id=b.dataset.open;if(id.startsWith('c:'))openBook(id.slice(2));else openLesson(id)});
+  document.querySelectorAll('[data-cont]').forEach(b=>b.onclick=()=>{const bk=bookList().get(b.dataset.cont),nx=bk&&bookNext(bk);if(nx)openLesson(nx)});
+  document.querySelectorAll('[data-tobook]').forEach(b=>b.onclick=()=>{moveArm=moveArm===b.dataset.tobook?null:b.dataset.tobook;delArm=null;renderView()});
+  const mv=$('#mvForm');if(mv){const sel=$('#mvSel'),nb=$('#mvNameBox'),syn=()=>{nb.hidden=!!sel.value};sel.onchange=syn;syn();$('#mvCancel').onclick=()=>{moveArm=null;renderView()};
+    mv.onsubmit=async e=>{e.preventDefault();const id=moveArm,l=S.lessons.get(id);if(!l)return;let cid=sel.value,title,ord=0;
+      if(cid){const bk=bookList().get(cid);if(!bk)return;title=bk.title;ord=Math.max(-1,...bk.lessons.map(([,x])=>x.order||0))+1}
+      else{title=$('#mvName').value.trim()||l.title;cid='c'+Date.now().toString(36)}
+      moveArm=null;await putLesson(id,{...l,course:title,courseId:cid,order:ord});openBook(cid)}}
   document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{const id=b.dataset.del;if(delArm===id){delArm=null;dropLesson(id);if(curLesson===id)curLesson=null}else{delArm=id;renderView()}});
-  document.querySelectorAll('[data-delc]').forEach(b=>b.onclick=()=>{const cid=b.dataset.delc;if(delArm==='c:'+cid){delArm=null;for(const [id,l] of [...S.lessons])if(l.courseId===cid){dropLesson(id);if(curLesson===id)curLesson=null}}else{delArm='c:'+cid;renderView()}});
+}
+/* ================= books: a text with courseId belongs to a book; each of its lessons is a chapter ================= */
+let curBook=LS.get('lx-book',null), bookForm=false, bookEdit=false, importTarget=null;
+const chapN=n=>{const m=n%100,k=n%10;return (m>10&&m<20)?'глав':k===1?'глава':(k>=2&&k<=4)?'главы':'глав'};
+function bookList(){
+  const m=new Map();
+  for(const [id,l] of S.lessons)if(l.courseId){let b=m.get(l.courseId);if(!b){b={id:l.courseId,title:l.course||'Книга',created:0,lessons:[]};m.set(b.id,b)}b.lessons.push([id,l]);b.created=Math.max(b.created,l.created||0)}
+  for(const b of m.values())b.lessons.sort((x,y)=>(x[1].order||0)-(y[1].order||0)||(x[1].created||0)-(y[1].created||0));
+  return m;
+}
+/* words of a lesson already read: pages turned so far, or all of it once the lesson is finished */
+function readWords(id){const t=lessonInfo(id).total,p=S.prog[id]||{};return isDone(id)?t:Math.min(t,Math.max(p.rd||0,0))}
+function readPct(id){const t=lessonInfo(id).total;return t?Math.round(readWords(id)/t*100):0}
+function bookNext(b){return (b.lessons.find(([id])=>!isDone(id))||b.lessons[0]||[])[0]}
+function openBook(id){curBook=id;LS.set('lx-book',id);bookForm=false;bookEdit=false;delArm=null;if(view==='book'){renderView();scrollTo(0,0)}else location.hash='book'}
+function renderBook(){
+  const b=curBook&&bookList().get(curBook);
+  if(!b){$('#title').textContent='Тексты';$('#view').innerHTML='<div class="empty">Книга не найдена.</div>';location.hash='library';return}
+  $('#title').textContent=b.title;
+  const keys=new Set();let total=0,rd=0,done=0;
+  const rows=b.lessons.map(([id,l],i)=>{const inf=lessonInfo(id);for(const k of inf.keys)keys.add(k);total+=inf.total;const r=readWords(id);rd+=r;const d=isDone(id);if(d)done++;
+    return {id,l,i,d,total:inf.total,pct:inf.total?Math.round(r/inf.total*100):0,fresh:keyStats(inf.keys).fresh}});
+  const st=keyStats(keys),pct=total?Math.round(rd/total*100):0,nx=bookNext(b),mx=Math.max(1,st.n);
+  let h=`<button class="btn ghost sm backlink" id="bkBack">← Все тексты</button>
+    <div class="panel">
+      <div class="bk-head"><div><div class="big-num">${pct}%</div><div class="small muted">прочитано</div></div>
+        <div class="small bk-meta">${b.lessons.length} ${chapN(b.lessons.length)} · ${wordsN(total)}<br>пройдено глав: ${done} из ${b.lessons.length}<br>осталось прочитать: ${wordsN(Math.max(0,total-rd))}</div></div>
+      <div class="progress"><i style="width:${total?rd/total*100:0}%"></i></div>
+      <div class="dist">
+        <div class="r"><span>Новые</span><span class="t"><i style="width:${st.fresh/mx*100}%;background:var(--new)"></i></span><span class="n">${fmtN(st.fresh)}</span></div>
+        <div class="r"><span>Изучаю</span><span class="t"><i style="width:${st.learn/mx*100}%;background:var(--l1)"></i></span><span class="n">${fmtN(st.learn)}</span></div>
+        <div class="r"><span>Знаю</span><span class="t"><i style="width:${st.known/mx*100}%;background:var(--accent)"></i></span><span class="n">${fmtN(st.known)}</span></div>
+      </div>
+      <div class="small muted">Разных слов в книге: ${fmtN(st.n)}.</div>
+      <div class="row"><button class="btn primary" id="bkCont">${rd?'Продолжить':'Начать читать'}</button><button class="btn" id="bkAdd">Добавить главу</button><button class="btn ghost" id="bkEdit">${bookEdit?'Готово':'Изменить'}</button></div>
+    </div>`;
+  if(bookForm)h+=`<form class="panel" id="bkForm"><h2>Новая глава</h2>
+      <div class="field"><label for="bkTitle">Название главы</label><input type="text" id="bkTitle" placeholder="Например: Chapter ${b.lessons.length+1}"></div>
+      <div class="field"><label for="bkText">Текст на английском</label><textarea id="bkText" placeholder="Вставь сюда текст главы" required></textarea></div>
+      <div class="row"><button class="btn primary" type="submit" id="bkGo">Сохранить</button><button class="btn" type="button" id="bkFile">Из файла</button><button class="btn ghost" type="button" id="bkCancel">Отмена</button></div>
+      <div class="small muted">Длинный текст сам разделится на несколько глав по ~1 800 слов.</div></form>`;
+  if(bookEdit)h+=`<form class="panel" id="bkRen"><div class="field"><label for="bkName">Название книги</label><input type="text" id="bkName" value="${esc(b.title)}" required></div>
+      <div class="row"><button class="btn" type="submit">Сохранить название</button><button class="btn danger" type="button" id="bkDel">${delArm==='c:'+b.id?'Точно удалить книгу со всеми главами?':'Удалить книгу'}</button></div>
+      <div class="small muted">Стрелки меняют порядок глав. Прогресс и слова при этом не теряются.</div></form>`;
+  h+=`<span class="label">Главы</span><div class="course-parts">`+rows.map(r=>`<div class="chap"><button class="chap-main" data-open="${esc(r.id)}"><span class="num ${r.d?'ok':'muted'}">${r.d?'✓':r.i+1}</span>
+      <span class="tx"><b>${esc(r.l.title)}</b><span class="m">${wordsN(r.total)}${r.fresh?' · новых: '+fmtN(r.fresh):''}${r.id===curLesson?' · открыта':''}</span><span class="cbar"><i style="width:${r.pct}%"></i></span></span>
+      <span class="p">${r.pct}%</span></button>${bookEdit?`<span class="chap-ed"><button class="btn ghost sm" data-up="${r.i}" aria-label="Выше" ${r.i?'':'disabled'}>↑</button><button class="btn ghost sm" data-down="${r.i}" aria-label="Ниже" ${r.i<rows.length-1?'':'disabled'}>↓</button><button class="btn ghost sm danger" data-delch="${esc(r.id)}">${delArm===r.id?'Точно?':'Удалить'}</button></span>`:''}</div>`).join('')+`</div>`;
+  $('#view').innerHTML=h;
+  $('#bkBack').onclick=()=>{location.hash='library'};
+  $('#bkCont').onclick=()=>{if(nx)openLesson(nx)};
+  $('#bkAdd').onclick=()=>{bookForm=!bookForm;bookEdit=false;renderView();const t=$('#bkTitle');if(t){t.scrollIntoView({block:'center'});t.focus()}};
+  $('#bkEdit').onclick=()=>{bookEdit=!bookEdit;bookForm=false;delArm=null;renderView()};
+  document.querySelectorAll('.chap-main').forEach(x=>x.onclick=()=>openLesson(x.dataset.open));
+  const f=$('#bkForm');if(f){$('#bkCancel').onclick=()=>{bookForm=false;renderView()};
+    $('#bkFile').onclick=()=>{importTarget=b.id;$('#fileIn').value='';$('#fileIn').click()};
+    f.onsubmit=async e=>{e.preventDefault();const t=$('#bkTitle').value.trim()||('Chapter '+(b.lessons.length+1));const parts=buildParts({title:t,sections:[{title:'',text:clean($('#bkText').value)}]});if(!parts.length){toast('В тексте нет английских слов.');return}$('#bkGo').disabled=true;await saveParts(parts,t,b.id)}}
+  const rn=$('#bkRen');if(rn){rn.onsubmit=async e=>{e.preventDefault();const name=$('#bkName').value.trim();if(!name||name===b.title){bookEdit=false;renderView();return}for(const [id,l] of b.lessons)await putLesson(id,{...l,course:name});bookEdit=false;renderView();toast('Название изменено')};
+    $('#bkDel').onclick=()=>{if(delArm==='c:'+b.id){delArm=null;bookEdit=false;for(const [id] of b.lessons){dropLesson(id);if(curLesson===id)curLesson=null}curBook=null;LS.set('lx-book',null);location.hash='library'}else{delArm='c:'+b.id;renderView()}}}
+  const swap=async(i,j)=>{const ls=b.lessons;[ls[i],ls[j]]=[ls[j],ls[i]];for(let k=0;k<ls.length;k++)if((ls[k][1].order??-1)!==k)await putLesson(ls[k][0],{...ls[k][1],order:k});renderView()};
+  document.querySelectorAll('[data-up]').forEach(x=>x.onclick=()=>swap(+x.dataset.up,+x.dataset.up-1));
+  document.querySelectorAll('[data-down]').forEach(x=>x.onclick=()=>swap(+x.dataset.down,+x.dataset.down+1));
+  document.querySelectorAll('[data-delch]').forEach(x=>x.onclick=()=>{const id=x.dataset.delch;if(delArm===id){delArm=null;dropLesson(id);if(curLesson===id)curLesson=null;renderView()}else{delArm=id;renderView()}});
 }
 function lessonCard(id,title,meta,st){
   const pk=st.n?Math.round(st.known/st.n*100):0;
@@ -1026,12 +1130,19 @@ $('#fileIn').onchange=async e=>{
   }catch(err){importState={file:f.name,err:(err&&err.message)||'Не удалось прочитать файл.'}}
   renderView();
 };
-async function saveParts(parts,title){
-  const now=Date.now();const btn=$('#impGo')||$('#addGo');if(btn)btn.disabled=true;
+async function saveParts(parts,title,target){
+  const now=Date.now();const btn=$('#impGo')||$('#addGo')||$('#bkGo');if(btn)btn.disabled=true;
+  const bk=target&&bookList().get(target);
+  if(bk){   /* new chapters go to the end of an existing book */
+    const ord=Math.max(-1,...bk.lessons.map(([,l])=>l.order||0))+1,base=now.toString(36);
+    for(let i=0;i<parts.length;i++){if(btn&&parts.length>1)btn.textContent=`Сохраняю ${i+1}/${parts.length}…`;
+      await putLesson(target+'-a'+base+'-'+i,{title:parts.length===1?title:parts[i].title,text:parts[i].text,created:now+i,course:bk.title,courseId:target,order:ord+i})}
+    importState=null;libForm=null;importTarget=null;toast(parts.length>1?`Добавлено глав: ${parts.length}`:'Глава добавлена');openBook(target);return}
+  importTarget=null;
   if(parts.length===1){const id='l'+now.toString(36);await putLesson(id,{title,text:parts[0].text,created:now});importState=null;libForm=null;openLesson(id);return}
   const cid='c'+now.toString(36);
   for(let i=0;i<parts.length;i++){if(btn)btn.textContent=`Сохраняю ${i+1}/${parts.length}…`;await putLesson(cid+'-'+i,{title:parts[i].title,text:parts[i].text,created:now,course:title,courseId:cid,order:i})}
-  importState=null;libForm=null;openCourses.add(cid);LS.set('lx-open',[...openCourses]);toast(`Сохранено уроков: ${parts.length}`);openLesson(cid+'-0');
+  importState=null;libForm=null;toast(`Книга сохранена, глав: ${parts.length}`);openBook(cid);
 }
 function openLesson(id){
   if(view==='read')savePos(true);
@@ -1072,6 +1183,7 @@ function pageOf(n){const i=pages.findIndex(p=>n>=p.from&&n<p.to);return i<0?0:i}
 function showPage(i){
   if(!pages.length)return;
   pageIdx=Math.max(0,Math.min(pages.length-1,i));pages.forEach((p,k)=>p.el.hidden=k!==pageIdx);pageSec=0;
+  if(!reading){playIdx=-1;pausedAt=-1}
   const last=pageIdx===pages.length-1,pg=$('#pager'),eb=$('#endbox');
   if(eb)eb.hidden=!last;
   if(pg){pg.hidden=pages.length<2;
@@ -1134,7 +1246,7 @@ function renderReader(){
   $('#topActions').innerHTML=`<button class="icon-btn" id="fsDown" aria-label="Мельче">A−</button><button class="icon-btn" id="fsUp" aria-label="Крупнее">A+</button>`;
   parsed=parseText(l.text||'');
   const nx=nextLessonId();
-  $('#view').innerHTML=`${l.course?`<div class="small muted">${esc(l.course)}</div>`:''}
+  $('#view').innerHTML=`${l.courseId?`<button class="btn ghost sm backlink" id="toBook">← ${esc(l.course||'Книга')}</button>`:''}
     <div class="toolbar"><button class="btn" id="rateBtn">Скорость ${rate}×</button>${voiceSelectHtml()}</div>
     ${IS_IOS&&!NATIVE&&voices.length&&vScore(voices[0])<2&&!LS.get('lx-tts-tip-off',false)?'<div class="note" id="ttsTip">Нужен живой голос (Ava Premium)? iOS не даёт его веб-страницам, но можно слушать через систему: включи «Проговаривание экрана» в Настройки → Универсальный доступ → Устный контент, выбери там Ava (Premium) и проведи двумя пальцами вниз от верхнего края экрана. <button class="btn ghost sm" id="ttsTipOff">Понятно</button></div>':''}
     <div class="legend"><span><i style="background:var(--new)"></i>новое</span><span><i style="background:var(--l1)"></i>изучаю</span><span><i></i>знаю</span><span>Зажми слово и веди пальцем — выделится фраза</span></div>
@@ -1152,6 +1264,7 @@ function renderReader(){
   $('#fsUp').onclick=()=>{fs=Math.min(30,fs+2);LS.set('lx-fs',fs);$('#text').style.setProperty('--fs',fs+'px')};
   $('#fsDown').onclick=()=>{fs=Math.max(14,fs-2);LS.set('lx-fs',fs);$('#text').style.setProperty('--fs',fs+'px')};
   $('#rateBtn').onclick=cycleRate;
+  $('#toBook')&&($('#toBook').onclick=()=>{savePos(true);openBook(l.courseId)});
   $('#finish').onclick=finishLesson;
   $('#ttsTipOff')&&($('#ttsTipOff').onclick=()=>{LS.set('lx-tts-tip-off',true);$('#ttsTip').remove()});
   $('#nextL')&&($('#nextL').onclick=()=>openLesson(nx));
@@ -1574,6 +1687,31 @@ function startSession(keys,ahead){if(!keys.length)return;session={q:keys,i:0,tot
 /* ================= progress (real data only) ================= */
 const STEPS=[0,250,500,1000,2000,3000,5000,8000,12000,16000,20000];
 let restoreArm=false;
+const RU_MON=['янв.','февр.','марта','апр.','мая','июня','июля','авг.','сент.','окт.','нояб.','дек.'],RU_MONTH=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+function gramDays(){let g=null;try{g=window.__NATIVE_GRAMMAR}catch(e){}if(!g||typeof g!=='object')g=LS.get('gr1',null);return (g&&g.days)||{}}
+function periodRows(kind){
+  const days=S.days||{},gd=gramDays(),rows=[],now=new Date();now.setHours(12,0,0,0);
+  const sum=(from,to)=>{const r={rsec:0,read:0,rev:0,act:0};const d=new Date(from);while(d<=to){const k=today(d),x=days[k],g=gd[k];if(x){r.rsec+=x.rsec||0;r.read+=x.read||0;r.rev+=x.reviews||0}if(g)r.act+=g.act||0;d.setDate(d.getDate()+1)}return r};
+  if(kind==='day')for(let i=0;i<30;i++){const d=new Date(now);d.setDate(d.getDate()-i);rows.push({label:i===0?'Сегодня':i===1?'Вчера':d.toLocaleDateString('ru-RU',{weekday:'short',day:'numeric',month:'long'}),...sum(d,d)})}
+  else if(kind==='week'){const m=new Date(now);m.setDate(m.getDate()-((m.getDay()+6)%7));
+    for(let i=0;i<12;i++){const a=new Date(m);a.setDate(a.getDate()-7*i);const b=new Date(a);b.setDate(b.getDate()+6);
+      rows.push({label:i===0?'Эта неделя':i===1?'Прошлая неделя':a.getDate()+(a.getMonth()===b.getMonth()?'':' '+RU_MON[a.getMonth()])+' – '+b.getDate()+' '+RU_MON[b.getMonth()],...sum(a,b>now?now:b)})}}
+  else for(let i=0;i<12;i++){const a=new Date(now.getFullYear(),now.getMonth()-i,1,12),b=new Date(now.getFullYear(),now.getMonth()-i+1,0,12);
+    rows.push({label:i===0?'Этот месяц':RU_MONTH[a.getMonth()]+(a.getFullYear()!==now.getFullYear()?' '+a.getFullYear():''),...sum(a,b>now?now:b)})}
+  /* periods before the first day with any activity are not listed */
+  let last=0;rows.forEach((r,i)=>{if(r.rsec||r.read||r.rev||r.act)last=i});
+  return rows.slice(0,Math.max(last+1,kind==='day'?7:kind==='week'?2:1));
+}
+const fmtDur=sec=>!sec?'—':sec<60?'меньше минуты':fmtMin(sec);
+function periodPanel(){
+  const k=LS.get('lx-statper','day'),rows=periodRows(k),mx=Math.max(1,...rows.map(r=>r.rsec));
+  return `<div class="panel"><h2>Время чтения</h2>
+    <div class="viewseg" role="group" aria-label="Период">${[['day','Дни'],['week','Недели'],['month','Месяцы']].map(([v,n])=>`<button data-per="${v}" aria-pressed="${k===v}">${n}</button>`).join('')}</div>
+    <div class="per">${rows.map(r=>{const any=r.rsec||r.read||r.rev||r.act;
+      const d=[r.read?wordsN(r.read)+' прочитано':'',r.rev?'карточки: '+fmtN(r.rev):'',r.act?'грамматика: '+fmtDur(r.act):''].filter(Boolean).join(' · ');
+      return `<div class="pr${any?'':' none'}"><span class="l">${esc(r.label)}</span><span class="v">${any?fmtDur(r.rsec).replace('—','0 мин'):'—'}</span>${r.rsec?`<span class="t"><i style="width:${Math.max(2,r.rsec/mx*100)}%"></i></span>`:''}${d?`<span class="d">${d}</span>`:''}</div>`}).join('')}</div>
+    <div class="small muted">Главное число в строке — время на вкладке «Чтение». Грамматика считается отдельно и в него не входит.</div></div>`;
+}
 function renderProgress(){
   $('#title').textContent='Прогресс';
   const known=knownCount();const fam=famCount();
@@ -1615,6 +1753,7 @@ function renderProgress(){
       <div class="tile"><b>${fmtMin(tr.rsec)}</b><span>время чтения</span></div>
       <div class="tile"><b>${(tr.ts||0)>=60?Math.round(tr.tw/tr.ts*60):'—'}</b><span>слов в минуту</span></div>
     </div>
+    ${periodPanel()}
     <div class="panel"><h2>Известные слова по дням</h2>${chartKnown(days,known)}</div>
     <div class="panel"><h2>Мои слова по уровням</h2><div class="dist">
       ${[1,2,3,4].map(n=>`<div class="r"><span>Уровень ${n}</span><span class="t"><i style="width:${lv[n-1]/dmax*100}%;background:var(--l${n});${n>2?'box-shadow:inset 0 0 0 1px var(--l1)':''}"></i></span><span class="n">${fmtN(lv[n-1])}</span></div>`).join('')}
@@ -1635,6 +1774,7 @@ function renderProgress(){
       <div class="row"><button class="btn ${restoreArm?'danger':''}" id="impJson">${restoreArm?'Выбрать файл копии':'Восстановить из копии'}</button>${restoreArm?'<span class="small muted">Данные из копии добавятся к текущим.</span>':''}</div>
     </div>
     <div class="small muted">Статистика по дням ведётся с первого запуска. Ступени — шкала приложения по числу известных слов, а не уровень CEFR или LingQ.</div>`;
+  document.querySelectorAll('[data-per]').forEach(b=>b.onclick=()=>{LS.set('lx-statper',b.dataset.per);const y=scrollY;renderProgress();scrollTo(0,y)});
   $('#expCsv')&&($('#expCsv').onclick=exportCsv);
   $('#expJson')&&($('#expJson').onclick=exportJson);
   $('#impJson').onclick=()=>{if(!restoreArm){restoreArm=true;renderProgress();return}restoreArm=false;$('#backupIn').value='';$('#backupIn').click();renderProgress()};
