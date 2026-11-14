@@ -352,6 +352,9 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);
 .chap-ed{display:flex;justify-content:flex-end;gap:4px;padding:0 12px 10px}
 .bk-facts .tile b{font-size:26px;font-weight:800;letter-spacing:-.02em}
 .bk-facts .tile{box-shadow:none;background:var(--bg);border:0}
+.fam{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px;background:var(--bg);border-radius:12px;padding:8px 8px 8px 12px}
+.fam span{min-width:0;overflow-wrap:anywhere}
+.wrow .tx .forms{font-size:12px;opacity:.85}
 .per{display:flex;flex-direction:column}
 .pr{display:grid;grid-template-columns:1fr auto;gap:5px 12px;padding:11px 0;border-top:1px solid var(--line);align-items:baseline}
 .pr:first-child{border-top:0}
@@ -451,7 +454,7 @@ let db=null, sample=null, downloads=null, sampleOff=false, mode='loading', loadE
 function statusOf(k){const w=S.words.get(k);if(w)return w.status||1;const v=S.kn.get(k);return v===1?5:v===2?-1:0}
 function knownKeys(){const out=[];for(const w of S.words.values())if(!w.phrase&&w.status===5)out.push(w.k);for(const [k,v] of S.kn)if(v===1&&!S.words.has(k))out.push(k);return out}
 function knownCount(){let n=0;for(const w of S.words.values())if(!w.phrase&&w.status===5)n++;for(const [k,v] of S.kn)if(v===1&&!S.words.has(k))n++;return n}
-function learningCount(){let n=0;for(const w of S.words.values())if((w.status||1)<5)n++;return n}
+function learningCount(){return famMap().size}
 let vocabVer=0, famCache={v:-1,n:0};
 /* irregular forms -> base word */
 const IRR=(()=>{const m=new Map();`be:am,is,are,was,were,been,being,isn't,aren't,wasn't,weren't|have:has,had,having,hasn't,haven't,hadn't|do:does,did,done,doing,doesn't,didn't|go:goes,went,gone,going|say:says,said|get:got,gotten|make:made|know:knew,known|think:thought|take:took,taken|see:saw,seen|come:came|give:gave,given|find:found|tell:told|become:became|leave:left|feel:felt|bring:brought|begin:began,begun|keep:kept|hold:held|write:wrote,written|stand:stood|hear:heard|mean:meant|meet:met|run:ran|pay:paid|sit:sat|speak:spoke,spoken|lie:lay,lain|lead:led|grow:grew,grown|lose:lost|fall:fell,fallen|send:sent|build:built|understand:understood|draw:drew,drawn|break:broke,broken|spend:spent|rise:rose,risen|drive:drove,driven|buy:bought|wear:wore,worn|choose:chose,chosen|seek:sought|throw:threw,thrown|catch:caught|deal:dealt|win:won|forget:forgot,forgotten|sell:sold|fight:fought|teach:taught|eat:ate,eaten|sing:sang,sung|drink:drank,drunk|swim:swam,swum|fly:flew,flown|freeze:froze,frozen|hide:hid,hidden|ride:rode,ridden|shake:shook,shaken|steal:stole,stolen|wake:woke,woken|bite:bit,bitten|blow:blew,blown|feed:fed|fly:flies|forgive:forgave,forgiven|hang:hung|light:lit|sleep:slept|sweep:swept|weep:wept|bend:bent|lend:lent|shoot:shot|slide:slid|stick:stuck|strike:struck|swing:swung|dig:dug|bleed:bled|breed:bred|flee:fled|kneel:knelt|dream:dreamt|learn:learnt|burn:burnt|smell:smelt|spell:spelt|spill:spilt|tear:tore,torn|bear:bore,born,borne|beat:beaten|arise:arose,arisen|shine:shone|withdraw:withdrew,withdrawn|undertake:undertook,undertaken|overcome:overcame|child:children|man:men|woman:women|person:people|foot:feet|tooth:teeth|mouse:mice|goose:geese|life:lives|wife:wives|knife:knives|leaf:leaves|half:halves|wolf:wolves|shelf:shelves|thief:thieves|good:better,best|bad:worse,worst|far:further,farther,furthest,farthest|little:less,least|many:more,most|i:me,my,mine,myself|you:your,yours,yourself,yourselves|he:him,his,himself|she:her,hers,herself|it:its,itself|we:us,our,ours,ourselves|they:them,their,theirs,themselves|can:could,can't,couldn't,cannot|will:would,won't,wouldn't|shall:should,shouldn't|may:might`.split('|').forEach(g=>{const [b,f]=g.split(':');for(const x of f.split(','))m.set(x,b)});return m})();
@@ -461,6 +464,16 @@ function lemmaKey(k){
   const base=k.replace(/n't$/,'').replace(/'(s|re|ll|ve|d|m)$/,'');
   return stem(IRR.get(k)||IRR.get(base)||base);
 }
+/* ---- word families: forms of one word (walk, walked, walking) that are being learned share one card and one
+   schedule. A form marked «solo» is learned on its own; phrases and known words are never linked. ---- */
+function famKey(k,ignoreSolo){const w=S.words.get(k);if(w&&(w.phrase||(w.solo&&!ignoreSolo)))return 'k:'+k;return 'f:'+lemmaKey(k)}
+let famIdx={v:-1,m:null};
+function famMap(){if(famIdx.v!==vocabVer){const m=new Map();for(const w of S.words.values()){if((w.status||1)>=5)continue;const f=famKey(w.k);let a=m.get(f);if(!a)m.set(f,a=[]);a.push(w)}famIdx={v:vocabVer,m}}return famIdx.m}
+function siblings(k){const w=S.words.get(k);if(!w||(w.status||1)>=5)return [];return (famMap().get(famKey(k))||[]).filter(x=>x.k!==k)}
+/* forms that would be linked to this one if it were not learned separately */
+function wouldLink(k){const w=S.words.get(k);if(!w||w.phrase||(w.status||1)>=5)return [];const f=famKey(k,true);return [...S.words.values()].filter(x=>x.k!==k&&!x.phrase&&!x.solo&&(x.status||1)<5&&famKey(x.k)===f)}
+/* save a word and give its linked forms the same level and review date */
+function saveLinked(w,sib){saveWord(w);for(const x of sib){const cur=S.words.get(x.k);if(cur)saveWord({...cur,status:w.status,streak:w.streak||0,due:w.due,last:w.last,interval:w.interval||0})}}
 function famCount(){if(famCache.v!==vocabVer)famCache={v:vocabVer,n:new Set(knownKeys().map(lemmaKey)).size};return famCache.n}
 /* CEFR thresholds: Milton & Alexiou (2009), known words among the 5000 most frequent (X-Lex) */
 const CEFR=[['A1',0],['A2',1500],['B1',2750],['B2',3250],['C1',3750],['C2',4500]];
@@ -593,7 +606,7 @@ function initLocal(){
   if(!data&&natL)data={};
   if(data){S.lessons=new Map(Object.entries(natL||data.lessons||{}));S.words=new Map(Object.entries(data.words||{}));S.kn=new Map(Object.entries(data.kn||{}));S.prog=data.prog||{};S.days=data.days||{}}
   else S.lessons.set('sample',{title:SAMPLE.title,text:SAMPLE.text,created:Date.now()});
-  dayRec();tidyOnce();persistLocal();renderView();
+  dayRec();tidyOnce();lemmaOnce();persistLocal();renderView();
 }
 function initDb(){
   const got={},conf={};const names=['lessons','vocab','prog','days'];let ready=false;
@@ -994,7 +1007,8 @@ function changed(){if(pend)return;pend=true;requestAnimationFrame(()=>{pend=fals
   else if(view==='today')renderView();
   if(sheet)updateSheet();})}
 
-function dueKeys(){const now=Date.now();return [...S.words.values()].filter(w=>(w.status||1)<5&&isDue(w,now)).sort((a,b)=>(a.due||0)-(b.due||0)).map(w=>w.k)}
+function oneFormEach(keys){const seen=new Set();return keys.filter(k=>{const f=famKey(k);if(seen.has(f))return false;seen.add(f);return true})}
+function dueKeys(){const now=Date.now();return oneFormEach([...S.words.values()].filter(w=>(w.status||1)<5&&isDue(w,now)).sort((a,b)=>(a.due||0)-(b.due||0)).map(w=>w.k))}
 function updateBadge(){const n=mode==='loading'?0:dueKeys().length;const b=$('#dueBadge');b.hidden=!n;b.textContent=n>99?'99+':n}
 
 function renderView(){
@@ -1408,11 +1422,23 @@ function createLingq(extra,s=sheet,manual=false){
   if(S.words.has(s.k))return;
   if(!manual&&!autoLingq())return;
   const now=Date.now();
-  saveWord({k:s.k,w:s.display,tr:'',lemma:'',ipa:'',note:'',ctx:s.ctx,status:1,interval:0,ease:2.5,due:now,reps:0,created:now,...(s.phrase?{phrase:true}:{}),...extra});
-  bump('created');
+  const obj={k:s.k,w:s.display,tr:'',lemma:'',ipa:'',note:'',ctx:s.ctx,status:1,interval:0,ease:2.5,due:now,reps:0,created:now,...(s.phrase?{phrase:true}:{}),...extra};
+  saveWord(obj);bump('created');
+  const sib=siblings(s.k);
+  if(sib.length){
+    if(manual&&extra&&extra.status)saveLinked(obj,sib);                 /* the level was chosen by hand: the family follows it */
+    else{const h=sib[0];saveWord({...obj,status:h.status||1,streak:h.streak||0,due:h.due,last:h.last,interval:h.interval||0})}   /* otherwise the new form takes the family's level */
+  }
 }
 /* variants: no repeats, at most three, lower case unless the English word itself is capitalised */
 /* one pass over the saved words: remove repeated variants and stray capitals left by the old translator */
+async function lemmaOnce(){
+  if(!NATIVE||LS.get('lx-lemma1',false))return;
+  const ws=[...S.words.values()].filter(w=>!w.phrase&&!w.lemma);if(!ws.length){LS.set('lx-lemma1',true);return}
+  try{const r=await NB.call('lemmas',{items:ws.map(w=>[w.w||w.k,w.ctx||''])},20000);
+    if(Array.isArray(r)){ws.forEach((w,i)=>{const l=String(r[i]||'').toLowerCase();const cur=S.words.get(w.k);if(cur&&!cur.lemma&&/^[a-z']+$/.test(l))saveWord({...cur,lemma:l})});LS.set('lx-lemma1',true)}
+  }catch(e){}
+}
 function tidyOnce(){
   if(LS.get('lx-trclean1',false))return;LS.set('lx-trclean1',true);
   for(const w of [...S.words.values()]){const t=cleanTr(w.tr,w.w||w.k);if(t&&t!==w.tr)saveWord({...w,tr:t})}
@@ -1497,7 +1523,10 @@ function updateSheet(){
   setHtml('shMeta',`${s.phrase?'<div class="small muted">Фраза</div>':''}${(d.ipa||d.lemma)?`<div class="sw-ipa">${d.ipa?'['+esc(d.ipa)+']':''}${d.lemma&&norm(d.lemma)!==s.k?`${d.ipa?' · ':''}словарная форма: <b>${esc(d.lemma)}</b>`:''}</div>`:''}${s.loading?'<div class="muted small"><span class="spin"></span> Перевожу…</div>':''}${!w&&st===0&&!autoLingq()?'<div class="small muted">Слово ещё не в изучаемых. Выбери уровень, чтобы добавить его.</div>':''}${s.err?`<div class="small" style="color:var(--danger)">${esc(s.err)}</div>`:''}`);
   const inp=$('#trInput');if(document.activeElement!==inp){const v=d.tr||'';if(inp.value!==v)inp.value=v;inp.placeholder=s.loading?'…':'Впиши свой перевод'}fitTr(inp);
   const phs=s.phList.map(pk=>S.words.get(pk)).filter(Boolean);
+  const sib=w?siblings(s.k):[],could=w&&w.solo?wouldLink(s.k):[];
   setHtml('shDyn',`${d.note?`<div class="small muted">${esc(d.note)}</div>`:''}
+    ${sib.length?`<div class="fam"><span>Учится одной карточкой с: <b>${sib.map(x=>esc(x.w||x.k)).join(', ')}</b></span><button class="btn ghost sm" data-act="solo">Учить отдельно</button></div>`:''}
+    ${could.length?`<div class="fam"><span>Учится отдельно от: <b>${could.map(x=>esc(x.w||x.k)).join(', ')}</b></span><button class="btn ghost sm" data-act="unsolo">Объединить</button></div>`:''}
     ${phs.length?`<div class="inph"><span class="label">Входит во фразу</span>${phs.map(p=>`<button data-act="phrase" data-k="${esc(p.k)}"><b>${esc(p.w)}</b> — ${esc(p.tr||'без перевода')}</button>`).join('')}</div>`:''}
     ${ctx?`<div class="ctx">${markCtx(ctx,s.display)}${s.sentTr?`<div class="small muted" style="margin-top:6px;font-family:var(--f-ui)">${esc(s.sentTr)}</div>`:''}</div>`:''}
     ${s.explain?`<div class="explain">${esc(s.explain)}</div>`:''}
@@ -1518,6 +1547,8 @@ async function onSheetClick(e){
     case 'close':closeSheet();break;
     case 'speak':speak(s.display);break;
     case 'sent':speak(ctx);break;
+    case 'solo':{const cur=S.words.get(s.k);if(cur)saveWord({...cur,solo:true});break}
+    case 'unsolo':{const cur=S.words.get(s.k);if(cur){const o={...cur};delete o.solo;saveWord(o);const sb=siblings(s.k);if(sb.length){const h=sb[0];saveWord({...o,status:h.status||1,streak:h.streak||0,due:h.due,last:h.last,interval:h.interval||0})}}break}
     case 'readfrom':{const si=s.si;closeSheet();readFrom(si);break}
     case 'look':fetchLookup();break;
     case 'relook':relook();break;
@@ -1540,7 +1571,7 @@ function setLevel(n){
   if(cur){
     const upd={...cur,tr:tr||cur.tr,status:n,streak:0};
     if(n===5)upd.due=now+30*864e5;else if((cur.status||1)===5||n<(cur.status||1)){upd.due=now;upd.interval=0}
-    saveWord(upd);
+    saveLinked(upd,siblings(s.k));
   }
   else if(n===5&&!tr&&!s.phrase)setKn([s.k],1);
   else createLingq({...(s.lookup||{}),tr:tr||(s.lookup&&s.lookup.tr)||'',status:n,...(n===5?{due:now+30*864e5}:{})},s,true);
@@ -1585,7 +1616,7 @@ function renderWordList(){
   if(!arr.length){box.innerHTML=`<div class="empty">${S.words.size?'Ничего не найдено.':'Здесь появятся слова и фразы, на которые ты нажмёшь при чтении.'}</div>`;return}
   box.innerHTML=`<div class="small muted" style="margin-bottom:8px">${fmtN(arr.length)} записей</div><div class="wlist">`+arr.slice(0,wLimit).map(w=>{const s=w.status||1;
     const on=wSel&&wSel.has(w.k),dl=s>0&&s<5?dueLabel(w,now):'';
-    return `<button class="wrow${on?' sel':''}" data-k="${esc(w.k)}">${wSel?`<span style="font-size:18px;width:20px">${on?'☑':'☐'}</span>`:`<span class="dot" style="background:${s===5?'var(--accent)':s===-1?'var(--line)':'var(--l'+s+')'}"></span>`}<span class="tx"><b>${esc(w.w||w.k)}</b><div>${s===-1?'игнорируется':esc(w.tr||'— без перевода')}</div></span><span class="lv">${s===5?'✓':s===-1?'—':'уровень '+s+' из 4'}${dl?`<small>повтор ${dl}</small>`:''}${(w.lapses||0)>=3?`<small class="lapse">${w.lapses} ${errN(w.lapses)}</small>`:''}</span></button>`}).join('')+'</div>'+
+    return `<button class="wrow${on?' sel':''}" data-k="${esc(w.k)}">${wSel?`<span style="font-size:18px;width:20px">${on?'☑':'☐'}</span>`:`<span class="dot" style="background:${s===5?'var(--accent)':s===-1?'var(--line)':'var(--l'+s+')'}"></span>`}<span class="tx"><b>${esc(w.w||w.k)}</b><div>${s===-1?'игнорируется':esc(w.tr||'— без перевода')}</div>${s>0&&s<5&&siblings(w.k).length?`<div class="forms">вместе с: ${siblings(w.k).map(x=>esc(x.w||x.k)).join(', ')}</div>`:''}</span><span class="lv">${s===5?'✓':s===-1?'—':'уровень '+s+' из 4'}${dl?`<small>повтор ${dl}</small>`:''}${(w.lapses||0)>=3?`<small class="lapse">${w.lapses} ${errN(w.lapses)}</small>`:''}</span></button>`}).join('')+'</div>'+
     (arr.length>wLimit?`<button class="btn" id="wMore" style="margin-top:10px">Показать ещё ${fmtN(Math.min(300,arr.length-wLimit))}</button>`:'')+
     (wSel?`<div class="selbar"><b>Выбрано: ${wSel.size}</b>${wFilter==='ign'?'':'<button data-bulk="known">✓ Знаю</button><button data-bulk="ign">Игнор</button>'}<button data-bulk="del" class="del">${wDelArm?'Точно удалить?':'Удалить'}</button><button data-bulk="all">Все</button></div>`:'');
   box.querySelectorAll('[data-bulk]').forEach(b=>b.onclick=()=>{const act=b.dataset.bulk,keys=[...wSel];
@@ -1681,7 +1712,7 @@ function renderCards(){
   const c=ss.cur;const ru=dir==='ru'&&!!w.tr;
   const word=esc(w.w||w.k);const ctxH=w.ctx?`<div class="ctx" style="text-align:left">${ctxWords(w.ctx,w.w||w.k)}</div>`:'';
   const wordBlock=`<div class="row" style="justify-content:center"><div class="big">${word}</div><button class="icon-btn" id="cSpk" aria-label="Озвучить">${SPK}</button></div>`;
-  const trBlock=`<div class="ans">${w.ipa?`<div class="sw-ipa">[${esc(w.ipa)}]</div>`:''}<div class="sw-tr">${esc(w.tr||'— перевод не добавлен')}</div>${w.lemma&&norm(w.lemma)!==w.k&&!w.phrase?`<div class="small muted">словарная форма: ${esc(w.lemma)}</div>`:''}${w.note?`<div class="small muted">${esc(w.note)}</div>`:''}</div>`;
+  const trBlock=`<div class="ans">${w.ipa?`<div class="sw-ipa">[${esc(w.ipa)}]</div>`:''}<div class="sw-tr">${esc(w.tr||'— перевод не добавлен')}</div>${w.lemma&&norm(w.lemma)!==w.k&&!w.phrase?`<div class="small muted">словарная форма: ${esc(w.lemma)}</div>`:''}${w.note?`<div class="small muted">${esc(w.note)}</div>`:''}${siblings(w.k).length?`<div class="small muted">эта карточка идёт и за формы: ${siblings(w.k).map(x=>esc(x.w||x.k)).join(', ')}</div>`:''}</div>`;
   const shown=c.answered!==null||c.revealed;
   const ctxFront=!ctxH||shown||c.ctxOpen?ctxH:`<button class="btn ghost sm" id="ctxShow">Показать предложение</button>`;
   let front=ru?`<div class="big" style="font-family:var(--f-ui);font-size:24px">${esc(w.tr)}</div>`:wordBlock+ctxFront;
@@ -1710,7 +1741,7 @@ function renderCards(){
     if(Date.now()<gradeLock)return;gradeLock=Date.now()+300;
     const cur=S.words.get(c.k);if(!cur)return;
     const counted=!ss.ahead&&!ss.again.has(cur.k);
-    const r=grade(cur,ok,counted);saveWord(r.w);bump('reviews');
+    const sib=siblings(cur.k);const r=grade(cur,ok,counted);saveLinked(r.w,sib);bump('reviews');
     c.result={ok,leveled:r.leveled,status:r.w.status};
     if(ok)ss.right++;else ss.wrong++;
     if(r.leveled)ss.up++;if(r.w.status===5&&r.leveled)ss.learned++;
@@ -1721,10 +1752,10 @@ function renderCards(){
   $('#reveal')&&($('#reveal').onclick=()=>{c.revealed=true;renderCards();if(ru&&LS.get('lx-autospeak',true))speak(w.w||w.k)});
   document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{if(c.answered!==null)return;c.answered=+b.dataset.r;answer(b.dataset.r==='1');renderCards()});
   $('#next')&&($('#next').onclick=()=>{if(Date.now()<gradeLock)return;gradeLock=Date.now()+250;ss.i++;ss.done++;ss.cur=null;renderCards();speakCurrent()});
-  $('#knowIt')&&($('#knowIt').onclick=()=>{const cur=S.words.get(c.k);if(!cur)return;saveWord({...cur,status:5,streak:0,due:Date.now()+60*864e5});ss.learned++;ss.i++;ss.done++;ss.cur=null;renderCards();speakCurrent()});
+  $('#knowIt')&&($('#knowIt').onclick=()=>{const cur=S.words.get(c.k);if(!cur)return;saveLinked({...cur,status:5,streak:0,due:Date.now()+60*864e5},siblings(cur.k));ss.learned++;ss.i++;ss.done++;ss.cur=null;renderCards();speakCurrent()});
 }
 function speakCurrent(){const s=session;if(!s||s.i>=s.q.length||LS.get('lx-dir','en')==='ru'||!LS.get('lx-autospeak',true))return;const w=S.words.get(s.q[s.i]);if(w)speak(w.w||w.k)}
-function startSession(keys,ahead){if(!keys.length)return;session={q:keys,i:0,total:keys.length,done:0,again:new Set(),ahead:!!ahead,right:0,wrong:0,up:0,learned:0,cur:null};renderCards();speakCurrent()}
+function startSession(keys,ahead){keys=oneFormEach(keys);if(!keys.length)return;session={q:keys,i:0,total:keys.length,done:0,again:new Set(),ahead:!!ahead,right:0,wrong:0,up:0,learned:0,cur:null};renderCards();speakCurrent()}
 
 /* ================= progress (real data only) ================= */
 const STEPS=[0,250,500,1000,2000,3000,5000,8000,12000,16000,20000];
@@ -1855,7 +1886,18 @@ function exportJson(){
 $('#backupIn').onchange=async e=>{
   const f=e.target.files&&e.target.files[0];if(!f)return;
   try{
-    const d=JSON.parse(decodeText(await f.arrayBuffer()));if(!d||d.app!=='leksika')throw new Error('Это не резервная копия «Лексики».');
+    const d=JSON.parse(decodeText(await f.arrayBuffer()));
+    if(d&&!d.app&&d.v&&d.words&&d.kn){   /* a daily copy made by the iPhone app: it holds words and progress, not texts */
+      toast(`Автокопия: ${fmtN(Object.keys(d.words).length)} слов в изучении. Заменить ею текущие слова и прогресс?`,'Заменить',()=>{
+        for(const k of [...S.words.keys()])if(!d.words[k])vocabWrite(k,null,undefined);
+        for(const k of [...S.kn.keys()])if(!d.kn[k])vocabWrite(k,undefined,0);
+        for(const [k,w] of Object.entries(d.words))if(w&&w.k)vocabWrite(k,w,undefined);
+        for(const [k,v] of Object.entries(d.kn))if(!d.words[k])vocabWrite(k,undefined,v);
+        for(const [id,pr] of Object.entries(d.prog||{}))setProg(id,pr,0);
+        if(d.days)S.days={...d.days};
+        persistLocal();toast('Слова и прогресс заменены копией');renderView()});
+      return}
+    if(!d||d.app!=='leksika')throw new Error('Это не резервная копия «Лексики».');
     toast('Восстанавливаю…');
     for(const [id,l] of Object.entries(d.lessons||{}))if(!S.lessons.has(id))await putLesson(id,l);
     for(const [k,w] of Object.entries(d.words||{}))if(w&&w.k&&!S.words.has(k))vocabWrite(k,w,undefined);

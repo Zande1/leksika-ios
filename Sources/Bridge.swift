@@ -37,6 +37,14 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
         case "voices":
             reply(id, true, speaker.voices())
 
+        case "lemmas":
+            // Dictionary forms for a batch of [word, sentence] pairs, found on the device.
+            let items = data["items"] as? [[String]] ?? []
+            let found: [String] = items.map { pair in
+                Lemma.of(pair.first ?? "", in: pair.count > 1 ? pair[1] : "")
+            }
+            reply(id, true, found)
+
         case "speak":
             let text = data["text"] as? String ?? ""
             let rate = (data["rate"] as? NSNumber)?.doubleValue ?? 0.9

@@ -179,6 +179,34 @@ enum Store {
         return nil
     }
 
+    /// A dated copy of words, progress and grammar, made on the first save of a day.
+    /// Kept in Documents/Backups (visible in the Files app); the newest seven days stay.
+    private static func dailyCopy() {
+        let fm = FileManager.default
+        let root = url.deletingLastPathComponent().appendingPathComponent("Backups", isDirectory: true)
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd"
+        let day = root.appendingPathComponent(formatter.string(from: Date()), isDirectory: true)
+        if fm.fileExists(atPath: day.path) { return }
+        do {
+            try fm.createDirectory(at: day, withIntermediateDirectories: true)
+        } catch {
+            return
+        }
+        for source in [url, grammarURL] {
+            if fm.fileExists(atPath: source.path) {
+                try? fm.copyItem(at: source, to: day.appendingPathComponent(source.lastPathComponent))
+            }
+        }
+        if let names = try? fm.contentsOfDirectory(atPath: root.path) {
+            let dated = names.filter { $0.count == 10 }.sorted()
+            for old in dated.dropLast(7) {
+                try? fm.removeItem(at: root.appendingPathComponent(old))
+            }
+        }
+    }
+
     static func save(_ text: String) {
         queue.async {
             guard let data = text.data(using: .utf8),
@@ -190,6 +218,7 @@ enum Store {
                 try? fm.removeItem(at: prevURL)
                 try? fm.copyItem(at: url, to: prevURL)
                 backedUp = true
+                dailyCopy()
             }
             try? data.write(to: url, options: .atomic)
         }
