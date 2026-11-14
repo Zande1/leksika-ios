@@ -356,6 +356,13 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);
 .fam span{min-width:0;overflow-wrap:anywhere}
 .wrow .tx .forms{font-size:12px;opacity:.85}
 .sc-help ol{margin:6px 0 10px;padding-left:20px;line-height:1.5}
+.askrow{display:flex;gap:8px}
+.askrow input{flex:1;min-width:0;font:inherit;font-size:16px;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.linkbtn{background:none;border:0;padding:0;color:var(--accent);font:inherit;font-size:14px;font-weight:600;align-self:flex-start;text-align:left}
+.quiz textarea{font:inherit;font-size:16px;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);resize:vertical}
+.quiz label{text-transform:none;letter-spacing:0;font-size:16px;color:var(--ink);font-weight:600;line-height:1.4}
+.exs{display:flex;flex-direction:column;gap:8px;text-align:left;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.exs div{display:flex;flex-direction:column;gap:2px}
 .per{display:flex;flex-direction:column}
 .pr{display:grid;grid-template-columns:1fr auto;gap:5px 12px;padding:11px 0;border-top:1px solid var(--line);align-items:baseline}
 .pr:first-child{border-top:0}
@@ -1337,6 +1344,7 @@ function renderReader(){
     <div class="pager" id="pager" hidden></div>
     <span class="small muted" id="pgHint" hidden>${autoKnown()?'«Далее» засчитывает слова страницы как прочитанные и отмечает её синие слова как известные. Отменить можно сразу после нажатия.':'«Далее» засчитывает слова страницы как прочитанные. Синие слова остаются синими, пока не отметишь их сам.'} Страницы можно листать и свайпом.</span>
     <div class="endbox" id="endbox"><div class="stats" id="rStats"></div>
+      ${canAsk()?'<div id="quizBox"></div>':''}
       <div class="row"><button class="btn primary" id="finish"></button>${nx?`<button class="btn" id="nextL">Следующий урок →</button>`:''}</div>
       <span class="small muted">«Завершить урок» отмечает оставшиеся синие слова как известные и засчитывает прочитанные слова. Это можно отменить.</span></div>`;
   spans=[...document.querySelectorAll('#text .w')];
@@ -1349,12 +1357,46 @@ function renderReader(){
   $('#rateBtn').onclick=cycleRate;
   $('#toBook')&&($('#toBook').onclick=()=>{savePos(true);openBook(l.courseId)});
   $('#finish').onclick=finishLesson;
+  renderQuiz();
   $('#ttsTipOff')&&($('#ttsTipOff').onclick=()=>{LS.set('lx-tts-tip-off',true);$('#ttsTip').remove()});
   $('#nextL')&&($('#nextL').onclick=()=>openLesson(nx));
   attachSelection($('#text'));
   // restore position
   const pos=(S.prog[curLesson]||{}).pos??LS.get('lx-pos',{})[curLesson];lastPos=-1;
   if(pos>0&&spans[pos]){requestAnimationFrame(()=>{const y=spans[pos].getBoundingClientRect().top+scrollY-90;scrollTo(0,Math.max(0,y))})}else scrollTo(0,0);
+}
+/* ---- questions on a chapter: Claude asks, the learner answers in English, Claude checks meaning and English ---- */
+function quizKey(){return 'lx-quiz-'+curLesson}
+function renderQuiz(){
+  const box=$('#quizBox');if(!box)return;const q=LS.get(quizKey(),null);
+  if(!q){box.innerHTML=`<div class="panel quiz"><h2>Проверь понимание</h2><div class="small muted">Claude задаст 4 вопроса по этому тексту. Отвечай по-английски, коротко; он проверит и смысл, и ошибки.</div><button class="btn" id="qzMake">Получить вопросы</button></div>`;
+    $('#qzMake').onclick=makeQuiz;return}
+  box.innerHTML=`<div class="panel quiz"><h2>Вопросы по тексту</h2>${q.items.map((x,i)=>`<div class="field"><label for="qa${i}">${i+1}. <span class="en">${esc(x)}</span></label><textarea id="qa${i}" rows="2" placeholder="Ответ по-английски">${esc((q.ans||[])[i]||'')}</textarea></div>`).join('')}
+    <div class="row"><button class="btn primary" id="qzCheck">Проверить ответы</button><button class="btn ghost sm" id="qzNew">Другие вопросы</button></div>
+    ${q.fb?`<div class="explain">${esc(q.fb)}</div>`:''}</div>`;
+  q.items.forEach((_,i)=>{$('#qa'+i).oninput=e=>{const c=LS.get(quizKey(),q);c.ans=c.ans||[];c.ans[i]=e.target.value;LS.set(quizKey(),c)}});
+  $('#qzNew').onclick=()=>{LS.set(quizKey(),null);makeQuiz()};
+  $('#qzCheck').onclick=async()=>{const b=$('#qzCheck');const c=LS.get(quizKey(),q);const ans=q.items.map((_,i)=>$('#qa'+i).value.trim());if(!ans.some(Boolean)){$('#qa0').focus();return}
+    b.disabled=true;b.innerHTML='<span class="spin"></span> '+(canAI()?'Проверяю…':'Жду Claude…');
+    try{c.ans=ans;c.fb=await ask(`Ты преподаватель английского. Ученик (родной русский, уровень A2–B1) прочитал текст и ответил по-английски на вопросы.
+Текст:
+${chapterText()}
+
+${q.items.map((x,i)=>`Вопрос ${i+1}: ${x}\nОтвет: ${ans[i]||'(нет ответа)'}`).join('\n\n')}
+
+Ответь по-русски, без markdown, по каждому вопросу: верно ли по смыслу (если нет — что на самом деле в тексте); ошибки в английском «было → стало»; затем одной строкой общий вывод.`);LS.set(quizKey(),c)}
+    catch(err){const m=askErr(err);if(m)toast(m)}
+    renderQuiz()};
+}
+function chapterText(){const l=S.lessons.get(curLesson);return String(l&&l.text||'').slice(0,12000)}
+async function makeQuiz(){
+  const b=$('#qzMake')||$('#qzNew');if(b){b.disabled=true;b.innerHTML='<span class="spin"></span> '+(canAI()?'Готовлю…':'Жду Claude…')}
+  try{const r=parseJsonLoose(await ask(`Read this English text and write 4 short comprehension questions in simple English (A2–B1) about its main events and details. Mix "what/why/how" questions; avoid yes/no questions. Reply with only JSON: {"questions":["…","…","…","…"]}
+
+${chapterText()}`));
+    const items=(r.questions||[]).map(String).filter(Boolean).slice(0,6);if(!items.length)throw {code:'invalid_json'};LS.set(quizKey(),{items,ans:[]})}
+  catch(err){const m=askErr(err)||(err&&err.code==='invalid_json'?'Ответ пришёл не в том виде, попробуй ещё раз.':'');if(m)toast(m)}
+  renderQuiz();
 }
 function finishLesson(){
   const id=curLesson;const keys=autoKnown()?[...lessonInfo(id).keys].filter(k=>statusOf(k)===0):[];
@@ -1557,9 +1599,12 @@ function updateSheet(){
     ${phs.length?`<div class="inph"><span class="label">Входит во фразу</span>${phs.map(p=>`<button data-act="phrase" data-k="${esc(p.k)}"><b>${esc(p.w)}</b> — ${esc(p.tr||'без перевода')}</button>`).join('')}</div>`:''}
     ${ctx?`<div class="ctx">${markCtx(ctx,s.display)}${s.sentTr?`<div class="small muted" style="margin-top:6px;font-family:var(--f-ui)">${esc(s.sentTr)}</div>`:''}</div>`:''}
     ${s.explain?`<div class="explain">${esc(s.explain)}</div>`:''}
+    ${(s.qa||[]).map(x=>`<div class="explain"><b>${esc(x.q)}</b>\n${esc(x.a)}</div>`).join('')}
     <div class="row">${ctx?'<button class="btn sm" data-act="sent">▶ Предложение</button>':''}${s.si!=null&&view==='read'?'<button class="btn sm" data-act="readfrom">▶ Читать отсюда</button>':''}
       ${canTr()&&ctx&&!s.sentTr?`<button class="btn sm" data-act="senttr" ${s.sentLoading?'disabled':''}>${s.sentLoading?'<span class="spin"></span> ':''}Перевод предложения</button>`:''}
       ${canAsk()&&ctx&&!s.explain?`<button class="btn sm" data-act="explain" ${s.expLoading?'disabled':''}>${s.expLoading?'<span class="spin"></span> '+(canAI()?'':'Жду Claude…'):'Объяснить'}</button>`:''}</div>
+    ${canAsk()&&!s.qOpen?`<button class="linkbtn" data-act="qopen">Задать свой вопрос о ${s.phrase?'фразе':'слове'}</button>`:''}
+    ${canAsk()&&s.qOpen?`<div class="askrow"><input type="text" id="shQ" placeholder="Например: чем отличается от …?" enterkeyhint="send" ${s.qLoading?'disabled':''}><button class="btn sm" data-act="askq" ${s.qLoading?'disabled':''}>${s.qLoading?'<span class="spin"></span>':'Спросить'}</button></div>`:''}
     ${s.range?`<div class="row"><span class="small muted">Фраза:</span><button class="btn sm" data-act="ext" data-d="-1" ${s.range[0]===0?'disabled':''}>＋ слово слева</button><button class="btn sm" data-act="ext" data-d="1" ${s.range[1]>=spans.length-1?'disabled':''}>＋ слово справа</button>${s.phrase?'<button class="btn sm" data-act="shrink">Только первое слово</button>':''}</div>`:''}`);
   for(const b of $('#shLv').children)b.setAttribute('aria-pressed',String(+b.dataset.lv===st));
   setHtml('shFoot',`${w&&canTr()?`<button class="btn sm" data-act="relook" ${s.loading?'disabled':''}>↻ Перевести заново</button>`:''}${w?'<button class="btn ghost sm danger" data-act="del">Убрать из моих слов</button>':''}${!w&&!s.lookup&&!s.loading&&canTr()?'<button class="btn sm" data-act="look">Перевести</button>':''}
@@ -1586,6 +1631,11 @@ async function onSheetClick(e){
     case 'senttr':{s.sentLoading=true;updateSheet();s.ctl=new AbortController();
       try{if(NATIVE){const r=await NB.call('translateSentence',{text:ctx},25000);s.sentTr=String(r&&r.tr||'')}else{const r=await sample(`Переведи на русский естественно, без пояснений, только перевод:\n\n${ctx}`,{modelTier:'quick',signal:s.ctl.signal});s.sentTr=r.text.trim()}}catch(err){const m=sampleError(err);if(m)toast(m)}
       s.sentLoading=false;if(sheet===s)updateSheet();break}
+    case 'qopen':{s.qOpen=true;updateSheet();const q=$('#shQ');if(q){q.focus();q.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();const bb=document.querySelector('[data-act="askq"]');if(bb)bb.click()}}}break}
+    case 'askq':{const inp=$('#shQ'),q=inp?inp.value.trim():'';if(!q){inp&&inp.focus();break}s.qLoading=true;updateSheet();
+      try{const a=await ask(`Ты объясняешь английский русскоязычному ученику уровня A2–B1. ${s.phrase?'Фраза':'Слово'}: "${s.display}". Предложение, где оно встретилось: "${ctx||'—'}".
+Вопрос ученика: «${q}». Ответь коротко по-русски, до 6 строк, без markdown и без вступлений.`);(s.qa=s.qa||[]).push({q,a})}catch(err){const m=askErr(err);if(m)toast(m)}
+      s.qLoading=false;if(sheet===s){updateSheet();const i2=$('#shQ');if(i2&&s.qa&&s.qa.length)i2.value=''}break}
     case 'explain':{s.expLoading=true;updateSheet();s.ctl=new AbortController();
       try{s.explain=await ask(`Ты объясняешь английский русскоязычному ученику уровня A2–B1. Предложение: "${ctx}". Выделенное: "${s.display}".
 Коротко по-русски (до 6 строк, без markdown): 1) что значит выделенное здесь; 2) какая грамматика в предложении (время, конструкция) и почему так; 3) если есть — устойчивое выражение или подвох. Без вступлений.`,{signal:s.ctl.signal})}catch(err){const m=askErr(err);if(m)toast(m)}
@@ -1689,6 +1739,20 @@ function grade(w,ok,counted,now=Date.now()){
   return {w:{...w,status,streak,lapses,reps,due,last:now,interval:Math.max(0,(due-now)/864e5)},leveled};
 }
 const shortTr=t=>{t=String(t||'').trim();return t.length>70?t.slice(0,68)+'…':t};
+/* ---- fresh example sentences for a card, kept on the word so they are asked for only once ---- */
+let exBusy=null;
+function exBlock(w){
+  const ex=w.ex||[];
+  return `${ex.length?`<div class="exs">${ex.map(x=>`<div><span class="en">${esc(x.en)}</span><span class="small muted">${esc(x.ru||'')}</span></div>`).join('')}</div>`:''}${canAsk()?`<button class="linkbtn" id="exMore" ${exBusy===w.k?'disabled':''}>${exBusy===w.k?'<span class="spin"></span> Жду Claude…':ex.length?'Ещё примеры':'Примеры с этим словом'}</button>`:''}`;
+}
+async function moreExamples(k){
+  const w=S.words.get(k);if(!w||exBusy)return;exBusy=k;renderCards();
+  try{const r=parseJsonLoose(await ask(`Give 3 new short, natural English example sentences (A2–B1, 6–14 words) using "${w.w||w.k}"${w.tr?` in the meaning «${w.tr}»`:''}${w.ctx?`, as in: "${w.ctx}"`:''}. Different situations, everyday topics. Do not repeat these: ${(w.ex||[]).map(x=>x.en).join(' | ')||'—'}. Add a natural Russian translation for each. Reply with only JSON: {"ex":[{"en":"…","ru":"…"}]}`));
+    const add=(r.ex||[]).filter(x=>x&&x.en).map(x=>({en:String(x.en),ru:String(x.ru||'')})).slice(0,3);
+    const cur=S.words.get(k);if(cur&&add.length)saveWord({...cur,ex:[...(cur.ex||[]),...add].slice(-9)})}
+  catch(err){const m=askErr(err)||(err&&err.code==='invalid_json'?'Ответ пришёл не в том виде, попробуй ещё раз.':'');if(m)toast(m)}
+  exBusy=null;if(view==='cards')renderCards();
+}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function buildChoice(w,dir){
   const ans=x=>dir==='ru'?(x.w||x.k):shortTr(x.tr);
@@ -1739,11 +1803,11 @@ function renderCards(){
   const c=ss.cur;const ru=dir==='ru'&&!!w.tr;
   const word=esc(w.w||w.k);const ctxH=w.ctx?`<div class="ctx" style="text-align:left">${ctxWords(w.ctx,w.w||w.k)}</div>`:'';
   const wordBlock=`<div class="row" style="justify-content:center"><div class="big">${word}</div><button class="icon-btn" id="cSpk" aria-label="Озвучить">${SPK}</button></div>`;
-  const trBlock=`<div class="ans">${w.ipa?`<div class="sw-ipa">[${esc(w.ipa)}]</div>`:''}<div class="sw-tr">${esc(w.tr||'— перевод не добавлен')}</div>${w.lemma&&norm(w.lemma)!==w.k&&!w.phrase?`<div class="small muted">словарная форма: ${esc(w.lemma)}</div>`:''}${w.note?`<div class="small muted">${esc(w.note)}</div>`:''}${siblings(w.k).length?`<div class="small muted">эта карточка идёт и за формы: ${siblings(w.k).map(x=>esc(x.w||x.k)).join(', ')}</div>`:''}</div>`;
+  const trBlock=`<div class="ans">${w.ipa?`<div class="sw-ipa">[${esc(w.ipa)}]</div>`:''}<div class="sw-tr">${esc(w.tr||'— перевод не добавлен')}</div>${w.lemma&&norm(w.lemma)!==w.k&&!w.phrase?`<div class="small muted">словарная форма: ${esc(w.lemma)}</div>`:''}${w.note?`<div class="small muted">${esc(w.note)}</div>`:''}${siblings(w.k).length?`<div class="small muted">эта карточка идёт и за формы: ${siblings(w.k).map(x=>esc(x.w||x.k)).join(', ')}</div>`:''}</div>${exBlock(w)}`;
   const shown=c.answered!==null||c.revealed;
   const ctxFront=!ctxH||shown||c.ctxOpen?ctxH:`<button class="btn ghost sm" id="ctxShow">Показать предложение</button>`;
   let front=ru?`<div class="big" style="font-family:var(--f-ui);font-size:24px">${esc(w.tr)}</div>`:wordBlock+ctxFront;
-  let back=ru?`<hr>${wordBlock}${ctxH}`:(c.mode==='recall'?`<hr>${trBlock}`:'');
+  let back=ru?`<hr>${wordBlock}${ctxH}${exBlock(w)}`:(c.mode==='recall'?`<hr>${trBlock}`:exBlock(w));
   let actions='';
   if(c.mode==='choice'){
     actions=`<div class="opts">${c.opts.map((o,n)=>{let cls='opt';if(c.answered!==null){if(o.ok)cls+=' right';else if(n===c.answered)cls+=' wrong'}return `<button class="${cls}" data-o="${n}" ${c.answered!==null?'disabled':''}>${esc(o.t)}</button>`}).join('')}</div>`;
@@ -1760,6 +1824,7 @@ function renderCards(){
     <div class="row"><button class="btn ghost" id="quit">Закончить</button><span class="small muted">Ур. ${lv===5?'✓':lv+'/4'} · ${Math.min(done+1,total)} из ${total}</span><button class="btn ghost sm" id="cEdit" style="margin-left:auto">✎ Изменить</button>${c.answered===null&&!c.revealed?`<button class="btn ghost sm" id="knowIt">Знаю ✓</button>`:''}</div>
     ${ctxH&&(shown||c.ctxOpen||ru&&shown)?'<div class="small muted" style="text-align:center">Нажми на любое слово в предложении, чтобы открыть его перевод.</div>':''}`;
   $('#cEdit').onclick=()=>openSheet(w.k,w.w||w.k,w.ctx||'',null,!!w.phrase);
+  $('#exMore')&&($('#exMore').onclick=()=>moreExamples(w.k));
   document.querySelectorAll('#view .card .cw').forEach(e=>e.onclick=()=>openSheet(e.dataset.k,e.textContent,w.ctx,null,false));
   $('#cSpk')&&($('#cSpk').onclick=()=>speak(w.w||w.k));
   $('#ctxShow')&&($('#ctxShow').onclick=()=>{c.ctxOpen=true;renderCards()});

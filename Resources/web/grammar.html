@@ -284,6 +284,9 @@ select{border-radius:14px}
 @media (prefers-reduced-motion:reduce){.more>summary::after{transition:none}}
 
 .fb{white-space:pre-wrap;font-size:15px;line-height:1.5;background:var(--bg);border-radius:12px;padding:12px 14px;margin-top:8px}
+
+.thq{gap:8px}
+.thq .inp{min-height:0;font-size:16px}
 #askBox{display:flex;flex-direction:column;gap:8px;margin-top:6px}
 #askBox[hidden]{display:none}
 #askBox .inp{min-height:0;font-size:16px}
@@ -4187,6 +4190,7 @@ function renderUnit(){
   let h=`<div class="muted">${esc(u.ru)}</div><div class="row" style="justify-content:space-between"><span class="task">Теория</span>
     <span class="seg" role="group" aria-label="Язык теории"><button data-l="ru" aria-pressed="${S.lang==='ru'}">Русский</button><button data-l="en" aria-pressed="${S.lang==='en'}">English</button></span></div>
     <div class="panel theory">${(u.th[S.lang]||u.th.ru).replace(/<table>/g,'<div class="tw"><table>').replace(/<\/table>/g,'</table></div>')}<div class="small muted">Нажми на английский пример, чтобы услышать его. В заданиях нажатие на слово показывает перевод.</div></div>
+    ${canClaude()?`<div class="panel thq"><b>Вопрос по теме</b><textarea class="inp" id="thQ" rows="2" placeholder="Например: а как это с there is? Почему не do?"></textarea><button class="btn" id="thGo">Спросить Claude</button><div id="thA">${(S.thq&&S.thq[u.id]||[]).map(x=>`<div class="fb"><b>${esc(x.q)}</b>\n${esc(x.a)}</div>`).join('')}</div></div>`:''}
     ${MORE[u.id]?`<details class="panel theory more" id="moreBox"${moreOpen===u.id?' open':''}><summary><b>Подробнее</b><span>полные таблицы, тонкости, типичные ошибки</span></summary>${S.lang==='en'?'<p class="small muted">Этот раздел пока только на русском.</p>':''}${MORE[u.id]}</details>`:''}
     <span class="task">Практика</span>`;
   u.steps.forEach((ids,i)=>{
@@ -4213,6 +4217,16 @@ function renderUnit(){
     startSession({kind:'step',unit:u.id,step:i,q})});
   $('#skipBtn')&&($('#skipBtn').onclick=()=>startTest('skip-'+u.id,[u],10,'Topic test: '+u.en,[],0));
   const mb=$('#moreBox');if(mb)mb.ontoggle=()=>{moreOpen=mb.open?u.id:null};
+  $('#thGo')&&($('#thGo').onclick=async()=>{const q=$('#thQ').value.trim();if(!q){$('#thQ').focus();return}const b=$('#thGo');b.disabled=true;b.innerHTML='<span class="spin"></span> Жду Claude…';
+    const th=String(u.th.ru).replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').slice(0,2500),rl=Object.values(u.rules).map(r=>r.ru).join(' / ');
+    try{const a=await askClaude(`Ты преподаватель английского для русскоязычного ученика уровня ${u.lv==='b'?'B1':'A2'}. Тема: «${u.en}» (${u.ru}).
+Объяснение темы в курсе: ${th}
+Правила: ${rl}
+Вопрос ученика: «${q}». Ответь по-русски, до 8 строк, без markdown, с 1–2 короткими английскими примерами.`);
+      S.thq=S.thq||{};(S.thq[u.id]=S.thq[u.id]||[]).unshift({q,a});S.thq[u.id]=S.thq[u.id].slice(0,10);save();
+      $('#thA').insertAdjacentHTML('afterbegin',`<div class="fb"><b>${esc(q)}</b>\n${esc(a)}</div>`);$('#thQ').value=''}
+    catch(e){$('#thA').insertAdjacentHTML('afterbegin',`<div class="small">${esc(claudeErr(e))}</div>`)}
+    b.disabled=false;b.textContent='Спросить Claude'});
   const fw=$('#fw');if(fw)fw.oninput=()=>{const t=fw.value;if(t.trim())S.free[u.id]={...(S.free[u.id]||{}),t,at:dayKey()};else delete S.free[u.id];save()};
   $('#fwCheck')&&($('#fwCheck').onclick=async()=>{const txt=fw.value.trim();if(!txt){fw.focus();return}const b=$('#fwCheck'),box=$('#fwFb');b.disabled=true;b.innerHTML='<span class="spin"></span> Жду Claude…';
     try{const fb=await askClaude(`Ты преподаватель английского. Ученик (родной язык русский, уровень ${u.lv==='b'?'B1':'A2'}) прошёл тему «${u.en}» (${u.ru}) и выполнил свободное задание: «${(u.fw&&u.fw.ru)||''}».
@@ -4272,10 +4286,34 @@ function renderStats(){
   const rows=UNITS.map(u=>{let r=0,w=0;u.list.forEach(it=>{const x=S.items[it.id];if(x){r+=x.r||0;w+=x.w||0}});return {u,r,w,p:r+w?r/(r+w):null}}).filter(x=>x.p!=null).sort((a,b)=>a.p-b.p);
   h+=`<div class="panel"><h2>Точность по темам</h2>${rows.length?'<div class="small muted">Сверху — темы, где ошибок больше всего.</div>'+rows.map(x=>`<div class="urow"><span>${esc(x.u.en)}<br><span class="small muted">${esc(x.u.ru)}</span></span><b>${Math.round(100*x.p)}%</b><div class="bar"><i style="width:${Math.round(100*x.p)}%"></i></div></div>`).join(''):'<div class="muted">Появится после первых ответов.</div>'}</div>`;
   const nf=Object.keys(S.free).filter(id=>UNIT(id)).length,nl=S.log.filter(x=>ITEMS.has(x.id)).length;
+  if(canClaude())h+=`<div class="panel"><h2>Итог недели с Claude</h2><div class="small muted">Claude посмотрит ошибки в грамматике за 7 дней${EMB?', самые трудные слова из карточек и чтение':''} и предложит, что повторить.</div>
+    <button class="btn" id="wkGo">Получить итог недели</button><div id="wkA">${S.week?`<div class="small muted">от ${esc(S.week.at)}</div><div class="fb">${esc(S.week.t)}</div>`:''}</div></div>`;
   h+=`<div class="panel"><h2>Выгрузка на проверку</h2><div class="small muted">Собирает одним текстом свободное письмо (${nf} ${plural(nf,'тема','темы','тем')}) и последние ошибки в упражнениях (${nl}). Отправь его Claude — он разберёт ошибки. ${S.exp?'Последняя выгрузка: '+S.exp+'.':'Удобный ритм — раз в неделю.'}</div>
     <button class="btn primary" id="expBtn" ${nf||nl?'':'disabled'}>Выгрузить</button><div id="expOut"></div></div>`;
   $('#view').innerHTML=h;
   $('#expBtn').onclick=doExport;
+  $('#wkGo')&&($('#wkGo').onclick=weekReview);
+}
+async function weekReview(){
+  const b=$('#wkGo');b.disabled=true;b.innerHTML='<span class="spin"></span> Жду Claude…';
+  const from=addDays(-6),errs=S.log.filter(x=>x.at>=from&&ITEMS.has(x.id)).slice(-40);
+  const g=errs.map(x=>{const it=ITEMS.get(x.id);return `«${UNIT(it.u).en}»: ${it.q||it.ans[0]} — ответ «${x.g||'—'}», правильно «${it.ans[0]}»`}).join('\n');
+  let n=0,ok=0;for(let i=0;i<7;i++){const d=S.days[addDays(-i)];if(d){n+=d.n||0;ok+=d.ok||0}}
+  let words='',reading='';
+  if(EMB)try{const P=PARENT.S;const hard=[...P.words.values()].filter(w=>(w.status||1)<5&&(w.lapses||0)>=2).sort((a,c)=>(c.lapses||0)-(a.lapses||0)).slice(0,20);
+    words=hard.map(w=>`${w.w||w.k} — ${w.tr||'?'} (ошибок: ${w.lapses})`).join('; ');
+    let rd=0,sec=0;const t=new Date();for(let i=0;i<7;i++){const d=new Date(t);d.setDate(d.getDate()-i);const r=P.days[dayKey(d)];if(r){rd+=r.read||0;sec+=r.rsec||0}}
+    reading=`прочитано ${rd} слов за ${Math.round(sec/60)} мин`}catch(e){}
+  try{const t=await askClaude(`Ты преподаватель английского. Русскоязычный ученик (уровень ${S.lv==='b'?'B1':'A2'}) занимается сам. Итоги последних 7 дней:
+Грамматика: ${n} ответов, верных ${n?Math.round(100*ok/n):0}%.
+${g?'Ошибки в грамматике:\n'+g:'Ошибок в грамматике не было.'}
+${words?'Самые трудные слова в карточках: '+words:''}
+${reading?'Чтение: '+reading:''}
+
+Ответь по-русски, без markdown, до 14 строк: 1) что получается хорошо; 2) 2–3 главные проблемы (закономерности, а не отдельные ошибки); 3) план на следующую неделю — конкретно что повторить в курсе и как работать со словами.`);
+    S.week={t,at:dayKey()};save();$('#wkA').innerHTML=`<div class="small muted">от ${esc(S.week.at)}</div><div class="fb">${esc(t)}</div>`;b.textContent='Обновить итог'}
+  catch(e){$('#wkA').innerHTML=`<div class="small">${esc(claudeErr(e))}</div>`;b.textContent='Получить итог недели'}
+  b.disabled=false;
 }
 function exportText(){
   let t='Грамматика: выгрузка на проверку, '+dayKey()+'\n\nПроверь, пожалуйста, мои тексты: исправь ошибки и коротко объясни каждую. Потом посмотри список ошибок из упражнений и скажи, какие правила мне стоит повторить.\n';
@@ -4363,9 +4401,18 @@ function renderTestResult(){
     const right=(it.t==='mc'||it.t==='gap')&&it.q.includes('___')?fillBlank(it.q,it.ans[0]):twrap(it.ans[0]);
     return `<div class="mist"><div class="small muted">${it.t==='tr'||it.t==='fix'?esc(it.q):''}</div><div class="right">${right}</div>
       <div class="small">Твой ответ: <span class="wrongtxt">${esc(x.g||'—')}</span></div>${rule?`<div class="why">${esc(rule[S.lang]||rule.ru)}</div>`:''}</div>`}).join('')}
-    <div class="small muted">Эти задания вернутся в повторении завтра.</div></div>`;
+    <div class="small muted">Эти задания вернутся в повторении завтра.</div>
+    ${canClaude()?`<button class="btn" id="tAsk">Разобрать ошибки с Claude</button><div id="tAns">${s.claude?`<div class="fb">${esc(s.claude)}</div>`:''}</div>`:''}</div>`;
   h+=`<button class="btn primary big" id="doneBtn">${skipU?'К теме':'К курсу'}</button>`;
   $('#view').innerHTML=h;$('#doneBtn').onclick=()=>skipU?go('unit',skipU.id):go('course');
+  $('#tAsk')&&($('#tAsk').onclick=async()=>{const b=$('#tAsk');b.disabled=true;b.innerHTML='<span class="spin"></span> Жду Claude…';
+    const list=bad.slice(0,25).map((x,i)=>{const it=ITEMS.get(x.id),u=UNIT(it.u);return `${i+1}) Тема «${u.en}». Задание: ${it.q||it.ans[0]}. Ответ ученика: «${x.g||'—'}». Правильно: «${it.ans[0]}».`}).join('\n');
+    try{s.claude=await askClaude(`Ты преподаватель английского. Русскоязычный ученик уровня ${S.lv==='b'?'B1':'A2'} написал тест «${s.title}» на ${pct}%. Его ошибки:
+${list}
+
+Ответь по-русски, без markdown: 1) какие 2–3 общие причины ошибок ты видишь (не по одной ошибке, а закономерности); 2) какие темы курса повторить в первую очередь и на что обратить внимание; 3) один короткий совет. До 12 строк.`);
+      $('#tAns').innerHTML=`<div class="fb">${esc(s.claude)}</div>`;b.remove()}
+    catch(e){$('#tAns').innerHTML=`<div class="small">${esc(claudeErr(e))}</div>`;b.disabled=false;b.textContent='Разобрать ошибки с Claude'}});
 }
 /* oldest first, but mixed across topics: shuffle the 45 oldest and take 15 */
 function startReview(){const d=shuffle(dueIds().slice(0,45)).slice(0,15);if(d.length)startSession({kind:'review',q:d})}
