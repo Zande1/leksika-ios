@@ -284,6 +284,10 @@ select{border-radius:14px}
 @media (prefers-reduced-motion:reduce){.more>summary::after{transition:none}}
 
 .fb{white-space:pre-wrap;font-size:15px;line-height:1.5;background:var(--bg);border-radius:12px;padding:12px 14px;margin-top:8px}
+#askBox{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+#askBox[hidden]{display:none}
+#askBox .inp{min-height:0;font-size:16px}
+.foot .wrap{max-height:calc(100vh - 140px);overflow:auto}
 </style>
 </head><body>
 <header class="top"><div class="wrap"><button class="icon-btn" id="backBtn" hidden aria-label="Назад"></button><h1 id="title">Грамматика</h1><div class="row" id="topActions"></div></div></header>
@@ -4459,18 +4463,23 @@ function showFeedback(){
   if(r.res!=='ok'||it.t==='dict')h+=`<div class="right">${full}</div>`;
   if(why&&r.res!=='ok')h+=`<div class="why">${esc(why)}</div>`;
   if(r.res==='bad'&&(it.t==='tr'||it.t==='fix'||it.t==='gap')&&st.mode!=='mc')h+=`<button class="linkbtn" id="mine">Мой вариант тоже верный — засчитать</button>`;
-  if(r.res==='bad'&&canClaude())h+=`<button class="linkbtn" id="whyBtn">Спросить Claude, почему так</button><div id="whyBox"></div>`;
+  if(canClaude())h+=`<button class="linkbtn" id="whyBtn">${r.res==='bad'?'Спросить Claude, почему так':'Задать вопрос Claude'}</button><div id="askBox" hidden><textarea class="inp" id="askQ" rows="2" placeholder="${r.res==='bad'?'Свой вопрос или оставь пустым: «почему так?»':'Например: а можно сказать иначе?'}"></textarea><button class="btn" id="askGo">Спросить</button></div><div id="whyBox"></div>`;
   h+=`<button class="btn primary big" id="nextBtn">Дальше</button></div>`;
   f.innerHTML=h;
   $('#nextBtn').onclick=next;
   $('#mine')&&($('#mine').onclick=override);
-  $('#whyBtn')&&($('#whyBtn').onclick=async()=>{const b=$('#whyBtn'),box=$('#whyBox');b.disabled=true;b.innerHTML='<span class="spin"></span> Жду Claude…';
-    const given=st.mode==='mc'?(it.o[st.pick]??''):String(st.given||'');
-    try{const a=await askClaude(`Ты преподаватель английского для русскоязычного ученика уровня ${u.lv==='b'?'B1':'A2'}. Тема: «${u.en}». Задание: ${it.ru||it.q||''}${it.ru&&it.q?' / '+it.q:''}
-Ответ ученика: «${given||'(пусто)'}». Правильный ответ: «${plain}».
-Коротко по-русски, до 5 строк, без markdown: почему ответ ученика неверен (или в каком случае он был бы верен) и как запомнить правильный.`);
-      box.innerHTML=`<div class="fb">${esc(a)}</div>`;b.remove()}
-    catch(e){box.innerHTML=`<div class="small">${esc(claudeErr(e))}</div>`;b.disabled=false;b.textContent='Спросить Claude ещё раз'}});
+  $('#whyBtn')&&($('#whyBtn').onclick=()=>{$('#whyBtn').hidden=true;$('#askBox').hidden=false;$('#askQ').focus()});
+  $('#askGo')&&($('#askGo').onclick=async()=>{const b=$('#askGo'),box=$('#whyBox'),q=$('#askQ').value.trim();b.disabled=true;b.innerHTML='<span class="spin"></span> Жду Claude…';
+    const given=st.mode==='mc'?(it.o[st.pick]??''):String(st.given||''),bad=r.res==='bad';
+    const ask=q?`Вопрос ученика: «${q}». Ответь на него коротко по-русски, до 6 строк, без markdown, опираясь на это задание.`
+      :bad?'Коротко по-русски, до 5 строк, без markdown: почему ответ ученика неверен (или в каком случае он был бы верен) и как запомнить правильный.'
+      :'Ответ верный. Коротко по-русски, до 5 строк, без markdown: почему здесь именно так и какая похожая ошибка встречается у русскоязычных.';
+    try{const a=await askClaude(`Ты преподаватель английского для русскоязычного ученика уровня ${u.lv==='b'?'B1':'A2'}. Тема: «${u.en}». Задание: ${it.q||''}
+Ответ ученика: «${given||'(пусто)'}» — ${bad?'неверно':'засчитан как верный'}. Правильный ответ: «${plain}».
+${ask}`);
+      box.innerHTML=`<div class="fb">${q?`<b>${esc(q)}</b>\n`:''}${esc(a)}</div>`+box.innerHTML;$('#askQ').value=''}
+    catch(e){box.insertAdjacentHTML('afterbegin',`<div class="small">${esc(claudeErr(e))}</div>`)}
+    b.disabled=false;b.textContent='Спросить ещё'});
   if(S.sound&&CAN_SPEAK&&it.t!=='dict'&&it.q!==undefined&&plain&&!/→/.test(plain))speak(plain.replace(/["“”]/g,''));
 }
 /* the learner says their own translation was also correct: undo the miss */
