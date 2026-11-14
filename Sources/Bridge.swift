@@ -79,12 +79,74 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
                 }
             }
 
+        case "claude":
+            let prompt = data["prompt"] as? String ?? ""
+            let shortcut = data["shortcut"] as? String ?? "Лексика Claude"
+            Task { @MainActor in self.askClaude(id: id, prompt: prompt, shortcut: shortcut) }
+
         case "share":
             share(filename: data["filename"] as? String ?? "leksika.txt",
                   text: data["data"] as? String ?? "", id: id)
 
         default:
             reply(id, false, ["code": "unknown"])
+        }
+    }
+
+    // MARK: Claude through the Shortcuts app
+    //
+    // The app runs the user's shortcut (an "Ask Claude" action followed by "Stop and Output") with the prompt
+    // as its input. Shortcuts opens leksika://claude/ok?id=…&result=… when it finishes; the answer counts
+    // towards the user's own Claude plan.
+
+    private static let strict: CharacterSet = {
+        var set = CharacterSet.alphanumerics
+        set.insert(charactersIn: "-._~")
+        return set
+    }()
+
+    private func encode(_ value: String) -> String {
+        value.addingPercentEncoding(withAllowedCharacters: Bridge.strict) ?? ""
+    }
+
+    @MainActor
+    private func askClaude(id: Int, prompt: String, shortcut: String) {
+        let back = "leksika://claude"
+        let parts = [
+            "name=" + encode(shortcut),
+            "input=text",
+            "text=" + encode(prompt),
+            "x-success=" + encode("\(back)/ok?id=\(id)"),
+            "x-error=" + encode("\(back)/error?id=\(id)"),
+            "x-cancel=" + encode("\(back)/cancel?id=\(id)"),
+        ]
+        guard let url = URL(string: "shortcuts://x-callback-url/run-shortcut?" + parts.joined(separator: "&")) else {
+            reply(id, false, ["code": "bad_prompt"])
+            return
+        }
+        UIApplication.shared.open(url) { [weak self] opened in
+            if !opened { self?.reply(id, false, ["code": "no_shortcuts"]) }
+        }
+    }
+
+    @MainActor
+    func handleOpen(_ url: URL) {
+        guard url.scheme == "leksika", url.host == "claude",
+              let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems,
+              let id = Int(items.first(where: { $0.name == "id" })?.value ?? "") else { return }
+        let value = { (name: String) in items.first(where: { $0.name == name })?.value ?? "" }
+        switch url.path {
+        case "/ok":
+            let answer = value("result")
+            if answer.isEmpty {
+                reply(id, false, ["code": "empty"])
+            } else {
+                reply(id, true, answer)
+            }
+        case "/cancel":
+            reply(id, false, ["code": "cancelled_shortcut"])
+        default:
+            reply(id, false, ["code": "shortcut_error", "message": value("errorMessage")])
         }
     }
 

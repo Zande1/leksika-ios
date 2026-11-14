@@ -282,6 +282,8 @@ select{border-radius:14px}
 .errs .bad,.errs .en{display:table;margin-bottom:3px}
 .errs small{display:block;font-size:13px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.more>summary::after{transition:none}}
+
+.fb{white-space:pre-wrap;font-size:15px;line-height:1.5;background:var(--bg);border-radius:12px;padding:12px 14px;margin-top:8px}
 </style>
 </head><body>
 <header class="top"><div class="wrap"><button class="icon-btn" id="backBtn" hidden aria-label="Назад"></button><h1 id="title">Грамматика</h1><div class="row" id="topActions"></div></div></header>
@@ -4077,6 +4079,14 @@ document.addEventListener('click',e=>{const t=e.target.closest('.en');if(t)speak
 const TB={seq:9000000,cb:new Map(),cache:new Map()};
 (function(){try{const w=EMB?PARENT:window,orig=w.__nb;
   w.__nb=(id,ok,val)=>{const c=TB.cb.get(id);if(c){TB.cb.delete(id);ok?c.res(val):c.rej(val);return}if(typeof orig==='function')orig(id,ok,val)}}catch(e){}})();
+const SC_NAME='Лексика Claude';
+const canClaude=()=>!!MH&&LS.get('lx-claude',false);
+function askClaude(prompt){return nativeCall('claude',{prompt,shortcut:SC_NAME},240000).then(v=>String(v||'').trim())}
+function claudeErr(e){const c=e&&e.code;
+  if(c==='shortcut_error')return `Команда «${SC_NAME}» не сработала. Как её создать — в «Лексике» на экране «Сегодня», в настройках.`;
+  if(c==='empty')return 'Claude ничего не вернул. Проверь, что в конце команды стоит «Остановить и вывести».';
+  if(c==='cancelled_shortcut')return 'Запрос отменён.';
+  return 'Ответ не пришёл. Попробуй ещё раз.'}
 function nativeCall(type,data,ms=15000){return new Promise((res,rej)=>{if(!MH){rej();return}const id=++TB.seq;TB.cb.set(id,{res,rej});setTimeout(()=>{if(TB.cb.delete(id))rej()},ms);try{MH.postMessage({id,type,data})}catch(e){TB.cb.delete(id);rej()}})}
 let tipT=0;
 function tip(html,ms){let t=$('#tip');if(!t){t=document.createElement('div');t.id='tip';document.body.appendChild(t);t.addEventListener('click',e=>{if(!e.target.closest('button'))t.hidden=true})}
@@ -4179,7 +4189,8 @@ function renderUnit(){
   if(u.fw)h+=`<span class="task">Свободное письмо · в прогресс не идёт</span>
     <div class="panel"><div>${esc(u.fw[S.lang]||u.fw.ru)}</div>
     <textarea class="inp" id="fw" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Пиши по-английски, своими словами">${esc((S.free[u.id]||{}).t||'')}</textarea>
-    <div class="small muted">Сохраняется само. Здесь нет автопроверки: текст можно выгрузить на разбор в «Статистике».</div></div>`;
+    <div class="small muted">Сохраняется само.${canClaude()?'':' Здесь нет автопроверки: текст можно выгрузить на разбор в «Статистике».'}</div>
+    ${canClaude()?`<button class="btn" id="fwCheck">Проверить с Claude</button><div id="fwFb">${(S.free[u.id]||{}).fb?`<div class="fb">${esc(S.free[u.id].fb)}</div>`:''}</div>`:''}</div>`;
   $('#view').innerHTML=h;
   document.querySelectorAll('.seg [data-l]').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();render()});
   document.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>{
@@ -4193,7 +4204,19 @@ function renderUnit(){
     startSession({kind:'step',unit:u.id,step:i,q})});
   $('#skipBtn')&&($('#skipBtn').onclick=()=>startTest('skip-'+u.id,[u],10,'Topic test: '+u.en,[],0));
   const mb=$('#moreBox');if(mb)mb.ontoggle=()=>{moreOpen=mb.open?u.id:null};
-  const fw=$('#fw');if(fw)fw.oninput=()=>{const t=fw.value;if(t.trim())S.free[u.id]={t,at:dayKey()};else delete S.free[u.id];save()};
+  const fw=$('#fw');if(fw)fw.oninput=()=>{const t=fw.value;if(t.trim())S.free[u.id]={...(S.free[u.id]||{}),t,at:dayKey()};else delete S.free[u.id];save()};
+  $('#fwCheck')&&($('#fwCheck').onclick=async()=>{const txt=fw.value.trim();if(!txt){fw.focus();return}const b=$('#fwCheck'),box=$('#fwFb');b.disabled=true;b.innerHTML='<span class="spin"></span> Жду Claude…';
+    try{const fb=await askClaude(`Ты преподаватель английского. Ученик (родной язык русский, уровень ${u.lv==='b'?'B1':'A2'}) прошёл тему «${u.en}» (${u.ru}) и выполнил свободное задание: «${(u.fw&&u.fw.ru)||''}».
+Его текст:
+${txt}
+
+Ответь по-русски, без markdown и без вступлений:
+1) Ошибки: каждая строкой «было → стало — коротко почему». Сначала ошибки по теме «${u.en}», потом остальные. Если ошибок нет, так и скажи.
+2) Исправленный текст целиком.
+3) Одна фраза: что получилось хорошо и что потренировать.`);
+      S.free[u.id]={...(S.free[u.id]||{t:txt,at:dayKey()}),fb,fbAt:dayKey()};save();box.innerHTML=`<div class="fb">${esc(fb)}</div>`}
+    catch(e){box.innerHTML=`<div class="small" style="color:var(--danger)">${esc(claudeErr(e))}</div>`}
+    b.disabled=false;b.textContent='Проверить ещё раз'});
 }
 
 function renderReview(){
@@ -4431,10 +4454,18 @@ function showFeedback(){
   if(r.res!=='ok'||it.t==='dict')h+=`<div class="right">${full}</div>`;
   if(why&&r.res!=='ok')h+=`<div class="why">${esc(why)}</div>`;
   if(r.res==='bad'&&(it.t==='tr'||it.t==='fix'||it.t==='gap')&&st.mode!=='mc')h+=`<button class="linkbtn" id="mine">Мой вариант тоже верный — засчитать</button>`;
+  if(r.res==='bad'&&canClaude())h+=`<button class="linkbtn" id="whyBtn">Спросить Claude, почему так</button><div id="whyBox"></div>`;
   h+=`<button class="btn primary big" id="nextBtn">Дальше</button></div>`;
   f.innerHTML=h;
   $('#nextBtn').onclick=next;
   $('#mine')&&($('#mine').onclick=override);
+  $('#whyBtn')&&($('#whyBtn').onclick=async()=>{const b=$('#whyBtn'),box=$('#whyBox');b.disabled=true;b.innerHTML='<span class="spin"></span> Жду Claude…';
+    const given=st.mode==='mc'?(it.o[st.pick]??''):String(st.given||'');
+    try{const a=await askClaude(`Ты преподаватель английского для русскоязычного ученика уровня ${u.lv==='b'?'B1':'A2'}. Тема: «${u.en}». Задание: ${it.ru||it.q||''}${it.ru&&it.q?' / '+it.q:''}
+Ответ ученика: «${given||'(пусто)'}». Правильный ответ: «${plain}».
+Коротко по-русски, до 5 строк, без markdown: почему ответ ученика неверен (или в каком случае он был бы верен) и как запомнить правильный.`);
+      box.innerHTML=`<div class="fb">${esc(a)}</div>`;b.remove()}
+    catch(e){box.innerHTML=`<div class="small">${esc(claudeErr(e))}</div>`;b.disabled=false;b.textContent='Спросить Claude ещё раз'}});
   if(S.sound&&CAN_SPEAK&&it.t!=='dict'&&it.q!==undefined&&plain&&!/→/.test(plain))speak(plain.replace(/["“”]/g,''));
 }
 /* the learner says their own translation was also correct: undo the miss */

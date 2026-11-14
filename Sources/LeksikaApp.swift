@@ -30,6 +30,10 @@ struct RootView: View {
             .translationTask(model.translator.configuration) { session in
                 await AppModel.shared.translator.run(session: session)
             }
+            // The Shortcuts app returns Claude's answer here (leksika://claude/...).
+            .onOpenURL { url in
+                model.bridge.handleOpen(url)
+            }
     }
 }
 
