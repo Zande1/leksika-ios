@@ -4080,9 +4080,14 @@ const TB={seq:9000000,cb:new Map(),cache:new Map()};
 (function(){try{const w=EMB?PARENT:window,orig=w.__nb;
   w.__nb=(id,ok,val)=>{const c=TB.cb.get(id);if(c){TB.cb.delete(id);ok?c.res(val):c.rej(val);return}if(typeof orig==='function')orig(id,ok,val)}}catch(e){}})();
 const SC_NAME='Лексика Claude';
-const canClaude=()=>!!MH&&LS.get('lx-claude',false);
-function askClaude(prompt){return nativeCall('claude',{prompt,shortcut:SC_NAME},240000).then(v=>String(v||'').trim())}
+/* in the iPhone app Claude is reached through the user's shortcut; on the web page inside Claude, directly */
+let SAMPLE=null;
+try{if(window.claude&&window.claude.use)window.claude.use('sample').then(s=>{if(s){SAMPLE=s;try{render()}catch(e){}}}).catch(()=>{})}catch(e){}
+const canClaude=()=>!!SAMPLE||(!!MH&&LS.get('lx-claude',false));
+function askClaude(prompt){if(SAMPLE)return SAMPLE(prompt).then(r=>String(r&&r.text||'').trim());return nativeCall('claude',{prompt,shortcut:SC_NAME},240000).then(v=>String(v||'').trim())}
 function claudeErr(e){const c=e&&e.code;
+  if(c==='not_granted'||c==='sampling_disabled'){SAMPLE=null;return 'Доступ к Claude не разрешён для этой страницы.'}
+  if(c==='rate_limited')return 'Слишком много запросов, попробуй чуть позже.';
   if(c==='shortcut_error')return `Команда «${SC_NAME}» не сработала. Как её создать — в «Лексике» на экране «Сегодня», в настройках.`;
   if(c==='empty')return 'Claude ничего не вернул. Проверь, что в конце команды стоит «Остановить и вывести».';
   if(c==='cancelled_shortcut')return 'Запрос отменён.';
