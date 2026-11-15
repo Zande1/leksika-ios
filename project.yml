@@ -32,6 +32,7 @@ targets:
           - CFBundleURLName: com.vladkul.leksika
             CFBundleURLSchemes: [leksika]
         LSApplicationQueriesSchemes: [shortcuts]
+        UIBackgroundModes: [audio]
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
         UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
     settings:

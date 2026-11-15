@@ -3939,8 +3939,8 @@ const TQ={
 const $=(s,r=document)=>r.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}};
-function dayKey(d=new Date()){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-function addDays(n,from=new Date()){const d=new Date(from.getFullYear(),from.getMonth(),from.getDate()+n);return dayKey(d)}
+function dayKey(d=new Date()){d=new Date(d);if(d.getHours()<4)d.setDate(d.getDate()-1);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function addDays(n,from=new Date()){from=new Date(from);if(from.getHours()<4)from.setDate(from.getDate()-1);const d=new Date(from.getFullYear(),from.getMonth(),from.getDate()+n,12);return dayKey(d)}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function plural(n,a,b,c){const m=n%100,k=n%10;return (m>10&&m<20)?c:k===1?a:(k>=2&&k<=4)?b:c}
 
@@ -4001,6 +4001,7 @@ function shownNow(){if(document.hidden)return false;try{if(EMB){const f=window.f
 function flushAct(){if(pendAct>0){const d=dayRec();d.act=(d.act||0)+pendAct;pendAct=0;save()}}
 setInterval(()=>{if(!shownNow()||Date.now()-lastAct>60000){flushAct();return}pendAct++;if(pendAct>=20)flushAct()},1000);
 document.addEventListener('visibilitychange',()=>{if(document.hidden){flushAct();if(saveT)saveNow()}});
+addEventListener('pagehide',()=>{flushAct();saveNow()});
 const fmtTime=sec=>{const m=Math.round((sec||0)/60);return m<60?m+' мин':Math.floor(m/60)+' ч '+(m%60)+' мин'};
 const stepsDone=u=>Math.min(S.steps[u.id]||0,u.steps.length);
 const unitDone=u=>stepsDone(u)>=u.steps.length;
@@ -4091,14 +4092,24 @@ const SC_NAME='Лексика Claude';
 let SAMPLE=null;
 try{if(window.claude&&window.claude.use)window.claude.use('sample').then(s=>{if(s){SAMPLE=s;try{render()}catch(e){}}}).catch(()=>{})}catch(e){}
 const canClaude=()=>!!SAMPLE||(!!MH&&LS.get('lx-claude',false));
-function askClaude(prompt){if(SAMPLE)return SAMPLE(prompt).then(r=>String(r&&r.text||'').trim());return nativeCall('claude',{prompt,shortcut:SC_NAME},240000).then(v=>String(v||'').trim())}
+let claudePend=null;
+function askClaude(prompt){if(SAMPLE)return SAMPLE(prompt).then(r=>String(r&&r.text||'').trim());
+  return new Promise((res,rej)=>{const p={rej};claudePend=p;const done=()=>{if(claudePend===p)claudePend=null};
+    nativeCall('claude',{prompt,shortcut:SC_NAME},240000).then(v=>{done();res(String(v||'').trim())},e=>{done();rej(e)})})}
+/* back in the app with no answer: the shortcut did not call back, so stop waiting */
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&claudePend){const p=claudePend;setTimeout(()=>{if(claudePend===p){claudePend=null;p.rej({code:'timeout'})}},20000)}});
 function claudeErr(e){const c=e&&e.code;
   if(c==='not_granted'||c==='sampling_disabled'){SAMPLE=null;return 'Доступ к Claude не разрешён для этой страницы.'}
   if(c==='rate_limited')return 'Слишком много запросов, попробуй чуть позже.';
   if(c==='shortcut_error')return `Команда «${SC_NAME}» не сработала. Как её создать — в «Лексике» на экране «Сегодня», в настройках.`;
   if(c==='empty')return 'Claude ничего не вернул. Проверь, что в конце команды стоит «Остановить и вывести».';
   if(c==='cancelled_shortcut')return 'Запрос отменён.';
+  if(c==='timeout')return 'Ответ не пришёл: команда не вернула результат. Попробуй ещё раз.';
   return 'Ответ не пришёл. Попробуй ещё раз.'}
+/* the chapter open in Лексика (only inside the iPhone app, where grammar is part of it) */
+function curLessonObj(){try{return EMB?PARENT.__lxLesson:null}catch(e){return null}}
+function bookText(){const l=curLessonObj();return l&&l.text?String(l.text).slice(0,9000):''}
+function bookTitle(){const l=curLessonObj();return l?(l.course?l.course+' — ':'')+l.title:''}
 function nativeCall(type,data,ms=15000){return new Promise((res,rej)=>{if(!MH){rej();return}const id=++TB.seq;TB.cb.set(id,{res,rej});setTimeout(()=>{if(TB.cb.delete(id))rej()},ms);try{MH.postMessage({id,type,data})}catch(e){TB.cb.delete(id);rej()}})}
 let tipT=0;
 function tip(html,ms){let t=$('#tip');if(!t){t=document.createElement('div');t.id='tip';document.body.appendChild(t);t.addEventListener('click',e=>{if(!e.target.closest('button'))t.hidden=true})}
@@ -4190,6 +4201,7 @@ function renderUnit(){
   let h=`<div class="muted">${esc(u.ru)}</div><div class="row" style="justify-content:space-between"><span class="task">Теория</span>
     <span class="seg" role="group" aria-label="Язык теории"><button data-l="ru" aria-pressed="${S.lang==='ru'}">Русский</button><button data-l="en" aria-pressed="${S.lang==='en'}">English</button></span></div>
     <div class="panel theory">${(u.th[S.lang]||u.th.ru).replace(/<table>/g,'<div class="tw"><table>').replace(/<\/table>/g,'</table></div>')}<div class="small muted">Нажми на английский пример, чтобы услышать его. В заданиях нажатие на слово показывает перевод.</div></div>
+    ${canClaude()&&bookText()?`<div class="panel thq"><b>Эта тема в моей книге</b><div class="small muted">Claude найдёт в главе, которую ты сейчас читаешь (${esc(bookTitle())}), предложения с этой грамматикой и объяснит их.</div><button class="btn" id="bkEx">Найти примеры в книге</button><div id="bkExA">${(S.bookex&&S.bookex[u.id])?`<div class="fb">${esc(S.bookex[u.id])}</div>`:''}</div></div>`:''}
     ${canClaude()?`<div class="panel thq"><b>Вопрос по теме</b><textarea class="inp" id="thQ" rows="2" placeholder="Например: а как это с there is? Почему не do?"></textarea><button class="btn" id="thGo">Спросить Claude</button><div id="thA">${(S.thq&&S.thq[u.id]||[]).map(x=>`<div class="fb"><b>${esc(x.q)}</b>\n${esc(x.a)}</div>`).join('')}</div></div>`:''}
     ${MORE[u.id]?`<details class="panel theory more" id="moreBox"${moreOpen===u.id?' open':''}><summary><b>Подробнее</b><span>полные таблицы, тонкости, типичные ошибки</span></summary>${S.lang==='en'?'<p class="small muted">Этот раздел пока только на русском.</p>':''}${MORE[u.id]}</details>`:''}
     <span class="task">Практика</span>`;
@@ -4217,6 +4229,15 @@ function renderUnit(){
     startSession({kind:'step',unit:u.id,step:i,q})});
   $('#skipBtn')&&($('#skipBtn').onclick=()=>startTest('skip-'+u.id,[u],10,'Topic test: '+u.en,[],0));
   const mb=$('#moreBox');if(mb)mb.ontoggle=()=>{moreOpen=mb.open?u.id:null};
+  $('#bkEx')&&($('#bkEx').onclick=async()=>{const b=$('#bkEx');b.disabled=true;b.innerHTML='<span class="spin"></span> Жду Claude…';
+    const rl=Object.values(u.rules).map(r=>r.ru).join(' / ');
+    try{const a=await askClaude(`Ты преподаватель английского для русскоязычного ученика уровня ${u.lv==='b'?'B1':'A2'}. Тема курса: «${u.en}» (${u.ru}). Правила: ${rl}
+Ниже глава книги, которую он читает. Найди в ней до 4 предложений, где используется именно эта грамматика. Для каждого: процитируй предложение точно, затем одной-двумя строками по-русски — где здесь эта конструкция и почему она так употреблена. Если подходящих предложений нет, так и скажи и назови, что из этой темы встречается рядом. Без markdown.
+
+${bookText()}`);
+      S.bookex=S.bookex||{};S.bookex[u.id]=a;save();$('#bkExA').innerHTML=`<div class="fb">${esc(a)}</div>`;b.textContent='Найти ещё раз'}
+    catch(e){$('#bkExA').innerHTML=`<div class="small">${esc(claudeErr(e))}</div>`;b.textContent='Найти примеры в книге'}
+    b.disabled=false});
   $('#thGo')&&($('#thGo').onclick=async()=>{const q=$('#thQ').value.trim();if(!q){$('#thQ').focus();return}const b=$('#thGo');b.disabled=true;b.innerHTML='<span class="spin"></span> Жду Claude…';
     const th=String(u.th.ru).replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').slice(0,2500),rl=Object.values(u.rules).map(r=>r.ru).join(' / ');
     try{const a=await askClaude(`Ты преподаватель английского для русскоязычного ученика уровня ${u.lv==='b'?'B1':'A2'}. Тема: «${u.en}» (${u.ru}).
@@ -4300,7 +4321,7 @@ async function weekReview(){
   const g=errs.map(x=>{const it=ITEMS.get(x.id);return `«${UNIT(it.u).en}»: ${it.q||it.ans[0]} — ответ «${x.g||'—'}», правильно «${it.ans[0]}»`}).join('\n');
   let n=0,ok=0;for(let i=0;i<7;i++){const d=S.days[addDays(-i)];if(d){n+=d.n||0;ok+=d.ok||0}}
   let words='',reading='';
-  if(EMB)try{const P=PARENT.S;const hard=[...P.words.values()].filter(w=>(w.status||1)<5&&(w.lapses||0)>=2).sort((a,c)=>(c.lapses||0)-(a.lapses||0)).slice(0,20);
+  if(EMB)try{const P=PARENT.__lxS;const hard=[...P.words.values()].filter(w=>(w.status||1)<5&&(w.lapses||0)>=2).sort((a,c)=>(c.lapses||0)-(a.lapses||0)).slice(0,20);
     words=hard.map(w=>`${w.w||w.k} — ${w.tr||'?'} (ошибок: ${w.lapses})`).join('; ');
     let rd=0,sec=0;const t=new Date();for(let i=0;i<7;i++){const d=new Date(t);d.setDate(d.getDate()-i);const r=P.days[dayKey(d)];if(r){rd+=r.read||0;sec+=r.rsec||0}}
     reading=`прочитано ${rd} слов за ${Math.round(sec/60)} мин`}catch(e){}

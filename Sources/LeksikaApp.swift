@@ -114,6 +114,7 @@ final class LocalSchemeHandler: NSObject, WKURLSchemeHandler {
 enum Store {
     private static let queue = DispatchQueue(label: "leksika.store")
     private static var backedUp = false
+    private static var copiedDay = ""
 
     static var url: URL {
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -191,14 +192,17 @@ enum Store {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyy-MM-dd"
-        let day = root.appendingPathComponent(formatter.string(from: Date()), isDirectory: true)
+        let name = formatter.string(from: Date())
+        if copiedDay == name { return }
+        let day = root.appendingPathComponent(name, isDirectory: true)
+        copiedDay = name
         if fm.fileExists(atPath: day.path) { return }
         do {
             try fm.createDirectory(at: day, withIntermediateDirectories: true)
         } catch {
             return
         }
-        for source in [url, grammarURL] {
+        for source in [url, grammarURL, lessonsURL] {
             if fm.fileExists(atPath: source.path) {
                 try? fm.copyItem(at: source, to: day.appendingPathComponent(source.lastPathComponent))
             }
@@ -222,8 +226,8 @@ enum Store {
                 try? fm.removeItem(at: prevURL)
                 try? fm.copyItem(at: url, to: prevURL)
                 backedUp = true
-                dailyCopy()
             }
+            dailyCopy()
             try? data.write(to: url, options: .atomic)
         }
     }

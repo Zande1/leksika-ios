@@ -3,6 +3,7 @@ import WebKit
 import AVFoundation
 import NaturalLanguage
 import Translation
+import MediaPlayer
 
 /// Messages from the page: window.webkit.messageHandlers.native.postMessage({id, type, data}).
 /// Replies go back through window.__nb(id, ok, value).
@@ -15,6 +16,10 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
     init(translator: Translator) {
         self.translator = translator
         super.init()
+        // Listening goes on with the screen locked: the page is spoken from a native queue and
+        // progress is reported back to the page as it plays.
+        speaker.onSentence = { [weak self] i in self?.web?.evaluateJavaScript("window.__spk&&window.__spk.onSent(\(i))") }
+        speaker.onQueueEnd = { [weak self] done in self?.web?.evaluateJavaScript("window.__spk&&window.__spk.onEnd(\(done))") }
     }
 
     func userContentController(_ userContentController: WKUserContentController,
@@ -54,6 +59,18 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
 
         case "stop":
             speaker.stop()
+
+        case "speakQueue":
+            let raw = data["items"] as? [[String: Any]] ?? []
+            let items: [(Int, String)] = raw.compactMap { item in
+                guard let i = (item["i"] as? NSNumber)?.intValue, let t = item["text"] as? String else { return nil }
+                return (i, t)
+            }
+            speaker.speakQueue(items,
+                               rate: (data["rate"] as? NSNumber)?.doubleValue ?? 0.9,
+                               voiceId: data["voice"] as? String,
+                               repeatEach: (data["repeat"] as? Bool) ?? false,
+                               title: data["title"] as? String ?? "Лексика")
 
         case "translate":
             let text = data["text"] as? String ?? ""
@@ -190,7 +207,8 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
             if options.count == limit { break }
         }
         if options.isEmpty { throw URLError(.cannotParseResponse) }
-        return ["tr": options.joined(separator: ", "), "lemma": lemma, "pos": pos, "ipa": "", "note": ""]
+        let ipa = isPhrase ? "" : ((try? await withTimeout(3) { try await Phonetics.of(lemma.isEmpty ? text : lemma) }) ?? "")
+        return ["tr": options.joined(separator: ", "), "lemma": lemma, "pos": pos, "ipa": ipa, "note": ""]
     }
 
     private func translateSentence(_ text: String) async throws -> String {
@@ -254,10 +272,31 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
 final class Speaker: NSObject, AVSpeechSynthesizerDelegate {
     private let synth = AVSpeechSynthesizer()
     private var callbacks: [ObjectIdentifier: (Bool) -> Void] = [:]
+    /// Utterances of the current page queue and the sentence index each one belongs to.
+    private var queued: [ObjectIdentifier: Int] = [:]
+    private var lastOfQueue: ObjectIdentifier?
+    var onSentence: ((Int) -> Void)?
+    var onQueueEnd: ((Bool) -> Void)?
 
     override init() {
         super.init()
         synth.delegate = self
+        let center = MPRemoteCommandCenter.shared()
+        center.pauseCommand.addTarget { [weak self] _ in
+            guard let self, self.synth.isSpeaking else { return .noActionableEvent }
+            self.synth.pauseSpeaking(at: .word)
+            return .success
+        }
+        center.playCommand.addTarget { [weak self] _ in
+            guard let self, self.synth.isPaused else { return .noActionableEvent }
+            self.synth.continueSpeaking()
+            return .success
+        }
+        center.togglePlayPauseCommand.addTarget { [weak self] _ in
+            guard let self else { return .noActionableEvent }
+            if self.synth.isPaused { self.synth.continueSpeaking() } else if self.synth.isSpeaking { self.synth.pauseSpeaking(at: .word) } else { return .noActionableEvent }
+            return .success
+        }
         // .playback lets speech play even when the silent switch is on.
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .spokenAudio, options: [.duckOthers])
     }
@@ -293,14 +332,76 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate {
 
     func stop() { synth.stopSpeaking(at: .immediate) }
 
+    private func utterance(_ text: String, rate: Double, voiceId: String?) -> AVSpeechUtterance {
+        let u = AVSpeechUtterance(string: text)
+        let r = AVSpeechUtteranceDefaultSpeechRate * Float(rate)
+        u.rate = min(max(r, AVSpeechUtteranceMinimumSpeechRate), AVSpeechUtteranceMaximumSpeechRate)
+        if let id = voiceId, let v = AVSpeechSynthesisVoice(identifier: id) {
+            u.voice = v
+        } else {
+            u.voice = AVSpeechSynthesisVoice(language: "en-US")
+        }
+        return u
+    }
+
+    /// Speaks the rest of a page as one queue. With repeatEach every sentence is said, a pause is left
+    /// to repeat it aloud, and it is said again (shadowing).
+    func speakQueue(_ items: [(Int, String)], rate: Double, voiceId: String?, repeatEach: Bool, title: String) {
+        if synth.isSpeaking || synth.isPaused { synth.stopSpeaking(at: .immediate) }
+        queued.removeAll()
+        lastOfQueue = nil
+        guard !items.isEmpty else { return }
+        try? AVAudioSession.sharedInstance().setActive(true)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [MPMediaItemPropertyTitle: title,
+                                                           MPMediaItemPropertyArtist: "Лексика"]
+        for (i, text) in items {
+            let first = utterance(text, rate: rate, voiceId: voiceId)
+            let words = Double(text.split(separator: " ").count)
+            let gap = min(6.0, 1.2 + words * 0.45)
+            queued[ObjectIdentifier(first)] = i
+            if repeatEach {
+                first.postUtteranceDelay = gap
+                let second = utterance(text, rate: rate, voiceId: voiceId)
+                second.postUtteranceDelay = gap
+                queued[ObjectIdentifier(second)] = i
+                synth.speak(first)
+                synth.speak(second)
+                lastOfQueue = ObjectIdentifier(second)
+            } else {
+                synth.speak(first)
+                lastOfQueue = ObjectIdentifier(first)
+            }
+        }
+    }
+
+    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        let key = ObjectIdentifier(utterance)
+        Task { @MainActor in
+            if let i = self.queued[key] { self.onSentence?(i) }
+        }
+    }
+
     nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         let key = ObjectIdentifier(utterance)
-        Task { @MainActor in self.callbacks.removeValue(forKey: key)?(true) }
+        Task { @MainActor in
+            self.callbacks.removeValue(forKey: key)?(true)
+            if self.queued.removeValue(forKey: key) != nil, key == self.lastOfQueue {
+                self.lastOfQueue = nil
+                self.onQueueEnd?(true)
+            }
+        }
     }
 
     nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
         let key = ObjectIdentifier(utterance)
-        Task { @MainActor in self.callbacks.removeValue(forKey: key)?(false) }
+        Task { @MainActor in
+            self.callbacks.removeValue(forKey: key)?(false)
+            if self.queued.removeValue(forKey: key) != nil, self.lastOfQueue != nil {
+                self.lastOfQueue = nil
+                self.queued.removeAll()
+                self.onQueueEnd?(false)
+            }
+        }
     }
 }
 
@@ -391,6 +492,24 @@ enum Google {
         }
         if main.isEmpty && alts.isEmpty { throw URLError(.cannotParseResponse) }
         return GoogleResult(main: main, alternatives: alts, byPos: byPos)
+    }
+}
+
+// MARK: - Pronunciation (free dictionary)
+
+enum Phonetics {
+    static func of(_ word: String) async throws -> String {
+        let w = word.lowercased().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? word
+        guard let url = URL(string: "https://api.dictionaryapi.dev/api/v2/entries/en/\(w)") else { return "" }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        guard let entries = try JSONSerialization.jsonObject(with: data) as? [[String: Any]] else { return "" }
+        for entry in entries {
+            if let p = entry["phonetic"] as? String, !p.isEmpty { return p.trimmingCharacters(in: CharacterSet(charactersIn: "/[] ")) }
+            for ph in entry["phonetics"] as? [[String: Any]] ?? [] {
+                if let p = ph["text"] as? String, !p.isEmpty { return p.trimmingCharacters(in: CharacterSet(charactersIn: "/[] ")) }
+            }
+        }
+        return ""
     }
 }
 
