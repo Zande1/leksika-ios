@@ -6492,6 +6492,492 @@ const SECTIONS=[
  ['mc','Have you been to ___ Caucasus?',['the','—','a'],0,'a']],
  fw:{ru:"Напиши о путешествии мечты: какие страны, города, реки, горы, музеи и улицы ты хочешь увидеть. Следи за the. 6 предложений.",en:"Write about your dream trip: countries, cities, rivers, mountains, museums and streets you want to see. Watch the articles. 6 sentences."}}
 ]},
+{lv:'b',ru:'Полезные конструкции',en:'Useful structures',units:[
+{id:'quite',ru:'Довольно и порядок прилагательных: quite, pretty, rather, fairly',en:'quite, pretty, rather, fairly; adjective order',
+ th:{ru:`<table><tr><th>Слово</th><th>Смысл</th><th>Пример</th></tr>
+<tr><td>fairly</td><td>довольно, «нормально», слабее всех</td><td><span class="en">The test was fairly easy.</span></td></tr>
+<tr><td>quite</td><td>довольно, весьма</td><td><span class="en">It's quite cold today.</span></td></tr>
+<tr><td>pretty</td><td>довольно (разговорное = quite)</td><td><span class="en">The film was pretty good.</span></td></tr>
+<tr><td>rather</td><td>довольно, скорее (часто о неприятном или неожиданном)</td><td><span class="en">It's rather expensive.</span></td></tr></table>
+<p>Порядок с артиклем: <b>quite a</b> + прил. + сущ. (<span class="en">quite a long way</span>), но <b>a fairly / a pretty</b> + прил. (<span class="en">a fairly big house</span>). rather — оба варианта.</p>
+<p>С «абсолютными» прилагательными (amazing, impossible, right, sure) <b>quite = полностью</b>: <span class="en">You're quite right.</span> — Ты совершенно прав.</p>
+<p><b>Порядок нескольких прилагательных</b>: мнение → размер → возраст → форма → цвет → откуда → материал → назначение + существительное.</p>
+<p><span class="en">a lovely little old wooden house</span>, <span class="en">a big black leather bag</span>, <span class="en">an expensive Italian sports car</span>.</p>`,
+ en:`<table><tr><th>Word</th><th>Meaning</th><th>Example</th></tr>
+<tr><td>fairly</td><td>moderately, weakest</td><td><span class="en">The test was fairly easy.</span></td></tr>
+<tr><td>quite</td><td>more than a little</td><td><span class="en">It's quite cold today.</span></td></tr>
+<tr><td>pretty</td><td>informal = quite</td><td><span class="en">The film was pretty good.</span></td></tr>
+<tr><td>rather</td><td>often negative or surprising</td><td><span class="en">It's rather expensive.</span></td></tr></table>
+<p><b>quite a</b> + adjective + noun, but <b>a fairly / a pretty</b> + adjective + noun.</p>
+<p>With extreme adjectives quite means completely: <span class="en">You're quite right.</span></p>
+<p><b>Adjective order</b>: opinion → size → age → shape → colour → origin → material → purpose + noun: <span class="en">a lovely little old wooden house</span>.</p>`},
+ rules:{a:{ru:'fairly < quite / pretty < rather: «довольно» разной силы; rather часто о плохом.',en:'fairly < quite / pretty < rather; rather is often negative.'},
+  b:{ru:'quite a + прил. + сущ.; a fairly / a pretty + прил. + сущ.',en:'quite a + adj + noun; a fairly / a pretty + adj + noun.'},
+  c:{ru:'quite + right, sure, impossible, amazing = совершенно.',en:'quite + extreme adjective = completely.'},
+  d:{ru:'Порядок: мнение, размер, возраст, форма, цвет, откуда, материал + сущ.',en:'Order: opinion, size, age, shape, colour, origin, material + noun.'}},
+ items:[
+ ['mc','It\'s ___ long way to the station.',['quite a','a quite','quite'],0,'b'],
+ ['mc','You\'re ___ right. I was wrong.',['quite','fairly','pretty a'],0,'c'],
+ ['mc','She has ___ eyes.',['beautiful big blue','blue big beautiful','big blue beautiful'],0,'d'],
+ ['mc','It was ___ good film, nothing special.',['a fairly','fairly a','a quite'],0,'b'],
+ ['mc','I bought ___ jacket.',['a black leather','a leather black','black a leather'],0,'d'],
+ ['mc','The hotel was ___ expensive. More than we wanted to pay.',['rather','fairly','a pretty'],0,'a'],
+ ['mc','I\'m not ___ sure. Let me check.',['quite','fairly a','rather a'],0,'c'],
+ ['gap','The exam was ___ easy. I passed. (довольно — pretty)','pretty','a'],
+ ['gap','It was quite ___ nice day.','a','b'],
+ ['gap','That\'s ___ impossible! (совершенно)','quite','c'],
+ ['gap','He lives in a ___ old house. (довольно, a + …)','fairly|pretty|rather','b'],
+ ['tr','Ты совершенно прав.','You are quite right.|You\'re quite right.|You are absolutely right.|You\'re absolutely right.|You are completely right.','c'],
+ ['build','Она купила красивое старое деревянное кресло.','She bought a beautiful old wooden chair.','d',['wooden old']],
+ ['build','Это была довольно долгая поездка.','It was quite a long trip.','b',['a quite']],
+ ['fix','We stayed in a quite nice hotel.','We stayed in quite a nice hotel.|We stayed in a pretty nice hotel.|We stayed in a fairly nice hotel.|We stayed in a rather nice hotel.','b'],
+ '|',
+ ['mc','He has ___ car.',['an old red sports','a red old sports','a sports old red'],0,'d'],
+ ['mc','Your English is ___ good! (выше ожиданий)',['pretty','fairly a','quite a'],0,'a'],
+ ['gap','The film was ___ boring, so we left early. (rather)','rather','a'],
+ ['gap','It\'s quite ___ big flat.','a','b'],
+ ['fix','I bought a wooden beautiful table.','I bought a beautiful wooden table.','d'],
+ ['fix','It was a quite interesting book.','It was quite an interesting book.|It was a pretty interesting book.|It was a fairly interesting book.|It was a rather interesting book.','b'],
+ ['tr','Сегодня довольно холодно.','It is quite cold today.|It\'s quite cold today.|It is pretty cold today.|It\'s pretty cold today.|It is rather cold today.|It\'s rather cold today.|It is fairly cold today.|Today it is quite cold.','a'],
+ ['dict','We had a lovely little cottage with a big green garden.','d'],
+ '|',
+ ['mc','The weather was ___ OK. Not great, not bad.',['fairly','rather','quite a'],0,'a'],
+ ['mc','It\'s ___ amazing view!',['quite an','a quite','a fairly'],0,'b'],
+ ['mc','Are you ___ sure?',['quite','fairly a','rather a'],0,'c'],
+ ['mc','She wore ___ dress.',['a long white silk','a silk long white','a white silk long'],0,'d'],
+ ['mc','The room was ___ small for four people.',['rather','a fairly','quite a'],0,'a'],
+ ['gap','It\'s pretty ___ outside. Take a coat. (cold)','cold','a'],
+ ['gap','He\'s ___ good driver. (довольно хороший, quite)','quite a','b'],
+ ['gap','It\'s quite ___ to do it in one day. (невозможно)','impossible','c'],
+ ['gap','I bought a ___ Italian coffee machine. (expensive)','expensive','d'],
+ ['gap','The food was ___ good, but the service was slow. (pretty)','pretty','a'],
+ ['fix','We have a German big car.','We have a big German car.','d'],
+ ['tr','Это довольно далеко.','It is quite far.|It\'s quite far.|It is pretty far.|It\'s pretty far.|It is quite a long way.|It\'s quite a long way.|It\'s rather far.|It is fairly far.','a'],
+ ['build','У него маленькая чёрная собака.','He has a small black dog.','d',['black small']],
+ '|',
+ ['mc','It was ___ difficult question.',['a rather','rather an','quite an'],0,'b'],
+ ['mc','I quite ___ the idea. (мне скорее нравится)',['like','likes','am liking'],0,'a'],
+ ['gap','You\'re ___ right. I agree completely. (совершенно)','quite','c'],
+ ['gap','She has short ___ hair. (curly — кудрявые)','curly','d'],
+ ['gap','It\'s a ___ simple recipe. (довольно, fairly)','fairly','b'],
+ ['gap','The concert was ___ a success. (весьма)','quite','b'],
+ ['fix','He wears always a leather old jacket.','He always wears an old leather jacket.','d'],
+ ['fix','It is a pretty big a problem.','It is a pretty big problem.|It\'s a pretty big problem.','b'],
+ ['fix','I am not fairly sure.',"I am not quite sure.|I'm not quite sure.",'c'],
+ ['fix','We stayed in a modern big hotel.','We stayed in a big modern hotel.','d'],
+ ['tr','Это был довольно скучный вечер.','It was quite a boring evening.|It was a pretty boring evening.|It was a rather boring evening.|It was a fairly boring evening.|It was rather a boring evening.','b'],
+ ['tr','У неё длинные светлые волосы.','She has long blond hair.|She has long blonde hair.|She\'s got long blond hair.|She\'s got long blonde hair.|She has long fair hair.','d'],
+ ['dict','It was quite a hot day, so we went to a small quiet beach.','b'],
+ ['gap','The test was ___ easy. Everybody passed. (fairly)','fairly','a']],
+ fw:{ru:"Опиши три вещи, которые у тебя есть (одежда, машина, комната), используя по два-три прилагательных в правильном порядке, и оцени их с quite / pretty / rather.",en:"Describe three things you own using two or three adjectives in the right order, and rate them with quite / pretty / rather."}},
+
+{id:'adjto',ru:'It\'s easy to…, nice of you to…, afraid to / of',en:'adjective + to; nice of you; afraid to / of',
+ th:{ru:`<table><tr><th>Шаблон</th><th>Пример</th></tr>
+<tr><td>It's + прил. + to + глагол</td><td><span class="en">It's easy to make mistakes.</span> — Легко ошибиться.</td></tr>
+<tr><td>Предмет + is + прил. + to</td><td><span class="en">This book is easy to read.</span> — Эту книгу легко читать. (без it в конце!)</td></tr>
+<tr><td>It's + прил. + for кого + to</td><td><span class="en">It's hard for me to wake up early.</span></td></tr>
+<tr><td>It's nice / kind / stupid + of кого + to</td><td><span class="en">It was kind of you to help.</span> — Мило с твоей стороны.</td></tr>
+<tr><td>I'm glad / sorry / surprised + to</td><td><span class="en">I'm glad to see you.</span></td></tr></table>
+<p><b>for или of?</b> <b>of</b> — когда оцениваем человека (kind, nice, silly, rude, clever). <b>for</b> — когда говорим, кому трудно или легко.</p>
+<p><b>afraid of + -ing / сущ.</b> — бояться, что случится (само): <span class="en">I'm afraid of falling.</span> <b>afraid to + глагол</b> — боюсь сделать (решиться): <span class="en">I'm afraid to tell him.</span></p>
+<p>То же с <b>sorry for doing</b> (о прошлом) и <b>sorry to</b> (о настоящем): <span class="en">Sorry to bother you.</span> <span class="en">I'm sorry for being late.</span></p>
+<p><b>the first / the last / the only + to</b>: <span class="en">He was the first to arrive.</span></p>`,
+ en:`<table><tr><th>Pattern</th><th>Example</th></tr>
+<tr><td>It's + adj + to</td><td><span class="en">It's easy to make mistakes.</span></td></tr>
+<tr><td>Thing + is + adj + to</td><td><span class="en">This book is easy to read.</span> (no it at the end)</td></tr>
+<tr><td>It's + adj + for sb + to</td><td><span class="en">It's hard for me to wake up early.</span></td></tr>
+<tr><td>It's nice / kind + of sb + to</td><td><span class="en">It was kind of you to help.</span></td></tr>
+<tr><td>I'm glad / sorry / surprised + to</td><td><span class="en">I'm glad to see you.</span></td></tr></table>
+<p><b>of</b> judges the person; <b>for</b> says who finds it easy or hard.</p>
+<p><b>afraid of + -ing</b> — fear of something happening; <b>afraid to</b> — too scared to do it.</p>
+<p><b>sorry to</b> (now) / <b>sorry for -ing</b> (past). <b>the first / last / only to</b>.</p>`},
+ rules:{a:{ru:'It\'s + прил. + (for кого) + to: It\'s hard for me to…',en:'It\'s + adjective + (for sb) + to-infinitive.'},
+  b:{ru:'Предмет + is + прил. + to + глагол — без it в конце: easy to read.',en:'Thing + is + adjective + to — no object at the end.'},
+  c:{ru:'It\'s nice / kind / silly + of кого + to — оценка человека.',en:'nice / kind / silly + of sb + to — judging the person.'},
+  d:{ru:'afraid of + -ing — боюсь, что случится; afraid to — боюсь сделать.',en:'afraid of + -ing — fear of an event; afraid to — too scared to act.'}},
+ items:[
+ ['mc','It\'s difficult ___ a flat in Moscow.',['to find','finding','find'],0,'a'],
+ ['mc','This question is easy ___.',['to answer','to answer it','answering it'],0,'b'],
+ ['mc','It was very kind ___ you to call.',['of','for','to'],0,'c'],
+ ['mc','It\'s hard ___ me to understand him.',['for','of','to'],0,'a'],
+ ['mc','I\'m afraid ___ the stairs in the dark.',['of falling down','to falling down','fall down'],0,'d'],
+ ['mc','She was afraid ___ him the truth.',['to tell','of tell','telling'],0,'d'],
+ ['mc','I\'m glad ___ you.',['to see','seeing','see'],0,'a'],
+ ['gap','It\'s important ___ drink water.','to','a'],
+ ['gap','It was silly ___ me to forget my keys.','of','c'],
+ ['gap','This soup is hot. It\'s difficult ___ eat.','to','b'],
+ ['gap','He was the first ___ finish the test.','to','a'],
+ ['tr','С твоей стороны было очень мило помочь мне.','It was very nice of you to help me.|It was very kind of you to help me.|It was really nice of you to help me.|That was very nice of you to help me.|That was very kind of you to help me.','c'],
+ ['tr','Мне трудно рано вставать.','It is hard for me to get up early.|It\'s hard for me to get up early.|It is difficult for me to get up early.|It\'s difficult for me to get up early.|I find it hard to get up early.|I find it difficult to get up early.','a'],
+ ['build','Этот текст легко понять.','This text is easy to understand.','b',['it']],
+ ['fix','This word is difficult to pronounce it.','This word is difficult to pronounce.','b'],
+ '|',
+ ['mc','It\'s rude ___ him to ignore you.',['of','for','to'],0,'c'],
+ ['mc','Sorry ___ you, but where is the station?',['to bother','for bother','bothering'],0,'a'],
+ ['gap','I\'m afraid ___ losing my job.','of','d'],
+ ['gap','Your writing is hard ___ read.','to','b'],
+ ['fix','It\'s easy for you to say it like that, but it\'s hard of me.',"It's easy for you to say it like that, but it's hard for me.",'a'],
+ ['fix','It was clever for you to bring an umbrella.','It was clever of you to bring an umbrella.','c'],
+ ['tr','Я рад это слышать.','I am glad to hear that.|I\'m glad to hear that.|I am glad to hear it.|I\'m glad to hear it.|I\'m happy to hear that.|I am happy to hear that.','a'],
+ ['dict','It is not easy for children to sit still for an hour.','a'],
+ '|',
+ ['mc','It\'s dangerous ___ here.',['to swim','swimming it','swim'],0,'a'],
+ ['mc','The instructions are easy ___.',['to follow','to follow them','following'],0,'b'],
+ ['mc','It\'s nice ___ you to say that.',['of','for','to'],0,'c'],
+ ['mc','I\'m afraid ___ spiders.',['of','to','from'],0,'d'],
+ ['mc','He was the last ___ leave the office.',['to','for','of'],0,'a'],
+ ['gap','It\'s impossible ___ me to come tomorrow.','for','a'],
+ ['gap','This bag is too heavy ___ carry.','to','b'],
+ ['gap','How stupid ___ me! I forgot your birthday.','of','c'],
+ ['gap','She\'s afraid ___ ask the teacher a question.','to','d'],
+ ['gap','I was surprised ___ see him there.','to','a'],
+ ['fix','It is necessary of you to sign here.','It is necessary for you to sign here.|You need to sign here.|It\'s necessary for you to sign here.','a'],
+ ['tr','Эту машину легко водить.','This car is easy to drive.|The car is easy to drive.','b'],
+ ['build','Он боится летать.','He is afraid of flying.','d',['to flying']],
+ '|',
+ ['mc','It\'s not easy ___ a new language.',['to learn','learn','to learning'],0,'a'],
+ ['mc','I\'m sorry ___ late.',['for being','to being','for be'],0,'d'],
+ ['gap','The museum is interesting ___ visit.','to','b'],
+ ['gap','It was generous ___ them to pay for dinner.','of','c'],
+ ['gap','It is difficult ___ old people to use smartphones.','for','a'],
+ ['gap','I was afraid ___ say anything.','to','d'],
+ ['fix','His handwriting is impossible to read it.','His handwriting is impossible to read.','b'],
+ ['fix','It\'s kind for you to invite me.',"It's kind of you to invite me.",'c'],
+ ['fix','I\'m afraid of to fly.',"I'm afraid of flying.|I'm afraid to fly.",'d'],
+ ['fix','She was the only one which to help me.','She was the only one to help me.|She was the only one who helped me.','a'],
+ ['tr','Было глупо с моей стороны ему верить.','It was stupid of me to believe him.|It was silly of me to believe him.|It was foolish of me to believe him.','c'],
+ ['tr','Я боюсь потерять ключи.','I am afraid of losing my keys.|I\'m afraid of losing my keys.|I am afraid of losing the keys.|I\'m afraid of losing the keys.','d'],
+ ['dict','It was very kind of your parents to invite us for dinner.','c'],
+ ['dict','This flat is easy to clean but hard to heat in winter.','b']],
+ fw:{ru:"Напиши 6 предложений: что тебе легко или трудно (It's easy / hard for me to…), что легко делать (This … is easy to…), кто был мил с тобой (kind of … to) и чего ты боишься (afraid of / to).",en:"Write 6 sentences: what is easy or hard for you, something that is easy to do, someone who was kind to you, and what you are afraid of / afraid to do."}},
+
+{id:'timeprep',ru:'Время: during / while, by / until, on time / in time',en:'during / for / while; by / until; on time / in time',
+ th:{ru:`<table><tr><th>Пара</th><th>Разница</th><th>Пример</th></tr>
+<tr><td>during</td><td>+ существительное: во время чего</td><td><span class="en">I fell asleep during the film.</span></td></tr>
+<tr><td>while</td><td>+ подлежащее и глагол: пока</td><td><span class="en">I fell asleep while I was watching the film.</span></td></tr>
+<tr><td>for</td><td>+ период: сколько длилось</td><td><span class="en">I slept for two hours.</span></td></tr>
+<tr><td>until (till)</td><td>действие длится до момента</td><td><span class="en">I'll wait until six.</span></td></tr>
+<tr><td>by</td><td>не позже момента (дедлайн)</td><td><span class="en">Finish it by six.</span></td></tr>
+<tr><td>by the time</td><td>к тому времени, как</td><td><span class="en">By the time we arrived, the film had started.</span></td></tr>
+<tr><td>on time</td><td>вовремя, по расписанию</td><td><span class="en">The train left on time.</span></td></tr>
+<tr><td>in time</td><td>заранее, успеть до</td><td><span class="en">We got there in time for dinner.</span></td></tr>
+<tr><td>at the end (of)</td><td>в конце чего-то</td><td><span class="en">at the end of the month</span></td></tr>
+<tr><td>in the end</td><td>в итоге, наконец</td><td><span class="en">In the end we stayed at home.</span></td></tr></table>
+<p>Ловушка «в течение»: <span class="en">for two weeks</span> (сколько), но <span class="en">during the summer</span> (когда).</p>`,
+ en:`<table><tr><th>Pair</th><th>Difference</th><th>Example</th></tr>
+<tr><td>during</td><td>+ noun</td><td><span class="en">I fell asleep during the film.</span></td></tr>
+<tr><td>while</td><td>+ clause</td><td><span class="en">I fell asleep while I was watching the film.</span></td></tr>
+<tr><td>for</td><td>+ length of time</td><td><span class="en">I slept for two hours.</span></td></tr>
+<tr><td>until</td><td>continues up to a time</td><td><span class="en">I'll wait until six.</span></td></tr>
+<tr><td>by</td><td>not later than</td><td><span class="en">Finish it by six.</span></td></tr>
+<tr><td>by the time</td><td>+ clause</td><td><span class="en">By the time we arrived, the film had started.</span></td></tr>
+<tr><td>on time</td><td>punctual</td><td><span class="en">The train left on time.</span></td></tr>
+<tr><td>in time</td><td>early enough</td><td><span class="en">We got there in time for dinner.</span></td></tr>
+<tr><td>at the end (of)</td><td>the final part</td><td><span class="en">at the end of the month</span></td></tr>
+<tr><td>in the end</td><td>finally</td><td><span class="en">In the end we stayed at home.</span></td></tr></table>`},
+ rules:{a:{ru:'during + существительное; while + предложение; for + сколько времени.',en:'during + noun; while + clause; for + length of time.'},
+  b:{ru:'until — длится до момента; by — не позже момента.',en:'until — continues up to; by — not later than.'},
+  c:{ru:'on time — точно по плану; in time — успеть заранее.',en:'on time — punctual; in time — early enough.'},
+  d:{ru:'at the end of — в конце чего-то; in the end — в итоге.',en:'at the end of — final part; in the end — finally.'}},
+ items:[
+ ['mc','I fell asleep ___ the lesson.',['during','while','for'],0,'a'],
+ ['mc','She called ___ I was having dinner.',['while','during','for'],0,'a'],
+ ['mc','We stayed in Sochi ___ a week.',['for','during','while'],0,'a'],
+ ['mc','Please send me the report ___ Friday.',['by','until','till'],0,'b'],
+ ['mc','I waited for her ___ ten o\'clock, then I left.',['until','by','during'],0,'b'],
+ ['mc','The plane landed exactly ___.',['on time','in time','at time'],0,'c'],
+ ['mc','We looked everywhere. ___ we found the keys in the car.',['In the end','At the end','By the end of'],0,'d'],
+ ['gap','Don\'t use your phone ___ the exam.','during','a'],
+ ['gap','I\'ll be at work ___ six, then I\'ll go home.','until|till','b'],
+ ['gap','We got to the cinema just in ___ for the start.','time','c'],
+ ['gap','Pay the bill at the end ___ the month.','of','d'],
+ ['tr','Я жил в Казани три года.','I lived in Kazan for three years.|I have lived in Kazan for three years.|I\'ve lived in Kazan for three years.|I have been living in Kazan for three years.','a'],
+ ['tr','Верни книгу до понедельника.','Return the book by Monday.|Bring the book back by Monday.|Give the book back by Monday.|Please return the book by Monday.|Give me the book back by Monday.','b'],
+ ['build','Поезд пришёл вовремя.','The train arrived on time.','c',['in']],
+ ['fix','I met him during I was on holiday.','I met him while I was on holiday.|I met him during my holiday.|I met him during the holiday.','a'],
+ '|',
+ ['mc','By the time I got home, everyone ___ to bed.',['had gone','went','goes'],0,'b'],
+ ['mc','At the ___ of the film, everybody cried.',['end','ending','finish'],0,'d'],
+ ['gap','It rained ___ the whole weekend.','during|for|all through','a'],
+ ['gap','The shop is open ___ 9 p.m.','until|till','b'],
+ ['fix','I have to finish this until tomorrow.','I have to finish this by tomorrow.','b'],
+ ['fix','We arrived on time to see the beginning.','We arrived in time to see the beginning.','c'],
+ ['tr','В итоге мы купили красную машину.','In the end we bought the red car.|In the end, we bought the red car.|In the end we bought a red car.|In the end, we bought a red car.|Finally we bought the red car.|Finally, we bought a red car.','d'],
+ ['dict','During the summer I worked in a café while my friends were on holiday.','a'],
+ '|',
+ ['mc','He didn\'t say a word ___ the meeting.',['during','while','for'],0,'a'],
+ ['mc','I\'ll have finished ___ the time you come back.',['by','until','in'],0,'b'],
+ ['mc','Hurry up or we won\'t be ___ for the train.',['in time','on time','at time'],0,'c'],
+ ['mc','I was nervous at first, but ___ everything went well.',['in the end','at the end','by the end'],0,'d'],
+ ['mc','I studied ___ three hours yesterday.',['for','during','while'],0,'a'],
+ ['gap','Somebody stole my bag ___ I was asleep.','while','a'],
+ ['gap','We have to leave the hotel ___ 12 o\'clock. (не позже)','by','b'],
+ ['gap','Our teacher is always ___ time. He\'s never late.','on','c'],
+ ['gap','We\'ll stay here ___ the rain stops.','until|till','b'],
+ ['gap','The answers are at the ___ of the book.','end','d'],
+ ['fix','I\'ll wait you by five o\'clock.',"I'll wait for you until five o'clock.|I'll wait for you till five o'clock.",'b'],
+ ['tr','Пока я спал, пошёл снег.','While I was sleeping, it started to snow.|While I was asleep, it started to snow.|It started to snow while I was sleeping.|It started snowing while I was asleep.|While I was sleeping, it started snowing.|It started to snow while I was asleep.','a'],
+ ['build','Я буду дома до вечера.','I will be at home until the evening.','b',['by']],
+ '|',
+ ['mc','My phone rang ___ the concert.',['during','while','for'],0,'a'],
+ ['mc','He arrived ___ for the start of the meeting. (успел)',['in time','on time','at time'],0,'c'],
+ ['gap','I lived abroad ___ ten years.','for','a'],
+ ['gap','By ___ time the police came, the thieves had gone.','the','b'],
+ ['gap','I didn\'t want to go, but ___ the end I went.','in','d'],
+ ['gap','Can you wait ___ I finish this email?','until|till','b'],
+ ['fix','The bus left in time, at 8:00 exactly.','The bus left on time, at 8:00 exactly.','c'],
+ ['fix','I visited my grandmother while the holidays.','I visited my grandmother during the holidays.','a'],
+ ['fix','At the end we decided to stay at home.','In the end we decided to stay at home.|In the end, we decided to stay at home.','d'],
+ ['fix','I\'ve been here during two hours.',"I've been here for two hours.|I have been here for two hours.",'a'],
+ ['tr','Мы успели на последний автобус.','We were in time for the last bus.|We caught the last bus.|We made it in time for the last bus.|We got the last bus.|We managed to catch the last bus.','c'],
+ ['tr','К концу недели я очень устал.','By the end of the week I was very tired.|By the end of the week, I was very tired.|By the end of the week I was really tired.','b'],
+ ['dict','Please finish the work by Friday and stay in the office until it is done.','b'],
+ ['gap','He talked ___ the whole lesson.','during|through','a']],
+ fw:{ru:"Расскажи о прошлом отпуске в 6 предложениях, используя during, while, for, until, by и in the end.",en:"Tell me about your last holiday in 6 sentences using during, while, for, until, by and in the end."}},
+
+{id:'requests',ru:'Просьбы, разрешение, предложения: Could you…? Would you mind…?',en:'Requests, permission, offers',
+ th:{ru:`<table><tr><th>Что хотим</th><th>Как сказать</th><th>Пример</th></tr>
+<tr><td>попросить кого-то</td><td>Can you…? Could you…? (вежливее) Would you…?</td><td><span class="en">Could you open the window, please?</span></td></tr>
+<tr><td>очень вежливо</td><td>Would you mind + -ing?</td><td><span class="en">Would you mind closing the door?</span></td></tr>
+<tr><td>спросить разрешения</td><td>Can I…? Could I…? May I…? (официально)</td><td><span class="en">May I come in?</span></td></tr>
+<tr><td>вежливо спросить разрешения</td><td>Do you mind if I + настоящее? Would you mind if I + прошедшее?</td><td><span class="en">Do you mind if I sit here?</span></td></tr>
+<tr><td>предложить помощь</td><td>Shall I…? Can I…? I'll…</td><td><span class="en">Shall I carry your bag?</span></td></tr>
+<tr><td>предложить что-то</td><td>Would you like…?</td><td><span class="en">Would you like some tea?</span></td></tr>
+<tr><td>пригласить</td><td>Would you like to…?</td><td><span class="en">Would you like to come to dinner?</span></td></tr></table>
+<p><b>Ответ на Do you mind…?</b> Вопрос буквально «вы против?», поэтому согласие — <span class="en">No, not at all. / Of course not. / Go ahead.</span> Ответ «Yes» значит «да, я против».</p>
+<p>Просить через do: <span class="bad">Do you open the window?</span> — так по-английски не просят.</p>`,
+ en:`<table><tr><th>Function</th><th>Forms</th><th>Example</th></tr>
+<tr><td>asking someone</td><td>Can you…? Could you…? Would you…?</td><td><span class="en">Could you open the window, please?</span></td></tr>
+<tr><td>very polite</td><td>Would you mind + -ing?</td><td><span class="en">Would you mind closing the door?</span></td></tr>
+<tr><td>permission</td><td>Can I…? Could I…? May I…?</td><td><span class="en">May I come in?</span></td></tr>
+<tr><td>polite permission</td><td>Do you mind if I + present? Would you mind if I + past?</td><td><span class="en">Do you mind if I sit here?</span></td></tr>
+<tr><td>offering help</td><td>Shall I…? Can I…? I'll…</td><td><span class="en">Shall I carry your bag?</span></td></tr>
+<tr><td>offering things</td><td>Would you like…?</td><td><span class="en">Would you like some tea?</span></td></tr>
+<tr><td>inviting</td><td>Would you like to…?</td><td><span class="en">Would you like to come to dinner?</span></td></tr></table>
+<p>"Do you mind…?" means "Is it a problem?", so yes = no: <span class="en">No, not at all. / Go ahead.</span></p>
+<p>Not <span class="bad">Do you open the window?</span> as a request.</p>`},
+ rules:{a:{ru:'Просьба: Can / Could / Would you + глагол? Would you mind + -ing?',en:'Requests: Can / Could / Would you + verb? Would you mind + -ing?'},
+  b:{ru:'Разрешение: Can / Could / May I…? Do you mind if I + настоящее?',en:'Permission: Can / Could / May I…? Do you mind if I + present?'},
+  c:{ru:'Предложение: Shall I…? Would you like (to)…?',en:'Offers: Shall I…? Would you like (to)…?'},
+  d:{ru:'На Do / Would you mind…? согласие — No, not at all / Go ahead.',en:'To agree to Do / Would you mind…? say No, not at all / Go ahead.'}},
+ items:[
+ ['mc','___ you pass me the bread, please?',['Could','Do','Shall'],0,'a'],
+ ['mc','Would you mind ___ the window?',['opening','to open','open'],0,'a'],
+ ['mc','___ I use your phone?',['May','Do','Would'],0,'b'],
+ ['mc','Do you mind if I ___ here?',['sit','will sit','sitting'],0,'b'],
+ ['mc','It\'s heavy. ___ I help you?',['Shall','Would','Do'],0,'c'],
+ ['mc','___ some coffee?',['Would you like','Do you like','Would you'],0,'c'],
+ ['mc','"Do you mind if I open the window?" — "___. It\'s hot."',['No, go ahead','Yes, please','Yes, I do'],0,'d'],
+ ['gap','Would you mind ___ quietly? (speak)','speaking','a'],
+ ['gap','___ I come in?','May|Can|Could','b'],
+ ['gap','Would you ___ to join us for dinner?','like','c'],
+ ['gap','"Would you mind waiting?" — "No, not ___ all."','at','d'],
+ ['tr','Не могли бы вы мне помочь?','Could you help me?|Could you help me, please?|Can you help me?|Would you help me?|Could you please help me?','a'],
+ ['tr','Можно я открою окно?','Can I open the window?|May I open the window?|Could I open the window?|Do you mind if I open the window?','b'],
+ ['build','Хочешь пойти в кино?','Would you like to go to the cinema?','c',['Do']],
+ ['fix','Do you open the door, please?','Could you open the door, please?|Can you open the door, please?|Would you open the door, please?|Will you open the door, please?','a'],
+ '|',
+ ['mc','Would you mind if I ___ the TV?',['turned on','turn on','will turn on'],0,'b'],
+ ['mc','___ I call you a taxi?',['Shall','Will','Do'],0,'c'],
+ ['gap','Could you ___ me the way to the station? (show)','show|tell','a'],
+ ['gap','"Do you mind if I smoke?" — "Yes, I ___. Please don\'t."','do','d'],
+ ['fix','Would you mind to help me?','Would you mind helping me?','a'],
+ ['fix','Would you like a tea?','Would you like some tea?|Would you like a cup of tea?|Would you like tea?','c'],
+ ['tr','Принести тебе воды?','Shall I bring you some water?|Shall I get you some water?|Can I get you some water?|Can I bring you some water?|Would you like some water?|Shall I get you water?','c'],
+ ['dict','Excuse me, would you mind moving your bag? I want to sit down.','a'],
+ '|',
+ ['mc','___ you speak a bit louder?',['Could','Shall','May'],0,'a'],
+ ['mc','Would you mind ___ me later?',['calling','to call','call'],0,'a'],
+ ['mc','Excuse me, ___ I ask you a question?',['could','would','shall'],0,'b'],
+ ['mc','___ I open the window? It\'s hot in here.',['Shall','Would','Do'],0,'c'],
+ ['mc','"Would you mind closing the door?" — "___."',['Of course not','Yes, I would like','No, I mind'],0,'d'],
+ ['gap','Do you mind ___ I use your pen?','if','b'],
+ ['gap','___ you like another piece of cake?','Would','c'],
+ ['gap','Can you ___ me a favour? (do)','do','a'],
+ ['gap','Would you mind not ___ so loud? (talk)','talking','a'],
+ ['gap','"Can I borrow your car?" — "Sure, go ___."','ahead','d'],
+ ['fix','Do you mind if I will leave early?',"Do you mind if I leave early?",'b'],
+ ['tr','Хотите что-нибудь выпить?','Would you like something to drink?|Would you like anything to drink?|Would you like a drink?','c'],
+ ['build','Вы не против, если я здесь сяду?','Do you mind if I sit here?','b',['will sit']],
+ '|',
+ ['mc','___ you mind waiting a few minutes?',['Would','Could','Shall'],0,'a'],
+ ['mc','May I ___ your name, please?',['have','to have','having'],0,'b'],
+ ['gap','Shall I ___ the dishes? (do)','do|wash','c'],
+ ['gap','Would you mind if I ___ a photo? (take, past)','took','b'],
+ ['gap','"Would you like to dance?" — "Yes, I\'d ___ to."','love|like','c'],
+ ['gap','Could you ___ the door for me, please? (hold)','hold','a'],
+ ['fix','Would you like coming to my party?','Would you like to come to my party?','c'],
+ ['fix','May you help me?','Can you help me?|Could you help me?|Would you help me?','a'],
+ ['fix','Would you mind if I open the window?','Do you mind if I open the window?|Would you mind if I opened the window?','b'],
+ ['fix','"Do you mind if I sit here?" — "Yes, sit down, please."','"Do you mind if I sit here?" — "No, sit down, please."|"Do you mind if I sit here?" — "No, not at all."|"Do you mind if I sit here?" — "Not at all, sit down, please."','d'],
+ ['tr','Не могли бы вы закрыть дверь?','Could you close the door?|Could you close the door, please?|Would you mind closing the door?|Could you shut the door?|Would you close the door, please?|Can you close the door, please?','a'],
+ ['tr','Можно мне посмотреть?','Can I have a look?|May I have a look?|Could I have a look?|Can I see?|May I see?|Could I see?|Can I take a look?','b'],
+ ['dict','Would you like to come to my birthday party on Saturday?','c'],
+ ['gap','___ you mind if I opened the window?','Would','b']],
+ fw:{ru:"Напиши диалог в кафе или в поезде (6–8 реплик): попроси о чём-то, спроси разрешения, предложи помощь и ответь на Do you mind…?",en:"Write a dialogue in a café or on a train (6–8 lines): make a request, ask permission, offer help and answer Do you mind…?"}},
+
+{id:'thinkso',ru:'Короткие ответы: I think so, I hope not, I\'m afraid so',en:'I think so / I hope not; short answers',
+ th:{ru:`<p>Чтобы не повторять целое предложение, после глаголов мнения ставят <b>so</b> (да) или <b>not</b> (нет).</p>
+<table><tr><th>Да</th><th>Нет</th><th>Смысл</th></tr>
+<tr><td><span class="en">I think so.</span></td><td><span class="en">I don't think so.</span></td><td>думаю, да / нет</td></tr>
+<tr><td><span class="en">I hope so.</span></td><td><span class="en">I hope not.</span></td><td>надеюсь, да / нет</td></tr>
+<tr><td><span class="en">I'm afraid so.</span></td><td><span class="en">I'm afraid not.</span></td><td>боюсь, что да / нет (неприятный ответ)</td></tr>
+<tr><td><span class="en">I guess so.</span></td><td><span class="en">I guess not.</span></td><td>наверное, да / нет</td></tr>
+<tr><td><span class="en">I expect so.</span></td><td><span class="en">I don't expect so.</span></td><td>полагаю, да / нет</td></tr></table>
+<p>С think и expect «нет» обычно через don't: <span class="en">I don't think so</span>. С hope и afraid — только not: <span class="en">I hope not</span> (не <span class="bad">I don't hope so</span>).</p>
+<p><b>Короткие ответы и реакции</b> строят на вспомогательном глаголе:</p>
+<ul><li><span class="en">"Are you tired?" — "Yes, I am."</span> <span class="en">"Can you swim?" — "No, I can't."</span></li>
+<li>Удивление: <span class="en">"I've won!" — "Have you?"</span> <span class="en">"He doesn't eat meat." — "Doesn't he?"</span></li>
+<li>Возражение: <span class="en">"You didn't call me." — "I did!"</span></li></ul>`,
+ en:`<p>After verbs of opinion, use <b>so</b> or <b>not</b> instead of a whole clause.</p>
+<table><tr><th>Yes</th><th>No</th></tr>
+<tr><td><span class="en">I think so.</span></td><td><span class="en">I don't think so.</span></td></tr>
+<tr><td><span class="en">I hope so.</span></td><td><span class="en">I hope not.</span></td></tr>
+<tr><td><span class="en">I'm afraid so.</span></td><td><span class="en">I'm afraid not.</span></td></tr>
+<tr><td><span class="en">I guess so.</span></td><td><span class="en">I guess not.</span></td></tr>
+<tr><td><span class="en">I expect so.</span></td><td><span class="en">I don't expect so.</span></td></tr></table>
+<p>think / expect: <span class="en">I don't think so</span>. hope / afraid: <span class="en">I hope not</span>, never <span class="bad">I don't hope so</span>.</p>
+<p><b>Short answers and reactions</b> use the auxiliary: <span class="en">"Yes, I am." "Have you?" "I did!"</span></p>`},
+ rules:{a:{ru:'think / hope / guess / expect / afraid + so — «да».',en:'think / hope / guess / expect / afraid + so — "yes".'},
+  b:{ru:'«Нет»: I don\'t think so, I don\'t expect so; но I hope not, I\'m afraid not.',en:'"No": I don\'t think so; but I hope not, I\'m afraid not.'},
+  c:{ru:'Короткий ответ — вспомогательный глагол: Yes, I am. No, she can\'t.',en:'Short answers use the auxiliary.'},
+  d:{ru:'Реакция-удивление: Have you? Doesn\'t he? Возражение: I did!',en:'Reply questions: Have you? Doesn\'t he? Contradiction: I did!'}},
+ items:[
+ ['mc','"Will it rain tomorrow?" — "I hope ___."',['not','no','don\'t'],0,'b'],
+ ['mc','"Is the shop open?" — "I think ___."',['so','it','yes'],0,'a'],
+ ['mc','"Did we miss the train?" — "I\'m afraid ___."',['so','yes','it'],0,'a'],
+ ['mc','"Is he coming?" — "I don\'t think ___."',['so','not','it'],0,'b'],
+ ['mc','"Can you drive?" — "Yes, I ___."',['can','do','drive'],0,'c'],
+ ['mc','"I\'ve been to Japan." — "___? When?"',['Have you','Did you','Are you'],0,'d'],
+ ['mc','"Is there any milk left?" — "I\'m afraid ___."',['not','no','don\'t'],0,'b'],
+ ['gap','"Will you pass the exam?" — "I hope ___."','so','a'],
+ ['gap','"Is it going to be expensive?" — "I hope ___."','not','b'],
+ ['gap','"Do you like jazz?" — "Yes, I ___."','do','c'],
+ ['gap','"She doesn\'t eat fish." — "___ she? I didn\'t know."',"Doesn't",'d'],
+ ['tr','«Он придёт?» — «Думаю, да».','"Is he coming?" — "I think so."|"Will he come?" — "I think so."','a'],
+ ['tr','«Будет дождь?» — «Надеюсь, нет».','"Will it rain?" — "I hope not."|"Is it going to rain?" — "I hope not."','b'],
+ ['build','Боюсь, что нет.','I am afraid not.','b',['don\'t']],
+ ['fix','"Will it be cold?" — "I don\'t hope so."','"Will it be cold?" — "I hope not."','b'],
+ '|',
+ ['mc','"Was the film good?" — "Yes, it ___."',['was','did','is'],0,'c'],
+ ['mc','"I can\'t swim." — "___? I thought you could."',['Can\'t you','Don\'t you','Can you'],0,'d'],
+ ['gap','"Are we late?" — "I\'m afraid ___."','so','a'],
+ ['gap','"You didn\'t tell me!" — "I ___! I told you yesterday."','did','d'],
+ ['fix','"Is she at home?" — "I think yes."','"Is she at home?" — "I think so."','a'],
+ ['fix','"Have you finished?" — "Yes, I finished."','"Have you finished?" — "Yes, I have."','c'],
+ ['tr','«Ты устал?» — «Да».','"Are you tired?" — "Yes, I am."','c'],
+ ['dict','"Do you think it will snow tonight?" — "I expect so."','a'],
+ '|',
+ ['mc','"Is this the right bus?" — "I guess ___."',['so','yes','it is so'],0,'a'],
+ ['mc','"Will she be angry?" — "I don\'t expect ___."',['so','not','it'],0,'b'],
+ ['mc','"Is Tom at work?" — "No, he ___."',["isn't","doesn't","not"],0,'c'],
+ ['mc','"We\'re moving to Kazan." — "___? Why?"',['Are you','Do you','Will you'],0,'d'],
+ ['mc','"Has the bus gone?" — "I\'m afraid ___. You missed it."',['so','not','it has so'],0,'a'],
+ ['gap','"Do you think he\'ll call?" — "I ___ think so."',"don't|do not",'b'],
+ ['gap','"Did they win?" — "No, they ___."',"didn't|did not",'c'],
+ ['gap','"I\'ve lost my wallet." — "___ you? Where?"','Have','d'],
+ ['gap','"Is it far?" — "I don\'t think ___."','so','b'],
+ ['gap','"Will the shop be open on Sunday?" — "I expect ___."','so','a'],
+ ['fix','"Is he right?" — "I\'m afraid yes."','"Is he right?" — "I\'m afraid so."','a'],
+ ['tr','«Мы опоздаем?» — «Боюсь, что да».','"Will we be late?" — "I am afraid so."|"Will we be late?" — "I\'m afraid so."|"Are we going to be late?" — "I\'m afraid so."|"Are we late?" — "I\'m afraid so."','a'],
+ ['build','Не думаю.','I do not think so.','b',['not think']],
+ '|',
+ ['mc','"Will you be there?" — "Yes, I ___."',['will','am','do'],0,'c'],
+ ['mc','"He doesn\'t like football." — "___? I thought he loved it."',['Doesn\'t he','Isn\'t he','Does he not like'],0,'d'],
+ ['gap','"Will it be sunny?" — "I hope ___. I want to go to the beach."','so','a'],
+ ['gap','"Is the test difficult?" — "I hope ___!"','not','b'],
+ ['gap','"Could you hear me?" — "Yes, I ___."','could','c'],
+ ['gap','"You weren\'t listening." — "I ___!"','was','d'],
+ ['fix','"Is she coming?" — "I think not so."','"Is she coming?" — "I don\'t think so."|"Is she coming?" — "I think not."','b'],
+ ['fix','"Do you speak French?" — "Yes, I speak."','"Do you speak French?" — "Yes, I do."','c'],
+ ['fix','"I\'m getting married!" — "Do you?"','"I\'m getting married!" — "Are you?"','d'],
+ ['fix','"Will he win?" — "I hope it."','"Will he win?" — "I hope so."','a'],
+ ['tr','«Это правда?» — «Боюсь, что нет».','"Is it true?" — "I am afraid not."|"Is it true?" — "I\'m afraid not."|"Is that true?" — "I\'m afraid not."|"Is that true?" — "I am afraid not."','b'],
+ ['tr','«Я сдал экзамен!» — «Правда? Поздравляю!»','"I passed the exam!" — "Did you? Congratulations!"|"I have passed the exam!" — "Have you? Congratulations!"|"I\'ve passed the exam!" — "Have you? Congratulations!"|"I passed the exam!" — "Really? Congratulations!"','d'],
+ ['dict','"Is the museum open on Mondays?" — "I don\'t think so."','b'],
+ ['gap','"Is it expensive?" — "I\'m afraid ___. It\'s 500 dollars."','so','a']],
+ fw:{ru:"Напиши 6 коротких диалогов-вопросов о завтрашнем дне и ответь на них: I think so, I hope not, I'm afraid so, Yes, I will, Are you?",en:"Write 6 short question-and-answer exchanges about tomorrow using I think so, I hope not, I'm afraid so, short answers and reply questions."}},
+
+{id:'whole',ru:'Весь, целый, каждый: all, whole, every, each',en:'all / whole / every / each',
+ th:{ru:`<table><tr><th>Слово</th><th>Смысл</th><th>Пример</th></tr>
+<tr><td>the whole + ед. ч.</td><td>весь, целиком</td><td><span class="en">I read the whole book.</span> <span class="en">the whole day</span></td></tr>
+<tr><td>all (the) + мн. ч. / неисч.</td><td>все, всё</td><td><span class="en">All the students passed.</span> <span class="en">all the money</span></td></tr>
+<tr><td>all + день / неделя</td><td>весь (= the whole)</td><td><span class="en">all day = the whole day</span></td></tr>
+<tr><td>every + ед. ч.</td><td>каждый (все вместе, общее)</td><td><span class="en">Every student has a book.</span></td></tr>
+<tr><td>each + ед. ч.</td><td>каждый по отдельности, и для двух</td><td><span class="en">She has a ring on each hand.</span></td></tr></table>
+<p><b>every day</b> — каждый день (как часто), <b>all day</b> — весь день (сколько).</p>
+<p>Порядок: <span class="en">the whole house</span> (the перед whole), но <span class="en">all the house</span> звучит хуже — с ед. числом лучше whole.</p>
+<p><b>everybody / everything</b>, а не <span class="bad">all</span> в одиночку: <span class="en">Everybody came.</span> (не <span class="bad">All came</span>); <span class="en">Everything is fine.</span></p>
+<p><b>each of</b> + the / us / them: <span class="en">each of the rooms</span>. <b>every</b> без of: <span class="en">every one of them</span>.</p>`,
+ en:`<table><tr><th>Word</th><th>Use</th><th>Example</th></tr>
+<tr><td>the whole + singular</td><td>complete</td><td><span class="en">I read the whole book.</span></td></tr>
+<tr><td>all (the) + plural / uncountable</td><td>everything / everyone</td><td><span class="en">All the students passed.</span></td></tr>
+<tr><td>all + day / week</td><td>= the whole</td><td><span class="en">all day</span></td></tr>
+<tr><td>every + singular</td><td>each member, as a group</td><td><span class="en">Every student has a book.</span></td></tr>
+<tr><td>each + singular</td><td>separately; also for two</td><td><span class="en">a ring on each hand</span></td></tr></table>
+<p><b>every day</b> (how often) vs <b>all day</b> (how long).</p>
+<p>Use everybody / everything, not all alone: <span class="en">Everybody came.</span></p>
+<p><b>each of</b> the / us / them; every one of them.</p>`},
+ rules:{a:{ru:'the whole + ед. число: the whole day, the whole book.',en:'the whole + singular noun.'},
+  b:{ru:'all (the) + мн. число или неисчисляемое; одно all → everybody / everything.',en:'all (the) + plural / uncountable; alone → everybody / everything.'},
+  c:{ru:'every day — каждый день (как часто); all day — весь день (сколько).',en:'every day — how often; all day — how long.'},
+  d:{ru:'each — каждый по отдельности (и из двух); each of the / them.',en:'each — individually, also for two; each of the / them.'}},
+ items:[
+ ['mc','I spent ___ day at home.',['the whole','whole the','all of'],0,'a'],
+ ['mc','___ the students passed the test.',['All','Whole','Every'],0,'b'],
+ ['mc','I go to the gym ___ day.',['every','all','whole'],0,'c'],
+ ['mc','She held a cup in ___ hand.',['each','every','all'],0,'d'],
+ ['mc','___ came to the party.',['Everybody','All','Whole'],0,'b'],
+ ['mc','It rained ___ week.',['all','every','each'],0,'c'],
+ ['mc','___ of the four rooms has a TV.',['Each','Every','All'],0,'d'],
+ ['gap','He ate the ___ pizza by himself.','whole','a'],
+ ['gap','I spent ___ my money on clothes.','all','b'],
+ ['gap','The bus comes ___ ten minutes.','every','c'],
+ ['gap','The teacher gave ___ of us a book.','each','d'],
+ ['tr','Я проспал весь день.','I slept the whole day.|I slept all day.|I slept all day long.|I slept the whole day long.','a'],
+ ['tr','Всё в порядке.','Everything is fine.|Everything is OK.|Everything is all right.|Everything\'s fine.|Everything\'s OK.','b'],
+ ['build','Каждый ученик получил подарок.','Every student got a present.','c',['All']],
+ ['fix','All was very kind to me.','Everybody was very kind to me.|Everyone was very kind to me.','b'],
+ '|',
+ ['mc','I told him ___ story.',['the whole','whole the','all'],0,'a'],
+ ['mc','We work ___ day except Sunday.',['every','all','whole'],0,'c'],
+ ['gap','___ the shops were closed.','All','b'],
+ ['gap','There are trees on ___ side of the street.','each|either','d'],
+ ['fix','I watched all the film.','I watched the whole film.|I watched all of the film.','a'],
+ ['fix','I visit my parents all weekend. (каждые выходные)','I visit my parents every weekend.','c'],
+ ['tr','Каждый из них знает ответ.','Each of them knows the answer.|Every one of them knows the answer.|All of them know the answer.','d'],
+ ['dict','We spent the whole summer at the sea and swam every day.','c'],
+ '|',
+ ['mc','She cleaned ___ house.',['the whole','whole the','all of house'],0,'a'],
+ ['mc','I\'ve eaten ___ the cake.',['all','whole','every'],0,'b'],
+ ['mc','I was ill ___ yesterday.',['all day','every day','each day'],0,'c'],
+ ['mc','The two brothers ___ have a car.',['each','every','whole'],0,'d'],
+ ['mc','___ in the room was quiet.',['Everything','All','Whole'],0,'b'],
+ ['gap','The ___ city was dark.','whole','a'],
+ ['gap','___ my friends live in Moscow.','All','b'],
+ ['gap','I check my email ___ morning.','every','c'],
+ ['gap','___ child got a balloon.','Each|Every','d'],
+ ['gap','He talked ___ evening about his trip.','all|the whole','c'],
+ ['fix','Whole family came for dinner.','The whole family came for dinner.|All the family came for dinner.','a'],
+ ['tr','Я работал всю ночь.','I worked all night.|I worked the whole night.|I was working all night.|I was working the whole night.','c'],
+ ['build','Все мои друзья были там.','All my friends were there.','b',['Every']],
+ '|',
+ ['mc','I\'ve lived here ___ life.',['all my','my whole all','every my'],0,'a'],
+ ['mc','___ seat in the theatre was taken.',['Every','All','Whole'],0,'c'],
+ ['gap','She knows ___ about cars. (всё)','everything','b'],
+ ['gap','Each of ___ rooms has a balcony.','the','d'],
+ ['gap','I read the ___ newspaper on the train.','whole','a'],
+ ['gap','We meet ___ Monday.','every','c'],
+ ['fix','Every students must bring a pen.','Every student must bring a pen.|All students must bring a pen.|All the students must bring a pen.','c'],
+ ['fix','All is ready for the party.','Everything is ready for the party.','b'],
+ ['fix','I spent the all day in bed.','I spent all day in bed.|I spent the whole day in bed.','a'],
+ ['fix','Each of the students have a laptop.','Each of the students has a laptop.','d'],
+ ['tr','Каждое утро я пью кофе.','Every morning I drink coffee.|I drink coffee every morning.|I have coffee every morning.|Every morning I have coffee.|Every morning I drink a coffee.','c'],
+ ['tr','Он съел весь торт.','He ate the whole cake.|He ate all the cake.|He ate all of the cake.|He has eaten the whole cake.|He\'s eaten the whole cake.','a'],
+ ['dict','Each player gets a shirt and everybody gets a free ticket.','d'],
+ ['gap','I have read ___ his books. Every one.','all','b']],
+ fw:{ru:"Опиши свою обычную неделю: что делаешь every day, что было all day вчера, что ты сделал целиком (the whole…), и что у каждого (each) в твоей семье.",en:"Describe your usual week: what you do every day, what you did all day yesterday, something you did the whole of, and what each person in your family has."}}
+]},
 {lv:'c',ru:'Времена и модальные',en:'Tenses and modals',units:[
 {id:'fut2',ru:'Будущее длительное и совершённое',en:'will be doing / will have done',
  th:{ru:`<p>Две формы будущего, которые смотрят на определённый момент впереди.</p>
@@ -8082,7 +8568,404 @@ const SECTIONS=[
  ['tr','Мой брат любит футбол, тогда как я люблю хоккей.','My brother loves football, whereas I love hockey.|My brother likes football, whereas I like hockey.|My brother loves football, while I love hockey.|My brother likes football, while I like hockey.|My brother loves football whereas I love hockey.','a'],
  ['dict','I set an alarm so that I would not miss the meeting.','c']],
  fw:{ru:"Напиши 6 предложений о своей учёбе и работе с новыми связками: зачем ты что-то делаешь (in order to, so that, so as not to), почему (as, since, due to) и чем ты отличаешься от кого-то (whereas).",en:"Write 6 sentences about your studies and work with the new linkers: why you do things (in order to, so that, so as not to), the reasons (as, since, due to) and how you differ from someone (whereas)."}}
+]},
+{lv:'c',ru:'Ещё конструкции B2',en:'More B2 structures',units:[
+{id:'noif',ru:'Условие без if: Had I known…, Should you need…, Were I you…',en:'Conditionals without if',
+ th:{ru:`<p>В официальной и письменной речи <b>if</b> убирают, а вспомогательный глагол ставят в начало. Смысл не меняется.</p>
+<table><tr><th>С if</th><th>Без if</th><th>Тип</th></tr>
+<tr><td><span class="en">If you need help, call me.</span></td><td><span class="en">Should you need help, call me.</span></td><td>реальное (вдруг)</td></tr>
+<tr><td><span class="en">If I were you, I'd wait.</span></td><td><span class="en">Were I you, I'd wait.</span></td><td>нереальное настоящее</td></tr>
+<tr><td><span class="en">If I had known, I would have come.</span></td><td><span class="en">Had I known, I would have come.</span></td><td>нереальное прошлое</td></tr></table>
+<p>Отрицание — без сокращения, not после подлежащего: <span class="en">Had I not seen it, I wouldn't believe it.</span> (не <span class="bad">Hadn't I seen</span>).</p>
+<p>Другие способы сказать «если»: <b>otherwise</b> (иначе), <b>but for</b> + существительное (если бы не), <b>without</b>: <span class="en">But for your help, I would have failed.</span> <span class="en">Without the map, we'd have got lost.</span></p>
+<p><b>If it hadn't been for / If it weren't for</b> = если бы не: <span class="en">If it weren't for my wife, I'd never get up on time.</span> Без if: <span class="en">Were it not for…, Had it not been for…</span></p>`,
+ en:`<p>In formal English, <b>if</b> can be dropped and the auxiliary moved to the front.</p>
+<table><tr><th>With if</th><th>Without if</th></tr>
+<tr><td><span class="en">If you need help, call me.</span></td><td><span class="en">Should you need help, call me.</span></td></tr>
+<tr><td><span class="en">If I were you, I'd wait.</span></td><td><span class="en">Were I you, I'd wait.</span></td></tr>
+<tr><td><span class="en">If I had known, I would have come.</span></td><td><span class="en">Had I known, I would have come.</span></td></tr></table>
+<p>Negative: no contraction — <span class="en">Had I not seen it…</span>, not <span class="bad">Hadn't I seen</span>.</p>
+<p>Other ways: <b>otherwise</b>, <b>but for</b> + noun, <b>without</b>; <b>if it weren't for / if it hadn't been for</b> = Were it not for / Had it not been for.</p>`},
+ rules:{a:{ru:'Should + подлежащее + глагол = If… (вдруг): Should you need help…',en:'Should + subject + verb = If (by chance)…'},
+  b:{ru:'Were + подлежащее = If… were: Were I you…',en:'Were + subject = If… were.'},
+  c:{ru:'Had + подлежащее + 3-я форма = If… had done: Had I known…',en:'Had + subject + past participle = If… had done.'},
+  d:{ru:'Отрицание: Had I not…, Were it not for…; but for / without + существительное.',en:'Negative: Had I not…, Were it not for…; but for / without + noun.'}},
+ items:[
+ ['mc','___ you have any questions, please contact us.',['Should','Would','Had'],0,'a'],
+ ['mc','___ I known, I would have told you.',['Had','Have','Should'],0,'c'],
+ ['mc','___ I you, I wouldn\'t accept the offer.',['Were','Was','Had'],0,'b'],
+ ['mc','___ seen him, I would have said hello.',['Had I','If had I','I had'],0,'c'],
+ ['mc','___ your help, I would never have finished.',['But for','Except','Unless'],0,'d'],
+ ['mc','Had I ___ the alarm, I would have been late.',['not heard','heard not','didn\'t hear'],0,'d'],
+ ['mc','Should you ___ your keys, call the reception.',['lose','lost','to lose'],0,'a'],
+ ['gap','___ I the president, I would change this law.','Were','b'],
+ ['gap','___ we left earlier, we would have caught the train.','Had','c'],
+ ['gap','___ the weather be bad, the match will be cancelled.','Should','a'],
+ ['gap','Were it not ___ the rain, we would go out.','for','d'],
+ ['tr','Знай я это раньше, я бы не поехал. (без if)','Had I known this earlier, I would not have gone.|Had I known that earlier, I would not have gone.|Had I known this earlier, I wouldn\'t have gone.|Had I known that earlier, I wouldn\'t have gone.|Had I known earlier, I wouldn\'t have gone.|Had I known earlier, I would not have gone.','c'],
+ ['tr','Если вам понадобится помощь, звоните. (без if)','Should you need help, call.|Should you need any help, call.|Should you need help, call me.|Should you need any help, please call.|Should you need help, please call.|Should you need help, call us.|Should you need any help, call me.','a'],
+ ['build','Будь я тобой, я бы остался.','Were I you I would stay.','b',['Was']],
+ ['fix','Hadn\'t I seen it, I wouldn\'t believe it.',"Had I not seen it, I wouldn't believe it.|If I hadn't seen it, I wouldn't believe it.",'d'],
+ '|',
+ ['mc','___ the train be late, take a taxi.',['Should','Were','Had'],0,'a'],
+ ['mc','___ it not been for you, I would have given up.',['Had','Were','Should'],0,'d'],
+ ['gap','___ you to win the lottery, what would you do?','Were','b'],
+ ['gap','Had they ___ the instructions, they wouldn\'t have broken it. (read)','read','c'],
+ ['fix','Should you will need anything, ask me.','Should you need anything, ask me.','a'],
+ ['fix','Was I rich, I would travel the world.','Were I rich, I would travel the world.|If I were rich, I would travel the world.|If I was rich, I would travel the world.','b'],
+ ['tr','Если бы не ты, я бы опоздал.','If it hadn\'t been for you, I would have been late.|If it had not been for you, I would have been late.|Had it not been for you, I would have been late.|But for you, I would have been late.|Without you, I would have been late.','d'],
+ ['dict','Had we booked the tickets earlier, we would have paid much less.','c'],
+ '|',
+ ['mc','___ you require further information, please call.',['Should','Would','Were'],0,'a'],
+ ['mc','___ I in your position, I would complain.',['Were','Was','Had'],0,'b'],
+ ['mc','___ I studied harder, I would have passed.',['Had','Have','Should'],0,'c'],
+ ['mc','___ my parents, I could never have bought a flat.',['Without','Unless','Otherwise'],0,'d'],
+ ['mc','Were he ___ here, he would help us.',['to be','be','being'],0,'b'],
+ ['gap','___ anything go wrong, call me immediately.','Should','a'],
+ ['gap','___ it not for her support, I would have left.','Were','d'],
+ ['gap','Had I ___ about the strike, I would have stayed at home. (know)','known','c'],
+ ['gap','___ she to ask me, I would say yes.','Were','b'],
+ ['gap','But ___ the traffic, we would have arrived on time.','for','d'],
+ ['fix','Had I knew, I would have helped.','Had I known, I would have helped.','c'],
+ ['tr','Будь у меня время, я бы помог. (без if)','Had I the time, I would help.|Were I to have time, I would help.|If I had time, I would help.|If I had the time, I would help.','b'],
+ ['build','Если бы он не позвонил, я бы проспал.','Had he not called I would have overslept.','d',['hadn\'t']],
+ '|',
+ ['mc','Should the problem ___, contact the manager.',['continue','continues','will continue'],0,'a'],
+ ['mc','Had the police arrived sooner, they ___ the thief.',['would have caught','would catch','had caught'],0,'c'],
+ ['gap','___ you see Anna, tell her I called.','Should','a'],
+ ['gap','___ I not been so tired, I would have gone out.','Had','d'],
+ ['gap','Were I ___ your place, I would accept the offer.','in','b'],
+ ['gap','I took a map. ___, I would have got lost. (иначе)','Otherwise','d'],
+ ['fix','Would you need help, call me.','Should you need help, call me.|If you need help, call me.','a'],
+ ['fix','Had she not came, we would have started.','Had she not come, we would have started.','c'],
+ ['fix','Was it not for the rain, we would go swimming.','Were it not for the rain, we would go swimming.|If it weren\'t for the rain, we would go swimming.|If it wasn\'t for the rain, we would go swimming.','b'],
+ ['fix','Hadn\'t we taken the bus, we would have been late.','Had we not taken the bus, we would have been late.|If we hadn\'t taken the bus, we would have been late.','d'],
+ ['tr','Если бы не дождь, мы бы пошли гулять.','If it weren\'t for the rain, we would go for a walk.|If it wasn\'t for the rain, we would go for a walk.|Were it not for the rain, we would go for a walk.|But for the rain, we would go for a walk.|If it hadn\'t been for the rain, we would have gone for a walk.|Had it not been for the rain, we would have gone for a walk.|If it weren\'t for the rain, we\'d go for a walk.','d'],
+ ['tr','Если вы опоздаете, вас не пустят. (should)','Should you be late, you will not be allowed in.|Should you be late, you won\'t be allowed in.|Should you be late, they will not let you in.|Should you be late, they won\'t let you in.','a'],
+ ['dict','Should you have any problems with your room, please call reception.','a'],
+ ['gap','___ you change your mind, let me know.','Should','a']],
+ fw:{ru:"Напиши 5 «официальных» предложений: инструкцию гостям отеля (Should you…), совет (Were I you…), сожаление о прошлом (Had I known…) и благодарность (Had it not been for…).",en:"Write 5 formal sentences: hotel instructions (Should you…), advice (Were I you…), a regret (Had I known…) and thanks (Had it not been for…)."}},
+
+{id:'futbe',ru:'Будущее: be to, be due to, be about to, be bound to',en:'be to, be due to, be about to, be bound to',
+ th:{ru:`<table><tr><th>Конструкция</th><th>Смысл</th><th>Пример</th></tr>
+<tr><td>be about to + глагол</td><td>вот-вот</td><td><span class="en">Hurry, the train is about to leave.</span></td></tr>
+<tr><td>be on the point of + -ing</td><td>вот-вот (сильнее, книжно)</td><td><span class="en">I was on the point of giving up.</span></td></tr>
+<tr><td>be due to + глагол / be due</td><td>по плану, по расписанию</td><td><span class="en">The plane is due to land at six. The rent is due on Monday.</span></td></tr>
+<tr><td>be to + глагол</td><td>официальный план или указание</td><td><span class="en">The president is to visit Kazan next week. You are to stay here.</span></td></tr>
+<tr><td>be bound to + глагол</td><td>непременно, обязательно (уверенность)</td><td><span class="en">He's bound to be late. He always is.</span></td></tr>
+<tr><td>be likely / unlikely to</td><td>вероятно / вряд ли</td><td><span class="en">Prices are likely to rise.</span></td></tr>
+<tr><td>be set to</td><td>готово случиться (в новостях)</td><td><span class="en">The film is set to break records.</span></td></tr></table>
+<p><b>be due to + существительное</b> — другое значение: «из-за»: <span class="en">The delay was due to fog.</span></p>
+<p>Всё это работает и в прошедшем: <span class="en">I was about to call you. The meeting was to start at ten (but it didn't).</span></p>`,
+ en:`<table><tr><th>Structure</th><th>Meaning</th><th>Example</th></tr>
+<tr><td>be about to + verb</td><td>very soon</td><td><span class="en">The train is about to leave.</span></td></tr>
+<tr><td>be on the point of + -ing</td><td>very soon (formal)</td><td><span class="en">I was on the point of giving up.</span></td></tr>
+<tr><td>be due to + verb / be due</td><td>scheduled</td><td><span class="en">The plane is due to land at six.</span></td></tr>
+<tr><td>be to + verb</td><td>official plan or order</td><td><span class="en">The president is to visit Kazan.</span></td></tr>
+<tr><td>be bound to + verb</td><td>certain</td><td><span class="en">He's bound to be late.</span></td></tr>
+<tr><td>be likely / unlikely to</td><td>probable</td><td><span class="en">Prices are likely to rise.</span></td></tr>
+<tr><td>be set to</td><td>expected (news)</td><td><span class="en">The film is set to break records.</span></td></tr></table>
+<p><b>due to + noun</b> means "because of".</p>
+<p>All work in the past: <span class="en">I was about to call you.</span></p>`},
+ rules:{a:{ru:'be about to + глагол; be on the point of + -ing — вот-вот.',en:'be about to + verb; be on the point of + -ing — very soon.'},
+  b:{ru:'be due to — по расписанию; be to — официальный план или приказ.',en:'be due to — scheduled; be to — official plan or order.'},
+  c:{ru:'be bound to — наверняка; be (un)likely to — вероятно / вряд ли.',en:'be bound to — certain; be (un)likely to — probable / improbable.'},
+  d:{ru:'В прошедшем: was about to, was due to, was to (план, который мог не сбыться).',en:'Past: was about to, was due to, was to.'}},
+ items:[
+ ['mc','Quick! The film is ___ start.',['about to','due','bound'],0,'a'],
+ ['mc','The plane is ___ to land at 6:40.',['due','about','bound'],0,'b'],
+ ['mc','Don\'t worry, she\'s ___ to find out sooner or later.',['bound','due','about'],0,'c'],
+ ['mc','I was on the point ___ the job when they offered me more money.',['of leaving','to leave','leave'],0,'a'],
+ ['mc','The Prime Minister ___ visit China next month.',['is to','is about','is bound of'],0,'b'],
+ ['mc','I ___ call you when you rang!',['was about to','am about to','was due'],0,'d'],
+ ['mc','It\'s ___ to rain later, so take an umbrella.',['likely','due','about'],0,'c'],
+ ['gap','The new bridge is ___ to open in June. (по плану)','due','b'],
+ ['gap','We were just about ___ leave when the phone rang.','to','d'],
+ ['gap','He\'s bound ___ win. He\'s the best player.','to','c'],
+ ['gap','The concert was cancelled due ___ the storm.','to','b'],
+ ['tr','Фильм вот-вот начнётся.','The film is about to start.|The film is about to begin.|The movie is about to start.|The film is just about to start.|The movie is about to begin.','a'],
+ ['tr','Он наверняка опоздает.','He is bound to be late.|He\'s bound to be late.|He will definitely be late.|He is sure to be late.|He\'s sure to be late.','c'],
+ ['build','Поезд должен прибыть в шесть.','The train is due to arrive at six.','b',['about']],
+ ['fix','The train is about leaving.','The train is about to leave.|The train is on the point of leaving.','a'],
+ '|',
+ ['mc','Students ___ wear uniform at all times.',['are to','are about to','are due'],0,'b'],
+ ['mc','Prices are ___ to fall this year. (вряд ли)',['unlikely','not likely due','bound not'],0,'c'],
+ ['gap','The meeting was ___ start at ten, but the boss was late.','to','d'],
+ ['gap','Your rent is ___ on the first of the month.','due','b'],
+ ['fix','She is bound being angry.','She is bound to be angry.','c'],
+ ['fix','I was on the point to call the police.','I was on the point of calling the police.|I was about to call the police.','a'],
+ ['tr','Встреча должна была начаться в девять.','The meeting was to start at nine.|The meeting was due to start at nine.|The meeting was supposed to start at nine.|The meeting was to begin at nine.|The meeting was due to begin at nine.','d'],
+ ['dict','The new airport is due to open next year and is likely to be very busy.','b'],
+ '|',
+ ['mc','Hurry up! The shop is ___ close.',['about to','due','bound'],0,'a'],
+ ['mc','The baby is ___ in March.',['due','about','bound'],0,'b'],
+ ['mc','If you leave the milk out, it\'s ___ to go off.',['bound','due','about'],0,'c'],
+ ['mc','I ___ go to bed when I heard a noise.',['was about to','am about to','was due'],0,'d'],
+ ['mc','You ___ tell anyone about this. It\'s secret.',['are not to','are not about','are not due'],0,'b'],
+ ['gap','I was on the point ___ crying.','of','a'],
+ ['gap','The president ___ to give a speech tomorrow.','is','b'],
+ ['gap','They are ___ to win. They have the best team. (наверняка)','bound|sure|likely','c'],
+ ['gap','The flight was ___ to leave at noon, but it was delayed.','due','d'],
+ ['gap','The new film is ___ to be a big success. (ожидается, в новостях)','set|likely|bound','c'],
+ ['fix','She is likely come tomorrow.','She is likely to come tomorrow.','c'],
+ ['tr','Я как раз собирался тебе писать.','I was just about to write to you.|I was about to write to you.|I was just about to text you.|I was just going to write to you.|I was about to text you.','d'],
+ ['build','Самолёт вот-вот взлетит.','The plane is about to take off.','a',['due']],
+ '|',
+ ['mc','She was ___ of tears.',['on the point','about','due'],0,'a'],
+ ['mc','There\'s bound ___ a problem. There always is.',['to be','being','be'],0,'c'],
+ ['gap','The report is due ___ Friday. (к пятнице)','on|by','b'],
+ ['gap','You ___ to report to the manager at nine. (указание)','are','b'],
+ ['gap','We were ___ to meet at the station, but I got lost.','to|due|supposed','d'],
+ ['gap','The water is about ___ boil.','to','a'],
+ ['fix','The train is due arriving at five.','The train is due to arrive at five.|The train is due at five.','b'],
+ ['fix','He is bound to winning.','He is bound to win.','c'],
+ ['fix','I was about calling you.','I was about to call you.','a'],
+ ['fix','The concert was cancelled due to it rained.','The concert was cancelled due to the rain.|The concert was cancelled because it rained.|The concert was cancelled because of the rain.','b'],
+ ['tr','Вряд ли он согласится.','He is unlikely to agree.|He\'s unlikely to agree.|He is not likely to agree.|He\'s not likely to agree.|It is unlikely that he will agree.|It\'s unlikely that he will agree.|It\'s unlikely he will agree.','c'],
+ ['tr','Президент должен посетить завод завтра.','The president is to visit the factory tomorrow.|The president is due to visit the factory tomorrow.|The president is going to visit the factory tomorrow.|The President is to visit the plant tomorrow.|The president is due to visit the plant tomorrow.','b'],
+ ['dict','I was on the point of leaving when she finally arrived.','a'],
+ ['gap','The match is ___ to start in five minutes. (вот-вот, about)','about','a']],
+ fw:{ru:"Напиши короткую «новость» (5–6 предложений) о событии в твоём городе: что is to / is due to / is set to случиться, что is likely, и что было about to случиться, но не случилось.",en:"Write a short news story (5–6 sentences) about an event in your town using is to, is due to, is set to, is likely to and was about to."}},
+
+{id:'whatever',ru:'Что бы ни, кто бы ни: whatever, whoever, however',en:'whatever, whoever, wherever, however',
+ th:{ru:`<table><tr><th>Слово</th><th>Смысл</th><th>Пример</th></tr>
+<tr><td>whatever</td><td>что бы ни; всё, что</td><td><span class="en">Whatever you do, don't tell her.</span> <span class="en">Take whatever you want.</span></td></tr>
+<tr><td>whoever</td><td>кто бы ни; тот, кто</td><td><span class="en">Whoever calls, say I'm busy.</span> <span class="en">Whoever wins gets a prize.</span></td></tr>
+<tr><td>wherever</td><td>где / куда бы ни</td><td><span class="en">Sit wherever you like.</span></td></tr>
+<tr><td>whenever</td><td>когда бы ни; каждый раз когда</td><td><span class="en">Call me whenever you want.</span></td></tr>
+<tr><td>whichever</td><td>какой бы ни (из выбора)</td><td><span class="en">Take whichever room you prefer.</span></td></tr>
+<tr><td>however + прил. / нареч.</td><td>как бы ни</td><td><span class="en">However hard I try, I can't remember.</span></td></tr></table>
+<p>После них о будущем — настоящее время: <span class="en">Whatever happens, I'll be there.</span></p>
+<p><b>However</b> в начале предложения с запятой — «однако»: <span class="en">However, it was too late.</span> А <b>however + прилагательное</b> — «как бы ни».</p>
+<p>То же можно сказать через <b>no matter</b>: <span class="en">No matter what you do… No matter how hard I try…</span></p>`,
+ en:`<table><tr><th>Word</th><th>Meaning</th><th>Example</th></tr>
+<tr><td>whatever</td><td>anything / it doesn't matter what</td><td><span class="en">Whatever you do, don't tell her.</span></td></tr>
+<tr><td>whoever</td><td>any person who</td><td><span class="en">Whoever wins gets a prize.</span></td></tr>
+<tr><td>wherever</td><td>any place</td><td><span class="en">Sit wherever you like.</span></td></tr>
+<tr><td>whenever</td><td>any time / every time</td><td><span class="en">Call me whenever you want.</span></td></tr>
+<tr><td>whichever</td><td>any one of a choice</td><td><span class="en">Take whichever room you prefer.</span></td></tr>
+<tr><td>however + adj / adv</td><td>no matter how</td><td><span class="en">However hard I try, I can't remember.</span></td></tr></table>
+<p>Use a present tense for the future after them.</p>
+<p>However, at the start with a comma = but. <b>no matter</b> + what / who / how means the same.</p>`},
+ rules:{a:{ru:'whatever, whoever, wherever, whenever, whichever — что / кто / где / когда / какой бы ни.',en:'whatever … whichever — it doesn\'t matter what / who / where / when / which.'},
+  b:{ru:'however + прилагательное / наречие — как бы ни: however hard.',en:'however + adjective / adverb — no matter how.'},
+  c:{ru:'После них о будущем — настоящее время.',en:'Present tense for the future after them.'},
+  d:{ru:'no matter what / who / how = whatever / whoever / however.',en:'no matter what / who / how = whatever / whoever / however.'}},
+ items:[
+ ['mc','___ happens, don\'t panic.',['Whatever','However','Whoever'],0,'a'],
+ ['mc','___ finishes first wins.',['Whoever','Whatever','Wherever'],0,'a'],
+ ['mc','___ hard I work, my boss is never happy.',['However','Whatever','Whenever'],0,'b'],
+ ['mc','You can sit ___ you like.',['wherever','whatever','however'],0,'a'],
+ ['mc','Whatever you ___, I\'ll support you.',['decide','will decide','decided'],0,'c'],
+ ['mc','No matter ___ he says, don\'t believe him.',['what','that','whatever'],0,'d'],
+ ['mc','Call me ___ you need help.',['whenever','whatever','however'],0,'a'],
+ ['gap','Take ___ you want from the fridge. (что угодно)','whatever|anything','a'],
+ ['gap','___ tired I am, I always read before bed. (как бы ни)','However','b'],
+ ['gap','___ you go, I\'ll follow you. (куда бы ни)','Wherever','a'],
+ ['gap','No matter ___ much it costs, I\'ll buy it.','how','d'],
+ ['tr','Что бы ни случилось, звони мне.','Whatever happens, call me.|No matter what happens, call me.|Whatever happens, phone me.|Call me whatever happens.|Call me, whatever happens.','a'],
+ ['tr','Как бы я ни старался, у меня не получается.','However hard I try, I can\'t do it.|However hard I try, I cannot do it.|No matter how hard I try, I can\'t do it.|However hard I try, I don\'t succeed.|No matter how hard I try, I can\'t.|However hard I try, I can\'t.','b'],
+ ['build','Кто бы ни позвонил, скажи, что меня нет.','Whoever calls say I am not here.','a',['Whatever']],
+ ['fix','Whatever will happen, I\'ll be there.',"Whatever happens, I'll be there.",'c'],
+ '|',
+ ['mc','Take ___ seat you like — they\'re all free.',['whichever','whoever','however'],0,'a'],
+ ['mc','___ I see that photo, I smile.',['Whenever','Whatever','However'],0,'a'],
+ ['gap','___ cold it is, he swims in the river.','However','b'],
+ ['gap','No matter ___ wins, we\'ll celebrate.','who','d'],
+ ['fix','However you do, do it well.','Whatever you do, do it well.','a'],
+ ['fix','No matter how much it will cost, we need it.','No matter how much it costs, we need it.','c'],
+ ['tr','Садись где хочешь.','Sit wherever you want.|Sit wherever you like.|Sit anywhere you like.|Sit anywhere you want.|You can sit wherever you want.|You can sit wherever you like.','a'],
+ ['dict','Whoever broke the window must pay for it.','a'],
+ '|',
+ ['mc','___ you do, don\'t be late.',['Whatever','However','Whoever'],0,'a'],
+ ['mc','___ long it takes, I\'ll wait.',['However','Whatever','Whichever'],0,'b'],
+ ['mc','I\'ll give the money to ___ needs it most.',['whoever','whatever','whichever'],0,'a'],
+ ['mc','Whenever she ___ here, she brings a cake.',['comes','will come','came will'],0,'c'],
+ ['mc','No matter ___ I go, I meet people I know.',['where','wherever','what'],0,'d'],
+ ['gap','___ way you choose, it takes an hour. (какой бы из)','Whichever','a'],
+ ['gap','___ fast he runs, he can\'t catch the bus.','However','b'],
+ ['gap','___ told you that was lying. (кто бы ни)','Whoever','a'],
+ ['gap','Whatever she ___, he says no. (suggest)','suggests','c'],
+ ['gap','No matter ___ often I explain it, he forgets.','how','d'],
+ ['fix','Whatever will you ask him, he will say no.','Whatever you ask him, he will say no.','c'],
+ ['tr','Звони когда угодно.','Call whenever you want.|Call me whenever you want.|Call me whenever you like.|Call any time.|Call me any time.|Call me anytime.|Phone me whenever you like.','a'],
+ ['build','Неважно, что он говорит.','It does not matter what he says.','d',['whatever']],
+ '|',
+ ['mc','You can have ___ cake you want — chocolate or apple.',['whichever','whoever','wherever'],0,'a'],
+ ['mc','___ difficult the problem is, we\'ll solve it.',['However','Whatever','Whichever'],0,'b'],
+ ['gap','I\'ll help ___ needs help.','whoever|anyone who|anybody who','a'],
+ ['gap','However ___ she drives, she always gets there late. (fast)','fast','b'],
+ ['gap','___ you visit Moscow, you should see Red Square. (когда бы ни)','Whenever|If|When','a'],
+ ['gap','No matter ___ it is, open the door.','who','d'],
+ ['fix','Wherever happens, stay calm.','Whatever happens, stay calm.|No matter what happens, stay calm.','a'],
+ ['fix','Whatever hard I try, I can\'t sleep.',"However hard I try, I can't sleep.|No matter how hard I try, I can't sleep.",'b'],
+ ['fix','No matter what will happen, I love you.','No matter what happens, I love you.','c'],
+ ['fix','Whoever you choose a dress, you\'ll look great.',"Whichever dress you choose, you'll look great.|Whatever dress you choose, you'll look great.",'a'],
+ ['tr','Кто бы ни выиграл, мы будем рады.','Whoever wins, we will be happy.|Whoever wins, we\'ll be happy.|No matter who wins, we will be happy.|No matter who wins, we\'ll be happy.|Whoever wins, we will be glad.','a'],
+ ['tr','Как бы поздно ни было, позвони мне.','However late it is, call me.|However late it is, phone me.|No matter how late it is, call me.|Call me, however late it is.|Call me however late it is.','b'],
+ ['dict','However busy you are, you should find time for your family.','b'],
+ ['gap','___ you need, just ask me. (что бы ни)','Whatever','a']],
+ fw:{ru:"Напиши 5 «правил жизни» с whatever, whoever, wherever, whenever и however: Whatever happens, …",en:"Write 5 'life rules' with whatever, whoever, wherever, whenever and however."}},
+
+{id:'needdoing',ru:'Need doing и пассив с get: The car needs washing, He got fired',en:'need doing; get + past participle',
+ th:{ru:`<p><b>need + -ing</b> = нужно сделать с предметом (пассивный смысл): <span class="en">The car needs washing.</span> = <span class="en">The car needs to be washed.</span></p>
+<table><tr><th>Активно (кто-то должен)</th><th>Пассивно (что-то нужно сделать)</th></tr>
+<tr><td><span class="en">I need to wash the car.</span></td><td><span class="en">The car needs washing. / needs to be washed.</span></td></tr>
+<tr><td><span class="en">You need to cut your hair.</span></td><td><span class="en">Your hair needs cutting.</span></td></tr></table>
+<p>Так же <b>want + -ing</b> (британское разговорное) и <b>be worth + -ing</b>.</p>
+<p><b>get + третья форма</b> — разговорный пассив, часто о неожиданном или неприятном:</p>
+<table><tr><th>be-пассив</th><th>get-пассив</th><th>Смысл</th></tr>
+<tr><td><span class="en">He was fired.</span></td><td><span class="en">He got fired.</span></td><td>Его уволили.</td></tr>
+<tr><td><span class="en">The window was broken.</span></td><td><span class="en">The window got broken.</span></td><td>Окно разбилось.</td></tr>
+<tr><td>—</td><td><span class="en">get married, get dressed, get lost, get stuck</span></td><td>устойчивые</td></tr></table>
+<p>Вопрос и отрицание у get-пассива — через do / did: <span class="en">Did you get paid? I didn't get invited.</span></p>`,
+ en:`<p><b>need + -ing</b> has a passive meaning: <span class="en">The car needs washing</span> = needs to be washed.</p>
+<table><tr><th>Active</th><th>Passive meaning</th></tr>
+<tr><td><span class="en">I need to wash the car.</span></td><td><span class="en">The car needs washing.</span></td></tr></table>
+<p>Also <b>want + -ing</b> (informal BrE) and <b>be worth + -ing</b>.</p>
+<p><b>get + past participle</b> — informal passive, often for unexpected or unpleasant events: <span class="en">He got fired. The window got broken.</span> Fixed: <span class="en">get married, get dressed, get lost, get stuck</span>.</p>
+<p>Questions and negatives use do / did: <span class="en">Did you get paid?</span></p>`},
+ rules:{a:{ru:'Предмет + needs + -ing = его нужно сделать: needs cleaning.',en:'Thing + needs + -ing = it must be done.'},
+  b:{ru:'needs + -ing = needs to be + 3-я форма; человек — need to + глагол.',en:'needs -ing = needs to be done; a person needs to do.'},
+  c:{ru:'get + 3-я форма — разговорный пассив: got fired, got stolen.',en:'get + past participle — informal passive.'},
+  d:{ru:'Вопрос и отрицание с get-пассивом — через do / did: Did you get paid?',en:'Questions and negatives with get-passive use do / did.'}},
+ items:[
+ ['mc','The windows are dirty. They need ___.',['cleaning','to clean','clean'],0,'a'],
+ ['mc','Your shirt needs ___.',['ironing','to iron','iron'],0,'a'],
+ ['mc','The grass needs ___ cut.',['to be','being','be'],0,'b'],
+ ['mc','He ___ fired last week.',['got','was got','get'],0,'c'],
+ ['mc','My bike ___ stolen yesterday.',['got','has got','gets'],0,'c'],
+ ['mc','___ you get paid for the extra work?',['Did','Were','Had'],0,'d'],
+ ['mc','I need ___ my hair.',['to cut','cutting','cut'],0,'b'],
+ ['gap','The car needs ___. It\'s very dirty. (wash)','washing','a'],
+ ['gap','This room needs ___ painted.','to be','b'],
+ ['gap','We got ___ in the forest. (lose)','lost','c'],
+ ['gap','I didn\'t ___ invited to the party.','get','d'],
+ ['tr','Эту дверь нужно починить.','This door needs fixing.|This door needs repairing.|This door needs to be fixed.|This door needs to be repaired.|The door needs fixing.|The door needs repairing.|The door needs to be fixed.|The door needs to be repaired.','a'],
+ ['tr','Его уволили.','He got fired.|He was fired.|He got sacked.|He was sacked.','c'],
+ ['build','Твои волосы нужно подстричь.','Your hair needs cutting.','a',['to cut']],
+ ['fix','The plants need water them.','The plants need watering.|The plants need to be watered.','a'],
+ '|',
+ ['mc','My phone ___ charging.',['needs','need','is needed'],0,'a'],
+ ['mc','They ___ married in June.',['got','were got','have got'],0,'c'],
+ ['gap','The report needs ___ again. (check)','checking','a'],
+ ['gap','How did the window ___ broken?','get','d'],
+ ['fix','The fridge needs to clean.','The fridge needs cleaning.|The fridge needs to be cleaned.','b'],
+ ['fix','Were you get hurt?','Did you get hurt?|Were you hurt?','d'],
+ ['tr','Мы застряли в пробке.','We got stuck in a traffic jam.|We got stuck in traffic.|We were stuck in a traffic jam.|We were stuck in traffic.','c'],
+ ['dict','The kitchen needs painting and the floor needs to be repaired.','b'],
+ '|',
+ ['mc','The batteries need ___.',['changing','to change','change'],0,'a'],
+ ['mc','The house needs ___ cleaned before the guests arrive.',['to be','being','been'],0,'b'],
+ ['mc','She ___ promoted last month.',['got','was got','had got'],0,'c'],
+ ['mc','___ he get hurt in the accident?',['Did','Was','Has'],0,'d'],
+ ['mc','You need ___ more sleep.',['to get','getting','get'],0,'b'],
+ ['gap','The tyres need ___. (check)','checking','a'],
+ ['gap','The letter needs to ___ signed.','be','b'],
+ ['gap','Hurry up and get ___! We\'re leaving. (dress)','dressed','c'],
+ ['gap','Did your car ___ damaged in the storm?','get','d'],
+ ['gap','The baby needs ___. (feed)','feeding','a'],
+ ['fix','My wallet got steal on the bus.','My wallet got stolen on the bus.','c'],
+ ['tr','Ему не заплатили.','He did not get paid.|He didn\'t get paid.|He was not paid.|He wasn\'t paid.','d'],
+ ['build','Машине нужен ремонт.','The car needs repairing.','a',['to repair']],
+ '|',
+ ['mc','This shirt doesn\'t need ___.',['ironing','to iron','iron'],0,'a'],
+ ['mc','Three people ___ injured in the crash.',['got','were got','gets'],0,'c'],
+ ['gap','The dog needs ___ for a walk. (take)','taking','a'],
+ ['gap','Your essay needs to be ___. (rewrite)','rewritten','b'],
+ ['gap','I got ___ in the rain. (wet — промок)','wet|soaked','c'],
+ ['gap','How often do you get ___? (pay — тебе платят)','paid','c'],
+ ['fix','The walls need paint.','The walls need painting.|The walls need to be painted.','a'],
+ ['fix','The car needs being washed.','The car needs washing.|The car needs to be washed.','b'],
+ ['fix','They get married last year.','They got married last year.','c'],
+ ['fix','Got you invited to the wedding?','Did you get invited to the wedding?|Were you invited to the wedding?','d'],
+ ['tr','Окно нужно помыть.','The window needs washing.|The window needs cleaning.|The window needs to be washed.|The window needs to be cleaned.|The windows need washing.|The windows need cleaning.','a'],
+ ['tr','Мой телефон разбился.','My phone got broken.|My phone broke.|My phone is broken.|My phone has broken.','c'],
+ ['dict','We got lost on the way and our car needed petrol.','c'],
+ ['gap','The bathroom needs ___. (clean)','cleaning','a']],
+ fw:{ru:"Осмотри свою квартиру и напиши 6 предложений о том, что нужно сделать (needs cleaning, needs to be fixed), и 2 предложения о неприятностях с get (got lost, got stuck).",en:"Look around your flat and write 6 sentences about what needs doing, plus 2 sentences about mishaps with get."}},
+
+{id:'quant2',ru:'Количество подробнее: plenty of, a great deal of, hardly any',en:'plenty of, a great deal of, hardly any, the majority of',
+ th:{ru:`<table><tr><th>Выражение</th><th>С чем</th><th>Пример</th></tr>
+<tr><td>plenty of</td><td>любые; «более чем достаточно»</td><td><span class="en">Don't hurry, we have plenty of time.</span></td></tr>
+<tr><td>a great deal of / a large amount of</td><td>неисчисляемые (книжно)</td><td><span class="en">a great deal of money</span></td></tr>
+<tr><td>a large number of / a great many</td><td>исчисляемые (книжно)</td><td><span class="en">a large number of people</span></td></tr>
+<tr><td>hardly any / hardly anybody</td><td>почти нет, почти никто</td><td><span class="en">There's hardly any milk left.</span></td></tr>
+<tr><td>the majority of / most of</td><td>большинство</td><td><span class="en">The majority of students passed.</span></td></tr>
+<tr><td>several / a couple of</td><td>несколько / пара</td><td><span class="en">a couple of days</span></td></tr></table>
+<p><b>a number of</b> + мн. число + глагол во мн. числе (= много): <span class="en">A number of people were late.</span></p>
+<p><b>the number of</b> + мн. число + глагол в ед. числе (= число, количество): <span class="en">The number of cars is growing.</span></p>
+<p><b>less</b> — с неисчисляемыми, <b>fewer</b> — с исчисляемыми: <span class="en">less time, fewer people</span>.</p>`,
+ en:`<table><tr><th>Expression</th><th>With</th><th>Example</th></tr>
+<tr><td>plenty of</td><td>both; more than enough</td><td><span class="en">We have plenty of time.</span></td></tr>
+<tr><td>a great deal of / a large amount of</td><td>uncountable</td><td><span class="en">a great deal of money</span></td></tr>
+<tr><td>a large number of / a great many</td><td>countable</td><td><span class="en">a large number of people</span></td></tr>
+<tr><td>hardly any</td><td>almost none</td><td><span class="en">There's hardly any milk left.</span></td></tr>
+<tr><td>the majority of</td><td>most</td><td><span class="en">The majority of students passed.</span></td></tr></table>
+<p><b>a number of</b> + plural verb (= many); <b>the number of</b> + singular verb (= the amount).</p>
+<p><b>less</b> + uncountable, <b>fewer</b> + countable.</p>`},
+ rules:{a:{ru:'plenty of — с любыми; a great deal of — с неисчисляемыми; a large number of — с исчисляемыми.',en:'plenty of — any noun; a great deal of — uncountable; a large number of — countable.'},
+  b:{ru:'hardly any / hardly anybody / hardly ever — почти нет, почти никто, почти никогда.',en:'hardly any / anybody / ever — almost none / nobody / never.'},
+  c:{ru:'a number of + глагол во мн. числе; the number of + глагол в ед. числе.',en:'a number of + plural verb; the number of + singular verb.'},
+  d:{ru:'less + неисчисляемые; fewer + исчисляемые.',en:'less + uncountable; fewer + countable.'}},
+ items:[
+ ['mc','Relax. We\'ve got ___ time.',['plenty of','a great many','a number of'],0,'a'],
+ ['mc','He spent ___ money on his car.',['a great deal of','a large number of','many'],0,'a'],
+ ['mc','There\'s ___ coffee left. Let\'s buy some.',['hardly any','hardly no','hard any'],0,'b'],
+ ['mc','A number of students ___ absent today.',['were','was','is'],0,'c'],
+ ['mc','The number of tourists ___ growing.',['is','are','were'],0,'c'],
+ ['mc','There were ___ people than last year.',['fewer','less','lesser'],0,'d'],
+ ['mc','I have ___ free time these days.',['less','fewer','lesser'],0,'d'],
+ ['gap','There are ___ of shops in the centre. (полно)','plenty|lots','a'],
+ ['gap','I hardly ___ go to the cinema. (почти никогда)','ever','b'],
+ ['gap','The ___ of people who use cash is falling.','number','c'],
+ ['gap','We need ___ chairs. Ten is too many. (меньше)','fewer','d'],
+ ['tr','В холодильнике почти нет еды.','There is hardly any food in the fridge.|There\'s hardly any food in the fridge.|There is almost no food in the fridge.|There\'s almost no food in the fridge.','b'],
+ ['tr','Большинство людей любят лето.','The majority of people like summer.|Most people like summer.|The majority of people love summer.|Most people love summer.','a'],
+ ['build','У нас полно времени.','We have plenty of time.','a',['many']],
+ ['fix','The number of students have increased.','The number of students has increased.','c'],
+ '|',
+ ['mc','___ anybody came to the meeting. It was almost empty.',['Hardly','Hard','Nearly no'],0,'b'],
+ ['mc','A large ___ of people visit the museum every day.',['number','amount','deal'],0,'a'],
+ ['gap','A great ___ of time was wasted.','deal','a'],
+ ['gap','I eat ___ meat than I used to. (меньше)','less','d'],
+ ['fix','There is hardly no water in the bottle.','There is hardly any water in the bottle.|There\'s hardly any water in the bottle.','b'],
+ ['fix','Less people came this time.','Fewer people came this time.','d'],
+ ['tr','Ряд сотрудников заболел.','A number of employees got ill.|A number of employees were ill.|A number of employees fell ill.|A number of workers got ill.|A number of staff were ill.|A number of employees are ill.','c'],
+ ['dict','The majority of the guests left early, but a couple of them stayed until midnight.','a'],
+ '|',
+ ['mc','Don\'t buy more bread. There\'s ___ at home.',['plenty','plenty of','a great deal'],0,'a'],
+ ['mc','I ___ know anyone here.',['hardly','hard','hardly don\'t'],0,'b'],
+ ['mc','The number of accidents ___ down this year.',['has gone','have gone','are going'],0,'c'],
+ ['mc','You should eat ___ sweets.',['fewer','less','lesser'],0,'d'],
+ ['mc','It took a great deal of ___.',['effort','efforts','people'],0,'a'],
+ ['gap','There were ___ any cars on the road. (почти не было)','hardly','b'],
+ ['gap','A ___ of my friends have moved abroad.','number|couple','c'],
+ ['gap','There\'s ___ traffic on Sundays. (меньше)','less','d'],
+ ['gap','We have ___ of food for everyone. (полно)','plenty|lots','a'],
+ ['gap','The majority ___ voters said yes.','of','a'],
+ ['fix','I have hardly some money left.','I have hardly any money left.','b'],
+ ['tr','Я почти никогда не смотрю телевизор.','I hardly ever watch TV.|I almost never watch TV.|I hardly ever watch television.','b'],
+ ['build','Число машин растёт.','The number of cars is growing.','c',['are']],
+ '|',
+ ['mc','We spent ___ amount of money on the trip.',['a large','a large number of','many'],0,'a'],
+ ['mc','There were ___ mistakes in his test.',['very few','very little','a great deal of'],0,'d'],
+ ['gap','We\'ve got ___ of room in the car. Come with us.','plenty|lots','a'],
+ ['gap','He hardly ___ calls his parents. (ever)','ever','b'],
+ ['gap','A number of questions ___ still unanswered. (be, present)','are|remain','c'],
+ ['gap','The number of students in the group ___ twelve. (be, present)','is','c'],
+ ['fix','She has a great deal of friends.','She has a lot of friends.|She has a large number of friends.|She has plenty of friends.|She has a great many friends.|She has many friends.','a'],
+ ['fix','I hardly never go there.','I hardly ever go there.|I almost never go there.','b'],
+ ['fix','There are less trains at night.','There are fewer trains at night.','d'],
+ ['fix','A number of people was waiting outside.','A number of people were waiting outside.','c'],
+ ['tr','Нам нужно меньше бумаги.','We need less paper.','d'],
+ ['tr','Почти никто не знал ответа.','Hardly anybody knew the answer.|Hardly anyone knew the answer.|Almost nobody knew the answer.|Almost no one knew the answer.','b'],
+ ['dict','There is plenty of food, but hardly any drinks, so we need to buy more juice.','b'],
+ ['gap','There are ___ cars in the city than ten years ago. (меньше)','fewer','d']],
+ fw:{ru:"Сравни свою жизнь сейчас и пять лет назад: чего стало больше и меньше (less / fewer), чего полно (plenty of), чего почти нет (hardly any). 6 предложений.",en:"Compare your life now and five years ago: what there is more and less of, what there is plenty of and hardly any of. 6 sentences."}}
 ]}];
+/* ---- extended reference per topic: full tables, fine points, typical mistakes of Russian speakers (Russian only) ---- */
+/* ---- extended reference per topic: full tables, fine points, typical mistakes of Russian speakers (Russian only) ---- */
 /* ---- extended reference per topic: full tables, fine points, typical mistakes of Russian speakers (Russian only) ---- */
 /* ---- extended reference per topic: full tables, fine points, typical mistakes of Russian speakers (Russian only) ---- */
 /* ---- extended reference per topic: full tables, fine points, typical mistakes of Russian speakers (Russian only) ---- */
@@ -8189,7 +9072,18 @@ const MORE={
 "verbs": "<h4>get — значения<\/h4><div class=\"tw\"><table><tr><th>Значение<\/th><th>Примеры<\/th><\/tr><tr><td>получить<\/td><td><span class=\"en\">get a letter, get a job, get a present<\/span><\/td><\/tr><tr><td>купить, достать<\/td><td><span class=\"en\">get some bread, get tickets<\/span><\/td><\/tr><tr><td>стать<\/td><td><span class=\"en\">get tired, get old, get dark, get married, get better<\/span><\/td><\/tr><tr><td>добраться<\/td><td><span class=\"en\">get home, get to work, get there<\/span><\/td><\/tr><tr><td>сесть / выйти<\/td><td><span class=\"en\">get on / off the bus, get into / out of the car<\/span><\/td><\/tr><\/table><\/div><h4>do или make<\/h4><div class=\"tw\"><table><tr><th>do<\/th><th>make<\/th><\/tr><tr><td><span class=\"en\">do homework, do housework<\/span><\/td><td><span class=\"en\">make dinner, make a cake, make tea<\/span><\/td><\/tr><tr><td><span class=\"en\">do the shopping, the cleaning, the dishes<\/span><\/td><td><span class=\"en\">make a bed, make a mess<\/span><\/td><\/tr><tr><td><span class=\"en\">do sport, do exercise, do yoga<\/span><\/td><td><span class=\"en\">make a mistake, make a decision<\/span><\/td><\/tr><tr><td><span class=\"en\">do a job, do business<\/span><\/td><td><span class=\"en\">make money, make a profit<\/span><\/td><\/tr><tr><td><span class=\"en\">do someone a favour<\/span><\/td><td><span class=\"en\">make friends, make a phone call, make noise<\/span><\/td><\/tr><\/table><\/div><h4>have — действия<\/h4><p><span class=\"en\">have breakfast / lunch / dinner<\/span>, <span class=\"en\">have a coffee<\/span>, <span class=\"en\">have a shower / bath<\/span>, <span class=\"en\">have a rest<\/span>, <span class=\"en\">have a party<\/span>, <span class=\"en\">have a good time<\/span>, <span class=\"en\">have a look<\/span>, <span class=\"en\">have a chat<\/span>, <span class=\"en\">have a problem<\/span>.<\/p><h4>go<\/h4><p><span class=\"en\">go home<\/span>, <span class=\"en\">go to work / school / bed<\/span>, <span class=\"en\">go shopping / swimming / skiing<\/span>, <span class=\"en\">go for a walk / run / drink<\/span>, <span class=\"en\">go on holiday / a trip<\/span>, <span class=\"en\">go out<\/span>.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">I made my homework.<\/span><span class=\"en\">I did my homework.<\/span><\/li><li><span class=\"bad\">I did a mistake.<\/span><span class=\"en\">I made a mistake.<\/span><\/li><li><span class=\"bad\">Let's go to shopping.<\/span><span class=\"en\">Let's go shopping.<\/span><\/li><li><span class=\"bad\">I am having a car.<\/span><span class=\"en\">I have a car.<\/span><\/li><\/ul>",
 "itthere": "<h4>it — «пустое» подлежащее<\/h4><div class=\"tw\"><table><tr><th>Случай<\/th><th>Пример<\/th><\/tr><tr><td>погода<\/td><td><span class=\"en\">It's raining. It's getting cold.<\/span><\/td><\/tr><tr><td>время и дата<\/td><td><span class=\"en\">It's half past six. It's my birthday tomorrow.<\/span><\/td><\/tr><tr><td>расстояние<\/td><td><span class=\"en\">It's two kilometres to the beach.<\/span><\/td><\/tr><tr><td>оценка + to<\/td><td><span class=\"en\">It's important to sleep well. It's easy to forget.<\/span><\/td><\/tr><tr><td>оценка + that<\/td><td><span class=\"en\">It's strange that he didn't call.<\/span><\/td><\/tr><tr><td>сколько времени<\/td><td><span class=\"en\">It takes ten minutes. It took me a year.<\/span><\/td><\/tr><tr><td>впечатление<\/td><td><span class=\"en\">It seems / looks / sounds like a good idea.<\/span><\/td><\/tr><\/table><\/div><h4>there — «есть, существует»<\/h4><div class=\"tw\"><table><tr><th>Время<\/th><th>Пример<\/th><\/tr><tr><td>настоящее<\/td><td><span class=\"en\">There is a bank. There are two banks.<\/span><\/td><\/tr><tr><td>прошедшее<\/td><td><span class=\"en\">There was a storm. There were problems.<\/span><\/td><\/tr><tr><td>будущее<\/td><td><span class=\"en\">There will be a party.<\/span><\/td><\/tr><tr><td>перфект<\/td><td><span class=\"en\">There has been an accident.<\/span><\/td><\/tr><tr><td>модальные<\/td><td><span class=\"en\">There must be a mistake. There might be a problem.<\/span><\/td><\/tr><tr><td>раньше было<\/td><td><span class=\"en\">There used to be a market here.<\/span><\/td><\/tr><\/table><\/div><h4>Сначала there, потом it<\/h4><p><span class=\"en\">There's a new café near my office. It opens at eight.<\/span><\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">Is cold today.<\/span><span class=\"en\">It's cold today.<\/span><\/li><li><span class=\"bad\">It is a lot of people here.<\/span><span class=\"en\">There are a lot of people here.<\/span><\/li><li><span class=\"bad\">There is raining.<\/span><span class=\"en\">It is raining.<\/span><\/li><li><span class=\"bad\">Is possible to pay by card?<\/span><span class=\"en\">Is it possible to pay by card?<\/span><\/li><\/ul>",
 "nounnoun": "<h4>Как устроено<\/h4><p>Главное слово — последнее, остальные его описывают: <span class=\"en\">a car park<\/span> — парковка, <span class=\"en\">a park car<\/span> — машина для парка. Иногда пишут слитно: <span class=\"en\">bedroom, toothbrush, football<\/span>.<\/p><h4>Числа как прилагательные<\/h4><p>С дефисом и в ед. числе: <span class=\"en\">a ten-minute break<\/span>, <span class=\"en\">a two-year contract<\/span>, <span class=\"en\">a three-day trip<\/span>, <span class=\"en\">a five-star hotel<\/span>, <span class=\"en\">a ten-year-old girl<\/span>. Сравни: <span class=\"en\">The break is ten minutes.<\/span> — здесь minutes во мн. числе.<\/p><h4>Сравни<\/h4><div class=\"tw\"><table><tr><th>Сочетание<\/th><th>Смысл<\/th><\/tr><tr><td><span class=\"en\">a wine glass<\/span><\/td><td>бокал для вина<\/td><\/tr><tr><td><span class=\"en\">a glass of wine<\/span><\/td><td>бокал вина (с вином)<\/td><\/tr><tr><td><span class=\"en\">a matchbox<\/span><\/td><td>коробок<\/td><\/tr><tr><td><span class=\"en\">a box of matches<\/span><\/td><td>коробок со спичками<\/td><\/tr><\/table><\/div><h4>'s<\/h4><ul><li>Люди и животные: <span class=\"en\">my friend's flat<\/span>, <span class=\"en\">the cat's toy<\/span>.<\/li><li>Мн. число на -s — только апостроф: <span class=\"en\">my parents' car<\/span>.<\/li><li>Неправильное мн. число — 's: <span class=\"en\">children's books<\/span>, <span class=\"en\">women's clothes<\/span>.<\/li><li>Время: <span class=\"en\">yesterday's news<\/span>, <span class=\"en\">a week's holiday<\/span>, <span class=\"en\">ten minutes' walk<\/span>.<\/li><li>Место «у кого-то дома / в магазине»: <span class=\"en\">at my aunt's<\/span>, <span class=\"en\">at the doctor's<\/span>.<\/li><\/ul><h4>of<\/h4><p>Для предметов и длинных «владельцев»: <span class=\"en\">the roof of the house<\/span>, <span class=\"en\">the name of the street<\/span>, <span class=\"en\">the wife of my best friend<\/span>.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">a shoes shop<\/span><span class=\"en\">a shoe shop<\/span><\/li><li><span class=\"bad\">a ten-minutes walk<\/span><span class=\"en\">a ten-minute walk<\/span><\/li><li><span class=\"bad\">the car of my brother<\/span><span class=\"en\">my brother's car<\/span><\/li><li><span class=\"bad\">the film's end<\/span><span class=\"en\">the end of the film<\/span><\/li><\/ul>",
-"artnames": "<h4>Без артикля<\/h4><ul><li>Города, большинство стран, континенты: <span class=\"en\">Moscow, France, Asia<\/span>.<\/li><li>Озёра с Lake: <span class=\"en\">Lake Baikal<\/span>; горы с Mount: <span class=\"en\">Mount Everest<\/span>.<\/li><li>Улицы, площади, парки: <span class=\"en\">Arbat Street, Trafalgar Square, Central Park<\/span>.<\/li><li>Вокзалы, аэропорты, университеты по названию: <span class=\"en\">Kazansky Station, Heathrow Airport, Moscow State University<\/span>.<\/li><li>Отдельные острова: <span class=\"en\">Cyprus, Sicily<\/span>.<\/li><\/ul><h4>С the<\/h4><ul><li>Реки, моря, океаны, каналы: <span class=\"en\">the Volga, the Baltic Sea, the Atlantic, the Suez Canal<\/span>.<\/li><li>Горные цепи, группы островов: <span class=\"en\">the Urals, the Caucasus, the Canary Islands<\/span>.<\/li><li>Страны с Republic / Kingdom / States / Federation и во мн. числе: <span class=\"en\">the Russian Federation, the UK, the USA, the Philippines<\/span>.<\/li><li>Пустыни: <span class=\"en\">the Sahara<\/span>.<\/li><li>Отели, театры, кинотеатры, музеи, галереи: <span class=\"en\">the Ritz, the Bolshoi, the Tretyakov Gallery<\/span>.<\/li><li>Названия с of: <span class=\"en\">the Gulf of Finland, the Bank of England, the Museum of Modern Art<\/span>.<\/li><li>Стороны света как регион: <span class=\"en\">the north, the Far East<\/span>.<\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">the Moscow<\/span><span class=\"en\">Moscow<\/span><\/li><li><span class=\"bad\">Volga<\/span><span class=\"en\">the Volga<\/span><\/li><li><span class=\"bad\">the Lake Baikal<\/span><span class=\"en\">Lake Baikal<\/span><\/li><li><span class=\"bad\">United States<\/span><span class=\"en\">the United States<\/span><\/li><\/ul>"
+"artnames": "<h4>Без артикля<\/h4><ul><li>Города, большинство стран, континенты: <span class=\"en\">Moscow, France, Asia<\/span>.<\/li><li>Озёра с Lake: <span class=\"en\">Lake Baikal<\/span>; горы с Mount: <span class=\"en\">Mount Everest<\/span>.<\/li><li>Улицы, площади, парки: <span class=\"en\">Arbat Street, Trafalgar Square, Central Park<\/span>.<\/li><li>Вокзалы, аэропорты, университеты по названию: <span class=\"en\">Kazansky Station, Heathrow Airport, Moscow State University<\/span>.<\/li><li>Отдельные острова: <span class=\"en\">Cyprus, Sicily<\/span>.<\/li><\/ul><h4>С the<\/h4><ul><li>Реки, моря, океаны, каналы: <span class=\"en\">the Volga, the Baltic Sea, the Atlantic, the Suez Canal<\/span>.<\/li><li>Горные цепи, группы островов: <span class=\"en\">the Urals, the Caucasus, the Canary Islands<\/span>.<\/li><li>Страны с Republic / Kingdom / States / Federation и во мн. числе: <span class=\"en\">the Russian Federation, the UK, the USA, the Philippines<\/span>.<\/li><li>Пустыни: <span class=\"en\">the Sahara<\/span>.<\/li><li>Отели, театры, кинотеатры, музеи, галереи: <span class=\"en\">the Ritz, the Bolshoi, the Tretyakov Gallery<\/span>.<\/li><li>Названия с of: <span class=\"en\">the Gulf of Finland, the Bank of England, the Museum of Modern Art<\/span>.<\/li><li>Стороны света как регион: <span class=\"en\">the north, the Far East<\/span>.<\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">the Moscow<\/span><span class=\"en\">Moscow<\/span><\/li><li><span class=\"bad\">Volga<\/span><span class=\"en\">the Volga<\/span><\/li><li><span class=\"bad\">the Lake Baikal<\/span><span class=\"en\">Lake Baikal<\/span><\/li><li><span class=\"bad\">United States<\/span><span class=\"en\">the United States<\/span><\/li><\/ul>",
+"quite": "<h4>Сила слов<\/h4><div class=\"tw\"><table><tr><th>Слово<\/th><th>Сила<\/th><th>Пример<\/th><\/tr><tr><td><span class=\"en\">a bit / a little<\/span><\/td><td>немного<\/td><td><span class=\"en\">It's a bit cold.<\/span><\/td><\/tr><tr><td><span class=\"en\">fairly<\/span><\/td><td>средне, «нормально»<\/td><td><span class=\"en\">The film was fairly good.<\/span><\/td><\/tr><tr><td><span class=\"en\">quite / pretty<\/span><\/td><td>довольно<\/td><td><span class=\"en\">It's quite expensive.<\/span><\/td><\/tr><tr><td><span class=\"en\">rather<\/span><\/td><td>довольно, часто с оттенком «слишком» или «неожиданно»<\/td><td><span class=\"en\">It's rather late.<\/span><\/td><\/tr><tr><td><span class=\"en\">very / really<\/span><\/td><td>очень<\/td><td><span class=\"en\">It's very cold.<\/span><\/td><\/tr><\/table><\/div><h4>quite — два значения<\/h4><ul><li>С обычными прилагательными (good, cold, big) — «довольно»: <span class=\"en\">quite good<\/span>.<\/li><li>С абсолютными (right, sure, amazing, impossible, true) — «совершенно»: <span class=\"en\">quite right<\/span>, <span class=\"en\">quite impossible<\/span>.<\/li><li><span class=\"en\">not quite<\/span> — «не совсем»: <span class=\"en\">I'm not quite ready.<\/span><\/li><\/ul><h4>Место артикля<\/h4><p><span class=\"en\">quite a nice day<\/span>, <span class=\"en\">rather a long time<\/span> или <span class=\"en\">a rather long time<\/span>, <span class=\"en\">a fairly / pretty / very nice day<\/span>.<\/p><h4>Порядок прилагательных<\/h4><div class=\"tw\"><table><tr><th>Мнение<\/th><th>Размер<\/th><th>Возраст<\/th><th>Форма<\/th><th>Цвет<\/th><th>Откуда<\/th><th>Материал<\/th><th>Назначение<\/th><\/tr><tr><td><span class=\"en\">lovely<\/span><\/td><td><span class=\"en\">big<\/span><\/td><td><span class=\"en\">old<\/span><\/td><td><span class=\"en\">round<\/span><\/td><td><span class=\"en\">red<\/span><\/td><td><span class=\"en\">Italian<\/span><\/td><td><span class=\"en\">wooden<\/span><\/td><td><span class=\"en\">dining<\/span><\/td><\/tr><\/table><\/div><p>Пример: <span class=\"en\">a lovely big old round wooden dining table<\/span>. В жизни обычно 2–3 прилагательных.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">a quite good film<\/span><span class=\"en\">quite a good film<\/span><\/li><li><span class=\"bad\">a wooden beautiful table<\/span><span class=\"en\">a beautiful wooden table<\/span><\/li><li><span class=\"bad\">I'm not fairly sure.<\/span><span class=\"en\">I'm not quite sure.<\/span><\/li><\/ul>",
+"adjto": "<h4>Шаблоны<\/h4><div class=\"tw\"><table><tr><th>Шаблон<\/th><th>Пример<\/th><\/tr><tr><td><span class=\"en\">It's + прил. + to<\/span><\/td><td><span class=\"en\">It's nice to meet you.<\/span><\/td><\/tr><tr><td><span class=\"en\">It's + прил. + for + кто + to<\/span><\/td><td><span class=\"en\">It's easy for children to learn languages.<\/span><\/td><\/tr><tr><td><span class=\"en\">It's + прил. + of + кто + to<\/span><\/td><td><span class=\"en\">It's kind of you to come.<\/span><\/td><\/tr><tr><td><span class=\"en\">предмет + is + прил. + to<\/span><\/td><td><span class=\"en\">The house is easy to find.<\/span><\/td><\/tr><tr><td><span class=\"en\">I'm + чувство + to<\/span><\/td><td><span class=\"en\">I'm happy to help. I was sad to hear it.<\/span><\/td><\/tr><tr><td><span class=\"en\">the first / last / next / only + to<\/span><\/td><td><span class=\"en\">She was the first to arrive.<\/span><\/td><\/tr><\/table><\/div><h4>for или of<\/h4><ul><li><span class=\"en\">of<\/span> — оцениваем человека: <span class=\"en\">kind, nice, clever, stupid, silly, rude, generous, polite<\/span>.<\/li><li><span class=\"en\">for<\/span> — кому легко, трудно, важно: <span class=\"en\">easy, difficult, hard, important, necessary, impossible<\/span>.<\/li><\/ul><h4>afraid, sorry, interested<\/h4><div class=\"tw\"><table><tr><th>+ to<\/th><th>+ of / for / in + -ing<\/th><\/tr><tr><td><span class=\"en\">afraid to tell<\/span> — не решаюсь<\/td><td><span class=\"en\">afraid of losing<\/span> — боюсь, что случится<\/td><\/tr><tr><td><span class=\"en\">sorry to hear<\/span> — сейчас<\/td><td><span class=\"en\">sorry for being late<\/span> — за прошлое<\/td><\/tr><tr><td><span class=\"en\">interested to know<\/span> — хочу узнать<\/td><td><span class=\"en\">interested in learning<\/span> — интересуюсь<\/td><\/tr><\/table><\/div><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">This book is easy to read it.<\/span><span class=\"en\">This book is easy to read.<\/span><\/li><li><span class=\"bad\">It was kind for you to help.<\/span><span class=\"en\">It was kind of you to help.<\/span><\/li><li><span class=\"bad\">I'm afraid of to fly.<\/span><span class=\"en\">I'm afraid of flying.<\/span><\/li><\/ul>",
+"timeprep": "<h4>Сколько и когда<\/h4><div class=\"tw\"><table><tr><th>Вопрос<\/th><th>Предлог<\/th><th>Пример<\/th><\/tr><tr><td>Как долго?<\/td><td><span class=\"en\">for<\/span> + период<\/td><td><span class=\"en\">for three days<\/span><\/td><\/tr><tr><td>Когда, в какой период?<\/td><td><span class=\"en\">during<\/span> + событие<\/td><td><span class=\"en\">during the war, during lunch<\/span><\/td><\/tr><tr><td>Пока что-то шло?<\/td><td><span class=\"en\">while<\/span> + предложение<\/td><td><span class=\"en\">while I was cooking<\/span><\/td><\/tr><\/table><\/div><h4>until и by<\/h4><div class=\"tw\"><table><tr><th><\/th><th>Смысл<\/th><th>Пример<\/th><\/tr><tr><td><span class=\"en\">until / till<\/span><\/td><td>действие идёт и прекращается в момент<\/td><td><span class=\"en\">I worked until midnight.<\/span><\/td><\/tr><tr><td><span class=\"en\">by<\/span><\/td><td>действие случится не позже<\/td><td><span class=\"en\">I'll be home by midnight.<\/span><\/td><\/tr><tr><td><span class=\"en\">not … until<\/span><\/td><td>не раньше чем<\/td><td><span class=\"en\">He didn't come until ten.<\/span><\/td><\/tr><tr><td><span class=\"en\">by the time<\/span> + предложение<\/td><td>к моменту<\/td><td><span class=\"en\">By the time I woke up, she had left.<\/span><\/td><\/tr><\/table><\/div><h4>on time и in time<\/h4><ul><li><span class=\"en\">on time<\/span> — точно по расписанию: <span class=\"en\">The meeting started on time.<\/span><\/li><li><span class=\"en\">in time (for / to)<\/span> — заранее, успеть: <span class=\"en\">We got there in time for the start.<\/span> <span class=\"en\">just in time<\/span> — еле успели.<\/li><\/ul><h4>end<\/h4><ul><li><span class=\"en\">at the end of<\/span> — в конце (чего-то): <span class=\"en\">at the end of the street / of May / of the film<\/span>.<\/li><li><span class=\"en\">in the end<\/span> — в итоге: <span class=\"en\">In the end everything was fine.<\/span><\/li><li><span class=\"en\">by the end of<\/span> — к концу: <span class=\"en\">by the end of the year<\/span>.<\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">during I was sleeping<\/span><span class=\"en\">while I was sleeping<\/span><\/li><li><span class=\"bad\">I'll wait you by six.<\/span><span class=\"en\">I'll wait for you until six.<\/span><\/li><li><span class=\"bad\">We came on time to see the start.<\/span><span class=\"en\">We came in time to see the start.<\/span><\/li><li><span class=\"bad\">At the end we stayed home.<\/span><span class=\"en\">In the end we stayed home.<\/span><\/li><\/ul>",
+"requests": "<h4>От простого к вежливому<\/h4><div class=\"tw\"><table><tr><th>Просьба<\/th><th>Тон<\/th><\/tr><tr><td><span class=\"en\">Open the window, please.<\/span><\/td><td>прямо, среди своих<\/td><\/tr><tr><td><span class=\"en\">Can you open the window?<\/span><\/td><td>обычно<\/td><\/tr><tr><td><span class=\"en\">Could you open the window?<\/span><\/td><td>вежливо<\/td><\/tr><tr><td><span class=\"en\">Would you mind opening the window?<\/span><\/td><td>очень вежливо<\/td><\/tr><tr><td><span class=\"en\">I was wondering if you could open the window.<\/span><\/td><td>максимально вежливо<\/td><\/tr><\/table><\/div><h4>Разрешение<\/h4><div class=\"tw\"><table><tr><th>Вопрос<\/th><th>Ответ «да»<\/th><th>Ответ «нет»<\/th><\/tr><tr><td><span class=\"en\">Can / Could / May I…?<\/span><\/td><td><span class=\"en\">Yes, of course. Sure.<\/span><\/td><td><span class=\"en\">Sorry, you can't.<\/span><\/td><\/tr><tr><td><span class=\"en\">Do you mind if I…?<\/span><\/td><td><span class=\"en\">No, not at all. Go ahead.<\/span><\/td><td><span class=\"en\">I'd rather you didn't.<\/span><\/td><\/tr><\/table><\/div><h4>Предложения<\/h4><ul><li>Помощь: <span class=\"en\">Shall I help you? Can I help? I'll do it. Let me help.<\/span><\/li><li>Угощение: <span class=\"en\">Would you like some cake? Help yourself!<\/span><\/li><li>Приглашение: <span class=\"en\">Would you like to come? How about coming? Why don't you come?<\/span><\/li><li>Ответ: <span class=\"en\">Yes, please. / Yes, I'd love to. / No, thanks. / I'd love to, but I can't.<\/span><\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">Do you open the window?<\/span><span class=\"en\">Could you open the window?<\/span><\/li><li><span class=\"bad\">Would you mind to wait?<\/span><span class=\"en\">Would you mind waiting?<\/span><\/li><li><span class=\"bad\">Would you like coming?<\/span><span class=\"en\">Would you like to come?<\/span><\/li><\/ul>",
+"thinkso": "<h4>so и not после глаголов<\/h4><div class=\"tw\"><table><tr><th>Глагол<\/th><th>Да<\/th><th>Нет<\/th><\/tr><tr><td><span class=\"en\">think<\/span><\/td><td><span class=\"en\">I think so.<\/span><\/td><td><span class=\"en\">I don't think so.<\/span><\/td><\/tr><tr><td><span class=\"en\">expect<\/span><\/td><td><span class=\"en\">I expect so.<\/span><\/td><td><span class=\"en\">I don't expect so.<\/span><\/td><\/tr><tr><td><span class=\"en\">suppose<\/span><\/td><td><span class=\"en\">I suppose so.<\/span><\/td><td><span class=\"en\">I don't suppose so.<\/span> / <span class=\"en\">I suppose not.<\/span><\/td><\/tr><tr><td><span class=\"en\">hope<\/span><\/td><td><span class=\"en\">I hope so.<\/span><\/td><td><span class=\"en\">I hope not.<\/span><\/td><\/tr><tr><td><span class=\"en\">be afraid<\/span><\/td><td><span class=\"en\">I'm afraid so.<\/span><\/td><td><span class=\"en\">I'm afraid not.<\/span><\/td><\/tr><tr><td><span class=\"en\">guess<\/span><\/td><td><span class=\"en\">I guess so.<\/span><\/td><td><span class=\"en\">I guess not.<\/span><\/td><\/tr><\/table><\/div><h4>Короткие ответы<\/h4><p>Повторяем вспомогательный глагол из вопроса: <span class=\"en\">Can you…? — Yes, I can.<\/span> <span class=\"en\">Have you…? — No, I haven't.<\/span> <span class=\"en\">Did she…? — Yes, she did.<\/span> Если в вопросе нет вспомогательного, — do / does / did.<\/p><h4>Реакции<\/h4><ul><li>Удивление, интерес: <span class=\"en\">\"I'm moving to Spain.\" — \"Are you?\"<\/span> <span class=\"en\">\"She doesn't drink coffee.\" — \"Doesn't she?\"<\/span><\/li><li>Возражение: <span class=\"en\">\"You didn't call.\" — \"I did!\"<\/span> <span class=\"en\">\"You can't cook.\" — \"I can!\"<\/span><\/li><li>Согласие: <span class=\"en\">So do I. Neither can I.<\/span> (см. тему So do I)<\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">I don't hope so.<\/span><span class=\"en\">I hope not.<\/span><\/li><li><span class=\"bad\">I think yes.<\/span><span class=\"en\">I think so.<\/span><\/li><li><span class=\"bad\">Yes, I like.<\/span><span class=\"en\">Yes, I do.<\/span><\/li><\/ul>",
+"whole": "<h4>all, whole, every, each<\/h4><div class=\"tw\"><table><tr><th>Слово<\/th><th>С чем<\/th><th>Пример<\/th><\/tr><tr><td><span class=\"en\">the whole<\/span><\/td><td>ед. число<\/td><td><span class=\"en\">the whole city<\/span><\/td><\/tr><tr><td><span class=\"en\">all (the)<\/span><\/td><td>мн. число, неисчисляемые<\/td><td><span class=\"en\">all the people, all the water<\/span><\/td><\/tr><tr><td><span class=\"en\">all<\/span><\/td><td>время (day, week, year, my life)<\/td><td><span class=\"en\">all day, all my life<\/span><\/td><\/tr><tr><td><span class=\"en\">every<\/span><\/td><td>ед. число, группа целиком (3+)<\/td><td><span class=\"en\">every house<\/span><\/td><\/tr><tr><td><span class=\"en\">each<\/span><\/td><td>ед. число, по отдельности, и для 2<\/td><td><span class=\"en\">each hand<\/span><\/td><\/tr><\/table><\/div><h4>С of<\/h4><p><span class=\"en\">all of us<\/span>, <span class=\"en\">each of them<\/span>, <span class=\"en\">every one of them<\/span>, <span class=\"en\">the whole of the city<\/span> (книжно).<\/p><h4>all само по себе<\/h4><p>В значении «все люди» — <span class=\"en\">everybody / everyone<\/span>; «всё» — <span class=\"en\">everything<\/span>. <span class=\"en\">All<\/span> без существительного звучит книжно: <span class=\"en\">All is well.<\/span><\/p><h4>Сравни<\/h4><ul><li><span class=\"en\">every day<\/span> — каждый день; <span class=\"en\">all day<\/span> — весь день.<\/li><li><span class=\"en\">every morning<\/span> — каждое утро; <span class=\"en\">all morning<\/span> — всё утро.<\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">whole the day<\/span><span class=\"en\">the whole day<\/span><\/li><li><span class=\"bad\">Every students<\/span><span class=\"en\">Every student<\/span><\/li><li><span class=\"bad\">All came.<\/span><span class=\"en\">Everybody came.<\/span><\/li><li><span class=\"bad\">Each of them have<\/span><span class=\"en\">Each of them has<\/span><\/li><\/ul>",
+"noif": "<h4>Три формы<\/h4><div class=\"tw\"><table><tr><th>Обычно<\/th><th>Без if<\/th><th>Когда<\/th><\/tr><tr><td><span class=\"en\">If you should need…<\/span> / <span class=\"en\">If you need…<\/span><\/td><td><span class=\"en\">Should you need…<\/span><\/td><td>маловероятно, «вдруг»<\/td><\/tr><tr><td><span class=\"en\">If I were…<\/span> / <span class=\"en\">If he were to…<\/span><\/td><td><span class=\"en\">Were I…<\/span> / <span class=\"en\">Were he to…<\/span><\/td><td>нереальное настоящее и будущее<\/td><\/tr><tr><td><span class=\"en\">If I had done…<\/span><\/td><td><span class=\"en\">Had I done…<\/span><\/td><td>нереальное прошлое<\/td><\/tr><\/table><\/div><h4>Где встречается<\/h4><p>Письма, инструкции, договоры, отели, новости: <span class=\"en\">Should you have any questions, please do not hesitate to contact us.<\/span> В разговоре звучит официально, кроме <span class=\"en\">Had I known…<\/span>.<\/p><h4>Отрицание<\/h4><p>Только полная форма, not после подлежащего: <span class=\"en\">Had we not left…<\/span>, <span class=\"en\">Were it not for…<\/span>, <span class=\"en\">Should you not receive…<\/span>.<\/p><h4>«Если бы не»<\/h4><div class=\"tw\"><table><tr><th><\/th><th>Пример<\/th><\/tr><tr><td><span class=\"en\">If it weren't for + сущ.<\/span><\/td><td><span class=\"en\">If it weren't for you, I'd be lost.<\/span><\/td><\/tr><tr><td><span class=\"en\">If it hadn't been for + сущ.<\/span><\/td><td><span class=\"en\">If it hadn't been for the map, we'd have got lost.<\/span><\/td><\/tr><tr><td><span class=\"en\">Were it not for / Had it not been for<\/span><\/td><td>книжные варианты<\/td><\/tr><tr><td><span class=\"en\">But for + сущ.<\/span><\/td><td><span class=\"en\">But for your help…<\/span><\/td><\/tr><tr><td><span class=\"en\">Without + сущ.<\/span><\/td><td><span class=\"en\">Without you…<\/span><\/td><\/tr><\/table><\/div><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">Hadn't I known…<\/span><span class=\"en\">Had I not known…<\/span><\/li><li><span class=\"bad\">Was I you…<\/span><span class=\"en\">Were I you…<\/span><\/li><li><span class=\"bad\">Should you will need…<\/span><span class=\"en\">Should you need…<\/span><\/li><\/ul>",
+"futbe": "<h4>Насколько скоро и насколько точно<\/h4><div class=\"tw\"><table><tr><th>Конструкция<\/th><th>Оттенок<\/th><\/tr><tr><td><span class=\"en\">be about to<\/span><\/td><td>через секунды, минуты<\/td><\/tr><tr><td><span class=\"en\">be on the point of + -ing<\/span><\/td><td>то же, книжно, часто о решении<\/td><\/tr><tr><td><span class=\"en\">be on the verge of + -ing / сущ.<\/span><\/td><td>на грани: <span class=\"en\">on the verge of tears<\/span><\/td><\/tr><tr><td><span class=\"en\">be due to / be due<\/span><\/td><td>по расписанию, по плану, срок<\/td><\/tr><tr><td><span class=\"en\">be to<\/span><\/td><td>официальный план, приказ, судьба<\/td><\/tr><tr><td><span class=\"en\">be bound to / be sure to<\/span><\/td><td>говорящий уверен<\/td><\/tr><tr><td><span class=\"en\">be likely to / be unlikely to<\/span><\/td><td>вероятно / вряд ли<\/td><\/tr><tr><td><span class=\"en\">be set to<\/span><\/td><td>новости: ожидается<\/td><\/tr><\/table><\/div><h4>be to — оттенки<\/h4><ul><li>План: <span class=\"en\">The minister is to visit Japan.<\/span><\/li><li>Приказ: <span class=\"en\">You are to be here at eight.<\/span> <span class=\"en\">You are not to smoke.<\/span><\/li><li>Судьба (в прошлом): <span class=\"en\">He was never to see her again.<\/span> — Ему больше не суждено было её увидеть.<\/li><\/ul><h4>due<\/h4><ul><li><span class=\"en\">due to + глагол<\/span> — по плану: <span class=\"en\">due to arrive<\/span>.<\/li><li><span class=\"en\">due<\/span> — срок: <span class=\"en\">The rent is due tomorrow.<\/span> <span class=\"en\">The baby is due in May.<\/span><\/li><li><span class=\"en\">due to + сущ.<\/span> — из-за: <span class=\"en\">due to the snow<\/span>.<\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">I was about calling you.<\/span><span class=\"en\">I was about to call you.<\/span><\/li><li><span class=\"bad\">He's bound winning.<\/span><span class=\"en\">He's bound to win.<\/span><\/li><li><span class=\"bad\">She is likely come.<\/span><span class=\"en\">She is likely to come.<\/span><\/li><\/ul>",
+"whatever": "<h4>-ever слова<\/h4><div class=\"tw\"><table><tr><th>Слово<\/th><th>Значение 1: «любой»<\/th><th>Значение 2: «неважно»<\/th><\/tr><tr><td><span class=\"en\">whatever<\/span><\/td><td><span class=\"en\">Eat whatever you like.<\/span><\/td><td><span class=\"en\">Whatever you do, be careful.<\/span><\/td><\/tr><tr><td><span class=\"en\">whoever<\/span><\/td><td><span class=\"en\">Whoever comes first gets a prize.<\/span><\/td><td><span class=\"en\">Whoever calls, I'm out.<\/span><\/td><\/tr><tr><td><span class=\"en\">whichever<\/span><\/td><td><span class=\"en\">Take whichever you like.<\/span><\/td><td><span class=\"en\">Whichever you choose, it's fine.<\/span><\/td><\/tr><tr><td><span class=\"en\">wherever<\/span><\/td><td><span class=\"en\">Sit wherever you want.<\/span><\/td><td><span class=\"en\">Wherever you go, I'll find you.<\/span><\/td><\/tr><tr><td><span class=\"en\">whenever<\/span><\/td><td><span class=\"en\">Come whenever you can.<\/span><\/td><td><span class=\"en\">Whenever I see him, he's busy.<\/span><\/td><\/tr><tr><td><span class=\"en\">however<\/span><\/td><td><span class=\"en\">Do it however you like.<\/span><\/td><td><span class=\"en\">However hard it is, try.<\/span><\/td><\/tr><\/table><\/div><h4>no matter<\/h4><p><span class=\"en\">no matter what / who / which / where / when / how<\/span> = -ever во втором значении: <span class=\"en\">No matter what happens…<\/span><\/p><h4>however — два слова<\/h4><ul><li><span class=\"en\">However hard I try…<\/span> — как бы ни (+ прил. / нареч.).<\/li><li><span class=\"en\">However, I disagree.<\/span> — однако (с запятой).<\/li><\/ul><h4>Разговорное<\/h4><p><span class=\"en\">\"Tea or coffee?\" — \"Whatever.\"<\/span> — «всё равно» (может звучать грубо).<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">Whatever will happen…<\/span><span class=\"en\">Whatever happens…<\/span><\/li><li><span class=\"bad\">Whatever hard I try…<\/span><span class=\"en\">However hard I try…<\/span><\/li><li><span class=\"bad\">No matter what will you say…<\/span><span class=\"en\">No matter what you say…<\/span><\/li><\/ul>",
+"needdoing": "<h4>need + -ing<\/h4><p>Пассивное значение без be: <span class=\"en\">The car needs washing<\/span> = <span class=\"en\">The car needs to be washed<\/span>. Подлежащее — предмет, а не человек.<\/p><div class=\"tw\"><table><tr><th>Человек<\/th><th>Предмет<\/th><\/tr><tr><td><span class=\"en\">I need to repair the roof.<\/span><\/td><td><span class=\"en\">The roof needs repairing.<\/span><\/td><\/tr><tr><td><span class=\"en\">She needs to cut her hair.<\/span><\/td><td><span class=\"en\">Her hair needs cutting.<\/span><\/td><\/tr><\/table><\/div><p>Похожие: <span class=\"en\">want + -ing<\/span> (брит. разг.: <span class=\"en\">The grass wants cutting<\/span>), <span class=\"en\">be worth + -ing<\/span>, <span class=\"en\">require + -ing<\/span>.<\/p><h4>get-пассив<\/h4><div class=\"tw\"><table><tr><th>Где<\/th><th>Примеры<\/th><\/tr><tr><td>неожиданное или плохое<\/td><td><span class=\"en\">got stolen, got broken, got hurt, got killed, got fired, got stuck<\/span><\/td><\/tr><tr><td>результат усилия<\/td><td><span class=\"en\">got promoted, got paid, got elected, got accepted<\/span><\/td><\/tr><tr><td>устойчивые<\/td><td><span class=\"en\">get married, get divorced, get dressed, get lost, get changed<\/span><\/td><\/tr><\/table><\/div><h4>get-пассив и be-пассив<\/h4><ul><li>Get — разговорное, подчёркивает событие: <span class=\"en\">He got hit by a car.<\/span><\/li><li>Be — нейтральное, и для состояния: <span class=\"en\">The shop is closed.<\/span> (не got closed, если о состоянии).<\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">The car needs to wash.<\/span><span class=\"en\">The car needs washing.<\/span><\/li><li><span class=\"bad\">The car needs being washed.<\/span><span class=\"en\">The car needs washing.<\/span><\/li><li><span class=\"bad\">Was he get hurt?<\/span><span class=\"en\">Did he get hurt?<\/span><\/li><\/ul>",
+"quant2": "<h4>Много<\/h4><div class=\"tw\"><table><tr><th>С исчисляемыми<\/th><th>С неисчисляемыми<\/th><th>С любыми<\/th><\/tr><tr><td><span class=\"en\">many, a large number of, a great many, numerous<\/span><\/td><td><span class=\"en\">much, a great deal of, a large amount of<\/span><\/td><td><span class=\"en\">a lot of, lots of, plenty of<\/span><\/td><\/tr><\/table><\/div><h4>Мало и почти нет<\/h4><div class=\"tw\"><table><tr><th><\/th><th>Пример<\/th><\/tr><tr><td><span class=\"en\">few / little<\/span><\/td><td>мало (и это плохо)<\/td><\/tr><tr><td><span class=\"en\">a few / a little<\/span><\/td><td>немного (достаточно)<\/td><\/tr><tr><td><span class=\"en\">hardly any<\/span><\/td><td>почти нет: <span class=\"en\">hardly any time<\/span><\/td><\/tr><tr><td><span class=\"en\">hardly anybody / anything<\/span><\/td><td>почти никто / ничего<\/td><\/tr><tr><td><span class=\"en\">hardly ever<\/span><\/td><td>почти никогда<\/td><\/tr><\/table><\/div><h4>number<\/h4><ul><li><span class=\"en\">a number of<\/span> + мн. ч. + глагол во мн. ч.: <span class=\"en\">A number of people have complained.<\/span><\/li><li><span class=\"en\">the number of<\/span> + мн. ч. + глагол в ед. ч.: <span class=\"en\">The number of complaints has risen.<\/span><\/li><\/ul><h4>less и fewer<\/h4><p><span class=\"en\">less money, less time<\/span> — неисчисляемые; <span class=\"en\">fewer cars, fewer people<\/span> — исчисляемые. В разговоре часто говорят «less people», но в аккуратной речи — fewer.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">hardly no<\/span><span class=\"en\">hardly any<\/span><\/li><li><span class=\"bad\">a great deal of people<\/span><span class=\"en\">a large number of people<\/span><\/li><li><span class=\"bad\">The number of students are…<\/span><span class=\"en\">The number of students is…<\/span><\/li><\/ul>"
 };
 const SOON={a:[],b:[],c:[]};
 const LEVELS=[{id:'a',name:'Elementary',cefr:'A1–A2'},{id:'b',name:'Intermediate',cefr:'B1'},{id:'c',name:'Upper-Int.',cefr:'B2'}];
@@ -8485,6 +9379,34 @@ const TQ={
  ['gap','___ will be a meeting on Friday.','There','itthere:d'],
  ['gap','This is my ___ room. (сестра)','sister\'s','nounnoun:c'],
  ['fix','We met in the Red Square.','We met in Red Square.','artnames:d']],
+'b-useful-structures':[
+ ['mc','It was ___ long journey.',['quite a','a quite','quite'],0,'quite:b'],
+ ['mc','She bought ___ bag.',['a small black leather','a leather small black','a black small leather'],0,'quite:d'],
+ ['mc','It was kind ___ you to wait.',['of','for','to'],0,'adjto:c'],
+ ['mc','This box is too heavy ___.',['to lift','to lift it','lifting it'],0,'adjto:b'],
+ ['mc','I fell asleep ___ the film.',['during','while','for'],0,'timeprep:a'],
+ ['mc','Please finish the work ___ Friday.',['by','until','during'],0,'timeprep:b'],
+ ['mc','Would you mind ___ the window?',['closing','to close','close'],0,'requests:a'],
+ ['mc','"Do you mind if I sit here?" — "___"',['Not at all.','Yes, sit.','Yes, I mind it.'],0,'requests:d'],
+ ['mc','"Will it rain?" — "I hope ___."',['not','no','don\'t'],0,'thinkso:b'],
+ ['mc','"I\'ve been to Brazil." — "___?"',['Have you','Did you','Are you'],0,'thinkso:d'],
+ ['mc','I spent ___ weekend at home.',['the whole','whole the','all of'],0,'whole:a'],
+ ['gap','I go to the gym ___ day.','every','whole:c'],
+ ['fix','I\'m afraid of to fly.',"I'm afraid of flying.|I'm afraid to fly.",'adjto:d']],
+'c-more-b-structures':[
+ ['mc','___ you need any help, just ask.',['Should','Would','Had'],0,'noif:a'],
+ ['mc','___ I known, I would have come earlier.',['Had','Have','Should'],0,'noif:c'],
+ ['mc','Hurry! The train is ___ leave.',['about to','due','bound'],0,'futbe:a'],
+ ['mc','The plane is ___ to land at nine.',['due','about','bound'],0,'futbe:b'],
+ ['mc','He\'s ___ to be late. He always is.',['bound','due','about'],0,'futbe:c'],
+ ['mc','___ happens, stay calm.',['Whatever','However','Whoever'],0,'whatever:a'],
+ ['mc','___ hard I try, I can\'t sleep.',['However','Whatever','Whenever'],0,'whatever:b'],
+ ['mc','The windows need ___.',['cleaning','to clean','clean'],0,'needdoing:a'],
+ ['mc','He ___ fired last month.',['got','was got','get'],0,'needdoing:c'],
+ ['mc','We have ___ time. Don\'t hurry.',['plenty of','a great many','a number of'],0,'quant2:a'],
+ ['mc','The number of cars ___ growing.',['is','are','were'],0,'quant2:c'],
+ ['gap','There\'s hardly ___ milk left.','any','quant2:b'],
+ ['fix','Hadn\'t I seen it, I wouldn\'t believe it.',"Had I not seen it, I wouldn't believe it.|If I hadn't seen it, I wouldn't believe it.",'noif:d']],
 'b-more-practice':[
  ['mc','You will not pass the exam ___ you study harder.',['unless','if','when'],0,'unless:a'],
  ['mc','Unless she ___ now, she will miss the train.',['leaves',"doesn't leave",'will leave'],0,'unless:b'],
@@ -8529,7 +9451,7 @@ SECTIONS.forEach((sec,si)=>{sec.lv=sec.lv||'a';sec.id=sec.lv+'-'+sec.en.toLowerC
   u.steps=[ids.slice(0,half),ids.slice(half,n)];const ends=cuts.slice(1).concat([ids.length]);let from=n;ends.forEach(e=>{if(e>from)u.steps.push(ids.slice(from,e));from=e});
   u.core=Math.min(3,u.steps.length);  /* steps after the core three are extra practice: they never lock the next topic */
   UNITS.push(u)})});
-const WORDS={"be1":[["tired","уставший"],["kitchen","кухня"],["shoes","обувь, туфли"],["wet","мокрый"],["bag","сумка"],["window","окно"],["hungry","голодный"],["neighbour","сосед"],["milk","молоко"],["fridge","холодильник"],["boring","скучный"],["grandparents","бабушка и дедушка"],["nurse","медсестра"],["apple","яблоко"],["pilot","пилот"]],"be2":[["sad","грустный"],["toilet","туалет"],["pocket","карман"],["colour","цвет"],["asleep","спящий (be asleep — спать)"]],"pc1":[["garden","сад"],["cook","готовить; повар"],["dinner","ужин"],["lake","озеро"],["lunch","обед"],["somebody","кто-то"],["quiet","тихий"],["shine","светить, сиять"],["sandwich","бутерброд"],["cartoon","мультфильм"],["homework","домашнее задание"],["snow","снег; идти (о снеге)"],["ring","звонить (о телефоне); кольцо"],["piano","пианино"],["chase","гнаться за"],["wash","мыть, стирать"]],"pc2":[["laugh","смеяться"],["cry","плакать"],["remote","пульт"],["coat","пальто"]],"ps1":[["tennis","теннис"],["boil","кипеть, кипятить"],["guitar","гитара"],["gym","спортзал"],["museum","музей"],["village","деревня"],["rise","подниматься, всходить"],["fix","чинить"],["mum","мама"],["dish","блюдо; dishes — посуда"],["cinema","кинотеатр"],["factory","завод, фабрика"],["teach","преподавать, учить"],["lesson","урок"]],"ps2":[["meat","мясо"],["prefer","предпочитать"],["vegetarian","вегетарианец"]],"pcps":[["soup","суп"],["taste","быть на вкус; вкус"],["climb","лезть, карабкаться"],["curtain","штора"],["laptop","ноутбук"],["umbrella","зонт"],["belong (to)","принадлежать"],["slowly","медленно"]],"hgot":[["pen","ручка"],["headache","головная боль"],["flat","квартира"],["bedroom","спальня"],["bike","велосипед"],["garage","гараж"]],"was":[["ill","больной"],["grandfather","дедушка"],["birthday","день рождения"],["grandmother","бабушка"],["angry","сердитый, злой"],["holiday","отпуск, праздник"],["busy","занятой"],["empty","пустой"],["exam","экзамен"]],"past1":[["taxi","такси"],["cake","торт, пирожное"],["swim","плавать"]],"past2":[["arrive","прибывать, приезжать"],["bread","хлеб"],["lock","запирать; замок"],["alarm","будильник; сигнализация"]],"pastc":[["midnight","полночь"],["afternoon","день (после полудня)"],["entrance","вход"],["cafe","кафе"]],"pastcs":[["wake (up)","просыпаться"],["leg","нога"],["ski","кататься на лыжах"],["jacket","куртка"],["knock","стучать"],["bath","ванна"],["arrive","прибывать, приезжать"],["accident","авария, несчастный случай"],["ticket","билет"]],"pp1":[["passport","паспорт"],["anywhere","где-нибудь, нигде (в отрицании)"],["finger","палец"],["mistake","ошибка"],["expensive","дорогой"],["steal","красть"],["arm","рука (от плеча)"]],"pp2":[["twice","дважды"],["fly","летать"],["plane","самолёт"],["ghost","привидение"],["concert","концерт"]],"gt":[["sky","небо"],["abroad","за границей, за границу"],["careful","осторожный"],["paint","красить; рисовать красками"],["crash","разбиться; авария"],["cloud","облако"],["aunt","тётя"],["mountain","гора"]],"will":[["worry","волноваться"],["promise","обещать"]],"can":[["bird","птица"],["salt","соль"],["noise","шум"],["loud","громкий"]],"must":[["seat","сиденье, место"],["belt","ремень (seat belt — ремень безопасности)"],["smoke","курить; дым"],["forbidden","запрещённый"],["uniform","форма (одежда)"],["boss","начальник"],["dangerous","опасный"],["painting","картина"],["weekday","будний день"],["tie","галстук"],["surprise","сюрприз; удивлять"],["fill (in)","заполнять"]],"should":[["sugar","сахар"],["apply (for)","подавать заявление"],["delicious","очень вкусный"],["suit","костюм"],["apologise","извиняться"],["invite","приглашать"],["vegetables","овощи"]],"there":[["chair","стул"],["shelf","полка"],["restaurant","ресторан"],["supermarket","супермаркет"],["bathroom","ванная"],["storm","буря, гроза"],["pharmacy","аптека"]],"art":[["cheap","дешёвый"],["friendly","дружелюбный"],["architect","архитектор"],["moon","луна"],["honest","честный"],["egg","яйцо"],["bright","яркий"]],"some":[["egg","яйцо"],["cheese","сыр"]],"pron":[["toy","игрушка"],["wag","вилять"],["tail","хвост"],["lend","одалживать (кому-то)"]],"prep":[["map","карта"]],"comp":[["exercise","упражнение; зарядка"],["comfortable","удобный"],["silver","серебро"],["thin","тонкий, худой"],["exciting","захватывающий"],["warm","тёплый"]],"sup":[["intelligent","умный"],["clever","умный"],["meal","еда, приём пищи"],["smart","умный"]],"adv":[["carefully","осторожно, внимательно"],["happily","радостно"],["beautifully","красиво"],["quietly","тихо"],["badly","плохо"],["smell","пахнуть; запах"]],"wh":[["uncle","дядя"],["favourite","любимый"],["square","квадратный; площадь"]],"poss":[["everywhere","везде"],["flower","цветок"],["lovely","милый, чудесный"]],"inf":[["healthy","здоровый"]],"pass":[["invite","приглашать"],["bridge","мост"],["deliver","доставлять"],["flour","мука"],["tower","башня"],["thief","вор"],["zoo","зоопарк"],["thousands (of)","тысячи"],["repair","ремонтировать"],["arrest","арестовать"]],"if1":[["sunny","солнечный"]],"ppc":[["breath","дыхание (out of breath — запыхавшийся)"],["dirty","грязный"]],"pastperf":[["recognise","узнавать"],["realise","понимать, осознавать"],["escape","сбежать"]],"usedto":[["corner","угол"],["shy","застенчивый"],["hike","поход; ходить в поход"]],"fut":[["dentist","зубной врач"],["medicine","лекарство"],["arrange","договориться, устроить"],["programme","программа"]],"habits":[["bake","печь"],["moustache","усы"],["metro","метро"]],"narr":[["enter","входить"],["nervous","нервный, взволнованный"],["disturb","беспокоить, мешать"],["wave","махать рукой; волна"],["anybody","кто-нибудь"],["plate","тарелка"]],"if2":[["lottery","лотерея"],["forecast","прогноз"],["boat","лодка"],["theatre","театр"],["castle","замок"],["wedding","свадьба"]],"if3":[["picnic","пикник"]],"wish":[["upset","расстроенный"],["interrupt","перебивать"],["freeze","замерзать"],["instrument","инструмент (музыкальный)"]],"indq":[["excuse","извинять (Excuse me — извините)"]],"imp":[["afraid","be afraid — бояться"],["knife","нож"],["sharp","острый"],["rude","грубый"],["argue","спорить"]],"tooenough":[["lift","лифт; поднимать"],["mosquito","комар"],["clothes","одежда"],["fail","провалить, не суметь"]],"afew":[["lonely","одинокий"],["bottle","бутылка"],["worried","обеспокоенный"],["patience","терпение"]],"irr":[["strange","странный"],["karaoke","караоке"],["password","пароль"],["kilometre","километр"],["teach","преподавать, учить"],["juice","сок"],["horse","лошадь"]],"refl":[["mirror","зеркало"],["flatmate","сосед по квартире"],["shave","бриться"],["relax","отдыхать, расслабляться"],["concentrate","сосредоточиться"],["noisy","шумный"],["burn","обжечь(ся), гореть"]],"indef":[["mystery","загадка"],["somewhere","где-то, куда-то"],["tasty","вкусный"],["bored","скучающий"],["nowhere","нигде, никуда"]],"one":[["tomato","помидор"],["borrow","брать взаймы"],["pencil","карандаш"],["socks","носки"],["joke","шутка"],["yellow","жёлтый"],["spare","запасной"],["boots","ботинки, сапоги"]],"prepmov":[["tunnel","тоннель"],["jump","прыгать"],["fireplace","камин"],["path","тропинка, дорожка"],["opposite","напротив"],["pool","бассейн"],["stairs","лестница"],["playground","детская площадка"],["forest","лес"],["hill","холм"],["fence","забор"],["lamp","лампа"]],"wordord":[["correct","правильный; исправлять"],["neighbour","сосед"]],"conj":[["brush","чистить (щёткой)"],["tooth","зуб (мн. teeth)"],["oversleep","проспать"],["podcast","подкаст"],["instructions","инструкция"]],"q2":[["strict","строгий"],["rice","рис"],["chocolate","шоколад"]],"verbs":[["yoga","йога"],["barbecue","барбекю, шашлыки"],["photography","фотография (занятие)"]],"deduce":[["exhausted","измотанный"],["thirsty","испытывающий жажду"],["postman","почтальон"],["stick","палка; приклеивать"]],"pass2":[["solve","решать (задачу)"],["bake","печь"]],"able":[["manage","суметь, справиться"],["visitor","посетитель, гость"],["violin","скрипка"],["firefighter","пожарный"],["fluently","свободно, бегло"],["jar","банка"]],"causative":[["barber","парикмахер (мужской)"],["renew","продлевать, обновлять"],["tooth","зуб (мн. teeth)"],["install","устанавливать"],["shorten","укорачивать"],["nail","ноготь; гвоздь"],["redesign","переделывать"],["dye","красить (волосы)"],["roof","крыша"],["document","документ"],["translate","переводить"],["salon","салон"],["furniture","мебель"]],"rel":[["disappear","исчезать"],["upstairs","наверху, наверх"],["prize","приз"],["cousin","двоюродный брат / сестра"],["bark","лаять"]],"ginf":[["sunset","закат"],["petrol","бензин"]],"link":[["in spite of","несмотря на"],["cancel","отменять"],["fog","туман"],["silly","глупый"],["cosy","уютный"],["jam","варенье; пробка (traffic jam)"],["strike","забастовка"]],"sosuch":[["journey","поездка, путешествие"]],"art2":[["sail","плавать под парусом"],["flow","течь"],["prison","тюрьма"],["invent","изобретать"],["ocean","океан"],["stressful","напряжённый, стрессовый"],["orchestra","оркестр"],["kingdom","королевство"]],"phr":[["dictionary","словарь"],["interrupt","перебивать"],["hat","шапка, шляпа"]],"soneither":[["jazz","джаз"],["horror","ужасы (фильм)"]],"quant":[["nor","и не (neither… nor — ни… ни)"],["balcony","балкон"],["retired","на пенсии"],["terrible","ужасный"],["colleague","коллега"],["silent","молчаливый, тихий"],["guest","гость"]],"eding":[["tiring","утомительный"],["shocked","потрясённый"],["surprising","удивительный"],["surprised","удивлённый"],["excited","взволнованный (радостно)"],["confusing","запутанный, непонятный"],["relaxed","расслабленный"],["annoying","раздражающий"],["frightened","испуганный"],["disappointing","разочаровывающий"],["amusing","забавный"],["behaviour","поведение"],["embarrassing","неловкий, стыдный"],["pleased","довольный"],["fascinating","захватывающий"]],"vprep":[["depend (on)","зависеть от"],["proud (of)","гордый"],["draw","рисовать"],["discuss","обсуждать"],["keen (on)","увлечённый чем-то"],["apologise","извиняться"],["ballet","балет"],["spider","паук"]],"unless":[["fail","провалить, не суметь"],["urgent","срочный"],["forgive","прощать"],["apologise","извиняться"]],"itthere":[["wind","ветер"],["windy","ветреный"],["motorway","шоссе, автомагистраль"],["impossible","невозможный"]],"nounnoun":[["shoe","туфля, ботинок"],["pair","пара"],["cupboard","шкаф (кухонный)"],["newspaper","газета"],["bowl","миска"],["magazine","журнал"],["unexpected","неожиданный"]],"artnames":[["divide","разделять"]],"fut2":[["print","печатать"],["robot","робот"],["noon","полдень"],["mortgage","ипотека"]],"pmod":[["shout","кричать"],["wine","вино"]],"rather":[["resident","житель"]],"futpast":[["landlord","хозяин жилья"],["engineering","инженерное дело"]],"pastpc":[["bake","печь"],["grass","трава"]],"mixcond":[["lazy","ленивый"],["confident","уверенный"],["dry","сухой; сушить"],["vase","ваза"],["stubborn","упрямый"],["patient","терпеливый; пациент"]],"ifalt":[["suppose","предполагать"],["candle","свеча"]],"asif":[["millionaire","миллионер"],["blanket","одеяло, плед"],["behave","вести себя"],["treat","обращаться с кем-то"],["depend (on)","зависеть от"],["waitress","официантка"],["angel","ангел"],["mad","сумасшедший"],["torch","фонарик"],["snore","храпеть"],["bear","медведь"],["princess","принцесса"],["marathon","марафон"],["guide","гид"],["deaf","глухой"]],"passrep":[["robber","грабитель"],["injured","раненый"],["fortune","состояние, удача"],["improve","улучшать"],["haunted","с привидениями"],["temper","характер, вспыльчивость"],["sink","тонуть"],["excellent","отличный"],["hire","нанимать"],["resign","уйти в отставку"],["hide","прятаться"],["singer","певец"],["unsafe","небезопасный"]],"repverbs":[["advise","советовать"],["suggest","предлагать"],["deny","отрицать"],["accuse (of)","обвинять в"],["remind","напоминать"],["admit","признавать"],["insist (on)","настаивать на"],["refuse","отказываться"],["warn","предупреждать"],["blame","винить"],["threaten","угрожать"],["encourage","поощрять, подбадривать"],["recommend","рекомендовать"],["delay","задерживать; задержка"],["discount","скидка"]],"ndrel":[["helpful","полезный, готовый помочь"],["shirt","рубашка"],["polite","вежливый"],["spoil","портить"],["shock","шок"]],"partcl":[["sentence","предложение (фраза)"],["policeman","полицейский"],["bite","кусать"],["stress","стресс"],["hang","висеть, вешать"]],"cleft":[["annoy","раздражать"],["attitude","отношение (к чему-то)"]],"invers":[["hardly","едва, почти не"],["rarely","редко"],["nonsense","чепуха"],["circumstances","обстоятельства"],["score","счёт, результат"],["talent","талант"],["complain","жаловаться"],["steak","стейк"],["actor","актёр"]],"vpat":[["mechanic","механик"],["brake","тормоз"],["shake","трястись"],["earthquake","землетрясение"],["disappear","исчезать"]],"ingexp":[["difficulty","трудность"],["queue","очередь"],["trouble","проблема, беспокойство"],["waste","тратить зря"]],"phr2":[["brilliant","блестящий, отличный"],["get rid of","избавиться от"],["arrogant","высокомерный"],["reply","ответ; отвечать"]],"comp2":[["practise","упражняться"],["slightly","немного, слегка"],["metre","метр"],["salary","зарплата"],["earn","зарабатывать"]],"count2":[["useful","полезный"],["luggage","багаж"],["jeans","джинсы"],["progress","успехи, прогресс"],["trousers","брюки"],["shorten","укорачивать"],["scissors","ножницы"],["tight","тесный"],["blond","светлый (о волосах)"]],"link2":[["whereas","тогда как"],["oversleep","проспать"],["owe","быть должным"],["signal","сигнал"],["whisper","шептать"],["calm","спокойный"],["loudly","громко"],["hockey","хоккей"]]};
+const WORDS={"be1":[["tired","уставший"],["kitchen","кухня"],["shoes","обувь, туфли"],["wet","мокрый"],["bag","сумка"],["window","окно"],["hungry","голодный"],["neighbour","сосед"],["milk","молоко"],["fridge","холодильник"],["boring","скучный"],["grandparents","бабушка и дедушка"],["nurse","медсестра"],["apple","яблоко"],["pilot","пилот"]],"be2":[["sad","грустный"],["toilet","туалет"],["pocket","карман"],["colour","цвет"],["asleep","спящий (be asleep — спать)"]],"pc1":[["garden","сад"],["cook","готовить; повар"],["dinner","ужин"],["lake","озеро"],["lunch","обед"],["somebody","кто-то"],["quiet","тихий"],["shine","светить, сиять"],["sandwich","бутерброд"],["cartoon","мультфильм"],["homework","домашнее задание"],["snow","снег; идти (о снеге)"],["ring","звонить (о телефоне); кольцо"],["piano","пианино"],["chase","гнаться за"],["wash","мыть, стирать"]],"pc2":[["laugh","смеяться"],["cry","плакать"],["remote","пульт"],["coat","пальто"]],"ps1":[["tennis","теннис"],["boil","кипеть, кипятить"],["guitar","гитара"],["gym","спортзал"],["museum","музей"],["village","деревня"],["rise","подниматься, всходить"],["fix","чинить"],["mum","мама"],["dish","блюдо; dishes — посуда"],["cinema","кинотеатр"],["factory","завод, фабрика"],["teach","преподавать, учить"],["lesson","урок"]],"ps2":[["meat","мясо"],["prefer","предпочитать"],["vegetarian","вегетарианец"]],"pcps":[["soup","суп"],["taste","быть на вкус; вкус"],["climb","лезть, карабкаться"],["curtain","штора"],["laptop","ноутбук"],["umbrella","зонт"],["belong (to)","принадлежать"],["slowly","медленно"]],"hgot":[["pen","ручка"],["headache","головная боль"],["flat","квартира"],["bedroom","спальня"],["bike","велосипед"],["garage","гараж"]],"was":[["ill","больной"],["grandfather","дедушка"],["birthday","день рождения"],["grandmother","бабушка"],["angry","сердитый, злой"],["holiday","отпуск, праздник"],["busy","занятой"],["empty","пустой"],["exam","экзамен"]],"past1":[["taxi","такси"],["cake","торт, пирожное"],["swim","плавать"]],"past2":[["arrive","прибывать, приезжать"],["bread","хлеб"],["lock","запирать; замок"],["alarm","будильник; сигнализация"]],"pastc":[["midnight","полночь"],["afternoon","день (после полудня)"],["entrance","вход"],["cafe","кафе"]],"pastcs":[["wake (up)","просыпаться"],["leg","нога"],["ski","кататься на лыжах"],["jacket","куртка"],["knock","стучать"],["bath","ванна"],["arrive","прибывать, приезжать"],["accident","авария, несчастный случай"],["ticket","билет"]],"pp1":[["passport","паспорт"],["anywhere","где-нибудь, нигде (в отрицании)"],["finger","палец"],["mistake","ошибка"],["expensive","дорогой"],["steal","красть"],["arm","рука (от плеча)"]],"pp2":[["twice","дважды"],["fly","летать"],["plane","самолёт"],["ghost","привидение"],["concert","концерт"]],"gt":[["sky","небо"],["abroad","за границей, за границу"],["careful","осторожный"],["paint","красить; рисовать красками"],["crash","разбиться; авария"],["cloud","облако"],["aunt","тётя"],["mountain","гора"]],"will":[["worry","волноваться"],["promise","обещать"]],"can":[["bird","птица"],["salt","соль"],["noise","шум"],["loud","громкий"]],"must":[["seat","сиденье, место"],["belt","ремень (seat belt — ремень безопасности)"],["smoke","курить; дым"],["forbidden","запрещённый"],["uniform","форма (одежда)"],["boss","начальник"],["dangerous","опасный"],["painting","картина"],["weekday","будний день"],["tie","галстук"],["surprise","сюрприз; удивлять"],["fill (in)","заполнять"]],"should":[["sugar","сахар"],["apply (for)","подавать заявление"],["delicious","очень вкусный"],["suit","костюм"],["apologise","извиняться"],["invite","приглашать"],["vegetables","овощи"]],"there":[["chair","стул"],["shelf","полка"],["restaurant","ресторан"],["supermarket","супермаркет"],["bathroom","ванная"],["storm","буря, гроза"],["pharmacy","аптека"]],"art":[["cheap","дешёвый"],["friendly","дружелюбный"],["architect","архитектор"],["moon","луна"],["honest","честный"],["egg","яйцо"],["bright","яркий"]],"some":[["egg","яйцо"],["cheese","сыр"]],"pron":[["toy","игрушка"],["wag","вилять"],["tail","хвост"],["lend","одалживать (кому-то)"]],"prep":[["map","карта"]],"comp":[["exercise","упражнение; зарядка"],["comfortable","удобный"],["silver","серебро"],["thin","тонкий, худой"],["exciting","захватывающий"],["warm","тёплый"]],"sup":[["intelligent","умный"],["clever","умный"],["meal","еда, приём пищи"],["smart","умный"]],"adv":[["carefully","осторожно, внимательно"],["happily","радостно"],["beautifully","красиво"],["quietly","тихо"],["badly","плохо"],["smell","пахнуть; запах"]],"wh":[["uncle","дядя"],["favourite","любимый"],["square","квадратный; площадь"]],"poss":[["everywhere","везде"],["flower","цветок"],["lovely","милый, чудесный"]],"inf":[["healthy","здоровый"]],"pass":[["invite","приглашать"],["bridge","мост"],["deliver","доставлять"],["flour","мука"],["tower","башня"],["thief","вор"],["zoo","зоопарк"],["thousands (of)","тысячи"],["repair","ремонтировать"],["arrest","арестовать"]],"if1":[["sunny","солнечный"]],"ppc":[["breath","дыхание (out of breath — запыхавшийся)"],["dirty","грязный"]],"pastperf":[["recognise","узнавать"],["realise","понимать, осознавать"],["escape","сбежать"]],"usedto":[["corner","угол"],["shy","застенчивый"],["hike","поход; ходить в поход"]],"fut":[["dentist","зубной врач"],["medicine","лекарство"],["arrange","договориться, устроить"],["programme","программа"]],"habits":[["bake","печь"],["moustache","усы"],["metro","метро"]],"narr":[["enter","входить"],["nervous","нервный, взволнованный"],["disturb","беспокоить, мешать"],["wave","махать рукой; волна"],["anybody","кто-нибудь"],["plate","тарелка"]],"if2":[["lottery","лотерея"],["forecast","прогноз"],["boat","лодка"],["theatre","театр"],["castle","замок"],["wedding","свадьба"]],"if3":[["picnic","пикник"]],"wish":[["upset","расстроенный"],["interrupt","перебивать"],["freeze","замерзать"],["instrument","инструмент (музыкальный)"]],"indq":[["excuse","извинять (Excuse me — извините)"]],"imp":[["afraid","be afraid — бояться"],["knife","нож"],["sharp","острый"],["rude","грубый"],["argue","спорить"]],"tooenough":[["lift","лифт; поднимать"],["mosquito","комар"],["clothes","одежда"],["fail","провалить, не суметь"]],"afew":[["lonely","одинокий"],["bottle","бутылка"],["worried","обеспокоенный"],["patience","терпение"]],"irr":[["strange","странный"],["karaoke","караоке"],["password","пароль"],["kilometre","километр"],["teach","преподавать, учить"],["juice","сок"],["horse","лошадь"]],"refl":[["mirror","зеркало"],["flatmate","сосед по квартире"],["shave","бриться"],["relax","отдыхать, расслабляться"],["concentrate","сосредоточиться"],["noisy","шумный"],["burn","обжечь(ся), гореть"]],"indef":[["mystery","загадка"],["somewhere","где-то, куда-то"],["tasty","вкусный"],["bored","скучающий"],["nowhere","нигде, никуда"]],"one":[["tomato","помидор"],["borrow","брать взаймы"],["pencil","карандаш"],["socks","носки"],["joke","шутка"],["yellow","жёлтый"],["spare","запасной"],["boots","ботинки, сапоги"]],"prepmov":[["tunnel","тоннель"],["jump","прыгать"],["fireplace","камин"],["path","тропинка, дорожка"],["opposite","напротив"],["pool","бассейн"],["stairs","лестница"],["playground","детская площадка"],["forest","лес"],["hill","холм"],["fence","забор"],["lamp","лампа"]],"wordord":[["correct","правильный; исправлять"],["neighbour","сосед"]],"conj":[["brush","чистить (щёткой)"],["tooth","зуб (мн. teeth)"],["oversleep","проспать"],["podcast","подкаст"],["instructions","инструкция"]],"q2":[["strict","строгий"],["rice","рис"],["chocolate","шоколад"]],"verbs":[["yoga","йога"],["barbecue","барбекю, шашлыки"],["photography","фотография (занятие)"]],"deduce":[["exhausted","измотанный"],["thirsty","испытывающий жажду"],["postman","почтальон"],["stick","палка; приклеивать"]],"pass2":[["solve","решать (задачу)"],["bake","печь"]],"able":[["manage","суметь, справиться"],["visitor","посетитель, гость"],["violin","скрипка"],["firefighter","пожарный"],["fluently","свободно, бегло"],["jar","банка"]],"causative":[["barber","парикмахер (мужской)"],["renew","продлевать, обновлять"],["tooth","зуб (мн. teeth)"],["install","устанавливать"],["shorten","укорачивать"],["nail","ноготь; гвоздь"],["redesign","переделывать"],["dye","красить (волосы)"],["roof","крыша"],["document","документ"],["translate","переводить"],["salon","салон"],["furniture","мебель"]],"rel":[["disappear","исчезать"],["upstairs","наверху, наверх"],["prize","приз"],["cousin","двоюродный брат / сестра"],["bark","лаять"]],"ginf":[["sunset","закат"],["petrol","бензин"]],"link":[["in spite of","несмотря на"],["cancel","отменять"],["fog","туман"],["silly","глупый"],["cosy","уютный"],["jam","варенье; пробка (traffic jam)"],["strike","забастовка"]],"sosuch":[["journey","поездка, путешествие"]],"art2":[["sail","плавать под парусом"],["flow","течь"],["prison","тюрьма"],["invent","изобретать"],["ocean","океан"],["stressful","напряжённый, стрессовый"],["orchestra","оркестр"],["kingdom","королевство"]],"phr":[["dictionary","словарь"],["interrupt","перебивать"],["hat","шапка, шляпа"]],"soneither":[["jazz","джаз"],["horror","ужасы (фильм)"]],"quant":[["nor","и не (neither… nor — ни… ни)"],["balcony","балкон"],["retired","на пенсии"],["terrible","ужасный"],["colleague","коллега"],["silent","молчаливый, тихий"],["guest","гость"]],"eding":[["tiring","утомительный"],["shocked","потрясённый"],["surprising","удивительный"],["surprised","удивлённый"],["excited","взволнованный (радостно)"],["confusing","запутанный, непонятный"],["relaxed","расслабленный"],["annoying","раздражающий"],["frightened","испуганный"],["disappointing","разочаровывающий"],["amusing","забавный"],["behaviour","поведение"],["embarrassing","неловкий, стыдный"],["pleased","довольный"],["fascinating","захватывающий"]],"vprep":[["depend (on)","зависеть от"],["proud (of)","гордый"],["draw","рисовать"],["discuss","обсуждать"],["keen (on)","увлечённый чем-то"],["apologise","извиняться"],["ballet","балет"],["spider","паук"]],"unless":[["fail","провалить, не суметь"],["urgent","срочный"],["forgive","прощать"],["apologise","извиняться"]],"itthere":[["wind","ветер"],["windy","ветреный"],["motorway","шоссе, автомагистраль"],["impossible","невозможный"]],"nounnoun":[["shoe","туфля, ботинок"],["pair","пара"],["cupboard","шкаф (кухонный)"],["newspaper","газета"],["bowl","миска"],["magazine","журнал"],["unexpected","неожиданный"]],"artnames":[["divide","разделять"]],"quite":[["fairly","довольно, достаточно"],["leather","кожаный; кожа"],["wooden","деревянный"],["cottage","домик, коттедж"],["silk","шёлк, шёлковый"],["curly","кудрявый"],["recipe","рецепт"],["blond","светлый (о волосах)"]],"adjto":[["pronounce","произносить"],["ignore","игнорировать"],["bother","беспокоить"],["generous","щедрый"],["handwriting","почерк"]],"requests":[["favour","одолжение (do a favour)"]],"whole":[["balloon","воздушный шар"],["shirt","рубашка"]],"fut2":[["print","печатать"],["robot","робот"],["noon","полдень"],["mortgage","ипотека"]],"pmod":[["shout","кричать"],["wine","вино"]],"rather":[["resident","житель"]],"futpast":[["landlord","хозяин жилья"],["engineering","инженерное дело"]],"pastpc":[["bake","печь"],["grass","трава"]],"mixcond":[["lazy","ленивый"],["confident","уверенный"],["dry","сухой; сушить"],["vase","ваза"],["stubborn","упрямый"],["patient","терпеливый; пациент"]],"ifalt":[["suppose","предполагать"],["candle","свеча"]],"asif":[["millionaire","миллионер"],["blanket","одеяло, плед"],["behave","вести себя"],["treat","обращаться с кем-то"],["depend (on)","зависеть от"],["waitress","официантка"],["angel","ангел"],["mad","сумасшедший"],["torch","фонарик"],["snore","храпеть"],["bear","медведь"],["princess","принцесса"],["marathon","марафон"],["guide","гид"],["deaf","глухой"]],"passrep":[["robber","грабитель"],["injured","раненый"],["fortune","состояние, удача"],["improve","улучшать"],["haunted","с привидениями"],["temper","характер, вспыльчивость"],["sink","тонуть"],["excellent","отличный"],["hire","нанимать"],["resign","уйти в отставку"],["hide","прятаться"],["singer","певец"],["unsafe","небезопасный"]],"repverbs":[["advise","советовать"],["suggest","предлагать"],["deny","отрицать"],["accuse (of)","обвинять в"],["remind","напоминать"],["admit","признавать"],["insist (on)","настаивать на"],["refuse","отказываться"],["warn","предупреждать"],["blame","винить"],["threaten","угрожать"],["encourage","поощрять, подбадривать"],["recommend","рекомендовать"],["delay","задерживать; задержка"],["discount","скидка"]],"ndrel":[["helpful","полезный, готовый помочь"],["polite","вежливый"],["spoil","портить"],["shock","шок"]],"partcl":[["sentence","предложение (фраза)"],["policeman","полицейский"],["bite","кусать"],["stress","стресс"],["hang","висеть, вешать"]],"cleft":[["annoy","раздражать"],["attitude","отношение (к чему-то)"]],"invers":[["hardly","едва, почти не"],["rarely","редко"],["nonsense","чепуха"],["circumstances","обстоятельства"],["score","счёт, результат"],["talent","талант"],["complain","жаловаться"],["steak","стейк"],["actor","актёр"]],"vpat":[["mechanic","механик"],["brake","тормоз"],["shake","трястись"],["earthquake","землетрясение"],["disappear","исчезать"]],"ingexp":[["difficulty","трудность"],["queue","очередь"],["trouble","проблема, беспокойство"],["waste","тратить зря"]],"phr2":[["brilliant","блестящий, отличный"],["get rid of","избавиться от"],["arrogant","высокомерный"],["reply","ответ; отвечать"]],"comp2":[["practise","упражняться"],["slightly","немного, слегка"],["metre","метр"],["salary","зарплата"],["earn","зарабатывать"]],"count2":[["useful","полезный"],["luggage","багаж"],["jeans","джинсы"],["progress","успехи, прогресс"],["trousers","брюки"],["shorten","укорачивать"],["scissors","ножницы"],["tight","тесный"]],"link2":[["whereas","тогда как"],["oversleep","проспать"],["owe","быть должным"],["signal","сигнал"],["whisper","шептать"],["calm","спокойный"],["loudly","громко"],["hockey","хоккей"]],"noif":[["reception","ресепшн, стойка администратора"],["require","требовать"]],"futbe":[["unlikely","маловероятный"],["rent","аренда, плата за жильё"],["tears","слёзы"]],"whatever":[["panic","паниковать"],["celebrate","праздновать"]],"needdoing":[["iron","гладить; утюг"],["battery","батарейка, аккумулятор"],["promote","повысить в должности"],["tyre","шина"],["feed","кормить"],["essay","сочинение, эссе"]],"quant2":[["absent","отсутствующий"],["tourist","турист"],["employee","сотрудник"],["voter","избиратель"],["unanswered","без ответа"]]};
 const UNIT=id=>UNITS.find(u=>u.id===id);
 const NPRACT=ITEMS.size;
 const SIBS=new Map();ITEMS.forEach(it=>{if(it.t==='dict')return;const k=it.u+'|'+it.rule+'|'+it.t;SIBS.has(k)?SIBS.get(k).push(it):SIBS.set(k,[it])});
