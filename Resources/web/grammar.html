@@ -93,6 +93,7 @@ body.in-session nav.tabs{display:none}
 
 /* theory */
 .theory{font-size:15.5px}
+.textq{line-height:2.1}.textq .tinp{display:inline-block;width:9.5em;max-width:60%;padding:4px 8px;margin:2px 2px;font-size:16px}.textq .tinp.right{border-color:var(--good);background:var(--good-soft)}.textq .tinp.wrong{border-color:var(--danger);background:var(--danger-soft);text-decoration:line-through}.textq .fixed{color:var(--good)}.errs .opt{text-align:left}.errs .opt.missed{border-color:#e0a800;background:#fff6db}
 .words .wl{list-style:none;padding:0;margin:8px 0 0;font-size:15px}.words .wl li{break-inside:avoid;padding:3px 0}.words .wl .en{font-weight:600;cursor:pointer}.exs .wl li{padding:6px 0;border-bottom:1px solid var(--line)}.exs .wl li:last-child{border-bottom:0}.exs .wl .en{font-weight:500}
 .theory p{margin:0 0 10px}
 .theory table{border-collapse:collapse;width:100%;margin:4px 0 12px;font-size:15px}
@@ -392,7 +393,10 @@ const SECTIONS=[
  ['fix','He from Spain.','He is from Spain.|He\'s from Spain.','b'],
  ['tr','Мои родители — учителя.','My parents are teachers.','c'],
  ['dict','My brother is a pilot and my sister is a doctor.','c'],
- ['dict','We are very happy today.','a']],
+ ['dict','We are very happy today.','a'],
+ '|',
+ ['text','Hi! My name ___ (be) Oleg. I ___ (be) 21. My wife ___ (be) a nurse. We ___ (be) from Moscow, and our flat ___ (be) near the river.','is;am;is;are;is','a'],
+ ['errs',[['My brother are a driver.','My brother is a driver.'],['The shop is open.',''],['I tired today.','I am tired today.'],['My parents are at home.',''],['It is cold outside.','']],'a']],
  fw:{ru:"Напиши 4–5 предложений о себе и своих близких: кто вы, откуда, какие вы.",en:"Write 4–5 sentences about yourself and the people close to you: who you are, where you are from, what you are like."}},
 
 {id:'be2',ru:"Глагол to be: отрицание и вопрос",en:"am / is / are: negatives and questions",
@@ -467,7 +471,10 @@ const SECTIONS=[
  ['fix','"Is she a student?" — "Yes, she does."','"Is she a student?" — "Yes, she is."','c'],
  ['tr','Сколько лет твоему брату?','How old is your brother?','d'],
  ['tr','Мы не голодны.','We are not hungry.|We aren\'t hungry.|We\'re not hungry.','a'],
- ['dict','Is your office far from here?','b']],
+ ['dict','Is your office far from here?','b'],
+ '|',
+ ['text','"___ (be) you busy?" — "No, I ___ (be, not). Why?" — "___ (be) your car outside?" — "Yes, it ___ (be). Where ___ (be) we going?"','Are;am not|\'m not;Is;is;are','b'],
+ ['errs',[['Is your sister a doctor?',''],['Where your keys are?','Where are your keys?'],['I not am ready.','I\'m not ready.'],['"Are they here?" — "Yes, they are."',''],['He not is at work.','He isn\'t at work.']],'b']],
  fw:{ru:"Напиши 3 вопроса, которые ты задал бы новому знакомому, и 2 предложения о том, кем ты не являешься или где тебя сейчас нет.",en:"Write 3 questions you would ask a new acquaintance and 2 sentences about what you are not or where you are not right now."}},
 
 {id:'pc1',ru:"Настоящее длительное: утверждение",en:"Present Continuous: I am doing",
@@ -545,7 +552,10 @@ const SECTIONS=[
  ['fix','He is haveing breakfast.','He is having breakfast.','b'],
  ['fix','I am drive to work now.','I am driving to work now.','a'],
  ['tr','Смотри, идёт дождь!','Look, it is raining!|Look! It is raining!|Look, it\'s raining!|Look! It\'s raining!','c'],
- ['dict','The children are playing in the park now.','c']],
+ ['dict','The children are playing in the park now.','c'],
+ '|',
+ ['text','It\'s Saturday. I ___ (sit) in the garden. My wife ___ (cook) lunch, and the children ___ (play) football. The sun ___ (shine).','am sitting|\'m sitting;is cooking|\'s cooking;are playing|\'re playing;is shining|\'s shining','a'],
+ ['errs',[['Look! It is snowing.',''],['She is cook dinner now.','She is cooking dinner now.'],['They playing tennis.','They are playing tennis.'],['I am waiting for the bus.',''],['He is runing in the park.','He is running in the park.']],'a']],
  fw:{ru:"Опиши, что происходит вокруг тебя прямо сейчас: 4–5 предложений.",en:"Describe what is happening around you right now: 4–5 sentences."}},
 
 {id:'pc2',ru:"Настоящее длительное: отрицание и вопрос",en:"Present Continuous: negatives and questions",
@@ -621,7 +631,10 @@ const SECTIONS=[
  ['fix','Does he sleeping?','Is he sleeping?|Does he sleep?','b'],
  ['tr','Куда вы идёте?','Where are you going?','c'],
  ['tr','Мы не спим.','We are not sleeping.|We aren\'t sleeping.|We\'re not sleeping.|We are not asleep.|We aren\'t asleep.','a'],
- ['dict','Are you waiting for the bus?','b']],
+ ['dict','Are you waiting for the bus?','b'],
+ '|',
+ ['text','"What ___ (you / do)?" — "I ___ (not / work). I ___ (read) a book." — "___ (you / listen) to me?"','are you doing;am not working|\'m not working;am reading|\'m reading;Are you listening','b'],
+ ['errs',[['What are you doing?',''],['Do you listening to me?','Are you listening to me?'],['She isn\'t working today.',''],['Where she is going?','Where is she going?'],['Why are you laughing?','']],'b']],
  fw:{ru:"Напиши 3 вопроса другу о том, что он делает сейчас, и 2 предложения о том, чего ты сейчас не делаешь.",en:"Write 3 questions to a friend about what they are doing now and 2 sentences about what you are not doing now."}},
 
 {id:'ps1',ru:"Настоящее простое: утверждение",en:"Present Simple: I do / he does",
@@ -701,7 +714,10 @@ const SECTIONS=[
  ['fix','I get up always at six.','I always get up at six.','c'],
  ['fix','He studys every evening.','He studies every evening.','b'],
  ['tr','Я иногда смотрю фильмы на английском.','I sometimes watch films in English.|Sometimes I watch films in English.|I sometimes watch movies in English.|Sometimes I watch movies in English.|I watch films in English sometimes.|I sometimes watch English films.|Sometimes I watch English films.|I sometimes watch English movies.','c'],
- ['dict','My sister works in a shop and she likes her job.','a']],
+ ['dict','My sister works in a shop and she likes her job.','a'],
+ '|',
+ ['text','My father ___ (work) in a bank. He ___ (get) up at six and ___ (go) to work by bus. In the evening he ___ (watch) TV and my mother ___ (read).','works;gets;goes;watches;reads','a'],
+ ['errs',[['She lives in Kazan.',''],['He go to the gym every day.','He goes to the gym every day.'],['My friends play football on Sundays.',''],['She studys English.','She studies English.'],['I always am late.','I am always late.']],'a']],
  fw:{ru:"Опиши свой обычный день: 5 предложений со словами always, usually, often, never. Одно-два предложения напиши о другом человеке (he / she).",en:"Describe your usual day in 5 sentences with always, usually, often, never. Write one or two of them about another person (he / she)."}},
 
 {id:'ps2',ru:"Настоящее простое: отрицание",en:"Present Simple: I don't / he doesn't",
@@ -775,7 +791,10 @@ const SECTIONS=[
  ['fix','My mother not drive.',"My mother doesn't drive.|My mother does not drive.",'b'],
  ['tr','Она не говорит по-французски.','She does not speak French.|She doesn\'t speak French.','b'],
  ['tr','Мы не живём в центре.','We do not live in the centre.|We don\'t live in the centre.|We do not live in the center.|We don\'t live in the center.|We don\'t live in the city centre.|We do not live in the city centre.|We don\'t live downtown.','a'],
- ['dict','My brother does not like cold weather.','b']],
+ ['dict','My brother does not like cold weather.','b'],
+ '|',
+ ['text','I ___ (not / like) mornings. My wife ___ (not / drink) coffee, and our children ___ (not / eat) breakfast. Our cat ___ (not / get) up before ten!','don\'t like|do not like;doesn\'t drink|does not drink;don\'t eat|do not eat;doesn\'t get|does not get','a'],
+ ['errs',[['He doesn\'t like fish.',''],['She don\'t work on Mondays.','She doesn\'t work on Mondays.'],['I not understand.','I don\'t understand.'],['We don\'t have a car.',''],['He doesn\'t works here.','He doesn\'t work here.']],'b']],
  fw:{ru:"Напиши 5 предложений о том, чего не делаешь ты и чего не делает кто-то из твоих знакомых.",en:"Write 5 sentences about things you don't do and things someone you know doesn't do."}},
 
 {id:'ps3',ru:"Настоящее простое: вопрос",en:"Present Simple: Do you…? Does he…?",
@@ -853,7 +872,10 @@ const SECTIONS=[
  ['fix','"Do you like it?" — "Yes, I like."','"Do you like it?" — "Yes, I do."|"Do you like it?" — "Yes, I like it."','d'],
  ['tr','Сколько стоит этот телефон?','How much does this phone cost?|How much is this phone?','c'],
  ['tr','Твои родители живут в Москве?','Do your parents live in Moscow?','a'],
- ['dict','What time does the shop close on Saturday?','c']],
+ ['dict','What time does the shop close on Saturday?','c'],
+ '|',
+ ['text','"Where ___ you work?" — "In a hospital." — "___ your wife work there too?" — "No, she ___. She teaches." — "What ___ she teach?"','do;Does;doesn\'t|does not;does','a'],
+ ['errs',[['Do you speak English?',''],['Does she likes tea?','Does she like tea?'],['Where you live?','Where do you live?'],['What time does the film start?',''],['Do he work here?','Does he work here?']],'b']],
  fw:{ru:"Напиши 5 вопросов для человека, которого хочешь узнать лучше: где работает, что любит, как часто что-то делает.",en:"Write 5 questions for a person you want to know better: where they work, what they like, how often they do something."}},
 
 {id:'pcps',ru:"Длительное или простое: что выбрать",en:"Present Continuous or Present Simple?",
@@ -930,7 +952,10 @@ const SECTIONS=[
  ['fix','She is usually going to the gym on Fridays.','She usually goes to the gym on Fridays.','b'],
  ['tr','Он работает в больнице, но сегодня он дома.','He works in a hospital, but today he is at home.|He works at a hospital, but today he is at home.|He works in a hospital but today he is at home.|He works at a hospital but he is at home today.|He works in a hospital, but he is at home today.|He works at a hospital, but today he is at home.|He works in a hospital, but today he is home.|He works at a hospital, but today he is home.','b'],
  ['tr','Я тебя знаю.','I know you.','c'],
- ['dict','I usually walk to work but today I am taking the bus.','b']],
+ ['dict','I usually walk to work but today I am taking the bus.','b'],
+ '|',
+ ['text','I usually ___ (walk) to work, but today it ___ (rain), so I ___ (take) the bus. Right now I ___ (sit) next to a man who ___ (read) a newspaper.','walk;is raining|\'s raining;am taking|\'m taking;am sitting|\'m sitting;is reading|\'s reading','a'],
+ ['errs',[['I am knowing the answer.','I know the answer.'],['Look! The baby is sleeping.',''],['She is going to the gym every Monday.','She goes to the gym every Monday.'],['I need your help now.',''],['He works in a bank but today he is working from home.','']],'c']],
  fw:{ru:"Напиши 3 пары предложений: что ты делаешь обычно и что делаешь иначе сегодня или прямо сейчас.",en:"Write 3 pairs of sentences: what you usually do and what you are doing differently today or right now."}},
 
 {id:'hgot',ru:"У меня есть: have got",en:"have got / has got",
@@ -1007,7 +1032,10 @@ const SECTIONS=[
  ['fix','Do you got a minute?','Have you got a minute?|Do you have a minute?','c'],
  ['tr','У нас есть кот.','We have got a cat.|We\'ve got a cat.|We have a cat.','a'],
  ['tr','У твоего брата есть машина? (have got)','Has your brother got a car?','b'],
- ['dict','My friend has got a small flat in the centre.','a']],
+ ['dict','My friend has got a small flat in the centre.','a'],
+ '|',
+ ['text','I ___ (have got) a small flat. It ___ (have got) two rooms but it ___ (not / have got) a balcony. ___ (you / have got) a balcony?','have got|\'ve got;has got|\'s got;hasn\'t got|has not got;Have you got','a'],
+ ['errs',[['She has got a new phone.',''],['He have got a car.','He has got a car.'],['Do you have got a pen?','Have you got a pen?'],['I haven\'t got any money.',''],['Has she a sister?','Has she got a sister?']],'b']],
  fw:{ru:"Опиши, что есть у тебя и у твоей семьи и чего нет: 5 предложений с have got / has got.",en:"Describe what you and your family have and don't have: 5 sentences with have got / has got."}}
 ]},
 {ru:'Прошедшее время',en:'Past',units:[
@@ -1084,7 +1112,10 @@ const SECTIONS=[
  ['fix','She weren\'t at school.',"She wasn't at school.|She was not at school.",'a'],
  ['tr','Где ты был в субботу?','Where were you on Saturday?|Where were you last Saturday?','b'],
  ['tr','Экзамен был трудным.','The exam was difficult.|The exam was hard.|The test was difficult.|The test was hard.','a'],
- ['dict','We were very tired but the trip was great.','a']],
+ ['dict','We were very tired but the trip was great.','a'],
+ '|',
+ ['text','Yesterday ___ (be) a bad day. I ___ (be) late for work and the buses ___ (be) full. My boss ___ (not / be) happy. ___ (be) your day better?','was;was;were;wasn\'t|was not;Was','a'],
+ ['errs',[['We was at home yesterday.','We were at home yesterday.'],['The film was very good.',''],['Where you were last night?','Where were you last night?'],['They weren\'t at school.',''],['Did you be ill?','Were you ill?']],'a']],
  fw:{ru:"Напиши 5 предложений о вчерашнем дне или о детстве: где ты был, каким был день, кто был рядом.",en:"Write 5 sentences about yesterday or your childhood: where you were, what the day was like, who was with you."}},
 
 {id:'past1',ru:"Прошедшее простое: утверждение",en:"Past Simple: worked, went",
@@ -1171,7 +1202,10 @@ const SECTIONS=[
  ['fix','I readed the book in one day.','I read the book in one day.','c'],
  ['fix','He cryed all night.','He cried all night.','b'],
  ['tr','Она написала мне письмо.','She wrote me a letter.|She wrote a letter to me.|She wrote me an email.|She wrote to me.','c'],
- ['dict','Last summer we stayed in a small hotel by the sea.','a']],
+ ['dict','Last summer we stayed in a small hotel by the sea.','a'],
+ '|',
+ ['text','Last Sunday we ___ (go) to the forest. We ___ (walk) for three hours and ___ (see) a lot of birds. Then we ___ (have) a picnic and ___ (come) home late.','went;walked;saw;had;came','a'],
+ ['errs',[['I goed to school by bus.','I went to school by bus.'],['She bought a new dress.',''],['We stoped at the shop.','We stopped at the shop.'],['They lived in Paris for two years.',''],['He eated all the cake.','He ate all the cake.']],'c']],
  fw:{ru:"Расскажи, что ты делал вчера или в прошлые выходные: 5–6 предложений.",en:"Say what you did yesterday or last weekend: 5–6 sentences."}},
 
 {id:'past2',ru:"Прошедшее простое: отрицание и вопрос",en:"Past Simple: didn't / Did you…?",
@@ -1249,7 +1283,10 @@ const SECTIONS=[
  ['fix','She not called me.',"She didn't call me.|She did not call me.",'a'],
  ['tr','Что вы ели на ужин?','What did you eat for dinner?|What did you have for dinner?|What did you have for supper?|What did you eat for supper?','b'],
  ['tr','Я не понял вопрос.','I did not understand the question.|I didn\'t understand the question.','a'],
- ['dict','Did you see Anna at the party last night?','b']],
+ ['dict','Did you see Anna at the party last night?','b'],
+ '|',
+ ['text','"___ (you / enjoy) the party?" — "No, I ___ (not / go)." — "Why not?" — "I ___ (not / feel) well. What time ___ (it / finish)?"','Did you enjoy;didn\'t go|did not go;didn\'t feel|did not feel;did it finish','a'],
+ ['errs',[['Did you see the match?',''],['I didn\'t went to work.','I didn\'t go to work.'],['Where you went yesterday?','Where did you go yesterday?'],['She didn\'t call me.',''],['Did they were at home?','Were they at home?']],'c']],
  fw:{ru:"Напиши 3 вопроса другу о его прошлых выходных и 3 предложения о том, чего ты на прошлой неделе не сделал.",en:"Write 3 questions to a friend about their last weekend and 3 sentences about things you didn't do last week."}},
 
 {id:'pastc',ru:"Прошедшее длительное",en:"Past Continuous: I was doing",
@@ -1325,7 +1362,10 @@ const SECTIONS=[
  ['dict','At that moment I was reading a book in the garden.','c'],
  ['dict','Were they working last Saturday?','b'],
  ['gap','What ___ you doing when I called?','were','b'],
- ['tr','Ты спал, когда я звонил?','Were you sleeping when I called?|Were you asleep when I called?|Were you sleeping when I phoned?|Were you asleep when I phoned?|Were you sleeping when I rang?','b']],
+ ['tr','Ты спал, когда я звонил?','Were you sleeping when I called?|Were you asleep when I called?|Were you sleeping when I phoned?|Were you asleep when I phoned?|Were you sleeping when I rang?','b'],
+ '|',
+ ['text','At eight o\'clock last night I ___ (have) dinner. My son ___ (do) his homework, and my daughters ___ (watch) TV. It ___ (rain) outside.','was having;was doing;were watching;was raining','a'],
+ ['errs',[['I was reading at ten.',''],['They was playing football.','They were playing football.'],['What you were doing?','What were you doing?'],['It was snowing all evening.',''],['She was cook when I called.','She was cooking when I called.']],'a']],
  fw:{ru:"Вспомни вчерашний вечер и опиши, что происходило в 8 часов: что делал ты, что делали другие. 4–5 предложений.",en:"Think of yesterday evening and describe what was happening at 8 o'clock: what you were doing, what others were doing. 4–5 sentences."}},
 
 {id:'pastcs',ru:"Прошедшее длительное или простое",en:"Past Continuous or Past Simple?",
@@ -1404,7 +1444,10 @@ const SECTIONS=[
  ['tr','Я шёл на работу и потерял ключи.','I was walking to work and lost my keys.|I was walking to work and I lost my keys.|I lost my keys while I was walking to work.|While I was walking to work, I lost my keys.|I lost my keys when I was walking to work.|I was going to work and lost my keys.|I was going to work and I lost my keys.','a'],
  ['tr','Когда мы пришли, все танцевали.','When we arrived, everyone was dancing.|When we arrived, everybody was dancing.|When we came, everyone was dancing.|When we came, everybody was dancing.|Everyone was dancing when we arrived.|Everybody was dancing when we arrived.|When we got there, everyone was dancing.|When we got there, everybody was dancing.','a'],
  ['dict','I was waiting for the bus when it started to rain.','a'],
- ['gap','We ___ the house, locked the door and drove away. (leave)','left','b']],
+ ['gap','We ___ the house, locked the door and drove away. (leave)','left','b'],
+ '|',
+ ['text','I ___ (walk) home when it ___ (start) to rain. While I ___ (run) to the bus stop, I ___ (drop) my phone.','was walking;started;was running;dropped','a'],
+ ['errs',[['I was having a shower when the phone rang.',''],['While I cooked, the doorbell was ringing.','While I was cooking, the doorbell rang.'],['He got up, had breakfast and left.',''],['I was knowing the answer.','I knew the answer.'],['She broke her arm while she was skiing.','']],'a']],
  fw:{ru:"Расскажи короткую историю из прошлого: что происходило вокруг (was / were doing) и что вдруг случилось (Past Simple). 5–6 предложений.",en:"Tell a short story from the past: what was going on around you (was / were doing) and what suddenly happened (Past Simple). 5–6 sentences."}}
 ]},
 {ru:'Настоящее совершённое',en:'Present Perfect',units:[
@@ -1490,7 +1533,10 @@ const SECTIONS=[
  ['tr','Ты видел мою сумку? (Present Perfect)','Have you seen my bag?','c'],
  ['tr','Мы ещё не решили.','We have not decided yet.|We haven\'t decided yet.|We\'ve not decided yet.','c'],
  ['dict','Tom has broken his arm and he cannot write.','d'],
- ['dict','Have you found your keys?','c']],
+ ['dict','Have you found your keys?','c'],
+ '|',
+ ['text','Oh no! I ___ (lose) my keys. ___ (you / see) them? My wife ___ (go) out, and I ___ (not / find) the spare ones yet.','have lost|\'ve lost;Have you seen;has gone|\'s gone;haven\'t found|have not found','a'],
+ ['errs',[['She has finished her work.',''],['I have saw this film.','I have seen this film.'],['They have went home.','They have gone home.'],['Have you found your phone?',''],['He have broken his leg.','He has broken his leg.']],'b']],
  fw:{ru:"Напиши 5 предложений о том, что ты уже сделал сегодня или на этой неделе и чего ещё не сделал (I have… / I haven't…).",en:"Write 5 sentences about what you have done today or this week and what you haven't done yet (I have… / I haven't…)."}},
 
 {id:'pp2',ru:"Совершённое или прошедшее простое",en:"Present Perfect or Past Simple?",
@@ -1571,7 +1617,10 @@ const SECTIONS=[
  ['fix','I have gone to Paris twice.','I have been to Paris twice.','d'],
  ['tr','Он только что ушёл.','He has just left.|He\'s just left.|He has just gone.|He\'s just gone.|He has just gone out.|He\'s just gone out.','c'],
  ['tr','Мы переехали сюда три года назад.','We moved here three years ago.|We came here three years ago.','a'],
- ['dict','I have never been to a concert like that.','b']],
+ ['dict','I have never been to a concert like that.','b'],
+ '|',
+ ['text','"___ (you / ever / be) to Spain?" — "Yes, I ___ (go) there in 2019." — "I ___ (never / be) there, but I ___ (just / buy) tickets!"','Have you ever been;went;have never been|\'ve never been;have just bought|\'ve just bought','b'],
+ ['errs',[['I have been to London twice.',''],['I have seen him yesterday.','I saw him yesterday.'],['When have you arrived?','When did you arrive?'],['She has just left.',''],['Did you ever be in Paris?','Have you ever been to Paris?']],'a']],
  fw:{ru:"Напиши 3 предложения о своём опыте (I have been to… / I have never…) и 3 предложения о том, когда именно что-то произошло (Past Simple с датой).",en:"Write 3 sentences about your experience (I have been to… / I have never…) and 3 sentences saying exactly when something happened (Past Simple with a date)."}}
 ]},
 {ru:'Будущее время',en:'Future',units:[
@@ -1646,7 +1695,10 @@ const SECTIONS=[
  ['tr','Ты собираешься продавать квартиру?','Are you going to sell your flat?|Are you going to sell the flat?|Are you going to sell your apartment?|Are you going to sell the apartment?','b'],
  ['tr','Осторожно, ты сейчас упадёшь!','Careful, you are going to fall!|Be careful, you are going to fall!|Careful! You are going to fall!|Be careful! You are going to fall!|Careful, you\'re going to fall!|Be careful! You\'re going to fall!|Be careful, you\'re going to fall!|Watch out, you\'re going to fall!','c'],
  ['dict','We are going to spend the summer in the mountains.','a'],
- ['dict','Is he going to change his job?','b']],
+ ['dict','Is he going to change his job?','b'],
+ '|',
+ ['text','We ___ (move) to a new flat next month. My wife ___ (paint) the kitchen, and I ___ (not / take) our old sofa. What ___ (you / do) at the weekend?','are going to move|\'re going to move;is going to paint|\'s going to paint;am not going to take|\'m not going to take;are you going to do','a'],
+ ['errs',[['I am going to visit my parents.',''],['She going to buy a car.','She is going to buy a car.'],['They are going to moving.','They are going to move.'],['Look at the sky! It is going to rain.',''],['Do you going to work tomorrow?','Are you going to work tomorrow?']],'a']],
  fw:{ru:"Напиши 5 предложений о своих планах на выходные или на следующий год с be going to.",en:"Write 5 sentences about your plans for the weekend or for next year with be going to."}},
 
 {id:'will',ru:"Будущее с will: решения, обещания, прогнозы",en:"will",
@@ -1723,7 +1775,10 @@ const SECTIONS=[
  ['tr','Не волнуйся, я тебе помогу.','Don\'t worry, I will help you.|Do not worry, I will help you.|Don\'t worry, I\'ll help you.|Don\'t worry. I will help you.|Don\'t worry. I\'ll help you.','c'],
  ['tr','Ты мне позвонишь?','Will you call me?|Will you phone me?|Will you ring me?|Will you give me a call?','b'],
  ['dict','I think it will be very cold this winter.','c'],
- ['dict','Will you be at home this evening?','b']],
+ ['dict','Will you be at home this evening?','b'],
+ '|',
+ ['text','"I\'m cold." — "I ___ (close) the window." — "Thanks. I think it ___ (snow) tonight." — "Don\'t worry, I ___ (not / forget) to put the heating on."','will close|\'ll close;will snow|\'ll snow;won\'t forget|will not forget','c'],
+ ['errs',[['I will call you later.',''],['She will comes tomorrow.','She will come tomorrow.'],['I will to help you.','I will help you.'],['I think it will be sunny.',''],['Do you will come?','Will you come?']],'a']],
  fw:{ru:"Напиши 3 прогноза о своём будущем через пять лет (I think I will…) и 2 обещания самому себе (I will… / I won't…).",en:"Write 3 predictions about your life in five years (I think I will…) and 2 promises to yourself (I will… / I won't…)."}}
 ]},
 {ru:'Модальные глаголы',en:'Modal verbs',units:[
@@ -1799,7 +1854,10 @@ const SECTIONS=[
  ['tr','Я не смог найти твой дом.','I could not find your house.|I couldn\'t find your house.|I could not find your home.|I couldn\'t find your home.|I wasn\'t able to find your house.|I couldn\'t find your place.','c'],
  ['tr','Можно мне воды?','Can I have some water?|Could I have some water?|Can I have water?|Could I have water?|Can I get some water?|Could I get some water?|May I have some water?|Can I have a glass of water?|Could I have a glass of water?','d'],
  ['dict','I can understand English but I cannot speak it well.','b'],
- ['dict','Could you open the door for me, please?','d']],
+ ['dict','Could you open the door for me, please?','d'],
+ '|',
+ ['text','When I was a child, I ___ (can) swim, but I ___ (can, not) ride a bike. Now I ___ (can) do both, but I ___ (can, not) ski.','could;couldn\'t|could not;can;can\'t|cannot','c'],
+ ['errs',[['She can speak French.',''],['He cans play chess.','He can play chess.'],['I can to help you.','I can help you.'],['Could you open the window?',''],['Yesterday I can\'t sleep.','Yesterday I couldn\'t sleep.']],'a']],
  fw:{ru:"Напиши 3 предложения о том, что ты умеешь, 2 о том, чего не умеешь, и 1 о том, что умел в детстве (could).",en:"Write 3 sentences about things you can do, 2 about things you can't do, and 1 about something you could do as a child."}},
 
 {id:'must',ru:'Должен, нужно: must и have to',en:'must / have to',
@@ -1876,7 +1934,10 @@ const SECTIONS=[
  ['tr','Тебе не нужно платить.','You do not have to pay.|You don\'t have to pay.|You don\'t need to pay.|You do not need to pay.|You needn\'t pay.','c'],
  ['tr','Мы должны помочь им.','We must help them.|We have to help them.|We\'ve got to help them.','a'],
  ['gap','You ___ eat in the library. It\'s not allowed. (not)',"mustn't|must not",'c'],
- ['tr','Ему приходится работать по выходным.','He has to work at weekends.|He has to work on weekends.|He has to work at the weekend.|He has to work on the weekend.','b']],
+ ['tr','Ему приходится работать по выходным.','He has to work at weekends.|He has to work on weekends.|He has to work at the weekend.|He has to work on the weekend.','b'],
+ '|',
+ ['text','At my job I ___ (have to) wear a uniform, but I ___ (not / have to) work at weekends. We ___ (mustn\'t) use phones on the line. Last week I ___ (have to) stay late.','have to;don\'t have to|do not have to;mustn\'t|must not;had to','b'],
+ ['errs',[['You must wear a seat belt.',''],['She must to go now.','She must go now.'],['He have to work today.','He has to work today.'],['Yesterday I must work late.','Yesterday I had to work late.'],['You don\'t have to come.','']],'a']],
  fw:{ru:"Напиши 3 предложения о том, что тебе нужно делать на работе или учёбе (have to), 2 о том, чего делать нельзя (mustn't), и 1 о том, что делать не обязательно (don't have to).",en:"Write 3 sentences about things you have to do at work or in your studies, 2 about things you mustn't do, and 1 about something you don't have to do."}},
 
 {id:'should',ru:'Совет: should',en:'should',
@@ -1950,7 +2011,10 @@ const SECTIONS=[
  ['tr','Нам стоит уйти пораньше.','We should leave early.|We should leave earlier.|We should go early.|We should go earlier.','c'],
  ['tr','Тебе не следует опаздывать.','You should not be late.|You shouldn\'t be late.','b'],
  ['dict','You should drink more water when it is hot.','c'],
- ['dict','Should we take the bus or a taxi?','b']],
+ ['dict','Should we take the bus or a taxi?','b'],
+ '|',
+ ['text','You look ill. You ___ go to bed. You ___ (not) go to work today. ___ I call a doctor? I think you ___ drink more water.','should;shouldn\'t|should not;Should;should','a'],
+ ['errs',[['You should see this film.',''],['You should to rest.','You should rest.'],['He shoulds study more.','He should study more.'],['Should I call her?',''],['You don\'t should worry.','You shouldn\'t worry.']],'a']],
  fw:{ru:"Друг хочет выучить английский за год. Дай ему 5 советов: что стоит делать и чего не стоит (should / shouldn't).",en:"A friend wants to learn English in a year. Give 5 pieces of advice: what they should and shouldn't do."}}
 ]},
 {ru:'Существительные и артикли',en:'Nouns and articles',units:[
@@ -2026,7 +2090,10 @@ const SECTIONS=[
  ['tr','Здесь нет туалета.','There is no toilet here.|There isn\'t a toilet here.|There is not a toilet here.|There\'s no toilet here.','b'],
  ['tr','В комнате было три стула.','There were three chairs in the room.|In the room there were three chairs.','c'],
  ['dict','There is a small park behind our school.','a'],
- ['dict','Are there any good shops in this street?','b']],
+ ['dict','Are there any good shops in this street?','b'],
+ '|',
+ ['text','In my street ___ a big supermarket and ___ two cafés. ___ a cinema, but ___ any parks. Ten years ago ___ a market here.','there is|there\'s;there are;There isn\'t|There is not;there aren\'t|there are not;there was','a'],
+ ['errs',[['There is a bank near here.',''],['There are a cat under the bed.','There is a cat under the bed.'],['It is a lot of people here.','There are a lot of people here.'],['Are there any shops?',''],['There was many cars.','There were many cars.']],'a']],
  fw:{ru:"Опиши свою комнату или своё рабочее место: что там есть и чего нет. 5–6 предложений с there is / there are.",en:"Describe your room or your workplace: what there is and what there isn't. 5–6 sentences with there is / there are."}},
 
 {id:'art',ru:'Артикли a / an / the',en:'a / an / the',
@@ -2104,7 +2171,10 @@ const SECTIONS=[
  ['fix','A sun is very bright today.','The sun is very bright today.','b'],
  ['tr','Закрой, пожалуйста, окно.','Close the window, please.|Please close the window.|Can you close the window, please?|Could you close the window, please?','b'],
  ['tr','Мы завтракаем в восемь.','We have breakfast at eight.|We have breakfast at 8.|We eat breakfast at eight.|We have breakfast at eight o\'clock.','c'],
- ['dict','I saw a man and a woman. The woman was very tall.','b']],
+ ['dict','I saw a man and a woman. The woman was very tall.','b'],
+ '|',
+ ['text','I have ___ dog and ___ cat. ___ dog is old, but ___ cat is very young. I take them to ___ park every day.','a;a;The;the;the','a'],
+ ['errs',[['She is a teacher.',''],['I am student.','I am a student.'],['The life is beautiful.','Life is beautiful.'],['The sun is hot today.',''],['I have a apple.','I have an apple.']],'a']],
  fw:{ru:"Напиши короткий рассказ из 5–6 предложений о том, что ты купил или увидел: при первом упоминании a / an, дальше the.",en:"Write a short story of 5–6 sentences about something you bought or saw: a / an at first mention, then the."}},
 
 {id:'some',ru:'Количество: some, any, much, many',en:'some / any, much / many',
@@ -2187,7 +2257,10 @@ const SECTIONS=[
  ['tr','У нас нет сахара.','We do not have any sugar.|We don\'t have any sugar.|We have no sugar.|We haven\'t got any sugar.|We don\'t have sugar.|We haven\'t got sugar.','a'],
  ['tr','Сколько времени у нас есть?','How much time do we have?|How much time have we got?','b'],
  ['dict','There is some cheese but there is not any bread.','a'],
- ['dict','How many people live in your town?','b']],
+ ['dict','How many people live in your town?','b'],
+ '|',
+ ['text','We need ___ eggs and ___ milk. There isn\'t ___ bread either. How ___ money have you got?','some;some;any;much','a'],
+ ['errs',[['Would you like some tea?',''],['I need an information.','I need some information.'],['How much apples do you want?','How many apples do you want?'],['There aren\'t any chairs.',''],['I have many money.','I have a lot of money.']],'a']],
  fw:{ru:"Опиши, что есть у тебя в холодильнике или на рабочем месте: что есть (some, a lot of) и чего мало или нет (not much, not many, not any). 5 предложений.",en:"Describe what is in your fridge or at your workplace: what there is (some, a lot of) and what there is little or none of (not much, not many, not any). 5 sentences."}}
 ]},
 {ru:'Местоимения и предлоги',en:'Pronouns and prepositions',units:[
@@ -2272,7 +2345,10 @@ const SECTIONS=[
  ['tr','Мы видели их в парке.','We saw them in the park.','a'],
  ['tr','Это не их дом, это наш.','It is not their house, it is ours.|It isn\'t their house, it\'s ours.|This is not their house, it is ours.|This isn\'t their house, it\'s ours.|It\'s not their house, it\'s ours.|This is not their house. It is ours.|It is not their house. It is ours.','c'],
  ['dict','My brother lent me his car because mine was broken.','b'],
- ['dict','Please tell us your name.','a']],
+ ['dict','Please tell us your name.','a'],
+ '|',
+ ['text','This is my friend Anna. ___ works with me. I like ___ very much. That isn\'t her car. ___ is red. Is this pen ___? (you)','She;her;Hers;yours','a'],
+ ['errs',[['This book is mine.',''],['She gave he a present.','She gave him a present.'],['This is mine book.','This is my book.'],['Call me tomorrow.',''],['I love me family.','I love my family.']],'a']],
  fw:{ru:"Опиши свою семью или друзей: кто они, что у них есть, что ты для них делаешь. Используй him, her, them, my, his, their. 5 предложений.",en:"Describe your family or friends: who they are, what they have, what you do for them. Use him, her, them, my, his, their. 5 sentences."}},
 
 {id:'prep',ru:'Предлоги времени и места: in, on, at',en:'in / on / at',
@@ -2352,7 +2428,10 @@ const SECTIONS=[
  ['fix','We met at 2010.','We met in 2010.','a'],
  ['tr','Я буду дома в субботу вечером.','I will be at home on Saturday evening.|I\'ll be at home on Saturday evening.|I will be home on Saturday evening.|I\'ll be home on Saturday evening.|I will be at home on Saturday night.|I will be home on Saturday night.','a'],
  ['tr','Ключи в сумке.','The keys are in the bag.|The keys are in my bag.|My keys are in the bag.|My keys are in my bag.','c'],
- ['dict','My train leaves at seven in the morning on Sunday.','a']],
+ ['dict','My train leaves at seven in the morning on Sunday.','a'],
+ '|',
+ ['text','I was born ___ May ___ 2005. I usually get up ___ seven ___ the morning, but ___ Sundays I sleep longer.','in;in;at;in;on','a'],
+ ['errs',[['See you on Monday.',''],['I was in home yesterday.','I was at home yesterday.'],['See you on next week.','See you next week.'],['The keys are on the table.',''],['I was born at 2005.','I was born in 2005.']],'a']],
  fw:{ru:"Опиши свою обычную неделю: что, когда и где ты делаешь. Используй at, on, in для времени и места. 5–6 предложений.",en:"Describe your usual week: what you do, when and where. Use at, on, in for time and place. 5–6 sentences."}}
 ]},
 {ru:'Прилагательные и наречия',en:'Adjectives and adverbs',units:[
@@ -2432,7 +2511,10 @@ const SECTIONS=[
  ['fix','Winter here is coldder than in Moscow.','Winter here is colder than in Moscow.','a'],
  ['tr','Сегодня теплее, чем вчера.','It is warmer today than yesterday.|It\'s warmer today than yesterday.|Today is warmer than yesterday.|It is warmer today than it was yesterday.|Today it is warmer than yesterday.','a'],
  ['tr','Мой новый ноутбук лучше старого.','My new laptop is better than the old one.|My new laptop is better than my old one.|My new laptop is better than my old laptop.','c'],
- ['dict','My brother is younger than me but he is taller.','a']],
+ ['dict','My brother is younger than me but he is taller.','a'],
+ '|',
+ ['text','My new flat is ___ (big) than my old one, and it\'s ___ (cheap). The area is ___ (quiet) and ___ (beautiful). Life is ___ (good) here.','bigger;cheaper;quieter;more beautiful;better','a'],
+ ['errs',[['A car is faster than a bike.',''],['He is more tall than me.','He is taller than me.'],['This bag is cheaper that mine.','This bag is cheaper than mine.'],['English is easier than Chinese.',''],['My result is badder than yours.','My result is worse than yours.']],'a']],
  fw:{ru:"Сравни два города, два телефона или две работы: 5 предложений со сравнительной степенью и than.",en:"Compare two cities, two phones or two jobs: 5 sentences with comparatives and than."}},
 
 {id:'sup',ru:'Превосходная степень: самый старый, самый дорогой',en:'Superlatives: the oldest, the most expensive',
@@ -2509,7 +2591,10 @@ const SECTIONS=[
  ['tr','Это самый дешёвый телефон.','This is the cheapest phone.|It is the cheapest phone.|This phone is the cheapest.|It\'s the cheapest phone.','a'],
  ['dict','This is the most important day of the year for me.','b'],
  ['gap','It is the ___ restaurant in our town. (cheap)','cheapest','a'],
- ['tr','Это самый худший день в моей жизни.','This is the worst day of my life.|It is the worst day of my life.|This is the worst day in my life.|It\'s the worst day of my life.|It is the worst day in my life.','c']],
+ ['tr','Это самый худший день в моей жизни.','This is the worst day of my life.|It is the worst day of my life.|This is the worst day in my life.|It\'s the worst day of my life.|It is the worst day in my life.','c'],
+ '|',
+ ['text','Moscow is ___ (big) city in Russia. The Volga is ___ (long) river in Europe. Last summer was ___ (hot) in years, and it was ___ (good) holiday of my life.','the biggest;the longest;the hottest;the best','a'],
+ ['errs',[['It\'s the best film I\'ve ever seen.',''],['She is most beautiful girl.','She is the most beautiful girl.'],['It is the most big city.','It is the biggest city.'],['This is the cheapest phone.',''],['It\'s the goodest pizza.','It\'s the best pizza.']],'a']],
  fw:{ru:"Напиши 5 предложений о «самом-самом» в твоей жизни: лучший фильм, самый трудный экзамен, самый интересный человек.",en:"Write 5 sentences about the «most» things in your life: the best film, the most difficult exam, the most interesting person."}},
 
 {id:'adv',ru:'Прилагательное или наречие: быстрый или быстро',en:'Adjectives and adverbs: quick / quickly',
@@ -2586,7 +2671,10 @@ const SECTIONS=[
  ['dict','He drove slowly because the road was dangerous.','a'],
  ['dict','You look tired. Did you sleep badly?','d'],
  ['gap','The baby is sleeping. Please talk ___. (quiet)','quietly','a'],
- ['tr','Она очень хорошо готовит.','She cooks very well.|She is a very good cook.','c']],
+ ['tr','Она очень хорошо готовит.','She cooks very well.|She is a very good cook.','c'],
+ '|',
+ ['text','My brother drives very ___ (careful). He speaks English ___ (good), and he is a ___ (quick) learner. But today he looks ___ (sad).','carefully;well;quick;sad','a'],
+ ['errs',[['She sings beautifully.',''],['He drives too fastly.','He drives too fast.'],['She speaks English very good.','She speaks English very well.'],['You look tired.',''],['Please speak slow.','Please speak slowly.']],'a']],
  fw:{ru:"Опиши, как ты делаешь разные вещи: водишь, готовишь, говоришь по-английски, работаешь. 5 предложений с наречиями.",en:"Describe how you do different things: drive, cook, speak English, work. 5 sentences with adverbs."}}
 ]},
 {ru:'Вопросы',en:'Questions',units:[
@@ -2662,7 +2750,10 @@ const SECTIONS=[
  ['dict','What time does your train leave tomorrow?','a'],
  ['dict','Who did you meet at the party?','a'],
  ['gap','___ do you go to work? — By bus.','How','a'],
- ['tr','Сколько стоит билет?','How much is the ticket?|How much does the ticket cost?','c']],
+ ['tr','Сколько стоит билет?','How much is the ticket?|How much does the ticket cost?','c'],
+ '|',
+ ['text','"___ do you live?" — "In Tver." — "___ do you go to work?" — "By bus." — "___ does it take?" — "An hour." — "___ is your boss?" — "Mr Ivanov."','Where;How;How long;Who','a'],
+ ['errs',[['Where are you from?',''],['Who did break the window?','Who broke the window?'],['What you are looking at?','What are you looking at?'],['How old is your son?',''],['How much brothers have you got?','How many brothers have you got?']],'a']],
  fw:{ru:"Представь, что берёшь интервью у известного человека. Напиши 6 вопросов с разными вопросительными словами.",en:"Imagine you are interviewing a famous person. Write 6 questions with different question words."}}
 ]},
 {ru:'Другие конструкции',en:'More structures',units:[
@@ -2741,7 +2832,10 @@ const SECTIONS=[
  ['fix','The end from the film was sad.','The end of the film was sad.','c'],
  ['tr','Это друзья моего брата.','These are my brother\'s friends.|They are my brother\'s friends.|Those are my brother\'s friends.','a'],
  ['tr','Мне нравится та куртка.','I like that jacket.','b'],
- ['dict','That is my mother\'s bag and these are her keys.','a']],
+ ['dict','That is my mother\'s bag and these are her keys.','a'],
+ '|',
+ ['text','This is my ___ (sister) car. ___ shoes here are mine, and ___ bag over there is my ___ (parents). The end ___ the film was sad.','sister\'s;These;that;parents\';of','a'],
+ ['errs',[['This is Tom\'s room.',''],['This is the car of my father.','This is my father\'s car.'],['This books are interesting.','These books are interesting.'],['Who is that man over there?',''],['My parent\'s house is big. (у мамы и папы)','My parents\' house is big.']],'a']],
  fw:{ru:"Опиши вещи вокруг себя и чьи они: 5 предложений с 's и this / that / these / those.",en:"Describe the things around you and whose they are: 5 sentences with 's and this / that / these / those."}},
 
 {id:'inf',ru:'Инфинитив или -ing: хочу сделать, люблю делать',en:'to do or doing?',
@@ -2820,7 +2914,10 @@ const SECTIONS=[
  ['build','Я надеюсь найти хорошую работу.','I hope to find a good job.','a',['finding']],
  ['dict','My brother loves cooking and he wants to open a cafe.','c'],
  ['dict','She decided to stay at home.','a'],
- ['gap','I\'d love ___ you at the weekend. (see)','to see','a']],
+ ['gap','I\'d love ___ you at the weekend. (see)','to see','a'],
+ '|',
+ ['text','I want ___ (learn) English. I enjoy ___ (read) books, and I hope ___ (visit) London next year. I must ___ (practise) more.','to learn;reading;to visit;practise|practice','a'],
+ ['errs',[['I decided to stay at home.',''],['She enjoys to cook.','She enjoys cooking.'],['I want go home.','I want to go home.'],['He finished writing the letter.',''],['You should to rest.','You should rest.']],'a']],
  fw:{ru:"Напиши 3 предложения о том, что ты хочешь или планируешь сделать (to + глагол), и 3 о том, что тебе нравится или не нравится делать (-ing).",en:"Write 3 sentences about what you want or plan to do (to + verb) and 3 about what you like or don't like doing (-ing)."}},
 
 {id:'pass',ru:'Страдательный залог: сделано, построено',en:'Passive: is made, was built',
@@ -2903,7 +3000,10 @@ const SECTIONS=[
  ['dict','The museum is visited by thousands of people every year.','d'],
  ['dict','Our car was repaired last week.','b'],
  ['gap','This song ___ by millions of people. (know)','is known','a'],
- ['gap','The thieves ___ last night. (arrest)','were arrested','b']],
+ ['gap','The thieves ___ last night. (arrest)','were arrested','b'],
+ '|',
+ ['text','This house ___ (build) in 1900. Tea ___ (grow) in India. My bike ___ (steal) last week. This book ___ (write) by Tolstoy.','was built;is grown;was stolen;was written','a'],
+ ['errs',[['English is spoken here.',''],['The window was broke.','The window was broken.'],['This song is sing by children.','This song is sung by children.'],['The car was made in Japan.',''],['The house built in 1950.','The house was built in 1950.']],'a']],
  fw:{ru:"Опиши вещь, которой пользуешься на работе или дома: где она сделана, из чего, когда куплена или построена. 5 предложений с пассивом.",en:"Describe something you use at work or at home: where it is made, what it is made of, when it was bought or built. 5 sentences with the passive."}},
 
 {id:'if1',ru:'Условные предложения: если и когда',en:'if and when: first conditional',
@@ -2981,7 +3081,10 @@ const SECTIONS=[
  ['dict','I will send you the photos when I get home.','c'],
  ['gap','If you ___ tired, go to bed. (feel)','feel','a'],
  ['gap','I ___ the tickets if I see them online. (buy)','will buy|\'ll buy','b'],
- ['tr','Если ты поторопишься, мы успеем на автобус.','If you hurry, we will catch the bus.|If you hurry, we\'ll catch the bus.|If you hurry up, we will catch the bus.|If you hurry up, we\'ll catch the bus.|If you hurry, we will get the bus.|If you hurry, we\'ll get the bus.|If you hurry, we will make the bus.','a']],
+ ['tr','Если ты поторопишься, мы успеем на автобус.','If you hurry, we will catch the bus.|If you hurry, we\'ll catch the bus.|If you hurry up, we will catch the bus.|If you hurry up, we\'ll catch the bus.|If you hurry, we will get the bus.|If you hurry, we\'ll get the bus.|If you hurry, we will make the bus.','a'],
+ '|',
+ ['text','If it ___ (rain) tomorrow, we ___ (stay) at home. When you ___ (get) to the station, call me. If you ___ (not / hurry), you\'ll miss the train.','rains;will stay|\'ll stay;get;don\'t hurry|do not hurry','a'],
+ ['errs',[['If you come early, we will have coffee.',''],['If it will rain, I will stay home.','If it rains, I will stay home.'],['When I will finish, I will call.','When I finish, I will call.'],['I will call you when I get home.',''],['If I have time, I help you.','If I have time, I will help you.']],'a']],
  fw:{ru:"Напиши 5 предложений о своих планах с условием: что ты сделаешь, если что-то случится, и что сделаешь, когда что-то закончится.",en:"Write 5 sentences about your plans with a condition: what you will do if something happens and what you will do when something is over."}}
 ]},
 {lv:'b',ru:'Времена подробнее',en:'Tenses in depth',units:[
@@ -3055,7 +3158,10 @@ const SECTIONS=[
  ['fix','She have been working all day.','She has been working all day.','a'],
  ['fix','We have been knowing them since school.','We have known them since school.','d'],
  ['tr','Он работает здесь с 2020 года.','He has been working here since 2020.|He\'s been working here since 2020.|He has worked here since 2020.|He\'s worked here since 2020.','b'],
- ['tr','Я бегал, поэтому я устал.','I have been running, so I am tired.|I\'ve been running, so I\'m tired.|I am tired because I have been running.|I\'m tired because I\'ve been running.|I have been running so I am tired.','c']],
+ ['tr','Я бегал, поэтому я устал.','I have been running, so I am tired.|I\'ve been running, so I\'m tired.|I am tired because I have been running.|I\'m tired because I\'ve been running.|I have been running so I am tired.','c'],
+ '|',
+ ['text','I ___ (learn) English for three years. My teacher says I ___ (make) good progress recently. How long ___ (you / study) it? I ___ (know) my teacher since 2020.','have been learning|\'ve been learning;have been making|\'ve been making;have you been studying;have known|\'ve known','a'],
+ ['errs',[['I have been waiting for an hour.',''],['I am living here for five years.','I have been living here for five years.'],['She has been knowing him for years.','She has known him for years.'],['How long have you been working here?',''],['It has been raining all day.','']],'b']],
  fw:{ru:"Напиши 5 предложений о том, чем ты занимаешься уже какое-то время: работа, учёба, хобби. Используй for и since.",en:"Write 5 sentences about things you have been doing for some time: work, studies, hobbies. Use for and since."}},
 
 {id:'forsince',ru:'Как долго и когда: for, since, ago',en:'for, since, ago',
@@ -3134,7 +3240,10 @@ const SECTIONS=[
  ['fix','When have you started your job?','When did you start your job?','d'],
  ['tr','Как долго вы женаты?','How long have you been married?','d'],
  ['tr','Она работает здесь с прошлого лета.','She has worked here since last summer.|She has been working here since last summer.|She\'s worked here since last summer.|She\'s been working here since last summer.','b'],
- ['dict','I have not been to the cinema for a long time.','a']],
+ ['dict','I have not been to the cinema for a long time.','a'],
+ '|',
+ ['text','I have lived in Moscow ___ 2015. I moved here ten years ___. I haven\'t seen my school friends ___ a long time. ___ did you move here?','since;ago;for;When','a'],
+ ['errs',[['I have known her for ten years.',''],['I have lived here since five years.','I have lived here for five years.'],['I have moved here two years ago.','I moved here two years ago.'],['She has been ill since Monday.',''],['How long do you know him?','How long have you known him?']],'a']],
  fw:{ru:"Напиши о трёх вещах в своей жизни дважды: как долго это длится (for / since) и когда это началось (ago). Всего 6 предложений.",en:"Write about three things in your life twice: how long they have lasted (for / since) and when they started (ago). 6 sentences in total."}},
 
 {id:'pastperf',ru:'Предпрошедшее: что случилось раньше',en:'Past Perfect: I had done',
@@ -3211,7 +3320,10 @@ const SECTIONS=[
  ['tr','Она уже ушла, когда я позвонил.','She had already left when I called.|She\'d already left when I called.|She had already gone when I called.|When I called, she had already left.|When I called, she had already gone.|She had already left when I phoned.|When I phoned, she had already left.|She had already gone when I phoned.|She had already left when I rang.','b'],
  ['dict','By the time the police arrived, the thief had escaped.','b'],
  ['dict','Had you met him before the party?','c'],
- ['gap','I couldn\'t call you because I ___ my phone. (lose)','had lost|\'d lost','b']],
+ ['gap','I couldn\'t call you because I ___ my phone. (lose)','had lost|\'d lost','b'],
+ '|',
+ ['text','When I got to the station, the train ___ (already / leave). I was hungry because I ___ (not / eat) all day. I recognised her — we ___ (meet) before. She told me she ___ (lose) her keys.','had already left|\'d already left;hadn\'t eaten|had not eaten;had met|\'d met;had lost|\'d lost','b'],
+ ['errs',[['When we arrived, the film had started.',''],['He had went home before I came.','He had gone home before I came.'],['When I got home, my wife has cooked dinner.','When I got home, my wife had cooked dinner.'],['I had never seen snow before that trip.',''],['Did you had seen it before?','Had you seen it before?']],'a']],
  fw:{ru:"Расскажи историю, где что-то пошло не так, потому что что-то уже случилось раньше: опоздал, а все уже ушли; пришёл, а магазин уже закрылся. 5–6 предложений.",en:"Tell a story where something went wrong because something had already happened: you were late and everyone had left; you arrived and the shop had closed. 5–6 sentences."}},
 
 {id:'usedto',ru:'Раньше делал, а теперь нет',en:'used to',
@@ -3284,7 +3396,10 @@ const SECTIONS=[
  ['fix','I used to work at home now.','I usually work at home now.|I work at home now.','d'],
  ['tr','Раньше здесь был кинотеатр.','There used to be a cinema here.','a'],
  ['tr','Раньше я не любил овощи.','I did not use to like vegetables.|I didn\'t use to like vegetables.|I never used to like vegetables.','b'],
- ['tr','Мы раньше часто ходили в походы.','We used to go hiking a lot.|We used to go hiking often.|We often used to go hiking.|We used to go camping a lot.|We used to often go hiking.|We used to go hiking.','a']],
+ ['tr','Мы раньше часто ходили в походы.','We used to go hiking a lot.|We used to go hiking often.|We often used to go hiking.|We used to go camping a lot.|We used to often go hiking.|We used to go hiking.','a'],
+ '|',
+ ['text','When I was a child, I ___ (live) in a village. I ___ (not / like) vegetables then. ___ (you / have) a pet? There ___ (be) a lake near our house.','used to live;didn\'t use to like|did not use to like;Did you use to have;used to be','a'],
+ ['errs',[['I used to play the piano.',''],['I use to smoke.','I used to smoke.'],['Did you used to live here?','Did you use to live here?'],['There used to be a cinema here.',''],['I used to go to Paris in 2015.','I went to Paris in 2015.']],'b']],
  fw:{ru:"Сравни свою жизнь пять или десять лет назад и сейчас: что ты делал раньше и чего не делал. 5 предложений с used to и didn't use to.",en:"Compare your life five or ten years ago with now: what you used to do and what you didn't use to do. 5 sentences."}},
 
 {id:'fut',ru:'Будущее: что выбрать',en:'Future forms compared',
@@ -3363,7 +3478,10 @@ const SECTIONS=[
  ['fix','Look at that boy! He will fall!','Look at that boy! He is going to fall!|Look at that boy! He\'s going to fall!','b'],
  ['tr','Мы завтра встречаемся с друзьями.','We are meeting our friends tomorrow.|We\'re meeting our friends tomorrow.|We are meeting friends tomorrow.|We\'re meeting friends tomorrow.|We are meeting with our friends tomorrow.|We\'re meeting with friends tomorrow.|Tomorrow we are meeting our friends.|We are meeting up with friends tomorrow.|We are meeting up with our friends tomorrow.','c'],
  ['tr','Я не думаю, что он придёт.','I do not think he will come.|I don\'t think he will come.|I don\'t think he\'ll come.|I don\'t think he is coming.','a'],
- ['dict','Our plane leaves at ten, so we are going to take a taxi at seven.','d']],
+ ['dict','Our plane leaves at ten, so we are going to take a taxi at seven.','d'],
+ '|',
+ ['text','"The phone is ringing." — "I ___ (answer) it." I\'ve decided: I ___ (look) for a new job. I ___ (meet) Anna at six — we arranged it yesterday. My train ___ (leave) at 7:15.','will answer|\'ll answer;am going to look|\'m going to look;am meeting|\'m meeting;leaves','a'],
+ ['errs',[['I think it will rain tomorrow.',''],['I will meet Tom at five. We arranged it yesterday.','I am meeting Tom at five. We arranged it yesterday.'],['Look at the sky! It will rain.','Look at the sky! It is going to rain.'],['The film starts at nine.',''],['I promise I am calling you tomorrow.','I promise I will call you tomorrow.']],'c']],
  fw:{ru:"Напиши о своих планах: что ты решил сделать в этом году (going to), с кем и когда ты уже договорился на этой неделе (Present Continuous) и что, по-твоему, случится через пять лет (will). 6 предложений.",en:"Write about your plans: what you have decided to do this year (going to), what you have arranged for this week (Present Continuous) and what you think will happen in five years (will). 6 sentences."}},
 
 {id:'habits',ru:'Привычки: would, be used to, get used to',en:'would, be used to, get used to',
@@ -3440,7 +3558,10 @@ const SECTIONS=[
  ['fix','He is used to work at night.','He is used to working at night.|He\'s used to working at night.|He used to work at night.','b'],
  ['tr','Ты привыкнешь к этому.','You will get used to it.|You\'ll get used to it.|You will get used to this.','c'],
  ['tr','Летом мы ходили на рыбалку каждые выходные. (would)','In summer we would go fishing every weekend.|In the summer we would go fishing every weekend.|We would go fishing every weekend in summer.|We would go fishing every weekend in the summer.','a'],
- ['dict','At first I was not used to the food, but now I love it.','b']],
+ ['dict','At first I was not used to the food, but now I love it.','b'],
+ '|',
+ ['text','When I was a child, my grandfather ___ (would) take me fishing. Now I live in the city, but I\'m not used to ___ (live) here. I\'m slowly getting used to ___ (noise). I ___ (used to) have a dog.','would;living;the noise|noise;used to','a'],
+ ['errs',[['We would play outside until dark.',''],['I am used to get up early.','I am used to getting up early.'],['I would have a bike when I was ten.','I used to have a bike when I was ten.'],['She is getting used to her new job.',''],['He can\'t get used to drive on the left.','He can\'t get used to driving on the left.']],'b']],
  fw:{ru:"Сравни своё детство и сегодняшнюю жизнь: что вы обычно делали (would), что было раньше (used to), к чему ты уже привык и к чему привыкаешь сейчас. 6 предложений.",en:"Compare your childhood and your life now: what you would do, what used to be true, what you are used to and what you are getting used to. 6 sentences."}},
 
 {id:'narr',ru:'Времена в рассказе',en:'Narrative tenses',
@@ -3517,7 +3638,10 @@ const SECTIONS=[
  ['fix','He was tired because he was working since six.','He was tired because he had been working since six.|He was tired because he had worked since six.','d'],
  ['tr','Когда мы приехали, все уже спали.','When we arrived, everyone was already sleeping.|When we arrived, everybody was already sleeping.|When we arrived, everyone was already asleep.|When we arrived, everybody was already asleep.|When we got there, everyone was already asleep.|When we came, everyone was already asleep.|When we got there, everybody was already asleep.|Everyone was already asleep when we arrived.|Everybody was already asleep when we arrived.','b'],
  ['tr','Она открыла письмо и начала читать.','She opened the letter and started reading.|She opened the letter and started to read.|She opened the letter and began reading.|She opened the letter and began to read.','a'],
- ['dict','When I looked out of the window, it had stopped snowing and the sun was shining.','c']],
+ ['dict','When I looked out of the window, it had stopped snowing and the sun was shining.','c'],
+ '|',
+ ['text','It was a dark night. Snow ___ (fall). I ___ (walk) home when I ___ (hear) a strange noise. I suddenly realised I ___ (leave) my phone at work.','was falling;was walking;heard;had left|\'d left','a'],
+ ['errs',[['I opened the door, turned on the light and sat down.',''],['When I arrived, the party already finished.','When I arrived, the party had already finished.'],['I walked home when I saw her.','I was walking home when I saw her.'],['She was tired because she had been working all day.',''],['When I got home, I realised I lost my keys.','When I got home, I realised I had lost my keys.']],'c']],
  fw:{ru:"Расскажи короткую историю из жизни (6–8 предложений): что происходило вокруг, что случилось, что было до этого. Используй хотя бы три разных прошедших времени.",en:"Tell a short story from your life (6–8 sentences): what was going on, what happened, what had happened before. Use at least three different past tenses."}}
 ]},
 {lv:'b',ru:'Условия и косвенная речь',en:'Conditions and reporting',units:[
@@ -3599,7 +3723,10 @@ const SECTIONS=[
  ['tr','Если бы я был тобой, я бы ему позвонил.','If I were you, I would call him.|If I were you, I\'d call him.|If I was you, I would call him.|If I were you, I would phone him.|If I were you, I\'d phone him.|If I was you, I would phone him.|I would call him if I were you.','c'],
  ['tr','Что бы ты сделал, если бы потерял телефон?','What would you do if you lost your phone?|If you lost your phone, what would you do?','a'],
  ['tr','Если бы у меня было больше времени, я бы больше читал.','If I had more time, I would read more.|If I had more time, I\'d read more.|I would read more if I had more time.|I\'d read more if I had more time.','a'],
- ['dict','We would be very happy if you came to our wedding.','b']],
+ ['dict','We would be very happy if you came to our wedding.','b'],
+ '|',
+ ['text','If I ___ (have) more money, I ___ (buy) a house by the sea. If I ___ (be) you, I ___ (not / take) that job.','had;would buy|\'d buy;were|was;wouldn\'t take|would not take','a'],
+ ['errs',[['If I won the lottery, I would travel.',''],['If I would have a car, I would drive to work.','If I had a car, I would drive to work.'],['If I was rich, I will buy a boat.','If I was rich, I would buy a boat.'],['What would you do if you lost your job?',''],['If I were you, I would call her.','']],'b']],
  fw:{ru:"Представь, что у тебя есть год свободного времени и неограниченные деньги. Что бы ты сделал? 5–6 предложений с if и would.",en:"Imagine you had a free year and unlimited money. What would you do? 5–6 sentences with if and would."}},
 
 {id:'reported',ru:'Косвенная речь: он сказал, что…',en:'Reported speech: he said that…',
@@ -3687,7 +3814,10 @@ const SECTIONS=[
  ['tr','Он сказал мне, что устал.','He told me that he was tired.|He told me he was tired.','b'],
  ['tr','Она спросила, есть ли у меня машина.','She asked if I had a car.|She asked whether I had a car.|She asked me if I had a car.|She asked me whether I had a car.','d'],
  ['tr','Они сказали, что уже поели.','They said they had already eaten.|They said that they had already eaten.|They said they\'d already eaten.|They said that they had eaten already.|They said they had already had lunch.|They said they had eaten already.','a'],
- ['dict','She asked me what time the film started.','d']],
+ ['dict','She asked me what time the film started.','d'],
+ '|',
+ ['text','"I\'m tired," she said. → She said she ___ tired. "I will call you." → He said he ___ call me. "Where do you live?" → He asked me where I ___. "Are you ready?" → She asked ___ I was ready.','was;would;lived;if|whether','a'],
+ ['errs',[['She told me she was busy.',''],['He said me that he was tired.','He told me that he was tired.'],['She asked where did I live.','She asked where I lived.'],['He said he would be late.',''],['She asked me do I want tea.','She asked me if I wanted tea.']],'b']],
  fw:{ru:"Вспомни недавний разговор и перескажи его: кто что сказал и кто что спросил. 5–6 предложений с said, told, asked.",en:"Think of a recent conversation and report it: who said what and who asked what. 5–6 sentences with said, told, asked."}},
 
 {id:'if3',ru:'Нереальное прошлое: если бы тогда',en:'Third conditional: If I had known…',
@@ -3768,7 +3898,10 @@ const SECTIONS=[
  ['tr','Если бы ты меня попросил, я бы помог.','If you had asked me, I would have helped.|If you had asked me, I would have helped you.|If you\'d asked me, I would have helped.|If you\'d asked me, I would have helped you.|I would have helped if you had asked me.|I would have helped you if you had asked me.','a'],
  ['tr','Если бы я не опоздал, я бы увидел начало фильма.','If I had not been late, I would have seen the beginning of the film.|If I hadn\'t been late, I would have seen the beginning of the film.|If I hadn\'t been late, I would have seen the start of the film.|If I had not been late, I would have seen the start of the film.|If I hadn\'t been late, I\'d have seen the beginning of the film.|If I hadn\'t been late, I would have seen the beginning of the movie.','a'],
  ['dict','If it had not rained, we would have had a picnic.','a'],
- ['dict','She might have stayed longer if we had asked her.','c']],
+ ['dict','She might have stayed longer if we had asked her.','c'],
+ '|',
+ ['text','If I ___ (know) about the party, I ___ (come). We ___ (not / miss) the train if we ___ (leave) earlier.','had known|\'d known;would have come;wouldn\'t have missed|would not have missed;had left|\'d left','a'],
+ ['errs',[['If you had asked me, I would have helped.',''],['If I would have known, I would have helped.','If I had known, I would have helped.'],['If she had studied, she would pass the exam last week.','If she had studied, she would have passed the exam last week.'],['We could have won if we had played better.',''],['If I had knew, I would have called.','If I had known, I would have called.']],'b']],
  fw:{ru:"Вспомни три решения из прошлого и напиши, что было бы, если бы ты поступил иначе. Потом одно предложение о том, что ты мог бы сделать, но не сделал (could have). 5–6 предложений.",en:"Think of three past decisions and write what would have happened if you had acted differently. Then one sentence about something you could have done but did not. 5–6 sentences."}},
 
 {id:'wish',ru:'Сожаления: I wish, should have',en:'I wish, should have done',
@@ -3846,7 +3979,10 @@ const SECTIONS=[
  ['tr','Тебе не надо было ему говорить.','You should not have told him.|You shouldn\'t have told him.|You shouldn\'t have told him that.','c'],
  ['tr','Жаль, что сейчас не лето.','I wish it were summer now.|I wish it was summer now.|I wish it were summer.|I wish it was summer.','a'],
  ['tr','Жаль, что я не купил билеты раньше.','I wish I had bought the tickets earlier.|I wish I\'d bought the tickets earlier.|I wish I had bought tickets earlier.|I wish I had bought the tickets before.|I wish I had bought the tickets in advance.','b'],
- ['dict','I wish I had learned to play an instrument when I was young.','b']],
+ ['dict','I wish I had learned to play an instrument when I was young.','b'],
+ '|',
+ ['text','I wish I ___ (have) more free time. I wish I ___ (not / say) that yesterday. You ___ (should) told me earlier. I wish it ___ (stop) raining!','had;hadn\'t said|had not said;should have;would stop','a'],
+ ['errs',[['I wish I could swim.',''],['I wish I have more money.','I wish I had more money.'],['I wish I went to the party last night.','I wish I had gone to the party last night.'],['You should have told me.',''],['You should told me earlier.','You should have told me earlier.']],'a']],
  fw:{ru:"Напиши о трёх вещах, которые ты хотел бы изменить сейчас (I wish I had…), о двух — в прошлом (I wish I had done… / I should have…) и об одной привычке другого человека (I wish he would…).",en:"Write about three things you would change now (I wish I had…), two in the past (I wish I had done… / I should have…) and one habit of another person (I wish he would…)."}},
 
 {id:'indq',ru:'Вежливые вопросы: Could you tell me…?',en:'Indirect questions',
@@ -3925,7 +4061,10 @@ const SECTIONS=[
  ['tr','Я не знаю, где он живёт.','I do not know where he lives.|I don\'t know where he lives.','a'],
  ['tr','Интересно, почему она не позвонила.','I wonder why she did not call.|I wonder why she didn\'t call.|I wonder why she hasn\'t called.|I wonder why she didn\'t phone.|I wonder why she has not called.|I wonder why she hasn\'t phoned.|I wonder why she didn\'t ring.','b'],
  ['tr','Вы не скажете, сколько стоит билет?','Could you tell me how much the ticket costs?|Could you tell me how much the ticket is?|Can you tell me how much the ticket costs?|Can you tell me how much the ticket is?|Could you tell me how much a ticket costs?|Could you tell me how much a ticket is?|Can you tell me how much a ticket costs?|Can you tell me how much a ticket is?','b'],
- ['dict','Excuse me, could you tell me where I can buy a ticket?','a']],
+ ['dict','Excuse me, could you tell me where I can buy a ticket?','a'],
+ '|',
+ ['text','Excuse me, could you tell me where the station ___? Do you know what time the shop ___ (close)? I wonder ___ he will come. I don\'t know where he ___ (go) yesterday.','is;closes;if|whether;went','a'],
+ ['errs',[['Do you know where she lives?',''],['Could you tell me where is the bank?','Could you tell me where the bank is?'],['Do you know what does this word mean?','Do you know what this word means?'],['I wonder if he is at home.',''],['I don\'t know where did he go.','I don\'t know where he went.']],'a']],
  fw:{ru:"Ты в незнакомом городе. Напиши 6 вежливых вопросов прохожему, в кассе и в гостинице: где что находится, когда открывается, сколько стоит, есть ли поблизости аптека.",en:"You are in an unfamiliar city. Write 6 polite questions for a passer-by, a ticket office and a hotel: where things are, when they open, how much they cost, whether there is a pharmacy nearby."}}
 ]},
 {ru:'Дополнительные темы',en:'More practice',units:[
@@ -4002,7 +4141,10 @@ const SECTIONS=[
  ['tr','Давай не будем спорить.','Let\'s not argue.|Let us not argue.','c'],
  ['tr','Подожди меня здесь.','Wait for me here.|Wait here for me.','a'],
  ['dict','Don\'t be late for the lesson tomorrow.','b'],
- ['tr','Не открывай дверь.','Don\'t open the door.|Do not open the door.','b']],
+ ['tr','Не открывай дверь.','Don\'t open the door.|Do not open the door.','b'],
+ '|',
+ ['text','___ the window, please. (open) ___ late tomorrow! (not / be) It\'s a nice day. ___ go for a walk. (давай) ___ worry about it. (not)','Open;Don\'t be|Do not be;Let\'s;Don\'t|Do not','a'],
+ ['errs',[['Please sit down.',''],['Let\'s to go home.','Let\'s go home.'],['Not open the door!','Don\'t open the door!'],['Don\'t worry!',''],['You open the window, please.','Open the window, please.']],'b']],
  fw:{ru:"Напиши 5 коротких инструкций для гостя у тебя дома (что делать и чего не делать) и 2 предложения с let's.",en:"Write 5 short instructions for a guest in your home (what to do and what not to do) and 2 suggestions with let's."}},
 
 {id:'tooenough',ru:'Слишком и достаточно',en:'too and enough',
@@ -4083,7 +4225,10 @@ const SECTIONS=[
  ['tr','Здесь слишком много людей.','There are too many people here.','d'],
  ['tr','Комната достаточно большая для нас.','The room is big enough for us.|The room is large enough for us.|This room is big enough for us.','b'],
  ['dict','He did not study enough, so he failed the exam.','c'],
- ['gap','The bus was ___ full, so we walked.','too','a']],
+ ['gap','The bus was ___ full, so we walked.','too','a'],
+ '|',
+ ['text','This coffee is ___ hot. I can\'t drink it. We don\'t have ___ time. He isn\'t old ___ to drive. There are too ___ people here.','too;enough;enough;many','a'],
+ ['errs',[['The room is big enough.',''],['The room is enough big.','The room is big enough.'],['I have too much friends.','I have too many friends.'],['It\'s too late to call him.',''],['We haven\'t enough of money.','We haven\'t got enough money.']],'b']],
  fw:{ru:"Опиши место, которое тебе не нравится (город, квартиру, кафе): чего там слишком много и чего недостаточно. 5 предложений.",en:"Describe a place you don't like (a city, a flat, a café): what there is too much of and what there isn't enough of. 5 sentences."}},
 
 {id:'afew',ru:'Несколько и немного',en:'a few and a little',
@@ -4159,7 +4304,10 @@ const SECTIONS=[
  ['tr','Я немного говорю по-немецки.','I speak a little German.|I speak German a little.|I can speak a little German.','b'],
  ['tr','Он вернётся через несколько минут.','He will be back in a few minutes.|He\'ll be back in a few minutes.|He will come back in a few minutes.|He\'ll come back in a few minutes.|He will return in a few minutes.','a'],
  ['dict','There was little food at the party, but a few people brought cakes.','c'],
- ['gap','I have ___ free time this week. I\'m very busy.','little|very little','c']],
+ ['gap','I have ___ free time this week. I\'m very busy.','little|very little','c'],
+ '|',
+ ['text','I have ___ questions. Can I have ___ milk in my coffee? He has very ___ friends, so he is lonely. There is very ___ time left.','a few;a little;few;little','a'],
+ ['errs',[['I bought a few apples.',''],['There are a few milk.','There is a little milk.'],['I am a few tired.','I am a little tired.'],['Wait a few minutes.',''],['I have a little friends.','I have a few friends.']],'a']],
  fw:{ru:"Напиши 5 предложений о том, чего у тебя немного: несколько друзей, немного свободного времени, несколько планов на выходные.",en:"Write 5 sentences about things you have a small amount of: a few friends, a little free time, a few plans for the weekend."}},
 
 {id:'irr',ru:'Неправильные глаголы: три формы',en:'Irregular verbs: three forms',
@@ -4241,7 +4389,10 @@ const SECTIONS=[
  ['tr','Мы уже выпили весь сок.','We have already drunk all the juice.|We\'ve already drunk all the juice.|We already drank all the juice.|We have drunk all the juice already.','b'],
  ['dict','I have never ridden a horse but I have flown a plane.','b'],
  ['dict','She found her keys and left the house.','a'],
- ['gap','She has ___ a new song. (write)','written','b']],
+ ['gap','She has ___ a new song. (write)','written','b'],
+ '|',
+ ['text','Yesterday I ___ (see) an old friend. We ___ (drink) coffee and ___ (speak) for hours. I have never ___ (forget) her.','saw;drank;spoke;forgotten','a'],
+ ['errs',[['She gave me a present.',''],['I have ate all the cake.','I have eaten all the cake.'],['He teached me to swim.','He taught me to swim.'],['We bought a new car.',''],['She didn\'t came.','She didn\'t come.']],'a']],
  fw:{ru:"Выбери пять глаголов из таблицы и напиши с каждым два предложения: одно во вчерашнем дне (вторая форма), одно с have (третья форма).",en:"Pick five verbs from the table and write two sentences with each: one about yesterday (past form) and one with have (participle)."}}
 ]},
 {ru:'Слова и конструкции',en:'Words and structures',units:[
@@ -4321,7 +4472,10 @@ const SECTIONS=[
  ['tr','Я познакомился с ней в прошлом году. Мы часто видим друг друга.','I met her last year. We often see each other.|I met her last year. We see each other often.|I met her last year and we often see each other.','b'],
  ['tr','Они сами покрасили дом.','They painted the house themselves.|They painted the house by themselves.|They painted the house on their own.','a'],
  ['dict','My grandmother lives on her own, but we visit her every week.','c'],
- ['gap','Help ___ to some tea. (вы, несколько человек)','yourselves','a']],
+ ['gap','Help ___ to some tea. (вы, несколько человек)','yourselves','a'],
+ '|',
+ ['text','I painted the room ___ . My kids dressed ___ this morning. Tom and Anna love each ___ . My grandmother lives on her ___ .','myself;themselves;other;own','a'],
+ ['errs',[['I hurt myself.',''],['I feel myself bad.','I feel bad.'],['They love themselves. (друг друга)','They love each other.'],['She did it by herself.',''],['He did it by his own.','He did it on his own.']],'a']],
  fw:{ru:"Напиши 5–6 предложений: что ты сделал сам (myself), с кем вы помогаете друг другу (each other), что любишь делать один (on my own).",en:"Write 5–6 sentences: something you did yourself, people who help each other, something you like doing on your own."}},
 
 {id:'indef',ru:'Кто-то, что-то, никто, нигде: somebody, anything, nobody',en:'somebody / anything / nobody / nowhere',
@@ -4400,7 +4554,10 @@ const SECTIONS=[
  ['tr','Я хочу поехать куда-нибудь летом.','I want to go somewhere in summer.|I want to go somewhere in the summer.|I want to go somewhere this summer.|In summer I want to go somewhere.|I would like to go somewhere in summer.','a'],
  ['tr','Он никогда никому не помогает.','He never helps anybody.|He never helps anyone.|He never helps people.','b'],
  ['dict','Everybody was tired, so nobody wanted to go anywhere.','c'],
- ['gap','I can\'t find my glasses ___. (нигде)','anywhere','a']],
+ ['gap','I can\'t find my glasses ___. (нигде)','anywhere','a'],
+ '|',
+ ['text','There\'s ___ at the door. (кто-то) I didn\'t hear ___ . (ничего) ___ came to the party — it was empty. (никто) Let\'s go ___ warm. (куда-то)','somebody|someone;anything;Nobody|No one;somewhere','a'],
+ ['errs',[['Everybody is here.',''],['I didn\'t see nobody.','I didn\'t see anybody.'],['Everybody are happy.','Everybody is happy.'],['Is there anything to eat?',''],['I want new something.','I want something new.']],'b']],
  fw:{ru:"Опиши свои выходные, используя хотя бы шесть слов темы: something, anything, nothing, somebody, nobody, everywhere, somewhere else…",en:"Describe your weekend using at least six words from this topic."}},
 
 {id:'one',ru:'Этот, другой: one и ones',en:'one / ones',
@@ -4483,7 +4640,10 @@ const SECTIONS=[
  ['tr','Я не нашёл свои ключи, поэтому взял запасные.','I could not find my keys, so I took the spare ones.|I couldn\'t find my keys, so I took the spare ones.|I didn\'t find my keys, so I took the spare ones.|I couldn\'t find my keys, so I took the spare ones.|I couldn\'t find my keys so I took the spare ones.','a'],
  ['tr','Этот дороже того.','This one is more expensive than that one.|This one is dearer than that one.','b'],
  ['dict','Which ones are cheaper, the black boots or the brown ones?','b'],
- ['gap','"Which cup is mine?" — "The ___ with the cat on it."','one','a']],
+ ['gap','"Which cup is mine?" — "The ___ with the cat on it."','one','a'],
+ '|',
+ ['text','My phone is old. I need a new ___ . These shoes are small. Do you have bigger ___ ? "Which car is yours?" — "The red ___ ."','one;ones;one','a'],
+ ['errs',[['I don\'t like this one.',''],['Do you have a one?','Do you have one?'],['These are the ones I like.',''],['I need new one. (обувь)','I need new ones.'],['Which one do you want?','']],'c']],
  fw:{ru:"Представь, что ты в магазине одежды. Напиши диалог из 6 реплик с продавцом, используя one / ones: Which one? The blue one. Do you have bigger ones?",en:"Imagine you are in a clothes shop. Write a 6-line dialogue with the shop assistant using one / ones."}},
 
 {id:'prepmov',ru:'Где и куда: under, behind, into, through, across',en:'Prepositions of place and movement',
@@ -4582,7 +4742,10 @@ const SECTIONS=[
  ['tr','Мы шли вдоль реки.','We walked along the river.|We were walking along the river.|We went along the river.','b'],
  ['tr','Он спустился по лестнице.','He went down the stairs.|He came down the stairs.|He walked down the stairs.|He ran down the stairs.|He went downstairs.|He came downstairs.','b'],
  ['dict','Turn left, go past the cinema and walk across the square.','b'],
- ['gap','The bank is ___ the café and the cinema. (между)','between','a']],
+ ['gap','The bank is ___ the café and the cinema. (между)','between','a'],
+ '|',
+ ['text','Go ___ the bank, then walk ___ the road. The café is ___ the station. (напротив) Go ___ and sit down. (внутрь)','past;across;opposite;in|inside','a'],
+ ['errs',[['The cat is under the bed.',''],['She jumped into the pool.',''],['He went in the shop. (зашёл)','He went into the shop.'],['We walked along the river.',''],['The shop is in front the bank.','The shop is in front of the bank.']],'c']],
  fw:{ru:"Опиши дорогу от твоего дома до работы или магазина: куда идёшь, мимо чего, через что, что напротив и рядом. 6 предложений.",en:"Describe the way from your home to work or a shop: where you go, what you pass, what you cross, what is opposite and next to it. 6 sentences."}},
 
 {id:'wordord',ru:'Порядок слов: где ставить слова',en:'Word order',
@@ -4661,7 +4824,10 @@ const SECTIONS=[
  ['tr','Он всегда приходит вовремя.','He always comes on time.|He always arrives on time.|He is always on time.','c'],
  ['tr','Мама купила мне куртку.','Mum bought me a jacket.|My mum bought me a jacket.|My mother bought me a jacket.|Mum bought a jacket for me.|My mum bought a jacket for me.|My mom bought me a jacket.|My mom bought a jacket for me.|Mom bought me a jacket.','d'],
  ['dict','I left my bag on the bus this morning.','b'],
- ['build','Я никогда не был в Лондоне.','I have never been to London.','c',['never have']]],
+ ['build','Я никогда не был в Лондоне.','I have never been to London.','c',['never have']],
+ '|',
+ ['errs',[['I always drink coffee in the morning.',''],['I like very much music.','I like music very much.'],['Give me it.','Give it to me.'],['She speaks English well.',''],['We go every summer to the sea.','We go to the sea every summer.']],'a'],
+ ['text','I ___ go to bed late. (never) She ___ tired after work. (always) Can you give it ___ me? I bought ___ some flowers. (мама)','never;is always;to;my mum|my mother|my mom','c']],
  fw:{ru:"Напиши 6 предложений о своём обычном дне, где есть always / usually / never и где ты что-то кому-то даёшь или показываешь (give, send, show).",en:"Write 6 sentences about your usual day with always / usually / never, and with giving or showing something to someone."}},
 
 {id:'conj',ru:'Связки: and, but, or, so, because, before, after',en:'and, but, or, so, because, when, before, after',
@@ -4748,7 +4914,10 @@ const SECTIONS=[
  ['tr','Перед сном я читаю.','Before going to bed, I read.|I read before going to bed.|I read before I go to bed.|Before I go to bed, I read.|I read before bed.|Before bed I read.|I read before sleeping.','d'],
  ['tr','Я позвоню тебе после работы.','I will call you after work.|I\'ll call you after work.|I will phone you after work.|I\'ll phone you after work.|I\'ll ring you after work.','c'],
  ['dict','We stayed at the beach until the sun went down.','c'],
- ['gap','Close the door ___ you go out. (когда)','when','c']],
+ ['gap','Close the door ___ you go out. (когда)','when','c'],
+ '|',
+ ['text','It was raining, ___ we stayed at home. I like tea ___ coffee. He is rich ___ unhappy. I went to bed early ___ I was tired.','so;and;but;because','b'],
+ ['errs',[['I was tired, so I went to bed.',''],['I was tired, because I went to bed.','I was tired, so I went to bed.'],['Call me when you will arrive.','Call me when you arrive.'],['Wash your hands before you eat.',''],['After to eat, I sleep.','After eating, I sleep.']],'b']],
  fw:{ru:"Расскажи о вчерашнем дне в 6 предложениях, используя and, but, so, because, before, after и until.",en:"Tell me about yesterday in 6 sentences using and, but, so, because, before, after and until."}},
 
 {id:'q2',ru:'Вопросы: Who saw you? Who did you see? What is it like?',en:'Questions: subject and object, prepositions at the end',
@@ -4827,7 +4996,10 @@ const SECTIONS=[
  ['tr','Сколько времени занимает дорога до работы?','How long does it take to get to work?|How long does it take you to get to work?|How long does the way to work take?|How long is the journey to work?','d'],
  ['tr','Кто живёт в этой квартире?','Who lives in this flat?|Who lives in this apartment?','a'],
  ['dict','What are you looking at? Who is that man?','c'],
- ['gap','Who ___ this picture? (paint, past)','painted','a']],
+ ['gap','Who ___ this picture? (paint, past)','painted','a'],
+ '|',
+ ['text','"Who ___ (call) you?" — "Tom." — "Who ___ (you / call)?" — "My mum." — "What are you looking ___?" — "This photo."','called;did you call;at','a'],
+ ['errs',[['Who lives here?',''],['Who did call you?','Who called you?'],['What did happen?','What happened?'],['Who are you talking to?',''],['How is she like?','What is she like?']],'a']],
  fw:{ru:"Напиши 6 вопросов новому коллеге: два к подлежащему (Who…?), два с предлогом в конце, один What is … like? и один How long does it take…?",en:"Write 6 questions for a new colleague: two subject questions, two with a preposition at the end, one What is … like? and one How long does it take…?"}},
 
 {id:'verbs',ru:'Глаголы-помощники: get, do, make, have, go',en:'get, do / make, have, go',
@@ -4908,7 +5080,10 @@ const SECTIONS=[
  ['tr','Становится холодно.','It is getting cold.|It\'s getting cold.|It is getting colder.|It\'s getting colder.','a'],
  ['tr','Давай прогуляемся.','Let\'s go for a walk.|Let us go for a walk.|Let\'s take a walk.|Let\'s have a walk.','d'],
  ['dict','After work I usually go to the gym, then I get home and make dinner.','d'],
- ['gap','I always ___ my best at work.','do','b']],
+ ['gap','I always ___ my best at work.','do','b'],
+ '|',
+ ['text','I ___ a mistake at work. Tonight I need to ___ the shopping. Let\'s ___ for a walk. It\'s ___ dark.','made;do;go;getting','b'],
+ ['errs',[['I did my homework.',''],['I made my homework.','I did my homework.'],['Let\'s go to shopping.','Let\'s go shopping.'],['We had a great time.',''],['I am having a car.','I have a car.']],'b']],
  fw:{ru:"Опиши свои выходные, используя хотя бы восемь сочетаний с get, do, make, have и go.",en:"Describe your weekend using at least eight phrases with get, do, make, have and go."}}
 ]},
 {lv:'b',ru:'Модальные глаголы и пассив',en:'Modals and passive',units:[
@@ -4986,7 +5161,10 @@ const SECTIONS=[
  ['fix','They can\'t have went home already.',"They can't have gone home already.",'d'],
  ['tr','Возможно, я ошибаюсь.','I might be wrong.|I may be wrong.|I could be wrong.|Maybe I am wrong.|Maybe I\'m wrong.|Perhaps I am wrong.|Perhaps I\'m wrong.','c'],
  ['tr','Ты, должно быть, голоден.','You must be hungry.','a'],
- ['dict','She might have missed the train, or she might be stuck in traffic.','d']],
+ ['dict','She might have missed the train, or she might be stuck in traffic.','d'],
+ '|',
+ ['text','You\'ve been working all day. You ___ be tired. That ___ be Tom — he\'s in Paris this week. I\'m not sure where Anna is. She ___ be at the gym. The ground is wet. It ___ have rained.','must;can\'t|cannot;might|may|could;must','a'],
+ ['errs',[['He must be at home. The lights are on.',''],['She mustn\'t be his sister. They look different.','She can\'t be his sister. They look different.'],['She must be tired yesterday.','She must have been tired yesterday.'],['It might rain later.',''],['He can\'t have went home.','He can\'t have gone home.']],'b']],
  fw:{ru:"Посмотри вокруг или вспомни знакомого, которого давно не видел. Напиши 5 догадок: что сейчас происходит (must be, might be, can't be) и что могло случиться раньше (must have, might have).",en:"Look around you, or think of a friend you have not seen for a long time. Write 5 guesses: what is happening now (must be, might be, can't be) and what may have happened earlier (must have, might have)."}},
 
 {id:'pass2',ru:'Пассив в других временах',en:'Passive: has been done, is being done',
@@ -5066,7 +5244,10 @@ const SECTIONS=[
  ['fix','My bike has been stole.','My bike has been stolen.','a'],
  ['tr','Этот фильм будут показывать завтра.','This film will be shown tomorrow.|The film will be shown tomorrow.|This movie will be shown tomorrow.|The movie will be shown tomorrow.','c'],
  ['tr','Нашу улицу сейчас ремонтируют.','Our street is being repaired now.|Our street is being repaired at the moment.|Our street is being repaired.|Our street is now being repaired.|Our street is being repaired right now.','b'],
- ['dict','All the tickets have been sold and the concert will be filmed.','a']],
+ ['dict','All the tickets have been sold and the concert will be filmed.','a'],
+ '|',
+ ['text','Our street ___ (repair) at the moment. The new school ___ (open) next year. My car ___ (steal)! The results ___ (announce) tomorrow.','is being repaired;will be opened|will open;has been stolen|\'s been stolen;will be announced','a'],
+ ['errs',[['The work has already been done.',''],['The report has already sent.','The report has already been sent.'],['The road is repairing now.','The road is being repaired now.'],['This can be done online.',''],['The film will showed tonight.','The film will be shown tonight.']],'a']],
  fw:{ru:"Опиши, что изменилось в твоём городе или на работе: что уже сделано (has been built), что делают сейчас (is being repaired) и что будет сделано (will be opened). 5–6 предложений.",en:"Describe changes in your town or at work: what has been done, what is being done now and what will be done. 5–6 sentences."}},
 
 {id:'able',ru:'Смог, удалось, разрешено',en:'could, was able to, managed to, be allowed to',
@@ -5145,7 +5326,10 @@ const SECTIONS=[
  ['fix','I haven\'t could sleep well.',"I haven't been able to sleep well.",'c'],
  ['tr','Я не смог найти работу.','I could not find a job.|I couldn\'t find a job.|I wasn\'t able to find a job.|I was not able to find a job.|I didn\'t manage to find a job.','b'],
  ['tr','Здесь нельзя парковаться.','You are not allowed to park here.|You aren\'t allowed to park here.|Parking is not allowed here.|You can\'t park here.|You cannot park here.|You mustn\'t park here.|You must not park here.','d'],
- ['dict','I was able to get two tickets for the concert.','b']],
+ ['dict','I was able to get two tickets for the concert.','b'],
+ '|',
+ ['text','When I was five, I ___ swim. The test was hard, but I ___ to pass it. I hope I\'ll be ___ to come tomorrow. Visitors aren\'t ___ to take photos.','could;managed|was able;able;allowed','a'],
+ ['errs',[['I managed to find a parking space.',''],['I will can help you tomorrow.','I will be able to help you tomorrow.'],['The exam was hard, but I could pass it.','The exam was hard, but I managed to pass it.'],['Children are not allowed to come in.',''],['I haven\'t could sleep well.','I haven\'t been able to sleep well.']],'b']],
  fw:{ru:"Напиши, что ты умел в детстве (could), что тебе однажды удалось сделать, хотя было трудно (managed to), что тебе не разрешали (wasn't allowed to) и что ты сможешь делать через год (will be able to). 6 предложений.",en:"Write what you could do as a child, something difficult you once managed to do, something you were not allowed to do, and what you will be able to do in a year. 6 sentences."}},
 
 {id:'causative',ru:'Мне сделали: have something done',en:'have something done',
@@ -5224,7 +5408,10 @@ const SECTIONS=[
  ['fix','She has her nails doing every Friday.','She has her nails done every Friday.','a'],
  ['tr','Нам доставили мебель вчера.','We had the furniture delivered yesterday.|We had our furniture delivered yesterday.|We got the furniture delivered yesterday.|The furniture was delivered yesterday.|Our furniture was delivered yesterday.|We got our furniture delivered yesterday.|Yesterday we had the furniture delivered.','a'],
  ['tr','Ты где стрижёшься?','Where do you have your hair cut?|Where do you get your hair cut?|Where do you get a haircut?|Where do you get your hair done?','b'],
- ['dict','We are having our house painted, so we are staying with my parents.','b']],
+ ['dict','We are having our house painted, so we are staying with my parents.','b'],
+ '|',
+ ['text','I don\'t cut my own hair. I ___ it cut every month. Yesterday I had my car ___ (repair). Next week we\'re going to have the kitchen ___ (paint). Where do you get your nails ___ (do)?','have|get;repaired;painted;done','a'],
+ ['errs',[['I had my hair cut yesterday.',''],['I had repaired my car at the garage.','I had my car repaired at the garage.'],['She had her hair cutted.','She had her hair cut.'],['We\'re having the house painted.',''],['Do you had your car fixed?','Did you have your car fixed?']],'a']],
  fw:{ru:"Напиши 5–6 предложений об услугах: где и как часто ты стрижёшься, что тебе недавно починили, что нужно отдать в ремонт, что ты делаешь сам, а что доверяешь мастерам.",en:"Write 5–6 sentences about services: where and how often you have your hair cut, what you have had repaired recently, what needs fixing, what you do yourself and what you have done by professionals."}}
 ]},
 {lv:'b',ru:'Придаточные и глагольные конструкции',en:'Clauses and verb patterns',units:[
@@ -5309,7 +5496,10 @@ const SECTIONS=[
  ['fix','The man lives next door is a pilot.','The man who lives next door is a pilot.|The man that lives next door is a pilot.','c'],
  ['fix','I know a boy who his father is a pilot.','I know a boy whose father is a pilot.','b'],
  ['tr','Книга, которую ты мне дал, очень интересная.','The book you gave me is very interesting.|The book that you gave me is very interesting.|The book which you gave me is very interesting.','c'],
- ['dict','The woman who lives upstairs has a dog that barks all night.','a']],
+ ['dict','The woman who lives upstairs has a dog that barks all night.','a'],
+ '|',
+ ['text','The woman ___ lives next door is a doctor. This is the phone ___ I bought last week. That\'s the café ___ we first met. I have a friend ___ father is a pilot.','who|that;that|which;where;whose','a'],
+ ['errs',[['The man who called you is my uncle.',''],['The man who he lives here is a teacher.','The man who lives here is a teacher.'],['This is the book which I bought it.','This is the book which I bought.'],['That\'s the hotel where we stayed.',''],['I know a woman which works in a bank.','I know a woman who works in a bank.']],'d']],
  fw:{ru:"Опиши пять людей, мест или вещей из своей жизни, не называя их прямо: «Это человек, который…», «Это место, где…», «Это вещь, которую…».",en:"Describe five people, places or things from your life without naming them: This is a person who…, This is the place where…, This is a thing which…"}},
 
 {id:'ginf',ru:'Инфинитив и -ing: трудные случаи',en:'to do and doing in depth',
@@ -5392,7 +5582,10 @@ const SECTIONS=[
  ['fix','I will never forget to meet you that day.','I will never forget meeting you that day.','b'],
  ['tr','Мы остановились, чтобы купить бензин.','We stopped to buy petrol.|We stopped to get petrol.|We stopped to buy gas.|We stopped to get gas.|We stopped to buy fuel.','b'],
  ['tr','Он ушёл, не сказав ни слова.','He left without saying a word.|He left without saying anything.|He went away without saying a word.|He went out without saying a word.|He left without a word.','a'],
- ['dict','My mother asked me to help her, so I stopped reading.','c']],
+ ['dict','My mother asked me to help her, so I stopped reading.','c'],
+ '|',
+ ['text','Remember ___ (lock) the door. I\'ll never forget ___ (see) the sea for the first time. We stopped ___ (buy) some water. I want you ___ (tell) me the truth.','to lock;seeing;to buy;to tell','b'],
+ ['errs',[['He left without saying goodbye.',''],['She made me to wait.','She made me wait.'],['I want that you help me.','I want you to help me.'],['I\'m looking forward to seeing you.',''],['He is good at to play chess.','He is good at playing chess.']],'a']],
  fw:{ru:"Напиши 6 предложений о себе: что ты бросил делать, что тебя заставляли делать в детстве, чего ты ждёшь с нетерпением, о чём тебя недавно просили и что ты никогда не забудешь.",en:"Write 6 sentences about yourself: something you stopped doing, something you were made to do as a child, something you are looking forward to, something you were asked to do recently, and something you will never forget doing."}},
 
 {id:'link',ru:'Связки: хотя, несмотря на, из-за, однако',en:'although, despite, because of, however',
@@ -5467,7 +5660,10 @@ const SECTIONS=[
  ['fix','I was hungry, despite I didn\'t eat.',"I was hungry, but I didn't eat.|I was hungry. However, I didn't eat.|Although I was hungry, I didn't eat.|Despite being hungry, I didn't eat.|In spite of being hungry, I didn't eat.",'b'],
  ['tr','Несмотря на дождь, матч продолжился.','Despite the rain, the match continued.|In spite of the rain, the match continued.|Despite the rain, the game continued.|In spite of the rain, the game continued.|Despite the rain, the match went on.|The match continued despite the rain.|The match continued in spite of the rain.','b'],
  ['tr','Он богатый, однако не счастлив.','He is rich. However, he is not happy.|He is rich; however, he is not happy.|He is rich, however he is not happy.|He is rich. However, he isn\'t happy.|He\'s rich. However, he isn\'t happy.|He is rich, but he is not happy.|He is rich but he isn\'t happy.','d'],
- ['dict','Although the hotel was cheap, the rooms were clean and comfortable.','a']],
+ ['dict','Although the hotel was cheap, the rooms were clean and comfortable.','a'],
+ '|',
+ ['text','___ it was raining, we went for a walk. ___ the rain, we had a great time. The flight was cancelled ___ fog. The hotel was cheap. ___, it was clean.','Although|Though|Even though;Despite|In spite of;because of|due to;However','a'],
+ ['errs',[['Although he was tired, he kept working.',''],['Despite it was cold, we went swimming.','Although it was cold, we went swimming.'],['Because of it rained, we stayed in.','Because it rained, we stayed in.'],['In spite of the noise, I slept well.',''],['Although the rain, we had fun.','Despite the rain, we had fun.']],'b']],
  fw:{ru:"Напиши 6 предложений о прошлых выходных или отпуске, используя although, despite, because, because of, so и however по одному разу.",en:"Write 6 sentences about last weekend or a holiday, using although, despite, because, because of, so and however once each."}},
 
 {id:'sosuch',ru:'Так и такой: so, such',en:'so and such',
@@ -5548,7 +5744,10 @@ const SECTIONS=[
  ['fix','It was such cold that we stayed at home.','It was so cold that we stayed at home.','c'],
  ['tr','У нас было так мало времени.','We had so little time.|We had such little time.','d'],
  ['tr','Почему ты такой грустный?','Why are you so sad?','a'],
- ['tr','Было так шумно, что я не мог спать.','It was so noisy that I could not sleep.|It was so noisy that I couldn\'t sleep.|It was so noisy I couldn\'t sleep.|It was so loud that I couldn\'t sleep.|It was so noisy I could not sleep.','c']],
+ ['tr','Было так шумно, что я не мог спать.','It was so noisy that I could not sleep.|It was so noisy that I couldn\'t sleep.|It was so noisy I couldn\'t sleep.|It was so loud that I couldn\'t sleep.|It was so noisy I could not sleep.','c'],
+ '|',
+ ['text','The film was ___ good! She is ___ a nice person. It was ___ cold that we stayed at home. I have ___ much work today!','so;such;so;so','a'],
+ ['errs',[['It was such a hot day.',''],['It was so nice day.','It was such a nice day.'],['She is such kind.','She is so kind.'],['There were so many people.',''],['I was such tired that I slept all day.','I was so tired that I slept all day.']],'a']],
  fw:{ru:"Опиши самый яркий день прошлого года: какая была погода, какие люди, что ты чувствовал. Используй so и such не меньше шести раз, два раза — с that.",en:"Describe the most memorable day of last year: the weather, the people, how you felt. Use so and such at least six times, twice with that."}}
 ]},
 {lv:'b',ru:'Артикли и фразовые глаголы',en:'Articles and phrasal verbs',units:[
@@ -5638,7 +5837,10 @@ const SECTIONS=[
  ['fix','I go to the work by car.','I go to work by car.','c'],
  ['tr','Он живёт в Великобритании.','He lives in the United Kingdom.|He lives in the UK.|He lives in Great Britain.|He lives in Britain.','b'],
  ['tr','Мне нравятся книги, которые ты мне дал.','I like the books you gave me.|I like the books that you gave me.|I like the books which you gave me.','a'],
- ['dict','The Thames flows through London, but the Volga is much longer.','b']],
+ ['dict','The Thames flows through London, but the Volga is much longer.','b'],
+ '|',
+ ['text','Can you turn down ___ music? We sailed down ___ Volga last summer. Today the kids are at ___ museum. My daughter plays ___ violin.','the;the;the;the','a'],
+ ['errs',[['She plays the violin.',''],['I like the nature.','I like nature.'],['She went to the bed early.','She went to bed early.'],['The Volga is a long river.',''],['He lives in the Moscow.','He lives in Moscow.']],'a']],
  fw:{ru:"Напиши 6 предложений о географии: реки, моря, горы и страны, где ты был или хочешь побывать. Затем два предложения о том, что ты любишь вообще (музыку, кофе, природу).",en:"Write 6 sentences about geography: rivers, seas, mountains and countries you have visited or want to visit. Then two sentences about things you like in general (music, coffee, nature)."}},
 
 {id:'phr',ru:'Фразовые глаголы',en:'Phrasal verbs',
@@ -5742,7 +5944,10 @@ const SECTIONS=[
  ['fix','We have run out milk.','We have run out of milk.|We\'ve run out of milk.','d'],
  ['tr','Надень шапку, на улице холодно.','Put on your hat, it is cold outside.|Put your hat on, it is cold outside.|Put on your hat, it\'s cold outside.|Put your hat on, it\'s cold outside.|Put on a hat, it\'s cold outside.|Put on your hat. It\'s cold outside.|Put your hat on. It\'s cold outside.','c'],
  ['tr','Я узнал, что он уехал.','I found out that he had left.|I found out he had left.|I found out that he left.|I found out he left.|I found out that he had gone.|I found out he had gone.','a'],
- ['dict','I picked up my sister from school and then we went out for pizza.','b']],
+ ['dict','I picked up my sister from school and then we went out for pizza.','b'],
+ '|',
+ ['text','It\'s dark. Can you turn ___ the light? I\'m looking ___ my glasses. Please take ___ your shoes. I gave ___ smoking last year.','on;for;off;up','a'],
+ ['errs',[['Turn it off, please.',''],['I picked up it at the station.','I picked it up at the station.'],['She is looking her keys for.','She is looking for her keys.'],['We\'ve run out of milk.',''],['Take off them, please.','Take them off, please.']],'b']],
  fw:{ru:"Опиши своё утро и вечер, используя не меньше шести фразовых глаголов: wake up, get up, put on, turn on, turn off, take off, look for, pick up, come back.",en:"Describe your morning and evening using at least six phrasal verbs: wake up, get up, put on, turn on, turn off, take off, look for, pick up, come back."}}
 ]},
 {lv:'b',ru:'Вопросы и короткие ответы',en:'Questions and short answers',units:[
@@ -5820,7 +6025,10 @@ const SECTIONS=[
  ['fix','You aren\'t busy, aren\'t you?',"You aren't busy, are you?",'a'],
  ['tr','Ты ведь не видел мои ключи?','You have not seen my keys, have you?|You haven\'t seen my keys, have you?|You didn\'t see my keys, did you?|You did not see my keys, did you?','a'],
  ['tr','Он хорошо поёт, правда?','He sings well, doesn\'t he?|He sings well, does not he?|He is a good singer, isn\'t he?','b'],
- ['dict','You will call me tomorrow, won\'t you?','b']],
+ ['dict','You will call me tomorrow, won\'t you?','b'],
+ '|',
+ ['text','You\'re from Kazan, ___ you? She doesn\'t eat meat, ___ she? It was a great party, ___ it? Let\'s go, ___ we?','aren\'t;does;wasn\'t;shall','a'],
+ ['errs',[['You like coffee, don\'t you?',''],['She is a teacher, isn\'t it?','She is a teacher, isn\'t she?'],['He went home, wasn\'t he?','He went home, didn\'t he?'],['I\'m late, aren\'t I?',''],['You aren\'t busy, aren\'t you?','You aren\'t busy, are you?']],'b']],
  fw:{ru:"Напиши 6 реплик для разговора со знакомым, которого давно не видел: уточни то, что ты о нём помнишь, с помощью хвостиков (You live in…, don't you? You have not changed your job, have you?).",en:"Write 6 lines for a chat with someone you have not seen for a long time: check what you remember about them using tags (You live in…, don't you? You have not changed your job, have you?)."}},
 
 {id:'soneither',ru:'Я тоже: So do I, Neither do I',en:'So do I / Neither do I',
@@ -5902,7 +6110,10 @@ const SECTIONS=[
  ['fix','"I can swim." — "So do I."','"I can swim." — "So can I."','c'],
  ['tr','«Я не был в Париже». — «Я тоже».','"I have not been to Paris." — "Neither have I."|"I haven\'t been to Paris." — "Neither have I."|"I haven\'t been to Paris." — "Nor have I."|"I have not been to Paris." — "Nor have I."|"I haven\'t been to Paris." — "Me neither."|"I have never been to Paris." — "Neither have I."','b'],
  ['tr','«Я вчера смотрел матч». — «Я тоже».','"I watched the match yesterday." — "So did I."|"I watched the game yesterday." — "So did I."|"I watched the match yesterday." — "Me too."|"I watched the game yesterday." — "Me too."|"Yesterday I watched the match." — "So did I."','a'],
- ['dict','"I am not ready yet." — "Neither am I."','b']],
+ ['dict','"I am not ready yet." — "Neither am I."','b'],
+ '|',
+ ['text','"I\'m hungry." — "So ___ I." "I don\'t like rain." — "Neither ___ I." "I went to bed late." — "So ___ I." "I can\'t swim." — "Neither ___ I."','am;do;did;can','a'],
+ ['errs',[['"I love jazz." — "So do I."',''],['"I don\'t smoke." — "Neither don\'t I."','"I don\'t smoke." — "Neither do I."'],['"I was tired." — "So did I."','"I was tired." — "So was I."'],['"I can\'t cook." — "Neither can I."',''],['"I like tea." — "So I do."','"I like tea." — "So do I."']],'c']],
  fw:{ru:"Напиши 6 пар: утверждение о себе и ответ за друга или родственника (I get up early. — So does my wife. / I have never been to China. — Neither has my brother.). В двух парах пусть он не согласится.",en:"Write 6 pairs: a statement about yourself and a reply for a friend or relative (I get up early. — So does my wife. / I have never been to China. — Neither has my brother.). In two pairs let them disagree."}}
 ]},
 {lv:'b',ru:'Слова и сочетания',en:'Words and patterns',units:[
@@ -5985,7 +6196,10 @@ const SECTIONS=[
  ['fix','Most of people like summer.','Most people like summer.|Most of the people like summer.','c'],
  ['tr','Оба ответа правильные.','Both answers are correct.|Both answers are right.|Both of the answers are correct.|Both of the answers are right.|Both the answers are correct.','a'],
  ['tr','Каждый день я встаю в семь.','Every day I get up at seven.|I get up at seven every day.|Every day I get up at 7.|I get up at seven o\'clock every day.|Every day I get up at seven o\'clock.','d'],
- ['dict','Most of the guests left early, but both of my sisters stayed.','c']],
+ ['dict','Most of the guests left early, but both of my sisters stayed.','c'],
+ '|',
+ ['text','I have two brothers. ___ of them live in Kazan. We can meet on Monday or Tuesday — ___ day is fine. ___ of my parents speaks English. ___ student has a book.','Both;Either;Neither;Every|Each','a'],
+ ['errs',[['Both my sisters are teachers.',''],['Both of them is tired.','Both of them are tired.'],['Every students have a book.','Every student has a book.'],['Neither of them came.',''],['Neither of them didn\'t come.','Neither of them came.']],'a']],
  fw:{ru:"Сравни двух людей, которых хорошо знаешь (both, neither, either), а потом опиши свою группу или коллег (all of, most of, some of, none of, every). 6 предложений.",en:"Compare two people you know well (both, neither, either), then describe your group or colleagues (all of, most of, some of, none of, every). 6 sentences."}},
 
 {id:'eding',ru:'Скучный или скучающий: -ed и -ing',en:'bored or boring: -ed and -ing adjectives',
@@ -6068,7 +6282,10 @@ const SECTIONS=[
  ['fix','She is interested about history.','She is interested in history.','d'],
  ['fix','I was very exciting before the concert.','I was very excited before the concert.','a'],
  ['tr','Эта новость меня удивила. Я был удивлён.','The news surprised me. I was surprised.|This news surprised me. I was surprised.|The news was surprising. I was surprised.|This news was surprising. I was surprised.','a'],
- ['dict','The museum was fascinating, and the children were not bored at all.','b']],
+ ['dict','The museum was fascinating, and the children were not bored at all.','b'],
+ '|',
+ ['text','The film was very ___ (bore), so I was ___ (bore) too. The news was ___ (surprise). I\'m very ___ (interest) in history.','boring;bored;surprising;interested','a'],
+ ['errs',[['I was surprised by the news.',''],['I am very interesting in music.','I am very interested in music.'],['The lesson was bored.','The lesson was boring.'],['It was an exciting match.',''],['I have nothing to do. I am boring.','I have nothing to do. I am bored.']],'a']],
  fw:{ru:"Опиши фильм, книгу или поездку: какими они были (-ing) и что ты чувствовал (-ed). Используй не меньше трёх пар, например boring / bored, exciting / excited, tiring / tired.",en:"Describe a film, a book or a trip: what it was like (-ing) and how you felt (-ed). Use at least three pairs, for example boring / bored, exciting / excited, tiring / tired."}},
 
 {id:'vprep',ru:'Глаголы и прилагательные с предлогами',en:'Verbs and adjectives with prepositions',
@@ -6174,7 +6391,10 @@ const SECTIONS=[
  ['fix','I\'m married with Anna.','I\'m married to Anna.|I am married to Anna.','b'],
  ['fix','He\'s afraid from spiders.',"He's afraid of spiders.|He is afraid of spiders.",'b'],
  ['tr','Мы ждём такси.','We are waiting for a taxi.|We\'re waiting for a taxi.|We are waiting for the taxi.|We\'re waiting for the taxi.','a'],
- ['dict','I apologised for being late, but she was still angry with me.','d']],
+ ['dict','I apologised for being late, but she was still angry with me.','d'],
+ '|',
+ ['text','I\'m waiting ___ the bus. It depends ___ the weather. She\'s good ___ maths. This bag belongs ___ me.','for;on;at;to','a'],
+ ['errs',[['I like listening to music.',''],['I listen music every day.','I listen to music every day.'],['She married with an engineer.','She married an engineer.'],['We discussed the problem.',''],['He is angry on me.','He is angry with me.']],'a']],
  fw:{ru:"Напиши о себе 6 предложений: в чём ты силён, чего боишься, чем гордишься, что слушаешь, от чего зависит твоё настроение и чем знаменит твой город.",en:"Write 6 sentences about yourself: what you are good at, what you are afraid of, what you are proud of, what you listen to, what your mood depends on and what your town is famous for."}}
 ]},
 {lv:'b',ru:'Дополнительные темы',en:'More practice',units:[
@@ -6251,7 +6471,10 @@ const SECTIONS=[
  ['tr','Я ничего не скажу, если ты не спросишь.','I will not say anything unless you ask.|I won\'t say anything unless you ask.|I won\'t say anything unless you ask me.|I will not say anything unless you ask me.|I will say nothing unless you ask.|I won\'t say anything if you don\'t ask.','a'],
  ['dict','Unless the weather gets better, the match will be cancelled.','c'],
  ['dict','I will not sign anything unless I read it first.','b'],
- ['gap','I won\'t go to the party unless Anna ___ too. (go)','goes','c']],
+ ['gap','I won\'t go to the party unless Anna ___ too. (go)','goes','c'],
+ '|',
+ ['text','You can\'t come in ___ you have a ticket. I won\'t go unless you ___ (come) with me. Unless it ___ (rain), we\'ll play tennis. Don\'t call me ___ it\'s urgent.','unless;come;rains;unless','a'],
+ ['errs',[['You\'ll be late unless you hurry.',''],['Unless you don\'t hurry, you\'ll be late.','Unless you hurry, you\'ll be late.'],['Unless it will rain, we will go.','Unless it rains, we will go.'],['I won\'t go unless you come.',''],['We\'ll play unless it\'s too cold.','']],'b']],
  fw:{ru:"Напиши 5 предупреждений или условий с unless: что не случится, если не выполнить условие.",en:"Write 5 warnings or conditions with unless: what will not happen if the condition is not met."}}
 ]},
 {lv:'b',ru:'Слова и названия',en:'Nouns and names',units:[
@@ -6331,7 +6554,10 @@ const SECTIONS=[
  ['tr','Здесь раньше был парк.','There used to be a park here.|There was a park here before.','d'],
  ['tr','Мне нравится эта книга. Она очень смешная.','I like this book. It is very funny.|I like this book. It\'s very funny.','c'],
  ['dict','It is late and there are no buses, so we will take a taxi.','c'],
- ['gap','___ looks like it\'s going to rain.','It','d']],
+ ['gap','___ looks like it\'s going to rain.','It','d'],
+ '|',
+ ['text','___ cold today. ___ a lot of snow in the street. ___ hard to drive in this weather. ___ takes an hour to get to work.','It\'s|It is;There\'s|There is;It\'s|It is;It','a'],
+ ['errs',[['There is a problem with my phone.',''],['Is very cold today.','It is very cold today.'],['It is a lot of people here.','There are a lot of people here.'],['It takes ten minutes to walk there.',''],['There is raining.','It is raining.']],'c']],
  fw:{ru:"Опиши свой город в 6 предложениях: что в нём есть (there is / are) и какой он (it is…), погода, расстояния, что легко или трудно там делать.",en:"Describe your town in 6 sentences: what there is and what it is like, the weather, distances, what is easy or hard to do there."}},
 
 {id:'nounnoun',ru:'Существительное + существительное, \'s или of',en:'noun + noun; \'s or of',
@@ -6411,7 +6637,10 @@ const SECTIONS=[
  ['tr','Это моя кофейная чашка.','This is my coffee cup.|It is my coffee cup.|This is my coffee mug.|It\'s my coffee cup.|That\'s my coffee cup.','a'],
  ['tr','Конец истории был неожиданным.','The end of the story was unexpected.|The ending of the story was unexpected.|The story\'s ending was unexpected.|The end of the story was surprising.','d'],
  ['dict','Yesterday\'s match was the best football game of the season.','c'],
- ['gap','I\'ll meet you at the ___ station. (train)','train','a']],
+ ['gap','I\'ll meet you at the ___ station. (train)','train','a'],
+ '|',
+ ['text','We waited at the ___ stop. (bus) It\'s a ten-___ walk. (minute) This is my ___ room. (сестры) The end ___ the film was sad.','bus;minute;sister\'s;of','a'],
+ ['errs',[['Where is the bus stop?',''],['It\'s a ten-minutes walk.','It\'s a ten-minute walk.'],['This is the car of my brother.','This is my brother\'s car.'],['I need a coffee cup.',''],['I bought a shoes shop.','I bought a shoe shop.']],'b']],
  fw:{ru:"Опиши свою квартиру и район, используя не меньше шести сочетаний noun + noun (a bus stop, a kitchen table…) и пару форм с 's и of.",en:"Describe your flat and area using at least six noun + noun combinations and a couple of 's and of forms."}},
 
 {id:'artnames',ru:'The с названиями: the Volga, Lake Baikal, the USA',en:'the with names',
@@ -6489,7 +6718,10 @@ const SECTIONS=[
  ['tr','Амстердам находится в Нидерландах.','Amsterdam is in the Netherlands.','c'],
  ['tr','Эльбрус — самая высокая гора в Европе.','Elbrus is the highest mountain in Europe.|Mount Elbrus is the highest mountain in Europe.','b'],
  ['dict','We stayed at the Metropol Hotel near Red Square.','c'],
- ['mc','Have you been to ___ Caucasus?',['the','—','a'],0,'a']],
+ ['mc','Have you been to ___ Caucasus?',['the','—','a'],0,'a'],
+ '|',
+ ['text','We had a boat trip on ___ Volga. Then we flew to ___ United States. We stayed at ___ Hilton and visited ___ Statue of Liberty.','the;the;the;the','a'],
+ ['errs',[['Lake Baikal is very deep.',''],['The Moscow is a big city.','Moscow is a big city.'],['We went skiing in Alps.','We went skiing in the Alps.'],['She lives in the UK.',''],['We met in the Red Square.','We met in Red Square.']],'b']],
  fw:{ru:"Напиши о путешествии мечты: какие страны, города, реки, горы, музеи и улицы ты хочешь увидеть. Следи за the. 6 предложений.",en:"Write about your dream trip: countries, cities, rivers, mountains, museums and streets you want to see. Watch the articles. 6 sentences."}}
 ]},
 {lv:'b',ru:'Полезные конструкции',en:'Useful structures',units:[
@@ -6568,7 +6800,10 @@ const SECTIONS=[
  ['tr','Это был довольно скучный вечер.','It was quite a boring evening.|It was a pretty boring evening.|It was a rather boring evening.|It was a fairly boring evening.|It was rather a boring evening.','b'],
  ['tr','У неё длинные светлые волосы.','She has long blond hair.|She has long blonde hair.|She\'s got long blond hair.|She\'s got long blonde hair.|She has long fair hair.','d'],
  ['dict','It was quite a hot day, so we went to a quiet little beach.','b'],
- ['gap','The test was ___ easy. Everybody passed. (fairly)','fairly','a']],
+ ['gap','The test was ___ easy. Everybody passed. (fairly)','fairly','a'],
+ '|',
+ ['text','It was ___ a long trip. You\'re ___ right. The hotel was ___ expensive, more than we wanted. She bought a beautiful ___ wooden table. (old)','quite;quite;rather;old','a'],
+ ['errs',[['The film was pretty good.',''],['It was a quite long day.','It was quite a long day.'],['I bought a wooden beautiful table.','I bought a beautiful wooden table.'],['It\'s rather cold today.',''],['I\'m not fairly sure.','I\'m not quite sure.']],'b']],
  fw:{ru:"Опиши три вещи, которые у тебя есть (одежда, машина, комната), используя по два-три прилагательных в правильном порядке, и оцени их с quite / pretty / rather.",en:"Describe three things you own using two or three adjectives in the right order, and rate them with quite / pretty / rather."}},
 
 {id:'adjto',ru:'It\'s easy to…, nice of you to…, afraid to / of',en:'adjective + to; nice of you; afraid to / of',
@@ -6648,7 +6883,10 @@ const SECTIONS=[
  ['tr','Было глупо с моей стороны ему верить.','It was stupid of me to believe him.|It was silly of me to believe him.|It was foolish of me to believe him.','c'],
  ['tr','Я боюсь потерять ключи.','I am afraid of losing my keys.|I\'m afraid of losing my keys.|I am afraid of losing the keys.|I\'m afraid of losing the keys.|I\'m afraid I\'ll lose my keys.','d'],
  ['dict','It was very kind of your parents to invite us for dinner.','c'],
- ['dict','This flat is easy to clean but hard to heat in winter.','b']],
+ ['dict','This flat is easy to clean but hard to heat in winter.','b'],
+ '|',
+ ['text','It\'s hard ___ me to get up early. This book is easy ___ read. It was very kind ___ you to help. I\'m afraid ___ losing my job.','for;to;of;of','a'],
+ ['errs',[['It\'s nice to meet you.',''],['This word is hard to say it.','This word is hard to say.'],['It was kind for you to come.','It was kind of you to come.'],['I\'m glad to hear that.',''],['I\'m afraid of to fly.','I\'m afraid of flying.']],'b']],
  fw:{ru:"Напиши 6 предложений: что тебе легко или трудно (It's easy / hard for me to…), что легко делать (This … is easy to…), кто был мил с тобой (kind of … to) и чего ты боишься (afraid of / to).",en:"Write 6 sentences: what is easy or hard for you, something that is easy to do, someone who was kind to you, and what you are afraid of / afraid to do."}},
 
 {id:'timeprep',ru:'Время: during / while, by / until, on time / in time',en:'during / for / while; by / until; on time / in time',
@@ -6732,7 +6970,10 @@ const SECTIONS=[
  ['tr','Мы успели на последний автобус.','We were in time for the last bus.|We caught the last bus.|We made it in time for the last bus.|We got the last bus.|We managed to catch the last bus.','c'],
  ['tr','К концу недели я очень устал.','By the end of the week I was very tired.|By the end of the week, I was very tired.|By the end of the week I was really tired.','b'],
  ['dict','Please finish the work by Friday and stay in the office until it is done.','b'],
- ['gap','He talked ___ the whole lesson.','during|through|for|throughout','a']],
+ ['gap','He talked ___ the whole lesson.','during|through|for|throughout','a'],
+ '|',
+ ['text','I fell asleep ___ the film. I fell asleep ___ I was watching TV. Please send the report ___ Friday. I\'ll wait ___ six, then I\'ll leave.','during;while;by;until|till','a'],
+ ['errs',[['The train left on time.',''],['I met him during I was on holiday.','I met him while I was on holiday.'],['Finish it until Monday.','Finish it by Monday.'],['In the end we stayed at home.',''],['I\'ve been here during two hours.','I\'ve been here for two hours.']],'a']],
  fw:{ru:"Расскажи о прошлом отпуске в 6 предложениях, используя during, while, for, until, by и in the end.",en:"Tell me about your last holiday in 6 sentences using during, while, for, until, by and in the end."}},
 
 {id:'requests',ru:'Просьбы, разрешение, предложения: Could you…? Would you mind…?',en:'Requests, permission, offers',
@@ -6813,7 +7054,10 @@ const SECTIONS=[
  ['tr','Не могли бы вы закрыть дверь?','Could you close the door?|Could you close the door, please?|Would you mind closing the door?|Could you shut the door?|Would you close the door, please?|Can you close the door, please?','a'],
  ['tr','Можно мне посмотреть?','Can I have a look?|May I have a look?|Could I have a look?|Can I see?|May I see?|Could I see?|Can I take a look?','b'],
  ['dict','Would you like to come to my birthday party on Saturday?','c'],
- ['gap','___ you mind if I opened the window?','Would','b']],
+ ['gap','___ you mind if I opened the window?','Would','b'],
+ '|',
+ ['text','___ you help me, please? Would you mind ___ (close) the window? Do you mind ___ I sit here? ___ I carry your bag?','Could|Can|Would;closing;if;Shall|Can','a'],
+ ['errs',[['Would you like some tea?',''],['Would you mind to help me?','Would you mind helping me?'],['Do you open the door, please?','Could you open the door, please?'],['May I come in?',''],['Would you like coming to dinner?','Would you like to come to dinner?']],'a']],
  fw:{ru:"Напиши диалог в кафе или в поезде (6–8 реплик): попроси о чём-то, спроси разрешения, предложи помощь и ответь на Do you mind…?",en:"Write a dialogue in a café or on a train (6–8 lines): make a request, ask permission, offer help and answer Do you mind…?"}},
 
 {id:'thinkso',ru:'Короткие ответы: I think so, I hope not, I\'m afraid so',en:'I think so / I hope not; short answers',
@@ -6895,7 +7139,10 @@ const SECTIONS=[
  ['tr','«Это правда?» — «Боюсь, что нет».','"Is it true?" — "I am afraid not."|"Is it true?" — "I\'m afraid not."|"Is that true?" — "I\'m afraid not."|"Is that true?" — "I am afraid not."','b'],
  ['tr','«Я сдал экзамен!» — «Правда? Поздравляю!»','"I passed the exam!" — "Did you? Congratulations!"|"I have passed the exam!" — "Have you? Congratulations!"|"I\'ve passed the exam!" — "Have you? Congratulations!"|"I passed the exam!" — "Really? Congratulations!"|"I passed my exam!" — "Did you? Congratulations!"','d'],
  ['dict','"Is the museum open on Mondays?" — "I don\'t think so."','b'],
- ['gap','"Is it expensive?" — "I\'m afraid ___. It\'s 500 dollars."','so','a']],
+ ['gap','"Is it expensive?" — "I\'m afraid ___. It\'s 500 dollars."','so','a'],
+ '|',
+ ['text','"Is the shop open?" — "I think ___." "Will it rain?" — "I hope ___." "Did we miss the bus?" — "I\'m afraid ___." "Are you tired?" — "Yes, I ___."','so;not;so;am','a'],
+ ['errs',[['"Is he coming?" — "I don\'t think so."',''],['"Will it be cold?" — "I don\'t hope so."','"Will it be cold?" — "I hope not."'],['"Is she at home?" — "I think yes."','"Is she at home?" — "I think so."'],['"Can you swim?" — "Yes, I can."',''],['"Do you like jazz?" — "Yes, I like."','"Do you like jazz?" — "Yes, I do."']],'b']],
  fw:{ru:"Напиши 6 коротких диалогов-вопросов о завтрашнем дне и ответь на них: I think so, I hope not, I'm afraid so, Yes, I will, Are you?",en:"Write 6 short question-and-answer exchanges about tomorrow using I think so, I hope not, I'm afraid so, short answers and reply questions."}},
 
 {id:'whole',ru:'Весь, целый, каждый: all, whole, every, each',en:'all / whole / every / each',
@@ -6975,7 +7222,10 @@ const SECTIONS=[
  ['tr','Каждое утро я пью кофе.','Every morning I drink coffee.|I drink coffee every morning.|I have coffee every morning.|Every morning I have coffee.|Every morning I drink a coffee.','c'],
  ['tr','Он съел весь торт.','He ate the whole cake.|He ate all the cake.|He ate all of the cake.|He has eaten the whole cake.|He\'s eaten the whole cake.','a'],
  ['dict','Each player gets a shirt and everybody gets a free ticket.','d'],
- ['gap','I have read ___ his books. Every one.','all','b']],
+ ['gap','I have read ___ his books. Every one.','all','b'],
+ '|',
+ ['text','I spent the ___ day at home. ___ my friends came to the party. I go to the gym ___ day. She held a cup in ___ hand.','whole;All;every;each','a'],
+ ['errs',[['Everything is ready.',''],['I watched whole the film.','I watched the whole film.'],['Every students must bring a pen.','Every student must bring a pen.'],['Each of the rooms has a TV.',''],['All came to the party.','Everybody came to the party.']],'b']],
  fw:{ru:"Опиши свою обычную неделю: что делаешь every day, что было all day вчера, что ты сделал целиком (the whole…), и что у каждого (each) в твоей семье.",en:"Describe your usual week: what you do every day, what you did all day yesterday, something you did the whole of, and what each person in your family has."}}
 ]},
 {lv:'b',ru:'Предлоги и фразовые глаголы',en:'Prepositions and phrasal verbs',units:[
@@ -7066,7 +7316,10 @@ const SECTIONS=[
  ['tr','Успокойся, всё хорошо.','Calm down, everything is fine.|Calm down, everything\'s fine.|Calm down, it\'s all right.|Calm down, everything is OK.|Calm down. Everything is fine.|Calm down, everything\'s OK.|Calm down, it\'s OK.|Calm down, it\'s fine.|Calm down, everything\'s all right.|Calm down, everything is all right.','b'],
  ['tr','Она открыла своё кафе.','She set up her own cafe.|She set up her own café.|She opened her own cafe.|She opened her own café.|She started her own cafe.|She has opened her own cafe.|She\'s set up her own cafe.|She has started her own cafe.','a'],
  ['dict','Could you pick up some bread on your way home?','a'],
- ['gap','Please speak ___. I can\'t hear you. (громче — up)','up','a']],
+ ['gap','Please speak ___. I can\'t hear you. (громче — up)','up','a'],
+ '|',
+ ['text','I\'ll pick you ___ at seven. Write ___ my number. Our car broke ___ on the motorway. Calm ___! Everything\'s fine.','up;down;down;down','a'],
+ ['errs',[['Please sit down.',''],['I picked up it.','I picked it up.'],['Never give down!','Never give up!'],['Turn the music down, please.',''],['The car broke up on the road.','The car broke down on the road.']],'c']],
  fw:{ru:"Напиши 6 предложений о своей неделе, используя не меньше шести фразовых глаголов с up и down.",en:"Write 6 sentences about your week using at least six phrasal verbs with up and down."}},
 
 {id:'phronoff',ru:'Фразовые глаголы с on и off',en:'Phrasal verbs: on / off',
@@ -7156,7 +7409,10 @@ const SECTIONS=[
  ['tr','Подожди минутку.','Hold on a minute.|Wait a minute.|Hang on a minute.|Hold on a second.|Wait a moment.|Hang on a second.|Wait a second.|Hold on a moment.|Hang on a moment.|Just a minute.','a'],
  ['tr','Она сняла куртку.','She took off her jacket.|She took her jacket off.','b'],
  ['dict','We got off the train, got into a taxi and set off for the hotel.','c'],
- ['gap','Can I try these jeans ___?','on','a']],
+ ['gap','Can I try these jeans ___?','on','a'],
+ '|',
+ ['text','Turn ___ the TV, please. Take ___ your coat. Get ___ the bus at the next stop. The match was called ___ because of rain.','on|off;off;off;off','a'],
+ ['errs',[['Put your coat on.',''],['Put on it.','Put it on.'],['We got on the taxi.','We got into the taxi.'],['Hold on a minute.',''],['Carry on to work.','Carry on working.']],'d']],
  fw:{ru:"Опиши своё утро от будильника до работы, используя turn on/off, put on, take off, get on/off, set off.",en:"Describe your morning from the alarm to work using turn on/off, put on, take off, get on/off, set off."}},
 
 {id:'phrinout',ru:'Фразовые глаголы с in, out, away, back',en:'Phrasal verbs: in / out / away / back',
@@ -7245,7 +7501,10 @@ const SECTIONS=[
  ['tr','Когда ты вернулся?','When did you come back?|When did you get back?|When did you return?','d'],
  ['tr','Мне нужно выяснить, во сколько начинается фильм.','I need to find out what time the film starts.|I need to find out when the film starts.|I need to find out what time the movie starts.|I need to find out when the movie starts.|I have to find out what time the film starts.|I need to find out what time the film begins.|I need to find out when the film begins.|I need to find out what time the movie begins.|I have to find out when the film starts.','b'],
  ['dict','After the party we put everything away and threw out the rubbish.','c'],
- ['gap','The cat ran ___ when it saw the dog.','away','c']],
+ ['gap','The cat ran ___ when it saw the dog.','away','c'],
+ '|',
+ ['text','Come ___ and sit down. I found ___ the truth. We\'ve run ___ of milk. I\'ll call you ___ later.','in;out;out;back','a'],
+ ['errs',[['Please fill in this form.',''],['Throw away it.','Throw it away.'],['I ran away of money.','I ran out of money.'],['When did you get back?',''],['I can\'t work out it.','I can\'t work it out.']],'c']],
  fw:{ru:"Расскажи о поездке: как ты check in, что выяснил (found out), что закончилось (ran out of), что выбросил и когда вернулся. 6 предложений.",en:"Tell me about a trip: checking in, what you found out, what ran out, what you threw away and when you got back. 6 sentences."}},
 
 {id:'vprep2',ru:'Глаголы с предлогами: about, of, for, after',en:'Verb + about / of / for / after',
@@ -7322,7 +7581,10 @@ const SECTIONS=[
  ['tr','Она попросила счёт.','She asked for the bill.|She asked for the check.','c'],
  ['tr','Я часто думаю о детстве.','I often think about my childhood.|I often think of my childhood.','a'],
  ['dict','I asked my neighbour to look after my cat while I was away.','d'],
- ['gap','I\'m looking ___ a new job.','for','c']],
+ ['gap','I\'m looking ___ a new job.','for','c'],
+ '|',
+ ['text','Don\'t worry ___ me. What do you think ___ my plan? I asked the waiter ___ the bill. Who looks ___ your cat?','about;of|about;for;after','a'],
+ ['errs',[['Thank you for your help.',''],['I\'m waiting you for an hour.','I\'ve been waiting for you for an hour.'],['What do you think for it?','What do you think of it?'],['She takes after her mother.',''],['He apologised about being late.','He apologised for being late.']],'c']],
  fw:{ru:"Напиши 6 предложений о себе с глаголами темы: о чём ты беспокоишься, о чём мечтаешь, что ищешь, за кем присматриваешь, на кого похож.",en:"Write 6 sentences about yourself with the verbs of this topic: what you worry about, dream of, look for, who you look after and take after."}},
 
 {id:'vprep3',ru:'Глаголы с предлогами: on, in, with, to, from',en:'Verb + on / in / with / to / from',
@@ -7401,7 +7663,10 @@ const SECTIONS=[
  ['tr','Я трачу много денег на книги.','I spend a lot of money on books.|I spend lots of money on books.|I spend a lot on books.|I spend loads of money on books.','a'],
  ['tr','Ты можешь на меня положиться.','You can rely on me.|You can count on me.|You can depend on me.','a'],
  ['dict','She recovered from the illness and succeeded in finishing her degree.','d'],
- ['gap','Please listen ___ the teacher.','to','c']],
+ ['gap','Please listen ___ the teacher.','to','c'],
+ '|',
+ ['text','It depends ___ the price. Do you believe ___ luck? I agree ___ you. He suffers ___ headaches.','on;in;with;from','a'],
+ ['errs',[['What happened to your car?',''],['It depends of you.','It depends on you.'],['Listen me!','Listen to me!'],['Translate this into English.',''],['She succeeded to pass the exam.','She succeeded in passing the exam.']],'c']],
  fw:{ru:"Напиши 6 предложений о себе: от чего зависит твоё настроение, во что ты веришь, на что тратишь деньги, на кого можешь положиться, с чем трудно справляться.",en:"Write 6 sentences: what your mood depends on, what you believe in, what you spend money on, who you rely on, what you find hard to cope with."}},
 
 {id:'adjprep',ru:'Прилагательные с предлогами: good at, interested in, proud of',en:'Adjective + preposition',
@@ -7484,7 +7749,10 @@ const SECTIONS=[
  ['tr','Ты боишься темноты?','Are you afraid of the dark?|Are you scared of the dark?|Are you frightened of the dark?','a'],
  ['tr','Москва очень отличается от Казани.','Moscow is very different from Kazan.|Moscow is very different to Kazan.|Moscow is really different from Kazan.|Moscow is very different than Kazan.','d'],
  ['dict','I am really worried about my brother because he is not used to living alone.','d'],
- ['gap','I\'m very interested ___ art.','in','a']],
+ ['gap','I\'m very interested ___ art.','in','a'],
+ '|',
+ ['text','She\'s good ___ languages. I\'m proud ___ you. He\'s interested ___ history. Your bag is similar ___ mine.','at;of;in;to','a'],
+ ['errs',[['I\'m worried about the exam.',''],['He is good in cooking.','He is good at cooking.'],['She is married with a doctor.','She is married to a doctor.'],['Kazan is famous for its kremlin.',''],['I\'m interested about art.','I\'m interested in art.']],'a']],
  fw:{ru:"Напиши 6 предложений о себе с прилагательными темы: в чём ты хорош, чем интересуешься, чем гордишься, от чего устал, чего боишься, о чём волнуешься.",en:"Write 6 sentences about yourself: what you are good at, interested in, proud of, tired of, afraid of and worried about."}},
 
 {id:'nounprep',ru:'Существительные с предлогами: reason for, increase in, solution to',en:'Noun + preposition',
@@ -7562,7 +7830,10 @@ const SECTIONS=[
  ['tr','Спасибо за приглашение на свадьбу.','Thank you for the invitation to the wedding.|Thanks for the invitation to the wedding.|Thank you for the invitation to your wedding.|Thanks for the invitation to your wedding.|Thank you for inviting me to your wedding.|Thanks for inviting me to the wedding.','c'],
  ['tr','Какое влияние интернет оказывает на детей?','What effect does the internet have on children?|What influence does the internet have on children?|What effect does the Internet have on children?|What influence does the Internet have on children?|How does the internet influence children?|How does the internet affect children?','d'],
  ['dict','There was a sharp rise in prices, and the reason for it is not clear.','b'],
- ['gap','I lost the key ___ my flat.','to|of|for','c']],
+ ['gap','I lost the key ___ my flat.','to|of|for','c'],
+ '|',
+ ['text','What\'s the reason ___ the delay? There\'s been a rise ___ prices. I know the answer ___ this question. I have a good relationship ___ my boss.','for;in;to;with','a'],
+ ['errs',[['Stress has a bad effect on health.',''],['What is the reason of your visit?','What is the reason for your visit?'],['The storm caused damage for many houses.','The storm caused damage to many houses.'],['What\'s the difference between them?',''],['There is an increase of crime.','There is an increase in crime.']],'a']],
  fw:{ru:"Напиши 6 предложений о своём городе или работе: какие изменения произошли (a rise in, a change in), какие есть проблемы (a problem with) и их причины (the cause of, the reason for).",en:"Write 6 sentences about your town or job: changes, problems and their causes, using nouns with prepositions."}},
 
 {id:'artgen',ru:'The в общем смысле: the rich, the guitar, the radio',en:'the in general statements',
@@ -7644,7 +7915,10 @@ const SECTIONS=[
  ['tr','Мы должны заботиться о пожилых.','We must take care of the elderly.|We should take care of the elderly.|We must look after the elderly.|We should look after the elderly.|We must care for the elderly.|We should care for the elderly.|We have to take care of the elderly.|We need to look after the elderly.|We must take care of old people.|We should take care of elderly people.','a'],
  ['tr','Ты часто ходишь в театр?','Do you often go to the theatre?|Do you often go to the theater?|Do you go to the theatre often?|Do you go to the theater often?','b'],
  ['dict','The telephone changed the world, and the internet changed it again.','b'],
- ['gap','We must help ___ homeless.','the','a']],
+ ['gap','We must help ___ homeless.','the','a'],
+ '|',
+ ['text','We should help ___ poor. My son plays ___ guitar. I listen to ___ radio in the car. Who invented ___ telephone?','the;the;the;the','a'],
+ ['errs',[['Let\'s watch TV.',''],['The rich is not always happy.','The rich are not always happy.'],['The elephants are big animals.','Elephants are big animals.'],['The French love good food.',''],['She can play a guitar.','She can play the guitar.']],'a']],
  fw:{ru:"Напиши 6 предложений об обществе и технике: что нужно the young, the elderly, the poor; кто изобрёл the telephone; на каком инструменте ты играешь или хотел бы играть.",en:"Write 6 sentences about society and technology: the young, the elderly, the poor, inventions, and an instrument you play or would like to play."}},
 
 {id:'prepby',ru:'By, with, on, in: by car, on foot, with a knife, in cash',en:'by / with / on / in: by car, on foot, in cash',
@@ -7726,7 +8000,10 @@ const SECTIONS=[
  ['tr','Мы познакомились случайно.','We met by chance.|We met by accident.|We met accidentally.|We met by coincidence.','b'],
  ['tr','Её убили ножом. (детектив)','She was killed with a knife.|She was stabbed with a knife.|She was stabbed.|Someone killed her with a knife.','c'],
  ['dict','The house was built by my grandfather with his own hands.','c'],
- ['gap','She always goes to work ___ bike.','by','a']],
+ ['gap','She always goes to work ___ bike.','by','a'],
+ '|',
+ ['text','I go to work ___ bus. We went there ___ foot. Can I pay ___ card? Cut it ___ a knife.','by;on;by;with','a'],
+ ['errs',[['I took it by mistake.',''],['I came here by the car.','I came here by car.'],['The cake was cut by a knife.','The cake was cut with a knife.'],['This book was written by Pushkin.',''],['I sent the photos with email.','I sent the photos by email.']],'c']],
  fw:{ru:"Опиши свой обычный день: как ты добираешься (by / on foot), как платишь, как общаешься (by phone, by email), чем пользуешься на работе (with) и как учишь английский (by + -ing).",en:"Describe a usual day: how you travel, how you pay, how you communicate, what tools you use and how you learn English (by + -ing)."}}
 ]},
 {lv:'c',ru:'Времена и модальные',en:'Tenses and modals',units:[
@@ -7802,7 +8079,10 @@ const SECTIONS=[
  ['fix','I will have been finished it by noon.','I will have finished it by noon.','b'],
  ['tr','К тому времени, как ты проснёшься, я уже уеду.','By the time you wake up, I will have left.|By the time you wake up, I\'ll have left.|By the time you wake up, I will have gone.|By the time you wake up, I\'ll have gone.|I will have left by the time you wake up.','c'],
  ['dict','By the end of the year I will have saved enough money for a new car.','b'],
- ['dict','Will you be working late tonight?','d']],
+ ['dict','Will you be working late tonight?','d'],
+ '|',
+ ['text','Don\'t call at eight. I ___ (have) dinner then. By Friday I ___ (finish) the report. This time next year we ___ (live) in a new flat. By the time you get back, I ___ (clean) the kitchen.','will be having|\'ll be having;will have finished|\'ll have finished;will be living|\'ll be living;will have cleaned|\'ll have cleaned','a'],
+ ['errs',[['This time tomorrow I will be lying on the beach.',''],['By Monday I will finish it already.','By Monday I will have finished it.'],['When you will arrive, we will have left.','When you arrive, we will have left.'],['Will you be using the car tonight?',''],['I will have finish by six.','I will have finished by six.']],'b']],
  fw:{ru:"Опиши, что ты будешь делать завтра в 9, 13 и 20 часов (will be doing), и что успеешь сделать к концу года и к тридцати годам (will have done). 6 предложений.",en:"Describe what you will be doing tomorrow at 9, 1 pm and 8 pm, and what you will have done by the end of the year and by the age of thirty. 6 sentences."}},
 
 {id:'pmod',ru:'Модальные о прошлом: надо было, мог бы, зря',en:'should have, could have, needn\'t have',
@@ -7879,7 +8159,10 @@ const SECTIONS=[
  ['fix','You needn\'t brought wine, but thanks — we have lots now.',"You needn't have brought wine, but thanks — we have lots now.",'c'],
  ['tr','Ты мог бы мне и помочь тогда!','You could have helped me!','b'],
  ['tr','Зря я купил эту машину.','I should not have bought this car.|I shouldn\'t have bought this car.|I shouldn\'t have bought that car.|I needn\'t have bought this car.','a'],
- ['dict','We could have gone by train, but we decided to fly.','b']],
+ ['dict','We could have gone by train, but we decided to fly.','b'],
+ '|',
+ ['text','I failed the test. I ___ (should / study) harder. You ___ (should / not / tell) him the secret. We ___ (could / win) the match. You ___ (needn\'t / bring) a present, but thanks!','should have studied;shouldn\'t have told|should not have told;could have won;needn\'t have brought|need not have brought','a'],
+ ['errs',[['You should have called me.',''],['You should had asked me.','You should have asked me.'],['He could have went to university.','He could have gone to university.'],['We needn\'t have taken a taxi.',''],['I should of known.','I should have known.']],'d']],
  fw:{ru:"Вспомни неудачный день или поездку. Напиши, что надо было сделать иначе (should have), чего не надо было делать (shouldn't have), что могло случиться (could have) и что ты сделал зря (needn't have). 6 предложений.",en:"Think of a bad day or trip. Write what you should have done, what you shouldn't have done, what could have happened and what you needn't have done. 6 sentences."}},
 
 {id:'rather',ru:'Лучше бы, предпочитаю, положено: had better, would rather, be supposed to',en:'had better, would rather, be supposed to',
@@ -7958,7 +8241,10 @@ const SECTIONS=[
  ['fix','We supposed to meet at six.','We were supposed to meet at six.|We are supposed to meet at six.','c'],
  ['tr','Мы должны были встретиться вчера, но он не пришёл.','We were supposed to meet yesterday, but he did not come.|We were supposed to meet yesterday, but he didn\'t come.|We were supposed to meet yesterday but he didn\'t come.|We were supposed to meet yesterday, but he didn\'t show up.|We were supposed to meet yesterday, but he never came.','c'],
  ['tr','Я бы предпочёл, чтобы ты остался.','I would rather you stayed.|I\'d rather you stayed.','b'],
- ['dict','It is time we started looking for a new flat.','d']],
+ ['dict','It is time we started looking for a new flat.','d'],
+ '|',
+ ['text','It\'s late. You ___ go now. (had better) I ___ stay at home tonight. (would rather) The bus was ___ to arrive at six. It\'s time we ___ (go) home.','\'d better|had better;\'d rather|would rather;supposed;went','a'],
+ ['errs',[['You\'d better hurry.',''],['You had better to see a doctor.','You had better see a doctor.'],['I would rather to walk.','I would rather walk.'],['We were supposed to meet at six.',''],['It\'s time we go home.','It\'s time we went home.']],'a']],
  fw:{ru:"Напиши 6 предложений: два совета другу (had better), два своих предпочтения (would rather), одно правило на работе (be supposed to) и одно «пора бы уже» (it's time).",en:"Write 6 sentences: two pieces of advice to a friend (had better), two preferences of yours (would rather), one rule at work (be supposed to) and one 'it's time…'."}},
 
 {id:'futpast',ru:'Будущее в прошлом: was going to, would, was about to',en:'Future in the past: was going to, would',
@@ -8035,7 +8321,10 @@ const SECTIONS=[
  ['tr','Я думал, что ты опоздаешь.','I thought you would be late.|I thought that you would be late.|I thought you\'d be late.','b'],
  ['dict','I was going to study medicine, but in the end I chose engineering.','a'],
  ['dict','Everyone knew that he would win.','b'],
- ['gap','I had no idea the trip ___ so expensive. (will)','would be','d']],
+ ['gap','I had no idea the trip ___ so expensive. (will)','would be','d'],
+ '|',
+ ['text','I ___ (be going to) call you, but I forgot. I knew you ___ (will) like the film. We ___ (be about to) leave when it started to rain. He promised he ___ (will) help.','was going to;would;were about to;would','a'],
+ ['errs',[['I was going to tell you, but I forgot.',''],['I knew he will win.','I knew he would win.'],['Yesterday I am going to clean the flat.','Yesterday I was going to clean the flat.'],['She said she would help.',''],['We were about leave.','We were about to leave.']],'d']],
  fw:{ru:"Напиши о трёх планах, которые не сбылись (was going to … but …), и о двух случаях, когда ты заранее знал, чем всё кончится (I knew … would …). 5–6 предложений.",en:"Write about three plans that did not happen (was going to … but …) and two times you knew in advance how things would end (I knew … would …). 5–6 sentences."}},
 
 {id:'pastpc',ru:'Предпрошедшее длительное: had been doing',en:'Past perfect continuous: had been doing',
@@ -8112,7 +8401,10 @@ const SECTIONS=[
  ['tr','Она плакала, поэтому у неё были красные глаза.','She had been crying, so her eyes were red.|Her eyes were red because she had been crying.|She had been crying so her eyes were red.','b'],
  ['tr','Сколько ты учился, прежде чем сдал экзамен?','How long had you been studying before you passed the exam?|How long had you studied before you passed the exam?|How long had you been studying before passing the exam?','a'],
  ['dict','When the police arrived, the thieves had been working for an hour.','a'],
- ['dict','The grass was wet because it had been raining all night.','b']],
+ ['dict','The grass was wet because it had been raining all night.','b'],
+ '|',
+ ['text','When she arrived, I ___ (wait) for an hour. His hands were dirty — he ___ (work) on the car. By noon she ___ (write) three letters. I ___ (know) him for years before he moved.','had been waiting|\'d been waiting;had been working|\'d been working;had written|\'d written;had known|\'d known','a'],
+ ['errs',[['The ground was wet. It had been raining.',''],['I had been knowing her since school.','I had known her since school.'],['When we met, she has been working there for a year.','When we met, she had been working there for a year.'],['She was tired because she had been running.',''],['He had been writing five letters by noon.','He had written five letters by noon.']],'d']],
  fw:{ru:"Опиши момент из прошлого, когда ты наконец что-то сделал или чего-то дождался. Что ты делал до этого и как долго (had been doing), что уже успел (had done). 5–6 предложений.",en:"Describe a past moment when you finally did or got something. What had you been doing before and for how long, and what had you already done? 5–6 sentences."}}
 ]},
 {lv:'c',ru:'Условия',en:'Conditions',units:[
@@ -8188,7 +8480,10 @@ const SECTIONS=[
  ['tr','Если бы мы вышли раньше, мы бы уже были дома.','If we had left earlier, we would be at home now.|If we had left earlier, we would already be at home.|If we had left earlier, we would be home now.|If we had left earlier, we would already be home.|If we\'d left earlier, we\'d be home now.|If we had left earlier, we would be home by now.','a'],
  ['dict','If I had listened to my teacher, my English would be much better now.','a'],
  ['dict','If she were not so kind, she would not have helped that stranger.','b'],
- ['gap','If I ___ born in Spain, I would speak Spanish now. (be)','had been|\'d been','a']],
+ ['gap','If I ___ born in Spain, I would speak Spanish now. (be)','had been|\'d been','a'],
+ '|',
+ ['text','If I ___ (take) that job, I would be living in London now. If she ___ (be) more careful, she wouldn\'t have broken the vase. If I hadn\'t lost my keys, I ___ (be) at home now.','had taken|\'d taken;were|was;would be|\'d be','a'],
+ ['errs',[['If I had studied harder, I would have a better job now.',''],['If I would have known, I would be there now.','If I had known, I would be there now.'],['If he had saved money, he would have been rich now.','If he had saved money, he would be rich now.'],['If she weren\'t so shy, she would have come.',''],['If I had a car, I would drive you yesterday.','If I had a car, I would have driven you yesterday.']],'c']],
  fw:{ru:"Напиши о трёх решениях из прошлого и о том, как бы изменилась твоя жизнь сейчас, если бы ты решил иначе (if + had done, would + глагол now). Добавь два предложения о своём характере и о том, что из-за него случилось (if + Past Simple, would have done).",en:"Write about three past decisions and how your life would be different now if you had decided differently. Add two sentences about your character and what happened because of it."}},
 
 {id:'ifalt',ru:'Вместо if: provided, as long as, in case, otherwise, suppose',en:'provided, as long as, in case, otherwise',
@@ -8269,7 +8564,10 @@ const SECTIONS=[
  ['tr','Ты можешь взять мою машину, при условии что вернёшь её завтра.','You can take my car provided you bring it back tomorrow.|You can take my car as long as you bring it back tomorrow.|You can take my car provided that you bring it back tomorrow.|You can take my car as long as you return it tomorrow.|You can take my car provided you return it tomorrow.|You can borrow my car as long as you bring it back tomorrow.|You can borrow my car provided you return it tomorrow.|You can take my car if you bring it back tomorrow.','a'],
  ['tr','Поторопись, иначе мы опоздаем на поезд.','Hurry up, otherwise we will miss the train.|Hurry up, otherwise we\'ll miss the train.|Hurry up, or we will miss the train.|Hurry up, or we\'ll miss the train.|Hurry up, or else we\'ll miss the train.|Hurry, otherwise we\'ll miss the train.|Hurry up, otherwise we will be late for the train.','c'],
  ['dict','I always take a book with me in case I have to wait.','b'],
- ['gap','You can come with us ___ long as you\'re ready by eight.','as','a']],
+ ['gap','You can come with us ___ long as you\'re ready by eight.','as','a'],
+ '|',
+ ['text','Take an umbrella in ___ it rains. You can borrow my car as ___ as you\'re careful. Hurry up, ___ we\'ll be late. I\'ll go even ___ it rains.','case;long;otherwise|or;if','a'],
+ ['errs',[['You can stay provided you\'re quiet.',''],['Take a coat in case it will be cold.','Take a coat in case it is cold.'],['I\'ll lend it as long you return it.','I\'ll lend it as long as you return it.'],['Suppose you won, what would you do?',''],['Even you are tired, finish it.','Even if you are tired, finish it.']],'d']],
  fw:{ru:"Напиши правила для друга, который будет жить в твоей квартире: что можно при каком условии (as long as / provided), что сделать на всякий случай (in case), что будет иначе (otherwise). 6 предложений.",en:"Write rules for a friend who will stay in your flat: what is fine on what condition, what to do just in case, and what will happen otherwise. 6 sentences."}},
 
 {id:'asif',ru:'Как будто: as if, as though, like',en:'as if, as though, like',
@@ -8346,7 +8644,10 @@ const SECTIONS=[
  ['tr','Он работает гидом.','He works as a guide.|He works as a tour guide.','d'],
  ['dict','The house looked as if nobody had lived there for years.','c'],
  ['gap','He shouted as if I ___ deaf. (be)','were|was','b'],
- ['tr','Она выглядит как её мать.','She looks like her mother.|She looks like her mum.|She looks like her mom.','d']],
+ ['tr','Она выглядит как её мать.','She looks like her mother.|She looks like her mum.|She looks like her mom.','d'],
+ '|',
+ ['text','It looks as ___ it\'s going to rain. He talks as if he ___ (be) the boss, but he isn\'t. She looked as if she ___ (see) a ghost. He works ___ a guide.','if|though;were|was;had seen;as','a'],
+ ['errs',[['You sing like a professional.',''],['She works like a teacher.','She works as a teacher.'],['She looked as if she has seen a ghost.','She looked as if she had seen a ghost.'],['It looks as though it will rain.',''],['It looks as it will rain.','It looks as if it will rain.']],'d']],
  fw:{ru:"Опиши трёх людей или ситуации с as if / as though: кто как выглядит, звучит или ведёт себя. Хотя бы в одном предложении — нереальное (as if he were…), в одном — прошлое (as if she had…).",en:"Describe three people or situations with as if / as though: how they look, sound or behave. At least one unreal (as if he were…) and one past (as if she had…)."}}
 ]},
 {lv:'c',ru:'Пассив и косвенная речь',en:'Passive and reporting',units:[
@@ -8422,7 +8723,10 @@ const SECTIONS=[
  ['tr','Говорят, что этот дом построил известный архитектор.','This house is said to have been built by a famous architect.|It is said that this house was built by a famous architect.|The house is said to have been built by a famous architect.|It is said that the house was built by a famous architect.|They say this house was built by a famous architect.','c'],
  ['dict','The robbers are believed to have escaped in a stolen car.','c'],
  ['dict','It is expected that the new road will be finished next year.','a'],
- ['gap','The bridge is expected ___ open in June.','to','b']],
+ ['gap','The bridge is expected ___ open in June.','to','b'],
+ '|',
+ ['text','It ___ (say) that he is very rich. The castle is believed ___ (be) 800 years old. The thieves are thought to ___ (leave) the country. The new road is expected ___ (open) in May.','is said;to be;have left;to open','a'],
+ ['errs',[['She is said to be a good singer.',''],['He is said that he is rich.','He is said to be rich.'],['The prisoner is thought to escape last night.','The prisoner is thought to have escaped last night.'],['It is expected that prices will rise.',''],['The weather expects to get worse.','The weather is expected to get worse.']],'b']],
  fw:{ru:"Напиши короткую «новость» о своём городе или работе из 5–6 предложений, используя It is said / believed / expected that… и … is said / believed to…, в том числе одну о прошлом (to have done).",en:"Write a short 'news report' about your town or work (5–6 sentences) using It is said / believed / expected that… and … is said / believed to…, including one about the past (to have done)."}},
 
 {id:'repverbs',ru:'Глаголы косвенной речи: advise, suggest, deny, admit',en:'Reporting verbs: advise, suggest, deny, admit',
@@ -8499,7 +8803,10 @@ const SECTIONS=[
  ['fix','She advised to me to wait.','She advised me to wait.','b'],
  ['tr','Он признал, что солгал.','He admitted lying.|He admitted that he had lied.|He admitted he had lied.|He admitted having lied.|He admitted that he lied.|He admitted to lying.','c'],
  ['tr','Она предупредила нас не опаздывать.','She warned us not to be late.','b'],
- ['dict','The manager apologised for the delay and offered to give us a discount.','d']],
+ ['dict','The manager apologised for the delay and offered to give us a discount.','d'],
+ '|',
+ ['text','He suggested ___ (go) to the cinema. The doctor advised me ___ (rest). She denied ___ (break) the vase. He apologised ___ being late.','going;to rest;breaking|having broken;for','a'],
+ ['errs',[['She offered to help me.',''],['He suggested me to take a taxi.','He suggested that I take a taxi.'],['He refused answering.','He refused to answer.'],['She reminded me to lock the door.',''],['They accused him for lying.','They accused him of lying.']],'c']],
  fw:{ru:"Перескажи недавний разговор или спор (на работе, дома) без кавычек, только глаголами из темы: кто что предложил, пообещал, отказался, признал, извинился, кого в чём обвинили. 6 предложений.",en:"Report a recent conversation or argument without quotation marks, using only verbs from this topic: who suggested, promised, refused, admitted, apologised, accused whom of what. 6 sentences."}}
 ]},
 {lv:'c',ru:'Придаточные и выделение',en:'Clauses and emphasis',units:[
@@ -8579,7 +8886,10 @@ const SECTIONS=[
  ['tr','Мой брат, чья жена — врач, живёт в Твери.','My brother, whose wife is a doctor, lives in Tver.','a'],
  ['tr','Мы опоздали, из-за чего пропустили начало.','We were late, which meant we missed the beginning.|We were late, which is why we missed the beginning.|We were late, so we missed the beginning.|We were late, which meant that we missed the beginning.|We were late, because of which we missed the beginning.','b'],
  ['dict','My car, which is very old, broke down again yesterday.','a'],
- ['gap','The hotel, ___ was built in 1900, is now a museum.','which','a']],
+ ['gap','The hotel, ___ was built in 1900, is now a museum.','which','a'],
+ '|',
+ ['text','My sister, ___ lives in Omsk, is a nurse. He forgot my birthday, ___ upset me. Kazan, ___ I was born, is beautiful. I have three cousins, all of ___ live abroad.','who;which;where;whom','a'],
+ ['errs',[['Tom, whose father is a pilot, has travelled a lot.',''],['My father, that is a teacher, loves books.','My father, who is a teacher, loves books.'],['He lost his job, what was a shock.','He lost his job, which was a shock.'],['Our car, which is ten years old, still works well.',''],['I have two sisters, both of who live abroad.','I have two sisters, both of whom live abroad.']],'a']],
  fw:{ru:"Опиши пятерых людей и два места из своей жизни, добавляя сведения в запятых: «Мой друг Иван, который…», «Казань, где…». Добавь одно предложение с which про всё предложение и одно с «both of whom».",en:"Describe five people and two places from your life, adding information between commas. Add one sentence with which referring to a whole clause and one with 'both of whom'."}},
 
 {id:'partcl',ru:'Причастные обороты: Walking home, Having finished',en:'Participle clauses',
@@ -8654,7 +8964,10 @@ const SECTIONS=[
  ['tr','Не имея денег, он не мог купить билет.','Not having money, he could not buy a ticket.|Not having any money, he couldn\'t buy a ticket.|Having no money, he could not buy a ticket.|Having no money, he couldn\'t buy a ticket.|Not having any money, he could not buy a ticket.|Not having money, he couldn\'t buy a ticket.','a'],
  ['tr','Я получил письмо, написанное от руки.','I got a letter written by hand.|I received a letter written by hand.|I got a handwritten letter.|I received a handwritten letter.','c'],
  ['dict','Having lived in Moscow for years, she knew every street.','b'],
- ['dict','Not wanting to wake the baby, we spoke quietly.','a']],
+ ['dict','Not wanting to wake the baby, we spoke quietly.','a'],
+ '|',
+ ['text','___ (walk) home, I saw an accident. ___ (finish) work, he went to the gym. ___ (build) in 1890, the bridge is still used. Not ___ (know) the way, we asked a policeman.','Walking;Having finished;Built;knowing','a'],
+ ['errs',[['The man sitting by the window is my boss.',''],['Walking to work, the rain started.','Walking to work, I got caught in the rain.'],['Having finish the test, he left.','Having finished the test, he left.'],['I bought a phone made in Korea.',''],['The house building in 1900 needs repairs.','The house built in 1900 needs repairs.']],'d']],
  fw:{ru:"Опиши своё вчерашнее утро 5–6 предложениями, начиная часть из них с причастного оборота: Waking up…, Having had breakfast…, Feeling…, Not knowing… Проверь, что подлежащее везде одно — ты.",en:"Describe yesterday morning in 5–6 sentences, starting some with a participle clause: Waking up…, Having had breakfast…, Feeling…, Not knowing… Check that the subject is always you."}},
 
 {id:'cleft',ru:'Выделение: What I need is…, It was… that',en:'Emphasis: What I need is…, It was… that',
@@ -8731,7 +9044,10 @@ const SECTIONS=[
  ['tr','Что меня удивило — так это цена.','What surprised me was the price.|What surprised me most was the price.','a'],
  ['tr','Именно в Сочи мы встретились.','It was in Sochi that we met.|It was in Sochi where we met.','b'],
  ['tr','Я правда тебя люблю.','I do love you.|I really love you.|I really do love you.','c'],
- ['dict','What I like most about my job is the people.','a']],
+ ['dict','What I like most about my job is the people.','a'],
+ '|',
+ ['text','___ I need is a long holiday. It was my brother ___ found the keys. I ___ call you! You didn\'t answer. All I want ___ some peace and quiet.','What;who|that;did;is','a'],
+ ['errs',[['What I like about him is his smile.',''],['What I need it is a holiday.','What I need is a holiday.'],['It was my sister which helped me.','It was my sister who helped me.'],['It was in 2015 that we moved here.',''],['All what I want is peace.','All I want is peace.']],'a']],
  fw:{ru:"Напиши 6 предложений о том, что для тебя важно, выделяя главное: What I really want is…, What I don't like about… is…, It was … that changed my life, I do believe…, All I need is…",en:"Write 6 sentences about what matters to you, stressing the key part: What I really want is…, What I don't like about… is…, It was … that changed my life, I do believe…, All I need is…"}}
 ,
 
@@ -8811,7 +9127,10 @@ const SECTIONS=[
  ['tr','Ни в коем случае не говори ей.','Under no circumstances should you tell her.|On no account should you tell her.|Don\'t tell her under any circumstances.|Do not tell her under any circumstances.|Under no circumstances tell her.','d'],
  ['tr','Не только он забыл, но и потерял подарок.','Not only did he forget, but he also lost the present.|Not only did he forget, but he also lost the gift.|Not only did he forget but he also lost the present.|He not only forgot but also lost the present.','b'],
  ['dict','Never before had I seen so many stars in the sky.','a'],
- ['gap','Not until midnight ___ he come home.','did|would','d']],
+ ['gap','Not until midnight ___ he come home.','did|would','d'],
+ '|',
+ ['text','Never ___ I seen such a sunset. Not only ___ he late, but he also forgot the tickets. No sooner had I sat down ___ the phone rang. Only then ___ I understand.','have;was;than;did','a'],
+ ['errs',[['Rarely do we go to the cinema.',''],['Never I have been so happy.','Never have I been so happy.'],['No sooner had we arrived when it rained.','No sooner had we arrived than it rained.'],['Under no circumstances should you open it.',''],['Seldom he visits us.','Seldom does he visit us.']],'a']],
  fw:{ru:"Напиши 5 «торжественных» предложений с инверсией о самом ярком в своей жизни: Never have I…, Not only did I…, No sooner had I… than…, Only then did I…, Rarely do I…",en:"Write 5 'dramatic' sentences with inversion about the most striking things in your life: Never have I…, Not only did I…, No sooner had I… than…, Only then did I…, Rarely do I…"}}
 ]},
 {lv:'c',ru:'Глаголы и конструкции',en:'Verbs and patterns',units:[
@@ -8897,7 +9216,10 @@ const SECTIONS=[
  ['fix','She got me tell the truth.','She got me to tell the truth.|She made me tell the truth.','c'],
  ['tr','Мой отец заставил меня учить английский.','My father made me learn English.|My dad made me learn English.|My father made me study English.|My dad made me study English.','b'],
  ['tr','Я видел, как она переходила дорогу.','I saw her crossing the road.|I saw her crossing the street.|I saw her cross the road.|I saw her cross the street.','a'],
- ['dict','We watched the plane take off and disappear into the clouds.','a']],
+ ['dict','We watched the plane take off and disappear into the clouds.','a'],
+ '|',
+ ['text','I saw him ___ (cross) the road. My boss made me ___ (work) late. My parents let me ___ (stay) up late. I got him ___ (fix) my bike.','cross|crossing;work;stay;to fix','a'],
+ ['errs',[['I heard her singing.',''],['She made me to clean my room.','She made me clean my room.'],['I was let to go home.','I was allowed to go home.'],['We were made to wait.',''],['I got him fix my bike.','I got him to fix my bike.']],'b']],
  fw:{ru:"Напиши о своём детстве: что родители разрешали и чего не разрешали (let / be allowed to), что заставляли делать (make), кого ты уговорил что-то сделать (get) и что ты видел или слышал, как кто-то делает (see / hear). 6 предложений.",en:"Write about your childhood: what your parents let you do or not, what they made you do, whom you got to do something, and what you saw or heard someone do. 6 sentences."}},
 
 {id:'ingexp',ru:'Обороты с -ing: worth, no use, can\'t help',en:'It\'s worth doing, there\'s no point, can\'t help',
@@ -8982,7 +9304,10 @@ const SECTIONS=[
  ['fix','She has trouble to remember names.','She has trouble remembering names.','c'],
  ['tr','Бесполезно его просить.','It is no use asking him.|It\'s no use asking him.|There\'s no point asking him.|There is no point in asking him.|There\'s no point in asking him.|It\'s pointless to ask him.|It\'s pointless asking him.|It\'s useless to ask him.|It\'s no good asking him.','a'],
  ['tr','Я не против подождать.','I do not mind waiting.|I don\'t mind waiting.','b'],
- ['dict','I spent the whole evening trying to fix my computer.','c']],
+ ['dict','I spent the whole evening trying to fix my computer.','c'],
+ '|',
+ ['text','This museum is worth ___ (visit). There\'s no point ___ (wait). I couldn\'t help ___ (laugh). I have trouble ___ (fall) asleep.','visiting;waiting|in waiting;laughing;falling','a'],
+ ['errs',[['I don\'t feel like going out.',''],['This film is worth to see.','This film is worth seeing.'],['I spent two hours to do my homework.','I spent two hours doing my homework.'],['It\'s no use complaining.',''],['I can\'t help to think about her.','I can\'t help thinking about her.']],'d']],
  fw:{ru:"Напиши 6 предложений о себе с выражениями темы: что в твоём городе стоит посмотреть, на что ты тратишь время, чего терпеть не можешь, с чем у тебя трудности, что не можешь не делать и в чём нет смысла.",en:"Write 6 sentences about yourself with expressions from this topic: what is worth seeing in your town, what you spend time doing, what you can't stand, what you have trouble doing, what you can't help doing and what there is no point doing."}},
 
 {id:'phr2',ru:'Фразовые глаголы с двумя частицами',en:'Three-part phrasal verbs',
@@ -9071,7 +9396,10 @@ const SECTIONS=[
  ['tr','Я плохо лажу с соседями.','I do not get on well with my neighbours.|I don\'t get on well with my neighbours.|I don\'t get on with my neighbours.|I don\'t get along with my neighbours.|I do not get along well with my neighbours.|I don\'t get on well with my neighbors.|I don\'t get along well with my neighbors.|I don\'t get on with my neighbors.|I don\'t get along with my neighbors.','a'],
  ['tr','Нам нужно избавиться от старой мебели.','We need to get rid of the old furniture.|We need to get rid of our old furniture.|We need to get rid of old furniture.|We have to get rid of the old furniture.','a'],
  ['dict','I can hardly keep up with my work, and I have run out of coffee.','a'],
- ['dict','She is looking forward to meeting her new colleagues.','c']],
+ ['dict','She is looking forward to meeting her new colleagues.','c'],
+ '|',
+ ['text','I\'m looking forward ___ the holiday. I get ___ well with my colleagues. I can\'t put up ___ this noise. We\'ve run out ___ petrol.','to;on;with;of','a'],
+ ['errs',[['She came up with a great idea.',''],['I look forward to hear from you.','I look forward to hearing from you.'],['I can\'t put up it with.','I can\'t put up with it.'],['We need to get rid of this sofa.',''],['We ran out from coffee.','We ran out of coffee.']],'c']],
  fw:{ru:"Напиши 6 предложений о своей работе или жизни, используя не меньше шести глаголов темы: с кем ладишь, что терпишь, чего ждёшь, от чего хочешь избавиться, что сокращаешь, что придумал недавно.",en:"Write 6 sentences about your work or life using at least six verbs from this topic: who you get on with, what you put up with, what you look forward to, what you want to get rid of, what you are cutting down on, what you came up with recently."}}
 ]},
 {lv:'c',ru:'Слова и связки',en:'Words and linking',units:[
@@ -9153,7 +9481,10 @@ const SECTIONS=[
  ['fix','My bag is different of yours.','My bag is different from yours.','c'],
  ['tr','Цены растут всё выше и выше.','Prices are getting higher and higher.|Prices are going higher and higher.|Prices are rising higher and higher.|Prices are going up and up.|Prices are getting higher and higher all the time.','d'],
  ['tr','Мой брат намного старше меня.','My brother is much older than me.|My brother is far older than me.|My brother is a lot older than me.|My brother is much older than I am.|My brother is much older than I.','b'],
- ['dict','The sooner we start, the sooner we will finish.','a']],
+ ['dict','The sooner we start, the sooner we will finish.','a'],
+ '|',
+ ['text','The more you practise, the ___ (good) you get. This phone is much ___ (cheap). It\'s ___ colder today. (немного, slightly) His flat is twice as ___ (big) as mine.','better;cheaper;slightly;big','a'],
+ ['errs',[['It\'s getting colder and colder.',''],['The more you sleep, more tired you feel.','The more you sleep, the more tired you feel.'],['This house is very bigger.','This house is much bigger.'],['It\'s nowhere near as good as the book.',''],['It costs twice more than I expected.','It costs twice as much as I expected.']],'a']],
  fw:{ru:"Сравни свой город с другим, где ты бывал, используя far / much / slightly, twice as … as, nowhere near as … as. Добавь два предложения «чем…, тем…» о своей учёбе.",en:"Compare your town with another one you have been to, using far / much / slightly, twice as … as, nowhere near as … as. Add two 'the more…, the more…' sentences about your studies."}},
 
 {id:'count2',ru:'Исчисляемые подробнее: advice, a piece of, a coffee',en:'Countable and uncountable in depth',
@@ -9236,7 +9567,10 @@ const SECTIONS=[
  ['fix','Where is my trousers?','Where are my trousers?','d'],
  ['tr','Мне нужен совет.','I need some advice.|I need advice.|I need a piece of advice.','a'],
  ['tr','Полиция ищет вора.','The police are looking for the thief.|The police are looking for a thief.|Police are looking for the thief.','d'],
- ['dict','We do not have much luggage, just two bags and a pair of skis.','a']],
+ ['dict','We do not have much luggage, just two bags and a pair of skis.','a'],
+ '|',
+ ['text','Can I give you a piece ___ advice? The news ___ (be) very good. We bought some new ___ (мебель). My trousers ___ (be) too long.','of;is;furniture;are','a'],
+ ['errs',[['Two coffees, please.',''],['Thank you for the informations.','Thank you for the information.'],['I bought a new furniture.','I bought some new furniture.'],['She has long dark hair.',''],['The scissors is on the table.','The scissors are on the table.']],'a']],
  fw:{ru:"Напиши 6 предложений о переезде или поездке: какой был багаж и мебель, какой совет тебе дали, какие новости узнал, какой опыт получил — используй слова темы правильно (без a и -s там, где нельзя).",en:"Write 6 sentences about a move or a trip: luggage, furniture, a piece of advice you got, news you heard, the experience you had — using the words of this topic correctly."}},
 
 {id:'link2',ru:'Связки 2: whereas, so that, in order to, since',en:'whereas, so that, in order to, since',
@@ -9317,7 +9651,10 @@ const SECTIONS=[
  ['fix','I wear glasses so that I seeing better.','I wear glasses so that I can see better.|I wear glasses to see better.|I wear glasses in order to see better.','b'],
  ['tr','Она говорила громко, чтобы все её слышали.','She spoke loudly so that everyone could hear her.|She spoke loudly so that everybody could hear her.|She spoke loudly so everyone could hear her.|She spoke loudly so that everyone would hear her.|She spoke loudly so everybody could hear her.','b'],
  ['tr','Мой брат любит футбол, тогда как я люблю хоккей.','My brother loves football, whereas I love hockey.|My brother likes football, whereas I like hockey.|My brother loves football, while I love hockey.|My brother likes football, while I like hockey.|My brother loves football whereas I love hockey.','a'],
- ['dict','I set an alarm so that I would not miss the meeting.','c']],
+ ['dict','I set an alarm so that I would not miss the meeting.','c'],
+ '|',
+ ['text','I like tea, ___ my wife prefers coffee. I left early so ___ I wouldn\'t miss the train. I wrote it down so as ___ to forget. The flight was delayed due ___ fog.','whereas|while;that;not;to','a'],
+ ['errs',[['As it was late, we took a taxi.',''],['I went to the shop for buy bread.','I went to the shop to buy bread.'],['The game was stopped due to it rained.','The game was stopped due to the rain.'],['I study English in order to find a better job.',''],['I spoke slowly so that they understand.','I spoke slowly so that they could understand.']],'b']],
  fw:{ru:"Напиши 6 предложений о своей учёбе и работе с новыми связками: зачем ты что-то делаешь (in order to, so that, so as not to), почему (as, since, due to) и чем ты отличаешься от кого-то (whereas).",en:"Write 6 sentences about your studies and work with the new linkers: why you do things (in order to, so that, so as not to), the reasons (as, since, due to) and how you differ from someone (whereas)."}}
 ]},
 {lv:'c',ru:'Ещё конструкции B2',en:'More B2 structures',units:[
@@ -9394,7 +9731,10 @@ const SECTIONS=[
  ['tr','Если бы не дождь, мы бы пошли гулять.','If it weren\'t for the rain, we would go for a walk.|If it wasn\'t for the rain, we would go for a walk.|Were it not for the rain, we would go for a walk.|But for the rain, we would go for a walk.|If it hadn\'t been for the rain, we would have gone for a walk.|Had it not been for the rain, we would have gone for a walk.|If it weren\'t for the rain, we\'d go for a walk.','d'],
  ['tr','Если вы опоздаете, вас не пустят. (should)','Should you be late, you will not be allowed in.|Should you be late, you won\'t be allowed in.|Should you be late, they will not let you in.|Should you be late, they won\'t let you in.','a'],
  ['dict','Should you have any problems with your room, please call reception.','a'],
- ['gap','___ you change your mind, let me know. (без if)','Should','a']],
+ ['gap','___ you change your mind, let me know. (без if)','Should','a'],
+ '|',
+ ['text','___ you need any help, please call reception. ___ I you, I would accept the offer. ___ I known, I would have come earlier. ___ it not been for you, I would have given up.','Should;Were;Had;Had','a'],
+ ['errs',[['Should you have any questions, please ask.',''],['Hadn\'t I seen it, I wouldn\'t believe it.','Had I not seen it, I wouldn\'t believe it.'],['Was I rich, I would travel the world.','Were I rich, I would travel the world.'],['Had we left earlier, we would have caught the train.',''],['Should you will need anything, call me.','Should you need anything, call me.']],'d']],
  fw:{ru:"Напиши 5 «официальных» предложений: инструкцию гостям отеля (Should you…), совет (Were I you…), сожаление о прошлом (Had I known…) и благодарность (Had it not been for…).",en:"Write 5 formal sentences: hotel instructions (Should you…), advice (Were I you…), a regret (Had I known…) and thanks (Had it not been for…)."}},
 
 {id:'futbe',ru:'Будущее: be to, be due to, be about to, be bound to',en:'be to, be due to, be about to, be bound to',
@@ -9475,7 +9815,10 @@ const SECTIONS=[
  ['tr','Вряд ли он согласится.','He is unlikely to agree.|He\'s unlikely to agree.|He is not likely to agree.|He\'s not likely to agree.|It is unlikely that he will agree.|It\'s unlikely that he will agree.|It\'s unlikely he will agree.','c'],
  ['tr','Президент должен посетить завод завтра.','The president is to visit the factory tomorrow.|The president is due to visit the factory tomorrow.|The president is going to visit the factory tomorrow.|The President is to visit the plant tomorrow.|The president is due to visit the plant tomorrow.','b'],
  ['dict','I was on the point of leaving when she finally arrived.','a'],
- ['gap','The match is ___ to start in five minutes. (вот-вот, about)','about','a']],
+ ['gap','The match is ___ to start in five minutes. (вот-вот, about)','about','a'],
+ '|',
+ ['text','Hurry! The train is ___ to leave. The plane is ___ to land at six. He\'s ___ to be late — he always is. The president is ___ visit China next month.','about;due;bound|sure|likely;to','a'],
+ ['errs',[['The meeting was to start at ten.',''],['I was about calling you.','I was about to call you.'],['She is bound being angry.','She is bound to be angry.'],['Prices are unlikely to fall.',''],['I was on the point to give up.','I was on the point of giving up.']],'a']],
  fw:{ru:"Напиши короткую «новость» (5–6 предложений) о событии в твоём городе: что is to / is due to / is set to случиться, что is likely, и что было about to случиться, но не случилось.",en:"Write a short news story (5–6 sentences) about an event in your town using is to, is due to, is set to, is likely to and was about to."}},
 
 {id:'whatever',ru:'Что бы ни, кто бы ни: whatever, whoever, however',en:'whatever, whoever, wherever, however',
@@ -9555,7 +9898,10 @@ const SECTIONS=[
  ['tr','Кто бы ни выиграл, мы будем рады.','Whoever wins, we will be happy.|Whoever wins, we\'ll be happy.|No matter who wins, we will be happy.|No matter who wins, we\'ll be happy.|Whoever wins, we will be glad.','a'],
  ['tr','Как бы поздно ни было, позвони мне.','However late it is, call me.|However late it is, phone me.|No matter how late it is, call me.|Call me, however late it is.|Call me however late it is.','b'],
  ['dict','However busy you are, you should find time for your family.','b'],
- ['gap','___ you need, just ask me. (что бы ни)','Whatever','a']],
+ ['gap','___ you need, just ask me. (что бы ни)','Whatever','a'],
+ '|',
+ ['text','___ happens, call me. ___ wins will get a prize. ___ hard I try, I can\'t remember his name. Sit ___ you like.','Whatever;Whoever;However;wherever','a'],
+ ['errs',[['Call me whenever you want.',''],['Whatever will happen, I\'ll be there.','Whatever happens, I\'ll be there.'],['Whatever hard I try, I can\'t sleep.','However hard I try, I can\'t sleep.'],['No matter what you say, I won\'t change my mind.',''],['No matter what will happen, stay calm.','No matter what happens, stay calm.']],'b']],
  fw:{ru:"Напиши 5 «правил жизни» с whatever, whoever, wherever, whenever и however: Whatever happens, …",en:"Write 5 'life rules' with whatever, whoever, wherever, whenever and however."}},
 
 {id:'needdoing',ru:'Need doing и пассив с get: The car needs washing, He got fired',en:'need doing; get + past participle',
@@ -9633,7 +9979,10 @@ const SECTIONS=[
  ['tr','Окно нужно помыть.','The window needs washing.|The window needs cleaning.|The window needs to be washed.|The window needs to be cleaned.|The windows need washing.|The windows need cleaning.','a'],
  ['tr','Мой телефон разбился.','My phone got broken.|My phone broke.|My phone is broken.|My phone has broken.','c'],
  ['dict','We got lost on the way and our car needed petrol.','c'],
- ['gap','The bathroom needs ___. (clean)','cleaning|to be cleaned','a']],
+ ['gap','The bathroom needs ___. (clean)','cleaning|to be cleaned','a'],
+ '|',
+ ['text','The car needs ___ (wash). Your hair needs ___ (cut). He got ___ (fire) last week. We got ___ (lose) in the forest.','washing|to be washed;cutting|to be cut;fired;lost','a'],
+ ['errs',[['My bike got stolen.',''],['The fridge needs to clean.','The fridge needs cleaning.'],['The car needs being washed.','The car needs washing.'],['Did you get paid last month?',''],['They get married last year.','They got married last year.']],'a']],
  fw:{ru:"Осмотри свою квартиру и напиши 6 предложений о том, что нужно сделать (needs cleaning, needs to be fixed), и 2 предложения о неприятностях с get (got lost, got stuck).",en:"Look around your flat and write 6 sentences about what needs doing, plus 2 sentences about mishaps with get."}},
 
 {id:'quant2',ru:'Количество подробнее: plenty of, a great deal of, hardly any',en:'plenty of, a great deal of, hardly any, the majority of',
@@ -9712,7 +10061,10 @@ const SECTIONS=[
  ['tr','Нам нужно меньше бумаги.','We need less paper.','d'],
  ['tr','Почти никто не знал ответа.','Hardly anybody knew the answer.|Hardly anyone knew the answer.|Almost nobody knew the answer.|Almost no one knew the answer.','b'],
  ['dict','There is plenty of food, but hardly any drinks, so we need to buy more juice.','b'],
- ['gap','There are ___ cars in the city than ten years ago. (меньше)','fewer','d']],
+ ['gap','There are ___ cars in the city than ten years ago. (меньше)','fewer','d'],
+ '|',
+ ['text','Relax, we\'ve got ___ of time. There\'s hardly ___ milk left. A number of people ___ (be) late yesterday. ___ people came this year than last year. (меньше)','plenty;any;were;Fewer','a'],
+ ['errs',[['He spent a great deal of money.',''],['There is hardly no water.','There is hardly any water.'],['The number of students have increased.','The number of students has increased.'],['The majority of people like summer.',''],['There are less trains at night.','There are fewer trains at night.']],'b']],
  fw:{ru:"Сравни свою жизнь сейчас и пять лет назад: чего стало больше и меньше (less / fewer), чего полно (plenty of), чего почти нет (hardly any). 6 предложений.",en:"Compare your life now and five years ago: what there is more and less of, what there is plenty of and hardly any of. 6 sentences."}}
 ]}];
 /* ---- extended reference per topic: full tables, fine points, typical mistakes of Russian speakers (Russian only) ---- */
@@ -10221,6 +10573,8 @@ SECTIONS.forEach((sec,si)=>{sec.lv=sec.lv||'a';sec.id=sec.lv+'-'+sec.en.toLowerC
     const strict=r[0].endsWith('!'),t=r[0].replace('!','');const it={id:u.id+'.'+i,u:u.id,t,strict};
     if(t==='mc'){it.q=r[1];it.o=r[2];it.c=r[3];it.rule=r[4];it.ans=[r[2][r[3]]]}
     else if(t==='dict'){it.ans=[r[1]];it.rule=r[2]}
+    else if(t==='text'){it.q=r[1];it.parts=r[2].split(';').map(x=>x.split('|'));it.rule=r[3];let k=0;it.ans=[r[1].replace(/___(\s*\([^)]*\))?/g,()=>(it.parts[k++]||[''])[0])]}
+    else if(t==='errs'){it.sents=r[1];it.rule=r[2];it.q=r[1].map(x=>x[0]).join(' ');it.ans=[r[1].map(x=>x[1]||x[0]).join(' ')]}
     else{it.q=r[1];it.ans=r[2].split('|');it.rule=r[3];it.extra=r[4]||[]}
     ITEMS.set(it.id,it);return it});
   const ids=u.list.map(x=>x.id),n=n0<0?ids.length:n0,half=Math.ceil(n/2);
@@ -10469,7 +10823,7 @@ function renderUnit(){
     <span class="task">Практика</span>`;
   u.steps.forEach((ids,i)=>{
     const done=i<d,open=i<=d,c=curFor(u,i);
-    h+=`<div class="panel step"><div><b>Шаг ${i+1}. ${['Узнаём форму','Строим сами','Закрепляем вперемешку'][i]||'Ещё практика '+(i-2)}</b><div class="small muted">${ids.length} ${plural(ids.length,'задание','задания','заданий')}${i===2&&u.n>1?' + несколько из прошлых тем':''}${c?` · сделано ${c.i} из ${c.q.length}`:done?' · пройден':''}</div></div>
+    h+=`<div class="panel step"><div><b>Шаг ${i+1}. ${ids.every(id=>/text|errs/.test(ITEMS.get(id).t))?'Связный текст':['Узнаём форму','Строим сами','Закрепляем вперемешку'][i]||'Ещё практика '+(i-2)}</b><div class="small muted">${ids.length} ${plural(ids.length,'задание','задания','заданий')}${i===2&&u.n>1?' + несколько из прошлых тем':''}${c?` · сделано ${c.i} из ${c.q.length}`:done?' · пройден':''}</div></div>
       <button class="btn ${done&&!c?'':'primary'}" data-step="${i}" ${open?'':'disabled'}>${c?'Продолжить':done?'Ещё раз':open?'Начать':'Закрыт'}</button></div>`;
   });
   if(!unitDone(u))h+=`<button class="btn" id="skipBtn">Уже знаю эту тему: сдать тестом (10 вопросов)</button>`;
@@ -10710,7 +11064,7 @@ const NOART='—';
 function twrap(t){return String(t).split(/([A-Za-z]+(?:['’][A-Za-z]+)*)/).map((x,i)=>i%2?`<span class="tw">${esc(x)}</span>`:esc(x)).join('')}
 function qHtml(q){const a=String(q).split('___');return a.map(twrap).join('<span class="blank"></span>')}
 function fillBlank(q,a){const t=q.replace(/\s*\([^)]*\)\s*$/,'').split('___');return a===NOART?twrap(t.join('').replace(/\s+/g,' ').trim())+' <span class="muted small">(без артикля и предлога)</span>':twrap(t[0])+'<b>'+twrap(a)+'</b>'+twrap(t[1]||'')}
-const TASK={mc:'Выбери вариант',gap:'Впиши пропущенное',build:'Собери предложение',tr:'Переведи на английский',fix:'Исправь ошибку',dict:'Напиши то, что слышишь'};
+const TASK={text:'Заполни пропуски в тексте',errs:'Найди предложения с ошибками',mc:'Выбери вариант',gap:'Впиши пропущенное',build:'Собери предложение',tr:'Переведи на английский',fix:'Исправь ошибку',dict:'Напиши то, что слышишь'};
 
 function renderSession(){
   const s=session;
@@ -10729,6 +11083,8 @@ function renderSession(){
   else if(mode==='gap')h+=`<div class="q">${qHtml(it.q)}</div>${input}`;
   else if(mode==='tr')h+=`<div class="q">${esc(it.q)}</div>${input}`;
   else if(mode==='fix')h+=`<div class="q"><span class="wrong">${twrap(it.q)}</span></div><div class="small muted">Напиши предложение целиком, уже без ошибки.</div>${input}`;
+  else if(mode==='text'){let k=0;h+=`<div class="q textq">${it.q.split(/(___(?:\s*\([^)]*\))?)/).map((x,i)=>i%2?`<input class="inp tinp" data-k="${k++}" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Пропуск ${k}">${(x.match(/\(([^)]*)\)/)||['',''])[1]?`<span class="muted small"> (${esc(x.match(/\(([^)]*)\)/)[1])})</span>`:''}`:twrap(x)).join('')}</div>`}
+  else if(mode==='errs'){s.state.sel=new Set();h+=`<div class="small muted">Нажми на предложения, в которых есть ошибка. Их может быть несколько.</div><div class="opts errs">${it.sents.map((x,i)=>`<button class="opt" data-i="${i}" aria-pressed="false">${esc(x[0])}</button>`).join('')}</div>`}
   else if(mode==='dict')h+=`<button class="say" id="say" aria-label="Прослушать">${SPK}</button><div class="small muted" style="text-align:center">Можно слушать сколько угодно раз.</div>${input}`;
   else if(mode==='build'){
     const words=it.ans[0].replace(/[.?!,]/g,'').split(' ').map((w,i)=>i===0&&!proper(w)?w.toLowerCase():w);
@@ -10742,6 +11098,9 @@ function renderSession(){
     saveNow();const k=s.kind,u=s.unit;session=null;k==='step'?go('unit',u):k==='test'?go('course'):go('review')};
   const cb=$('#checkBtn');cb.onclick=submit;
   if(mode==='mc')document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(s.state.done)return;s.state.pick=+b.dataset.i;document.querySelectorAll('.opt').forEach(x=>x.setAttribute('aria-pressed',x===b));cb.disabled=false});
+  if(mode==='text'){const ins=[...document.querySelectorAll('.tinp')];const upd=()=>{cb.disabled=ins.some(x=>!x.value.trim())};
+    ins.forEach((x,i)=>{x.oninput=upd;x.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();if(ins[i+1])ins[i+1].focus();else if(!cb.disabled&&!s.state.done)submit()}}});if(!('ontouchstart' in window))ins[0]&&ins[0].focus()}
+  if(mode==='errs')document.querySelectorAll('.errs .opt').forEach(b=>b.onclick=()=>{if(s.state.done)return;const i=+b.dataset.i,sel=s.state.sel;sel.has(i)?sel.delete(i):sel.add(i);b.setAttribute('aria-pressed',sel.has(i));cb.disabled=!sel.size});
   if(mode==='build'){
     const paint=()=>{$('#line').innerHTML=s.state.line.map((ti,k)=>`<button class="tile" data-k="${k}">${esc(s.state.tiles[ti])}</button>`).join('');
       document.querySelectorAll('#bank .tile').forEach(b=>b.classList.toggle('used',s.state.line.includes(+b.dataset.i)));cb.disabled=!s.state.line.length;
@@ -10758,6 +11117,10 @@ function submit(){
   let r,given='';
   if(st.mode==='mc'){given=it.o[st.pick];r={res:st.pick===it.c?'ok':'bad'}}
   else if(st.mode==='build'){given=st.line.map(i=>st.tiles[i]).join(' ');r=check(given,it.ans,true)}
+  else if(st.mode==='text'){const vals=[...document.querySelectorAll('.tinp')].map(x=>x.value);const rs=vals.map((v,k)=>check(v,it.parts[k]||[''],it.strict));given=vals.join(' / ');
+    st.marks=rs.map(x=>x.res);const bad=rs.filter(x=>x.res==='bad').length,ty=rs.find(x=>x.res==='typo');r=bad?{res:'bad'}:ty?{res:'typo',want:ty.want,got:ty.got}:{res:'ok'};r.nbad=bad}
+  else if(st.mode==='errs'){const want=it.sents.map((x,i)=>x[1]?i:-1).filter(i=>i>=0);given=[...st.sel].sort().map(i=>it.sents[i][0]).join(' / ');
+    r={res:want.length===st.sel.size&&want.every(i=>st.sel.has(i))?'ok':'bad'}}
   else{given=$('#ans').value;r=check(given,it.ans,it.strict)}
   st.done=true;st.given=given;st.r=r;
   const inp=$('#ans');if(inp)inp.blur();
@@ -10781,16 +11144,19 @@ function grade(it,ok,typo,given,shown){
 }
 function showFeedback(){
   const s=session,st=s.state,it=st.it,r=st.r,u=UNIT(it.u);
-  document.querySelectorAll('.opt,.tile,#ans').forEach(e=>e.disabled=true);
+  document.querySelectorAll('.opt,.tile,#ans,.tinp').forEach(e=>e.disabled=true);
+  if(st.mode==='text')document.querySelectorAll('.tinp').forEach((x,k)=>{x.classList.add(st.marks[k]==='bad'?'wrong':'right');if(st.marks[k]==='bad')x.insertAdjacentHTML('afterend',` <b class="fixed">${esc(it.parts[k][0])}</b>`)});
+  if(st.mode==='errs')document.querySelectorAll('.errs .opt').forEach(b=>{const i=+b.dataset.i,w=!!it.sents[i][1],p=st.sel.has(i);b.setAttribute('aria-pressed','false');if(w)b.classList.add(p?'right':'missed');else if(p)b.classList.add('wrong')});
   if(st.mode==='mc')document.querySelectorAll('.opt').forEach(b=>{const i=+b.dataset.i;if(i===it.c)b.classList.add('right');else if(i===st.pick)b.classList.add('wrong')});
   const rule=u.rules[it.rule],why=rule?(rule[S.lang]||rule.ru):'';
-  const full=(it.t==='mc'||it.t==='gap')&&it.q.includes('___')?fillBlank(it.q,it.ans[0]):twrap(it.ans[0]);
+  const full=it.t==='errs'?it.sents.filter(x=>x[1]).map(x=>`<div><span class="wrongtxt">${esc(x[0])}</span><br>→ ${twrap(x[1])}</div>`).join(''):it.t==='text'?(r.res==='bad'?`Правильно: ${it.parts.map(x=>esc(x[0])).join(', ')}`:''):(it.t==='mc'||it.t==='gap')&&it.q.includes('___')?fillBlank(it.q,it.ans[0]):twrap(it.ans[0]);
   const plain=(it.t==='mc'||it.t==='gap')&&it.q.includes('___')?it.q.replace('___',it.ans[0]===NOART?'':it.ans[0]).replace(/\s*\([^)]*\)\s*$/,'').replace(/\s+/g,' '):it.ans[0];
   const f=$('#foot');f.className='foot '+r.res;
   let h=`<div class="wrap"><div class="verdict">${r.res==='ok'?'Верно':r.res==='typo'?'Верно, но есть помарка':'Неверно'}</div>`;
   if(r.res==='typo')h+=`<div class="small">Ты написал <b>${esc(r.got)}</b>, правильно — <b>${esc(r.want)}</b>.</div>`;
-  if(r.res==='bad'&&st.mode!=='mc'&&String(st.given||'').trim())h+=`<div class="small">Твой ответ: <span class="wrongtxt">${esc(st.given)}</span></div>`;
-  if(r.res!=='ok'||it.t==='dict')h+=`<div class="right">${full}</div>`;
+  if(r.res==='bad'&&st.mode==='text')h+=`<div class="small">Ошибок в пропусках: ${r.nbad} из ${it.parts.length}.</div>`;
+  if(r.res==='bad'&&st.mode!=='mc'&&st.mode!=='text'&&st.mode!=='errs'&&String(st.given||'').trim())h+=`<div class="small">Твой ответ: <span class="wrongtxt">${esc(st.given)}</span></div>`;
+  if((r.res!=='ok'||it.t==='dict'||it.t==='errs')&&full)h+=`<div class="right">${it.t==='errs'?'Ошибки и исправления:':''}${full}</div>`;
   if(why&&r.res!=='ok')h+=`<div class="why">${esc(why)}</div>`;
   if(r.res==='bad'&&(it.t==='tr'||it.t==='fix'||it.t==='gap')&&st.mode!=='mc')h+=`<button class="linkbtn" id="mine">Мой вариант тоже верный — засчитать</button>`;
   if(canClaude())h+=`<button class="linkbtn" id="whyBtn">${r.res==='bad'?'Спросить Claude, почему так':'Задать вопрос Claude'}</button><div id="askBox" hidden><textarea class="inp" id="askQ" rows="2" placeholder="${r.res==='bad'?'Свой вопрос или оставь пустым: «почему так?»':'Например: а можно сказать иначе?'}"></textarea><button class="btn" id="askGo">Спросить</button></div><div id="whyBox"></div>`;
@@ -10810,7 +11176,7 @@ ${ask}`);
       box.innerHTML=`<div class="fb">${q?`<b>${esc(q)}</b>\n`:''}${esc(a)}</div>`+box.innerHTML;$('#askQ').value=''}
     catch(e){box.insertAdjacentHTML('afterbegin',`<div class="small">${esc(claudeErr(e))}</div>`)}
     b.disabled=false;b.textContent='Спросить ещё'});
-  if(S.sound&&CAN_SPEAK&&it.t!=='dict'&&it.q!==undefined&&plain&&!/→/.test(plain))speak(plain.replace(/["“”]/g,''));
+  if(S.sound&&CAN_SPEAK&&it.t!=='dict'&&it.t!=='text'&&it.t!=='errs'&&it.q!==undefined&&plain&&!/→/.test(plain))speak(plain.replace(/["“”]/g,''));
 }
 /* the learner says their own translation was also correct: undo the miss */
 function override(){
