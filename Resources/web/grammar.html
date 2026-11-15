@@ -6978,6 +6978,756 @@ const SECTIONS=[
  ['gap','I have read ___ his books. Every one.','all','b']],
  fw:{ru:"Опиши свою обычную неделю: что делаешь every day, что было all day вчера, что ты сделал целиком (the whole…), и что у каждого (each) в твоей семье.",en:"Describe your usual week: what you do every day, what you did all day yesterday, something you did the whole of, and what each person in your family has."}}
 ]},
+{lv:'b',ru:'Предлоги и фразовые глаголы',en:'Prepositions and phrasal verbs',units:[
+{id:'phrud',ru:'Фразовые глаголы с up и down',en:'Phrasal verbs: up / down',
+ th:{ru:`<p><b>up</b> часто значит «вверх», «полностью, до конца» или «появиться». <b>down</b> — «вниз», «уменьшить», «записать».</p>
+<table><tr><th>Глагол</th><th>Значение</th><th>Пример</th></tr>
+<tr><td>pick up</td><td>поднять; забрать (кого-то)</td><td><span class="en">I'll pick you up at six.</span></td></tr>
+<tr><td>give up</td><td>бросить, сдаться</td><td><span class="en">Don't give up!</span></td></tr>
+<tr><td>make up</td><td>выдумать; помириться</td><td><span class="en">He made up a story.</span></td></tr>
+<tr><td>turn up</td><td>прибавить (звук); появиться</td><td><span class="en">Turn up the music. He turned up late.</span></td></tr>
+<tr><td>set up</td><td>основать, настроить</td><td><span class="en">She set up her own company.</span></td></tr>
+<tr><td>tidy up / wash up</td><td>прибраться / помыть посуду</td><td><span class="en">Tidy up your room!</span></td></tr>
+<tr><td>bring up</td><td>воспитать; поднять тему</td><td><span class="en">She was brought up by her aunt.</span></td></tr>
+<tr><td>sit down / lie down</td><td>сесть / прилечь</td><td><span class="en">Please sit down.</span></td></tr>
+<tr><td>turn down</td><td>убавить; отказать</td><td><span class="en">They turned down my offer.</span></td></tr>
+<tr><td>write down / note down</td><td>записать</td><td><span class="en">Write down my number.</span></td></tr>
+<tr><td>break down</td><td>сломаться (о машине)</td><td><span class="en">The car broke down.</span></td></tr>
+<tr><td>calm down / slow down</td><td>успокоиться / сбавить скорость</td><td><span class="en">Calm down!</span></td></tr></table>
+<p>С местоимением — в середину: <span class="en">pick it up</span>, <span class="en">turn it down</span>, <span class="en">write it down</span>.</p>`,
+ en:`<p><b>up</b> often means "upwards", "completely" or "appear". <b>down</b> means "downwards", "less" or "on paper".</p>
+<table><tr><th>Verb</th><th>Meaning</th><th>Example</th></tr>
+<tr><td>pick up</td><td>lift; collect someone</td><td><span class="en">I'll pick you up at six.</span></td></tr>
+<tr><td>give up</td><td>stop trying</td><td><span class="en">Don't give up!</span></td></tr>
+<tr><td>make up</td><td>invent; become friends again</td><td><span class="en">He made up a story.</span></td></tr>
+<tr><td>turn up</td><td>increase volume; arrive</td><td><span class="en">He turned up late.</span></td></tr>
+<tr><td>set up</td><td>start, establish</td><td><span class="en">She set up a company.</span></td></tr>
+<tr><td>tidy up / wash up</td><td>clean / wash dishes</td><td><span class="en">Tidy up your room!</span></td></tr>
+<tr><td>bring up</td><td>raise a child; mention</td><td><span class="en">She was brought up by her aunt.</span></td></tr>
+<tr><td>sit down / lie down</td><td></td><td><span class="en">Please sit down.</span></td></tr>
+<tr><td>turn down</td><td>reduce; refuse</td><td><span class="en">They turned down my offer.</span></td></tr>
+<tr><td>write down</td><td>record on paper</td><td><span class="en">Write down my number.</span></td></tr>
+<tr><td>break down</td><td>stop working</td><td><span class="en">The car broke down.</span></td></tr>
+<tr><td>calm down / slow down</td><td></td><td><span class="en">Calm down!</span></td></tr></table>
+<p>Pronouns go in the middle: <span class="en">pick it up</span>.</p>`},
+ rules:{a:{ru:'up — вверх, до конца, появиться: pick up, give up, turn up, set up.',en:'up — upwards, completely, appear.'},
+  b:{ru:'down — вниз, уменьшить, записать: sit down, turn down, write down, break down.',en:'down — downwards, less, on paper, stop working.'},
+  c:{ru:'Местоимение — между глаголом и частицей: pick it up, turn it down.',en:'A pronoun goes between the verb and the particle.'}},
+ items:[
+ ['mc','Can you pick me ___ from the station?',['up','down','out'],0,'a'],
+ ['mc','I\'m going to give ___ sugar.',['up','down','off'],0,'a'],
+ ['mc','Please sit ___.',['down','up','off'],0,'b'],
+ ['mc','Our car broke ___ on the motorway.',['down','up','out'],0,'b'],
+ ['mc','Write ___ the address, please.',['down','up','on'],0,'b'],
+ ['mc','The music is too loud. Turn it ___.',['down','up','off up'],0,'b'],
+ ['mc','He didn\'t tell the truth. He made it ___.',['up','down','out'],0,'a'],
+ ['gap','She set ___ a small business last year.','up','a'],
+ ['gap','Calm ___! It\'s not a big problem.','down','b'],
+ ['gap','He was brought ___ by his grandparents.','up','a'],
+ ['gap','There\'s a pen on the floor. Can you pick ___ up?','it','c'],
+ ['tr','Не сдавайся!','Don\'t give up!|Do not give up!','a'],
+ ['tr','Запиши мой номер.','Write down my number.|Write my number down.|Note down my number.|Write down my phone number.|Write my phone number down.','b'],
+ ['build','Убавь, пожалуйста, телевизор.','Turn the TV down, please.','c',['up']],
+ ['fix','I picked up it at the shop.','I picked it up at the shop.','c'],
+ '|',
+ ['mc','Slow ___! You\'re driving too fast.',['down','up','off'],0,'b'],
+ ['mc','They had a fight but then they made ___.',['up','down','out'],0,'a'],
+ ['gap','Can you turn ___ the radio? I can\'t hear it.','up','a'],
+ ['gap','I offered him a job, but he turned it ___.','down','b'],
+ ['fix','Please write down it.','Please write it down.','c'],
+ ['fix','Never give down!','Never give up!','a'],
+ ['tr','Я заберу тебя в семь.','I will pick you up at seven.|I\'ll pick you up at seven.|I will pick you up at 7.|I\'ll pick you up at 7.','a'],
+ ['dict','I had a headache, so I lay down for an hour.','b'],
+ '|',
+ ['mc','Who ___ up this silly story?',['made','came','took'],0,'a'],
+ ['mc','I\'m tired. I need to lie ___.',['down','up','off'],0,'b'],
+ ['mc','Can you help me tidy ___ the kitchen?',['up','down','off'],0,'a'],
+ ['mc','Can you ___ me up at eight tomorrow?',['pick','give','make'],0,'a'],
+ ['mc','He finally turned ___ two hours late.',['up','down','out off'],0,'a'],
+ ['gap','The lift broke ___ again.','down','b'],
+ ['gap','I\'ll wash ___ after dinner.','up','a'],
+ ['gap','Don\'t bring ___ politics at dinner, please.','up','a'],
+ ['gap','The music is too loud. Please turn ___ down.','it','c'],
+ ['gap','She wrote ___ everything the teacher said.','down','b'],
+ ['fix','Set up it before the guests arrive.','Set it up before the guests arrive.','c'],
+ ['tr','Он бросил курить.','He gave up smoking.|He has given up smoking.|He\'s given up smoking.|He quit smoking.','a'],
+ ['build','Машина сломалась в лесу.','The car broke down in the forest.','b',['up']],
+ '|',
+ ['mc','It\'s cold. Turn the heating ___.',['up','down','off'],0,'a'],
+ ['mc','I wrote your name ___ so I wouldn\'t forget.',['down','up','off'],0,'b'],
+ ['gap','Please pick ___ your toys.','up','a'],
+ ['gap','You need to calm ___ and think.','down','b'],
+ ['gap','She was offered the job but turned ___ down.','it','c'],
+ ['gap','Don\'t make ___ excuses.','up','a'],
+ ['fix','Turn down it, please.','Turn it down, please.','c'],
+ ['fix','He brought up by his aunt.','He was brought up by his aunt.','a'],
+ ['fix','The bus broke up on the way.','The bus broke down on the way.','b'],
+ ['fix','Please sit up and relax.','Please sit down and relax.','b'],
+ ['tr','Успокойся, всё хорошо.','Calm down, everything is fine.|Calm down, everything\'s fine.|Calm down, it\'s all right.|Calm down, everything is OK.|Calm down. Everything is fine.','b'],
+ ['tr','Она открыла своё кафе.','She set up her own cafe.|She set up her own café.|She opened her own cafe.|She opened her own café.|She started her own cafe.','a'],
+ ['dict','Could you pick up some bread on your way home?','a'],
+ ['gap','Please speak ___. I can\'t hear you. (громче — up)','up','a']],
+ fw:{ru:"Напиши 6 предложений о своей неделе, используя не меньше шести фразовых глаголов с up и down.",en:"Write 6 sentences about your week using at least six phrasal verbs with up and down."}},
+
+{id:'phronoff',ru:'Фразовые глаголы с on и off',en:'Phrasal verbs: on / off',
+ th:{ru:`<p><b>on</b> — «включить», «надеть», «продолжать». <b>off</b> — «выключить», «снять», «уйти, отправиться», «отменить».</p>
+<table><tr><th>Глагол</th><th>Значение</th><th>Пример</th></tr>
+<tr><td>turn on / switch on</td><td>включить</td><td><span class="en">Turn on the light.</span></td></tr>
+<tr><td>turn off / switch off</td><td>выключить</td><td><span class="en">Switch off your phone.</span></td></tr>
+<tr><td>put on / take off</td><td>надеть / снять</td><td><span class="en">Take off your shoes.</span></td></tr>
+<tr><td>try on</td><td>примерить</td><td><span class="en">Can I try it on?</span></td></tr>
+<tr><td>go on / carry on</td><td>продолжать</td><td><span class="en">Go on, I'm listening.</span></td></tr>
+<tr><td>get on / get off</td><td>сесть / выйти (автобус, поезд)</td><td><span class="en">Get off at the next stop.</span></td></tr>
+<tr><td>take off</td><td>взлететь</td><td><span class="en">The plane took off.</span></td></tr>
+<tr><td>set off</td><td>отправиться в путь</td><td><span class="en">We set off at dawn.</span></td></tr>
+<tr><td>call off / put off</td><td>отменить / отложить</td><td><span class="en">They called off the match.</span></td></tr>
+<tr><td>show off</td><td>хвастаться</td><td><span class="en">Stop showing off!</span></td></tr>
+<tr><td>hold on</td><td>подождать (по телефону)</td><td><span class="en">Hold on a minute.</span></td></tr></table>
+<p>«Сесть в машину» — <span class="en">get into a car</span>, а «в автобус, поезд, самолёт» — <span class="en">get on</span>.</p>
+<p>После go on / carry on действие — с -ing: <span class="en">carry on working</span>.</p>`,
+ en:`<p><b>on</b> — start working, wear, continue. <b>off</b> — stop working, remove, leave, cancel.</p>
+<table><tr><th>Verb</th><th>Example</th></tr>
+<tr><td>turn on / switch on</td><td><span class="en">Turn on the light.</span></td></tr>
+<tr><td>turn off / switch off</td><td><span class="en">Switch off your phone.</span></td></tr>
+<tr><td>put on / take off (clothes)</td><td><span class="en">Take off your shoes.</span></td></tr>
+<tr><td>try on</td><td><span class="en">Can I try it on?</span></td></tr>
+<tr><td>go on / carry on</td><td><span class="en">Go on, I'm listening.</span></td></tr>
+<tr><td>get on / get off (bus, train)</td><td><span class="en">Get off at the next stop.</span></td></tr>
+<tr><td>take off (plane)</td><td><span class="en">The plane took off.</span></td></tr>
+<tr><td>set off</td><td><span class="en">We set off at dawn.</span></td></tr>
+<tr><td>call off / put off</td><td><span class="en">They called off the match.</span></td></tr>
+<tr><td>show off</td><td><span class="en">Stop showing off!</span></td></tr>
+<tr><td>hold on</td><td><span class="en">Hold on a minute.</span></td></tr></table>
+<p>Cars: get into / out of; buses, trains, planes: get on / off. go on / carry on + -ing.</p>`},
+ rules:{a:{ru:'on — включить, надеть, продолжать (turn on, put on, go on).',en:'on — switch on, wear, continue.'},
+  b:{ru:'off — выключить, снять, уйти, отменить (turn off, take off, set off, call off).',en:'off — switch off, remove, leave, cancel.'},
+  c:{ru:'get on / off — автобус, поезд, самолёт; get into / out of — машина, такси.',en:'get on / off — bus, train, plane; get into / out of — car, taxi.'},
+  d:{ru:'go on / carry on + -ing; местоимение в середину: put it on.',en:'go on / carry on + -ing; pronoun in the middle.'}},
+ items:[
+ ['mc','It\'s dark. Turn ___ the light.',['on','off','up'],0,'a'],
+ ['mc','Take ___ your coat and sit down.',['off','on','out'],0,'b'],
+ ['mc','We got ___ the bus at the museum.',['off','out','down'],0,'c'],
+ ['mc','The plane took ___ on time.',['off','on','up'],0,'b'],
+ ['mc','Carry on ___. I\'ll be back soon.',['working','to work','work'],0,'d'],
+ ['mc','The match was called ___ because of the rain.',['off','on','out'],0,'b'],
+ ['mc','I like this jacket. Can I try it ___?',['on','off','up'],0,'a'],
+ ['gap','Switch ___ the TV before you go to bed.','off','b'],
+ ['gap','Put ___ your scarf. It\'s freezing.','on','a'],
+ ['gap','Get ___ the train at the third stop.','off','c'],
+ ['gap','Go ___. I\'m listening.','on','d'],
+ ['tr','Сними обувь, пожалуйста.','Take off your shoes, please.|Please take off your shoes.|Take your shoes off, please.|Please take your shoes off.','b'],
+ ['tr','Мы выехали в шесть утра.','We set off at six in the morning.|We set off at 6 a.m.|We left at six in the morning.|We set out at six in the morning.|We set off at six a.m.|We set off at 6 am.','b'],
+ ['build','Включи телевизор.','Turn the TV on.','d',['off']],
+ ['fix','Put on it, it\'s cold.',"Put it on, it's cold.",'d'],
+ '|',
+ ['mc','Hold ___, I\'ll get a pen.',['on','off','up'],0,'a'],
+ ['mc','She got ___ the taxi and paid the driver.',['out of','off','down'],0,'c'],
+ ['gap','He always shows ___ his new car.','off','b'],
+ ['gap','We\'ve put ___ the wedding until June. (отложили)','off','b'],
+ ['fix','We got on the car and drove away.','We got into the car and drove away.|We got in the car and drove away.','c'],
+ ['fix','Carry on to read.','Carry on reading.','d'],
+ ['tr','Выключи телефон в кино.','Switch off your phone in the cinema.|Turn off your phone in the cinema.|Switch your phone off in the cinema.|Turn your phone off in the cinema.|Turn off your phone at the cinema.','b'],
+ ['dict','Please turn off the lights and take off your shoes.','b'],
+ '|',
+ ['mc','Put ___ a warm hat. It\'s snowing.',['on','off','in'],0,'a'],
+ ['mc','The meeting was put ___ until next week.',['off','on','up'],0,'b'],
+ ['mc','We got ___ the plane in Moscow.',['on','into','in'],0,'c'],
+ ['mc','He went ___ talking for an hour.',['on','off','up'],0,'d'],
+ ['mc','Turn ___ the oven. The cake is ready.',['off','on','up'],0,'b'],
+ ['gap','Can you switch ___ the heating? It\'s cold.','on','a'],
+ ['gap','Our flight takes ___ at 7:30.','off','b'],
+ ['gap','Get ___ the bus quickly! It\'s leaving.','on','c'],
+ ['gap','Don\'t stop. Carry ___!','on','d'],
+ ['gap','The concert was called ___ at the last minute.','off','b'],
+ ['fix','I tried on it, but it was too small.','I tried it on, but it was too small.','d'],
+ ['tr','Продолжай, пожалуйста.','Go on, please.|Please go on.|Carry on, please.|Please carry on.|Please continue.|Continue, please.','d'],
+ ['build','Мы сели в поезд в Москве.','We got on the train in Moscow.','c',['into']],
+ '|',
+ ['mc','He took ___ his glasses and rubbed his eyes.',['off','out','down'],0,'b'],
+ ['mc','I usually get ___ the metro at Arbatskaya.',['off','out','down'],0,'c'],
+ ['gap','Put ___ some music while we cook.','on','a'],
+ ['gap','The party was called ___ because Anna was ill.','off','b'],
+ ['gap','Hurry! The bus is about to set ___.','off','b'],
+ ['gap','They went ___ arguing all evening.','on','d'],
+ ['fix','Turn on the light off.','Turn off the light.|Turn the light off.|Turn on the light.','a'],
+ ['fix','I got off the car outside the hotel.','I got out of the car outside the hotel.','c'],
+ ['fix','We put the meeting on until Friday.','We put the meeting off until Friday.|We put off the meeting until Friday.','b'],
+ ['fix','Go on to talk, I\'m listening.',"Go on talking, I'm listening.|Carry on talking, I'm listening.",'d'],
+ ['tr','Подожди минутку.','Hold on a minute.|Wait a minute.|Hang on a minute.|Hold on a second.|Wait a moment.','a'],
+ ['tr','Она сняла куртку.','She took off her jacket.|She took her jacket off.','b'],
+ ['dict','We got off the train, got into a taxi and set off for the hotel.','c'],
+ ['gap','Can I try these jeans ___?','on','a']],
+ fw:{ru:"Опиши своё утро от будильника до работы, используя turn on/off, put on, take off, get on/off, set off.",en:"Describe your morning from the alarm to work using turn on/off, put on, take off, get on/off, set off."}},
+
+{id:'phrinout',ru:'Фразовые глаголы с in, out, away, back',en:'Phrasal verbs: in / out / away / back',
+ th:{ru:`<table><tr><th>Глагол</th><th>Значение</th><th>Пример</th></tr>
+<tr><td>come in / go in</td><td>войти</td><td><span class="en">Come in!</span></td></tr>
+<tr><td>go out / eat out</td><td>выйти, пойти куда-то / поесть вне дома</td><td><span class="en">Let's go out tonight.</span></td></tr>
+<tr><td>fill in</td><td>заполнить (бланк)</td><td><span class="en">Fill in this form.</span></td></tr>
+<tr><td>check in / check out</td><td>зарегистрироваться / выехать (отель)</td><td><span class="en">We checked out at noon.</span></td></tr>
+<tr><td>find out</td><td>узнать, выяснить</td><td><span class="en">I found out the truth.</span></td></tr>
+<tr><td>work out</td><td>понять, решить; тренироваться</td><td><span class="en">I can't work out the answer.</span></td></tr>
+<tr><td>run out (of)</td><td>закончиться</td><td><span class="en">We've run out of milk.</span></td></tr>
+<tr><td>go away / run away</td><td>уйти, уехать / убежать</td><td><span class="en">Go away!</span></td></tr>
+<tr><td>throw away / give away</td><td>выбросить / отдать бесплатно</td><td><span class="en">Don't throw it away.</span></td></tr>
+<tr><td>put away</td><td>убрать на место</td><td><span class="en">Put your toys away.</span></td></tr>
+<tr><td>come back / go back / get back</td><td>вернуться</td><td><span class="en">When did you get back?</span></td></tr>
+<tr><td>give back / pay back / call back</td><td>вернуть / вернуть долг / перезвонить</td><td><span class="en">I'll call you back.</span></td></tr></table>
+<p><b>back</b> всегда значит «обратно, в ответ»: <span class="en">write back, smile back</span>.</p>`,
+ en:`<table><tr><th>Verb</th><th>Example</th></tr>
+<tr><td>come in / go in</td><td><span class="en">Come in!</span></td></tr>
+<tr><td>go out / eat out</td><td><span class="en">Let's go out tonight.</span></td></tr>
+<tr><td>fill in</td><td><span class="en">Fill in this form.</span></td></tr>
+<tr><td>check in / check out</td><td><span class="en">We checked out at noon.</span></td></tr>
+<tr><td>find out</td><td><span class="en">I found out the truth.</span></td></tr>
+<tr><td>work out</td><td><span class="en">I can't work out the answer.</span></td></tr>
+<tr><td>run out (of)</td><td><span class="en">We've run out of milk.</span></td></tr>
+<tr><td>go away / run away</td><td><span class="en">Go away!</span></td></tr>
+<tr><td>throw away / give away</td><td><span class="en">Don't throw it away.</span></td></tr>
+<tr><td>put away</td><td><span class="en">Put your toys away.</span></td></tr>
+<tr><td>come / go / get back</td><td><span class="en">When did you get back?</span></td></tr>
+<tr><td>give / pay / call back</td><td><span class="en">I'll call you back.</span></td></tr></table>
+<p><b>back</b> means "return, in reply": <span class="en">write back</span>.</p>`},
+ rules:{a:{ru:'in — внутрь, заполнить (come in, fill in, check in).',en:'in — inside, complete a form.'},
+  b:{ru:'out — наружу, узнать, закончиться (go out, find out, run out).',en:'out — outside, discover, finish a supply.'},
+  c:{ru:'away — прочь, убрать (go away, throw away, put away).',en:'away — leave, remove, store.'},
+  d:{ru:'back — обратно, в ответ (come back, give back, call back).',en:'back — return, in reply.'}},
+ items:[
+ ['mc','Come ___! The door is open.',['in','out','away'],0,'a'],
+ ['mc','Please fill ___ this form.',['in','out','away'],0,'a'],
+ ['mc','I need to find ___ when the train leaves.',['out','in','back'],0,'b'],
+ ['mc','We\'ve run ___ of coffee.',['out','away','back'],0,'b'],
+ ['mc','Don\'t throw ___ that box. I need it.',['away','out back','back'],0,'c'],
+ ['mc','I\'ll call you ___ in ten minutes.',['back','away','out'],0,'d'],
+ ['mc','When did you get ___ from your holiday?',['back','away','in'],0,'d'],
+ ['gap','Let\'s go ___ for dinner tonight.','out','b'],
+ ['gap','Put your clothes ___. Your room is a mess.','away','c'],
+ ['gap','Can you give me ___ my book, please?','back','d'],
+ ['gap','We checked ___ at the hotel at 3 p.m.','in','a'],
+ ['tr','Я узнал правду.','I found out the truth.|I have found out the truth.|I\'ve found out the truth.|I learned the truth.|I learnt the truth.','b'],
+ ['tr','Я верну тебе деньги завтра.','I will pay you back tomorrow.|I\'ll pay you back tomorrow.|I will give you the money back tomorrow.|I\'ll give you the money back tomorrow.|I will give you back the money tomorrow.|I\'ll give you back the money tomorrow.|I will return the money tomorrow.','d'],
+ ['build','Уходи!','Go away!','c',['out']],
+ ['fix','I can\'t work it in.',"I can't work it out.",'b'],
+ '|',
+ ['mc','I can\'t work ___ this problem.',['out','in','away'],0,'b'],
+ ['mc','The dog ran ___ from home.',['away','back','in'],0,'c'],
+ ['gap','We have to check ___ of the hotel by noon.','out','b'],
+ ['gap','She smiled at me and I smiled ___.','back','d'],
+ ['fix','Fill out this form in, please.','Fill in this form, please.|Fill this form in, please.|Fill out this form, please.','a'],
+ ['fix','Give me away my pen!','Give me back my pen!|Give my pen back!|Give me my pen back!','d'],
+ ['tr','Перезвони мне, пожалуйста.','Call me back, please.|Please call me back.|Phone me back, please.|Please phone me back.|Ring me back, please.','d'],
+ ['dict','We ran out of petrol and had to walk back to the village.','b'],
+ '|',
+ ['mc','He went ___ without saying goodbye.',['away','in','back'],0,'c'],
+ ['mc','I gave ___ all my old clothes to charity.',['away','out back','in'],0,'c'],
+ ['mc','How did you find ___ about the party?',['out','in','away'],0,'b'],
+ ['mc','Please come ___ and sit down.',['in','out','away'],0,'a'],
+ ['mc','She went ___ to the shop because she forgot her bag.',['back','away','out of'],0,'d'],
+ ['gap','I work ___ at the gym three times a week.','out','b'],
+ ['gap','Put the milk ___ in the fridge.','away|back','c'],
+ ['gap','He borrowed my car and didn\'t bring it ___.','back','d'],
+ ['gap','Fill ___ your name and address here.','in','a'],
+ ['gap','We eat ___ at restaurants on Fridays.','out','b'],
+ ['fix','Don\'t throw away it!',"Don't throw it away!",'c'],
+ ['tr','Мы вернёмся в пятницу.','We will be back on Friday.|We\'ll be back on Friday.|We will come back on Friday.|We\'ll come back on Friday.|We will get back on Friday.|We\'ll get back on Friday.|We are coming back on Friday.|We\'re coming back on Friday.','d'],
+ ['build','У нас закончился хлеб.','We have run out of bread.','b',['away']],
+ '|',
+ ['mc','The answer is hard to work ___.',['out','in','back'],0,'b'],
+ ['mc','I\'ll pay you ___ next week.',['back','away','out'],0,'d'],
+ ['gap','Please check ___ two hours before your flight.','in','a'],
+ ['gap','I\'m going ___ with friends tonight.','out','b'],
+ ['gap','Can you put the dishes ___?','away','c'],
+ ['gap','Don\'t forget to write ___ to your grandmother.','back','d'],
+ ['fix','I ran away of money.','I ran out of money.','b'],
+ ['fix','Come out! You\'re welcome. (гость стоит у двери)',"Come in! You're welcome.",'a'],
+ ['fix','He gave me back it.','He gave it back to me.|He gave it back.','d'],
+ ['fix','Throw away the old food out.','Throw away the old food.|Throw the old food away.|Throw out the old food.','c'],
+ ['tr','Когда ты вернулся?','When did you come back?|When did you get back?|When did you return?','d'],
+ ['tr','Мне нужно выяснить, во сколько начинается фильм.','I need to find out what time the film starts.|I need to find out when the film starts.|I need to find out what time the movie starts.|I need to find out when the movie starts.|I have to find out what time the film starts.','b'],
+ ['dict','After the party we put everything away and threw out the rubbish.','c'],
+ ['gap','The cat ran ___ when it saw the dog.','away','c']],
+ fw:{ru:"Расскажи о поездке: как ты check in, что выяснил (found out), что закончилось (ran out of), что выбросил и когда вернулся. 6 предложений.",en:"Tell me about a trip: checking in, what you found out, what ran out, what you threw away and when you got back. 6 sentences."}},
+
+{id:'vprep2',ru:'Глаголы с предлогами: about, of, for, after',en:'Verb + about / of / for / after',
+ th:{ru:`<table><tr><th>Предлог</th><th>Глаголы</th><th>Пример</th></tr>
+<tr><td>about</td><td>talk, think, worry, complain, dream, know, care</td><td><span class="en">Don't worry about it. He complained about the noise.</span></td></tr>
+<tr><td>of</td><td>think of (мнение, придумать), dream of (мечтать), hear of (слышать о)</td><td><span class="en">What do you think of my plan? I've never heard of him.</span></td></tr>
+<tr><td>for</td><td>wait, look, ask, pay, apply, search, thank, apologise</td><td><span class="en">I asked for the bill. Thank you for coming.</span></td></tr>
+<tr><td>after</td><td>look after (заботиться), take after (быть похожим)</td><td><span class="en">She takes after her mother.</span></td></tr></table>
+<p><b>think about</b> — размышлять; <b>think of</b> — мнение или идея: <span class="en">I'm thinking about the job. What do you think of it?</span></p>
+<p><b>ask</b> + человек без предлога, <b>ask for</b> + то, что хотим: <span class="en">I asked him for help.</span></p>
+<p><b>hear about</b> — узнать новость; <b>hear of</b> — знать о существовании; <b>hear from</b> — получить весть: <span class="en">Have you heard from Tom?</span></p>`,
+ en:`<table><tr><th>Preposition</th><th>Verbs</th><th>Example</th></tr>
+<tr><td>about</td><td>talk, think, worry, complain, dream, know, care</td><td><span class="en">Don't worry about it.</span></td></tr>
+<tr><td>of</td><td>think of (opinion, idea), dream of, hear of</td><td><span class="en">What do you think of my plan?</span></td></tr>
+<tr><td>for</td><td>wait, look, ask, pay, apply, search, thank, apologise</td><td><span class="en">I asked for the bill.</span></td></tr>
+<tr><td>after</td><td>look after, take after</td><td><span class="en">She takes after her mother.</span></td></tr></table>
+<p><b>think about</b> — consider; <b>think of</b> — opinion or idea.</p>
+<p><b>ask</b> sb (no preposition) <b>for</b> sth.</p>
+<p><b>hear about</b> news; <b>hear of</b> existence; <b>hear from</b> a person.</p>`},
+ rules:{a:{ru:'about — talk, think, worry, complain, know, care about.',en:'about — talk, think, worry, complain, know, care.'},
+  b:{ru:'of — think of (мнение, идея), dream of, hear of.',en:'of — think of (opinion), dream of, hear of.'},
+  c:{ru:'for — wait, look, ask, pay, apply, thank, apologise for; ask кого for что.',en:'for — wait, look, ask, pay, apply, thank, apologise.'},
+  d:{ru:'look after — заботиться; take after — быть похожим; hear from — получить весть.',en:'look after; take after; hear from.'}},
+ items:[
+ ['mc','Don\'t worry ___ the exam.',['about','for','of'],0,'a'],
+ ['mc','What do you think ___ my new haircut?',['of','for','after'],0,'b'],
+ ['mc','I\'m waiting ___ a phone call.',['for','about','of'],0,'c'],
+ ['mc','Who looks ___ your dog when you travel?',['after','for','about'],0,'d'],
+ ['mc','He asked ___ more time.',['for','about','—'],0,'c'],
+ ['mc','I asked ___ the way to the station.',['him','for him','to him'],0,'c'],
+ ['mc','She takes ___ her father. They\'re both tall.',['after','for','of'],0,'d'],
+ ['gap','They complained ___ the cold food.','about','a'],
+ ['gap','I\'ve never heard ___ this band.','of','b'],
+ ['gap','Thank you ___ your help.','for','c'],
+ ['gap','Have you heard ___ Anna recently? Did she write?','from','d'],
+ ['tr','Я ищу свои очки.','I am looking for my glasses.|I\'m looking for my glasses.','c'],
+ ['tr','О чём ты говоришь?','What are you talking about?','a'],
+ ['build','Он мечтает о новой машине.','He dreams of a new car.','b',['for']],
+ ['fix','I paid the tickets online.','I paid for the tickets online.','c'],
+ '|',
+ ['mc','I\'m thinking ___ changing my job.',['about','for','after'],0,'a'],
+ ['mc','I applied ___ a job at the bank.',['for','to','about'],0,'c'],
+ ['gap','She doesn\'t care ___ money.','about','a'],
+ ['gap','Can you look ___ my plants while I\'m away?','after','d'],
+ ['fix','He apologised about being late.','He apologised for being late.|He apologized for being late.','c'],
+ ['fix','I asked for him to help me.','I asked him to help me.|I asked him for help.','c'],
+ ['tr','Что ты думаешь о фильме?','What do you think of the film?|What do you think about the film?|What did you think of the film?|What did you think about the film?|What do you think of the movie?','b'],
+ ['dict','We waited for the bus for half an hour and then complained about it.','c'],
+ '|',
+ ['mc','Have you heard ___ the accident? It was on the news.',['about','for','after'],0,'a'],
+ ['mc','I can\'t think ___ his name.',['of','for','after'],0,'b'],
+ ['mc','She asked the waiter ___ the menu.',['for','about','—'],0,'c'],
+ ['mc','My grandmother looks ___ my kids on Saturdays.',['after','for','about'],0,'d'],
+ ['mc','I dream ___ living by the sea.',['of','for','after'],0,'b'],
+ ['gap','What are you worried ___?','about','a'],
+ ['gap','Who are you looking ___? Can I help?','for','c'],
+ ['gap','He doesn\'t take ___ his parents at all.','after','d'],
+ ['gap','I haven\'t heard ___ him for months. He never calls.','from','d'],
+ ['gap','Who is going to pay ___ dinner?','for','c'],
+ ['fix','I\'m waiting you for an hour.',"I've been waiting for you for an hour.|I have been waiting for you for an hour.",'c'],
+ ['tr','Спасибо, что пришёл.','Thank you for coming.|Thanks for coming.','c'],
+ ['build','Не беспокойся обо мне.','Do not worry about me.','a',['for']],
+ '|',
+ ['mc','Let\'s talk ___ it tomorrow.',['about','for','of after'],0,'a'],
+ ['mc','I\'d like to ask you ___ a favour.',['for','about','—'],0,'c'],
+ ['gap','Have you ever heard ___ a fish that can fly?','of|about','b'],
+ ['gap','The nurse looked ___ him very well.','after','d'],
+ ['gap','He knows a lot ___ cars.','about','a'],
+ ['gap','I\'m searching ___ a cheap flat.','for','c'],
+ ['fix','I\'m looking after my keys. Have you seen them?',"I'm looking for my keys. Have you seen them?",'d'],
+ ['fix','What do you think for this idea?','What do you think of this idea?|What do you think about this idea?','b'],
+ ['fix','She complained for the service.','She complained about the service.','a'],
+ ['fix','Have you heard about Tom? He hasn\'t written. (весточки)',"Have you heard from Tom? He hasn't written.",'d'],
+ ['tr','Она попросила счёт.','She asked for the bill.|She asked for the check.','c'],
+ ['tr','Я часто думаю о детстве.','I often think about my childhood.|I often think of my childhood.','a'],
+ ['dict','I asked my neighbour to look after my cat while I was away.','d'],
+ ['gap','I\'m looking ___ a new job.','for','c']],
+ fw:{ru:"Напиши 6 предложений о себе с глаголами темы: о чём ты беспокоишься, о чём мечтаешь, что ищешь, за кем присматриваешь, на кого похож.",en:"Write 6 sentences about yourself with the verbs of this topic: what you worry about, dream of, look for, who you look after and take after."}},
+
+{id:'vprep3',ru:'Глаголы с предлогами: on, in, with, to, from',en:'Verb + on / in / with / to / from',
+ th:{ru:`<table><tr><th>Предлог</th><th>Глаголы</th><th>Пример</th></tr>
+<tr><td>on</td><td>depend, rely, concentrate, spend (деньги на), insist, congratulate (sb on)</td><td><span class="en">It depends on the weather. I spend a lot on food.</span></td></tr>
+<tr><td>in</td><td>believe, succeed, specialise, take part, be interested</td><td><span class="en">Do you believe in ghosts? She succeeded in passing.</span></td></tr>
+<tr><td>with</td><td>agree (с кем-то), deal, cope, share, argue</td><td><span class="en">I agree with you. I can't cope with stress.</span></td></tr>
+<tr><td>to</td><td>listen, belong, happen, explain (sth to sb), reply, apologise (to sb), get used</td><td><span class="en">What happened to you? Explain it to me.</span></td></tr>
+<tr><td>from</td><td>suffer, recover, protect, prevent, borrow</td><td><span class="en">He suffers from headaches.</span></td></tr>
+<tr><td>into</td><td>translate, turn, crash, bump</td><td><span class="en">Translate it into English.</span></td></tr></table>
+<p><b>agree with</b> кем-то / мнением; <b>agree to</b> предложение; <b>agree on</b> решение: <span class="en">We agreed on a price.</span></p>
+<p><b>apologise to</b> человеку <b>for</b> поступок: <span class="en">I apologised to her for being late.</span></p>
+<p>После предлога — -ing: <span class="en">She insisted on paying.</span></p>`,
+ en:`<table><tr><th>Preposition</th><th>Verbs</th><th>Example</th></tr>
+<tr><td>on</td><td>depend, rely, concentrate, spend, insist, congratulate</td><td><span class="en">It depends on the weather.</span></td></tr>
+<tr><td>in</td><td>believe, succeed, specialise, take part</td><td><span class="en">Do you believe in ghosts?</span></td></tr>
+<tr><td>with</td><td>agree (with a person), deal, cope, share, argue</td><td><span class="en">I agree with you.</span></td></tr>
+<tr><td>to</td><td>listen, belong, happen, explain, reply, apologise</td><td><span class="en">Explain it to me.</span></td></tr>
+<tr><td>from</td><td>suffer, recover, protect, prevent, borrow</td><td><span class="en">He suffers from headaches.</span></td></tr>
+<tr><td>into</td><td>translate, turn, crash</td><td><span class="en">Translate it into English.</span></td></tr></table>
+<p>agree with a person, to a proposal, on a decision. apologise to sb for sth. Preposition + -ing.</p>`},
+ rules:{a:{ru:'on — depend, rely, concentrate, spend, insist on.',en:'on — depend, rely, concentrate, spend, insist.'},
+  b:{ru:'in — believe, succeed, take part in; with — agree, deal, cope with.',en:'in — believe, succeed, take part; with — agree, deal, cope.'},
+  c:{ru:'to — listen, belong, happen, explain, reply to; from — suffer, recover from; into — translate into.',en:'to — listen, belong, happen, explain, reply; from — suffer, recover; into — translate.'},
+  d:{ru:'После предлога — -ing: insist on paying, succeed in finding.',en:'After a preposition use -ing.'}},
+ items:[
+ ['mc','It depends ___ the price.',['on','of','from'],0,'a'],
+ ['mc','I don\'t believe ___ luck.',['in','to','on'],0,'b'],
+ ['mc','I agree ___ you completely.',['with','to','on'],0,'b'],
+ ['mc','What happened ___ your car?',['to','with','on'],0,'c'],
+ ['mc','He suffers ___ back pain.',['from','of','with'],0,'c'],
+ ['mc','She insisted ___ paying for dinner.',['on','to','in'],0,'d'],
+ ['mc','Can you translate this ___ Russian?',['into','to in','on'],0,'c'],
+ ['gap','You can always rely ___ me.','on','a'],
+ ['gap','I can\'t concentrate ___ my work.','on','a'],
+ ['gap','He took part ___ the competition.','in','b'],
+ ['gap','Who does this bag belong ___?','to','c'],
+ ['tr','Это зависит от погоды.','It depends on the weather.|That depends on the weather.','a'],
+ ['tr','Я с тобой согласен.','I agree with you.','b'],
+ ['build','Объясни мне это.','Explain it to me.','c',['me it']],
+ ['fix','She succeeded to pass the exam.','She succeeded in passing the exam.','d'],
+ '|',
+ ['mc','I spend too much money ___ clothes.',['on','for','in'],0,'a'],
+ ['mc','He\'s recovering ___ the flu.',['from','of','after'],0,'c'],
+ ['gap','How do you deal ___ stress?','with','b'],
+ ['gap','I apologised ___ my boss for the mistake.','to','c'],
+ ['fix','Listen me!','Listen to me!','c'],
+ ['fix','It depends of you.','It depends on you.','a'],
+ ['tr','Он не ответил на моё письмо.','He did not reply to my letter.|He didn\'t reply to my letter.|He did not reply to my email.|He didn\'t reply to my email.|He didn\'t answer my letter.|He didn\'t answer my email.|He has not replied to my email.','c'],
+ ['dict','We could not agree on a date, so we argued with each other for an hour.','b'],
+ '|',
+ ['mc','We\'re relying ___ you.',['on','in','to'],0,'a'],
+ ['mc','She succeeded ___ finding a job.',['in','to','on'],0,'d'],
+ ['mc','I share a flat ___ two friends.',['with','to','for'],0,'b'],
+ ['mc','The water turned ___ ice.',['into','to on','in to'],0,'c'],
+ ['mc','He congratulated me ___ my new job.',['on','for','with'],0,'a'],
+ ['gap','Do you believe ___ love at first sight?','in','b'],
+ ['gap','The police protect people ___ crime.','from','c'],
+ ['gap','I\'m trying to concentrate ___ my studies.','on','a'],
+ ['gap','He insisted ___ driving me home.','on','d'],
+ ['gap','A car crashed ___ a tree.','into','c'],
+ ['fix','I don\'t agree to you.',"I don't agree with you.",'b'],
+ ['tr','Что с тобой случилось?','What happened to you?|What has happened to you?|What\'s happened to you?','c'],
+ ['build','Он страдает от головной боли.','He suffers from headaches.','c',['of']],
+ '|',
+ ['mc','Who did you borrow the money ___?',['from','of','to'],0,'c'],
+ ['mc','She specialises ___ children\'s books.',['in','on','with'],0,'b'],
+ ['gap','I can\'t cope ___ all this work.','with','b'],
+ ['gap','They finally agreed ___ a price.','on','a'],
+ ['gap','Explain the problem ___ the manager.','to','c'],
+ ['gap','He spent all his money ___ a new phone.','on','a'],
+ ['fix','She is believing in God.','She believes in God.','b'],
+ ['fix','Translate this text on English.','Translate this text into English.','c'],
+ ['fix','He insisted to pay.','He insisted on paying.','d'],
+ ['fix','I apologised her for being late.','I apologised to her for being late.|I apologized to her for being late.','c'],
+ ['tr','Я трачу много денег на книги.','I spend a lot of money on books.|I spend much money on books.|I spend lots of money on books.','a'],
+ ['tr','Ты можешь на меня положиться.','You can rely on me.|You can count on me.|You can depend on me.','a'],
+ ['dict','She recovered from the illness and succeeded in finishing her degree.','d'],
+ ['gap','Please listen ___ the teacher.','to','c']],
+ fw:{ru:"Напиши 6 предложений о себе: от чего зависит твоё настроение, во что ты веришь, на что тратишь деньги, на кого можешь положиться, с чем трудно справляться.",en:"Write 6 sentences: what your mood depends on, what you believe in, what you spend money on, who you rely on, what you find hard to cope with."}},
+
+{id:'adjprep',ru:'Прилагательные с предлогами: good at, interested in, proud of',en:'Adjective + preposition',
+ th:{ru:`<table><tr><th>Предлог</th><th>Прилагательные</th><th>Пример</th></tr>
+<tr><td>at</td><td>good, bad, brilliant, terrible, surprised, amazed</td><td><span class="en">She's good at maths.</span></td></tr>
+<tr><td>of</td><td>afraid, proud, fond, tired, jealous, aware, full, capable, short</td><td><span class="en">I'm proud of you. The box is full of books.</span></td></tr>
+<tr><td>in</td><td>interested, involved, rich</td><td><span class="en">He's interested in history.</span></td></tr>
+<tr><td>on</td><td>keen, dependent</td><td><span class="en">I'm not keen on football.</span></td></tr>
+<tr><td>with</td><td>angry, annoyed, pleased, satisfied, bored, familiar, busy</td><td><span class="en">I'm pleased with the result.</span></td></tr>
+<tr><td>to</td><td>similar, married, kind, polite, rude, nice, used</td><td><span class="en">Your phone is similar to mine.</span></td></tr>
+<tr><td>for</td><td>famous, responsible, late, ready, sorry (for sb)</td><td><span class="en">Who is responsible for this?</span></td></tr>
+<tr><td>about</td><td>worried, excited, sorry (about sth), sure, angry (about sth)</td><td><span class="en">I'm excited about the trip.</span></td></tr>
+<tr><td>from</td><td>different, absent</td><td><span class="en">It's different from what I expected.</span></td></tr></table>
+<p><b>angry with</b> человеком, <b>angry about</b> ситуацией. После предлога — -ing: <span class="en">good at cooking</span>.</p>`,
+ en:`<table><tr><th>Preposition</th><th>Adjectives</th><th>Example</th></tr>
+<tr><td>at</td><td>good, bad, brilliant, surprised</td><td><span class="en">She's good at maths.</span></td></tr>
+<tr><td>of</td><td>afraid, proud, fond, tired, jealous, aware, full, capable</td><td><span class="en">I'm proud of you.</span></td></tr>
+<tr><td>in</td><td>interested, involved</td><td><span class="en">He's interested in history.</span></td></tr>
+<tr><td>on</td><td>keen, dependent</td><td><span class="en">I'm not keen on football.</span></td></tr>
+<tr><td>with</td><td>angry (person), pleased, satisfied, bored, familiar, busy</td><td><span class="en">I'm pleased with the result.</span></td></tr>
+<tr><td>to</td><td>similar, married, kind, polite, rude, used</td><td><span class="en">Your phone is similar to mine.</span></td></tr>
+<tr><td>for</td><td>famous, responsible, late, ready</td><td><span class="en">Who is responsible for this?</span></td></tr>
+<tr><td>about</td><td>worried, excited, sorry, sure</td><td><span class="en">I'm excited about the trip.</span></td></tr>
+<tr><td>from</td><td>different, absent</td><td><span class="en">It's different from what I expected.</span></td></tr></table>
+<p>angry with a person, about a situation. Preposition + -ing.</p>`},
+ rules:{a:{ru:'at — good / bad at; of — afraid, proud, tired, full, aware of; in — interested in.',en:'at — good / bad at; of — afraid, proud, tired, full, aware; in — interested.'},
+  b:{ru:'with — angry (с человеком), pleased, bored, busy with; on — keen on.',en:'with — angry (person), pleased, bored, busy; on — keen.'},
+  c:{ru:'to — similar, married, kind, rude to; for — famous, responsible, late, ready for.',en:'to — similar, married, kind, rude; for — famous, responsible, late, ready.'},
+  d:{ru:'about — worried, excited, sure about; from — different from; после предлога -ing.',en:'about — worried, excited, sure; from — different; + -ing.'}},
+ items:[
+ ['mc','She\'s very good ___ languages.',['at','in','on'],0,'a'],
+ ['mc','I\'m interested ___ photography.',['in','on','at'],0,'a'],
+ ['mc','He\'s proud ___ his children.',['of','with','for'],0,'a'],
+ ['mc','I\'m not very keen ___ jazz.',['on','in','of'],0,'b'],
+ ['mc','Your bag is similar ___ mine.',['to','with','as'],0,'c'],
+ ['mc','Kazan is famous ___ its kremlin.',['for','of','with'],0,'c'],
+ ['mc','I\'m worried ___ my exam.',['about','for','of'],0,'d'],
+ ['gap','I\'m tired ___ waiting.','of','a'],
+ ['gap','My boss was angry ___ me.','with|at','b'],
+ ['gap','She\'s married ___ a doctor.','to','c'],
+ ['gap','This city is different ___ Moscow.','from|to|than','d'],
+ ['tr','Я горжусь тобой.','I am proud of you.|I\'m proud of you.','a'],
+ ['tr','Мне не нравится футбол. (keen)','I am not keen on football.|I\'m not keen on football.|I\'m not very keen on football.','b'],
+ ['build','Кто отвечает за это?','Who is responsible for this?','c',['of']],
+ ['fix','He is good in cooking.','He is good at cooking.','a'],
+ '|',
+ ['mc','I\'m pleased ___ my new flat.',['with','of','at'],0,'b'],
+ ['mc','We\'re very excited ___ the trip.',['about','for','with'],0,'d'],
+ ['gap','The glass is full ___ water.','of','a'],
+ ['gap','Sorry, I\'m late ___ the meeting.','for','c'],
+ ['fix','She is afraid from dogs.','She is afraid of dogs.','a'],
+ ['fix','I\'m interested about history.',"I'm interested in history.",'a'],
+ ['tr','Она очень добра к животным.','She is very kind to animals.|She\'s very kind to animals.','c'],
+ ['dict','He is bad at maths but very good at drawing.','a'],
+ '|',
+ ['mc','Are you aware ___ the problem?',['of','about it','with'],0,'a'],
+ ['mc','I\'m bored ___ this game.',['with','of','at'],0,'b'],
+ ['mc','Don\'t be rude ___ your teacher.',['to','with','for'],0,'c'],
+ ['mc','I\'m not sure ___ the answer.',['about','for','with'],0,'d'],
+ ['mc','He\'s capable ___ doing better.',['of','to','for'],0,'a'],
+ ['gap','She\'s jealous ___ her sister.','of','a'],
+ ['gap','He\'s busy ___ his homework.','with','b'],
+ ['gap','Are you ready ___ the test?','for','c'],
+ ['gap','He\'s excited ___ his new job.','about','d'],
+ ['gap','I\'m fond ___ my old car.','of','a'],
+ ['fix','She is married with an engineer.','She is married to an engineer.','c'],
+ ['tr','Я устал от этого шума.','I am tired of this noise.|I\'m tired of this noise.','a'],
+ ['build','Я доволен результатом.','I am pleased with the result.','b',['of']],
+ '|',
+ ['mc','I\'m very sorry ___ what happened.',['about','for to','with'],0,'d'],
+ ['mc','He was surprised ___ the news.',['at','of','for'],0,'a'],
+ ['gap','Our teacher is very polite ___ everyone.','to','c'],
+ ['gap','He\'s not interested ___ politics.','in','a'],
+ ['gap','I\'m not familiar ___ this program.','with','b'],
+ ['gap','The town is famous ___ its cheese.','for','c'],
+ ['fix','I\'m good at to swim.',"I'm good at swimming.",'d'],
+ ['fix','She was angry with the delay.','She was angry about the delay.','b'],
+ ['fix','Your answer is similar with mine.','Your answer is similar to mine.','c'],
+ ['fix','I\'m excited for meet you.',"I'm excited to meet you.|I'm excited about meeting you.",'d'],
+ ['tr','Ты боишься темноты?','Are you afraid of the dark?|Are you scared of the dark?','a'],
+ ['tr','Москва очень отличается от Казани.','Moscow is very different from Kazan.|Moscow is very different to Kazan.|Moscow is really different from Kazan.','d'],
+ ['dict','I am really worried about my brother because he is not used to living alone.','d'],
+ ['gap','I\'m very interested ___ art.','in','a']],
+ fw:{ru:"Напиши 6 предложений о себе с прилагательными темы: в чём ты хорош, чем интересуешься, чем гордишься, от чего устал, чего боишься, о чём волнуешься.",en:"Write 6 sentences about yourself: what you are good at, interested in, proud of, tired of, afraid of and worried about."}},
+
+{id:'nounprep',ru:'Существительные с предлогами: reason for, increase in, solution to',en:'Noun + preposition',
+ th:{ru:`<table><tr><th>Предлог</th><th>Существительные</th><th>Пример</th></tr>
+<tr><td>for</td><td>reason, demand, need, cheque, request, respect</td><td><span class="en">What's the reason for the delay?</span></td></tr>
+<tr><td>of</td><td>cause, advantage, disadvantage, example, photo, picture, lack</td><td><span class="en">What's the cause of the fire? a photo of my family</span></td></tr>
+<tr><td>in</td><td>increase, decrease, rise, fall, change, interest, difference (in)</td><td><span class="en">a rise in prices</span></td></tr>
+<tr><td>to</td><td>solution, answer, key, reply, invitation, attitude, damage</td><td><span class="en">the answer to the question, damage to the car</span></td></tr>
+<tr><td>with / between</td><td>relationship, contact, problem, difference (between)</td><td><span class="en">my relationship with my parents, the difference between A and B</span></td></tr>
+<tr><td>on</td><td>effect, influence, opinion, tax</td><td><span class="en">the effect of stress on health</span></td></tr></table>
+<p>Сравни: <b>a rise in prices</b> (в чём рост), но <b>a rise of 10%</b> (на сколько).</p>
+<p>Русское «ключ от», «ответ на», «причина»: <span class="en">the key to the door, the answer to the question, the reason for the delay</span>.</p>`,
+ en:`<table><tr><th>Preposition</th><th>Nouns</th><th>Example</th></tr>
+<tr><td>for</td><td>reason, demand, need, request, respect</td><td><span class="en">the reason for the delay</span></td></tr>
+<tr><td>of</td><td>cause, advantage, example, photo, lack</td><td><span class="en">the cause of the fire</span></td></tr>
+<tr><td>in</td><td>increase, rise, fall, change, interest</td><td><span class="en">a rise in prices</span></td></tr>
+<tr><td>to</td><td>solution, answer, key, reply, invitation, damage</td><td><span class="en">the answer to the question</span></td></tr>
+<tr><td>with / between</td><td>relationship, contact, problem / difference</td><td><span class="en">the difference between A and B</span></td></tr>
+<tr><td>on</td><td>effect, influence, opinion, tax</td><td><span class="en">the effect of stress on health</span></td></tr></table>
+<p><b>a rise in prices</b> but <b>a rise of 10%</b>.</p>`},
+ rules:{a:{ru:'for — reason, need, demand for; of — cause, advantage, example, photo of.',en:'for — reason, need, demand; of — cause, advantage, example, photo.'},
+  b:{ru:'in — increase, rise, fall, change in (в чём); of — на сколько.',en:'in — increase, rise, fall, change in; of — by how much.'},
+  c:{ru:'to — solution, answer, key, reply, invitation, damage to.',en:'to — solution, answer, key, reply, invitation, damage.'},
+  d:{ru:'with — relationship, problem with; between — difference between; on — effect, influence on.',en:'with — relationship, problem; between — difference; on — effect, influence.'}},
+ items:[
+ ['mc','What\'s the reason ___ your decision?',['for','of','to'],0,'a'],
+ ['mc','There has been an increase ___ crime.',['in','of','for'],0,'b'],
+ ['mc','I can\'t find the answer ___ this question.',['to','for','of'],0,'c'],
+ ['mc','What\'s the difference ___ these two words?',['between','of','with'],0,'d'],
+ ['mc','Smoking has a bad effect ___ health.',['on','to','for'],0,'d'],
+ ['mc','This is a photo ___ my grandparents.',['of','from','about'],0,'a'],
+ ['mc','I have a good relationship ___ my boss.',['with','to','for'],0,'d'],
+ ['gap','Nobody knows the cause ___ the accident.','of','a'],
+ ['gap','There\'s been a big rise ___ the price of petrol.','in','b'],
+ ['gap','Thanks for the invitation ___ your party.','to','c'],
+ ['gap','Is there a problem ___ your computer?','with','d'],
+ ['tr','Где ключ от машины?','Where is the key to the car?|Where\'s the key to the car?|Where is the car key?|Where\'s the car key?|Where are the car keys?|Where are the keys to the car?','c'],
+ ['tr','В чём причина задержки?','What is the reason for the delay?|What\'s the reason for the delay?','a'],
+ ['build','Нет решения этой проблемы.','There is no solution to this problem.','c',['for']],
+ ['fix','There was a fall of temperature last night.','There was a fall in temperature last night.|There was a drop in temperature last night.','b'],
+ '|',
+ ['mc','There\'s a great demand ___ cheap flats.',['for','of','on'],0,'a'],
+ ['mc','The storm caused damage ___ many houses.',['to','for','on'],0,'c'],
+ ['gap','One advantage ___ living here is the park.','of','a'],
+ ['gap','The rain had no effect ___ the match.','on','d'],
+ ['fix','What is the answer for question 5?','What is the answer to question 5?','c'],
+ ['fix','I see no reason of being angry.','I see no reason for being angry.|I see no reason to be angry.','a'],
+ ['tr','Цены выросли на 10%.','Prices rose by 10%.|Prices went up by 10%.|There was a rise of 10% in prices.|Prices increased by 10%.|Prices have risen by 10%.','b'],
+ ['dict','The main cause of the problem is a lack of money.','a'],
+ '|',
+ ['mc','Give me an example ___ this rule.',['of','for','to'],0,'a'],
+ ['mc','There has been a change ___ the timetable.',['in','of','to'],0,'b'],
+ ['mc','Did you get a reply ___ your email?',['to','for','on'],0,'c'],
+ ['mc','What\'s your opinion ___ the new law?',['on','for','with'],0,'d'],
+ ['mc','There is a need ___ more doctors.',['for','of','in'],0,'a'],
+ ['gap','He has a lot of respect ___ his teachers.','for','a'],
+ ['gap','There\'s been a decrease ___ the number of students.','in','b'],
+ ['gap','She found the key ___ the problem.','to','c'],
+ ['gap','What\'s the difference ___ a lake and a pond?','between','d'],
+ ['gap','Is there any contact ___ him?','with','d'],
+ ['fix','The advantage from this phone is the battery.','The advantage of this phone is the battery.','a'],
+ ['tr','У меня проблемы с машиной.','I have problems with my car.|I have a problem with my car.|I\'ve got a problem with my car.|I\'ve got problems with my car.|I have problems with the car.','d'],
+ ['build','Он не любит перемены в своей жизни.','He does not like changes in his life.','b',['of']],
+ '|',
+ ['mc','Lack ___ sleep makes me tired.',['of','in','for'],0,'a'],
+ ['mc','Music has a big influence ___ young people.',['on','to','for'],0,'d'],
+ ['gap','Is there a solution ___ traffic jams?','to|for','c'],
+ ['gap','The rise ___ unemployment worries everyone.','in','b'],
+ ['gap','What\'s the main disadvantage ___ this plan?','of','a'],
+ ['gap','My relationship ___ my sister is very close.','with','d'],
+ ['fix','The war caused great damage for the city.','The war caused great damage to the city.','c'],
+ ['fix','There is an increase of prices every year.','There is an increase in prices every year.','b'],
+ ['fix','What is the reason of your visit?','What is the reason for your visit?','a'],
+ ['fix','I don\'t understand the difference of these words.',"I don't understand the difference between these words.",'d'],
+ ['tr','Спасибо за приглашение на свадьбу.','Thank you for the invitation to the wedding.|Thanks for the invitation to the wedding.|Thank you for the invitation to your wedding.|Thanks for the invitation to your wedding.','c'],
+ ['tr','Какое влияние интернет оказывает на детей?','What effect does the internet have on children?|What influence does the internet have on children?|What effect does the Internet have on children?|What influence does the Internet have on children?','d'],
+ ['dict','There was a sharp rise in prices, and the reason for it is not clear.','b'],
+ ['gap','I lost the key ___ my flat.','to|of','c']],
+ fw:{ru:"Напиши 6 предложений о своём городе или работе: какие изменения произошли (a rise in, a change in), какие есть проблемы (a problem with) и их причины (the cause of, the reason for).",en:"Write 6 sentences about your town or job: changes, problems and their causes, using nouns with prepositions."}},
+
+{id:'artgen',ru:'The в общем смысле: the rich, the guitar, the radio',en:'the in general statements',
+ th:{ru:`<p>Обычно о вещах вообще говорят без артикля и во мн. числе: <span class="en">Cats are independent.</span> Но есть случаи с <b>the</b>.</p>
+<table><tr><th>Случай</th><th>Пример</th></tr>
+<tr><td>the + прилагательное = группа людей</td><td><span class="en">the rich, the poor, the young, the old, the elderly, the unemployed, the homeless</span></td></tr>
+<tr><td>национальности на -sh, -ch, -ese</td><td><span class="en">the British, the French, the Chinese</span></td></tr>
+<tr><td>музыкальные инструменты</td><td><span class="en">She plays the piano.</span></td></tr>
+<tr><td>изобретения и виды техники «вообще»</td><td><span class="en">Who invented the telephone? The bicycle is a cheap way to travel.</span></td></tr>
+<tr><td>radio, cinema, theatre (как развлечение)</td><td><span class="en">I listen to the radio. We often go to the cinema.</span></td></tr>
+<tr><td>единственные в своём роде</td><td><span class="en">the sun, the sky, the internet, the environment, the weather</span></td></tr></table>
+<p>Но: <span class="en">watch TV</span> (без the), <span class="en">play football</span> (спорт без the), <span class="en">have breakfast</span>.</p>
+<p><b>the rich</b> — глагол во мн. числе: <span class="en">The rich are getting richer.</span></p>`,
+ en:`<p>General statements usually use no article and a plural: <span class="en">Cats are independent.</span> But the is used in some cases.</p>
+<table><tr><th>Case</th><th>Example</th></tr>
+<tr><td>the + adjective = a group of people</td><td><span class="en">the rich, the poor, the young, the elderly, the unemployed</span></td></tr>
+<tr><td>nationalities in -sh, -ch, -ese</td><td><span class="en">the British, the French, the Chinese</span></td></tr>
+<tr><td>musical instruments</td><td><span class="en">She plays the piano.</span></td></tr>
+<tr><td>inventions, types of machine</td><td><span class="en">Who invented the telephone?</span></td></tr>
+<tr><td>the radio, the cinema, the theatre</td><td><span class="en">I listen to the radio.</span></td></tr>
+<tr><td>unique things</td><td><span class="en">the sun, the internet, the environment</span></td></tr></table>
+<p>But: <span class="en">watch TV</span>, <span class="en">play football</span>, <span class="en">have breakfast</span>.</p>
+<p><b>the rich</b> takes a plural verb.</p>`},
+ rules:{a:{ru:'the + прилагательное = группа людей (the rich, the elderly), глагол во мн. числе.',en:'the + adjective = group of people, plural verb.'},
+  b:{ru:'the — инструменты (play the piano), изобретения (the telephone), the radio, the cinema.',en:'the — instruments, inventions, the radio, the cinema.'},
+  c:{ru:'the — единственные: the sun, the internet, the environment; национальности: the French.',en:'the — unique things; nationalities: the French.'},
+  d:{ru:'Без the: watch TV, play football, вещи вообще во мн. числе (Dogs are friendly).',en:'No the: watch TV, play sports, general plurals.'}},
+ items:[
+ ['mc','My son plays ___ violin.',['the','a','—'],0,'b'],
+ ['mc','We should help ___ poor.',['the','—','a'],0,'a'],
+ ['mc','I usually listen to ___ radio in the car.',['the','—','a'],0,'b'],
+ ['mc','Let\'s watch ___ TV tonight.',['—','the','a'],0,'d'],
+ ['mc','I found it on ___ internet.',['the','—','an'],0,'c'],
+ ['mc','He plays ___ tennis every Sunday.',['—','the','a'],0,'d'],
+ ['mc','___ dogs are loyal animals.',['—','The','A'],0,'d'],
+ ['gap','Who invented ___ telephone?','the','b'],
+ ['gap','___ elderly need more care.','The','a'],
+ ['gap','We must protect ___ environment.','the','c'],
+ ['gap','___ French are famous for their food.','The','c'],
+ ['tr','Я играю на гитаре.','I play the guitar.|I play guitar.','b'],
+ ['tr','Богатые становятся богаче.','The rich are getting richer.|The rich get richer.','a'],
+ ['build','Мы часто ходим в кино.','We often go to the cinema.','b',['a']],
+ ['fix','The rich is not always happy.','The rich are not always happy.','a'],
+ '|',
+ ['mc','___ unemployed get help from the state.',['The','—','An'],0,'a'],
+ ['mc','I don\'t like ___ football.',['—','the','a'],0,'d'],
+ ['gap','The sky is blue and ___ sun is shining.','the','c'],
+ ['gap','When was ___ bicycle invented?','the','b'],
+ ['fix','She plays piano very well and the football too.','She plays the piano very well and football too.|She plays the piano very well and plays football too.','b'],
+ ['fix','I watched the TV all evening.','I watched TV all evening.','d'],
+ ['tr','Молодые люди много пользуются интернетом.','Young people use the internet a lot.|The young use the internet a lot.|Young people use the Internet a lot.|Young people use the internet very much.','c'],
+ ['dict','The young often do not understand the old.','a'],
+ '|',
+ ['mc','My grandfather fixed ___ radio himself.',['the','—','an'],0,'b'],
+ ['mc','___ British drink a lot of tea.',['The','—','A'],0,'c'],
+ ['mc','I can\'t imagine life without ___ mobile phone.',['the','—','an'],0,'b'],
+ ['mc','___ cats sleep a lot.',['—','The','A'],0,'d'],
+ ['mc','Life is hard for ___ homeless in winter.',['the','—','a'],0,'a'],
+ ['gap','She\'s learning to play ___ drums.','the','b'],
+ ['gap','We all need to care about ___ planet.','the','c'],
+ ['gap','The old ___ often lonely. (be)','are','a'],
+ ['gap','I prefer ___ theatre to the cinema.','the','b'],
+ ['mc','He plays ___ chess with his son.',['—','the','a'],0,'d'],
+ ['fix','The computers are very useful.','Computers are very useful.','d'],
+ ['tr','Китайцы изобрели бумагу.','The Chinese invented paper.','c'],
+ ['build','Он играет на пианино.','He plays the piano.','b',['a']],
+ '|',
+ ['mc','The rich ___ more taxes.',['should pay','should pays','pays'],0,'a'],
+ ['mc','I usually hear the news on ___ radio.',['the','—','a'],0,'b'],
+ ['gap','Who invented ___ light bulb?','the','b'],
+ ['gap','Everyone is talking about ___ weather.','the','c'],
+ ['gap','___ blind can read with their fingers.','The','a'],
+ ['mc','Do you like ___ classical music?',['—','the','a'],0,'d'],
+ ['fix','She can play a guitar.','She can play the guitar.','b'],
+ ['fix','The poor needs our help.','The poor need our help.','a'],
+ ['fix','We went to a theatre last night. It was a great play. (говорим о театре как о развлечении)','We went to the theatre last night. It was a great play.','b'],
+ ['fix','The elephants are big animals.','Elephants are big animals.','d'],
+ ['tr','Мы должны заботиться о пожилых.','We must take care of the elderly.|We should take care of the elderly.|We must look after the elderly.|We should look after the elderly.|We must care for the elderly.|We should care for the elderly.','a'],
+ ['tr','Ты часто ходишь в театр?','Do you often go to the theatre?|Do you often go to the theater?|Do you go to the theatre often?','b'],
+ ['dict','The telephone changed the world, and the internet changed it again.','b'],
+ ['gap','We must help ___ homeless.','the','a']],
+ fw:{ru:"Напиши 6 предложений об обществе и технике: что нужно the young, the elderly, the poor; кто изобрёл the telephone; на каком инструменте ты играешь или хотел бы играть.",en:"Write 6 sentences about society and technology: the young, the elderly, the poor, inventions, and an instrument you play or would like to play."}},
+
+{id:'prepby',ru:'By, with, on, in: by car, on foot, with a knife, in cash',en:'by / with / on / in: by car, on foot, in cash',
+ th:{ru:`<table><tr><th>Предлог</th><th>Когда</th><th>Пример</th></tr>
+<tr><td>by + транспорт без артикля</td><td>как едем</td><td><span class="en">by car, by bus, by train, by plane</span></td></tr>
+<tr><td>on foot</td><td>пешком</td><td><span class="en">I go to work on foot.</span></td></tr>
+<tr><td>in / on + конкретный транспорт</td><td>в моей машине, в этом автобусе</td><td><span class="en">in my car, on the bus, on the 8 o'clock train</span></td></tr>
+<tr><td>by + способ</td><td>by email, by phone, by card, by hand, by mistake, by chance</td><td><span class="en">I sent it by email. I did it by mistake.</span></td></tr>
+<tr><td>in cash / pay by card</td><td>наличными / картой</td><td><span class="en">Can I pay in cash?</span></td></tr>
+<tr><td>by + автор (пассив)</td><td>кем сделано</td><td><span class="en">a book by Chekhov, written by him</span></td></tr>
+<tr><td>with + инструмент</td><td>чем сделано</td><td><span class="en">He cut it with a knife.</span></td></tr>
+<tr><td>by + -ing</td><td>каким способом</td><td><span class="en">You can improve by reading more.</span></td></tr></table>
+<p>«Ножом», «ручкой» — <b>with</b>: <span class="en">write with a pen</span>, но «от руки» — <b>by hand</b>, «карандашом» как способ — <span class="en">in pencil</span>.</p>
+<p>«Кем» — by, «чем» — with: <span class="en">The window was broken by a boy with a stone.</span></p>`,
+ en:`<table><tr><th>Preposition</th><th>Use</th><th>Example</th></tr>
+<tr><td>by + transport (no article)</td><td>means of travel</td><td><span class="en">by car, by bus, by train</span></td></tr>
+<tr><td>on foot</td><td>walking</td><td><span class="en">I go to work on foot.</span></td></tr>
+<tr><td>in / on + a specific vehicle</td><td></td><td><span class="en">in my car, on the bus</span></td></tr>
+<tr><td>by + method</td><td>by email, by phone, by card, by hand, by mistake, by chance</td><td><span class="en">I did it by mistake.</span></td></tr>
+<tr><td>in cash</td><td></td><td><span class="en">Can I pay in cash?</span></td></tr>
+<tr><td>by + agent</td><td>who did it</td><td><span class="en">a book by Chekhov</span></td></tr>
+<tr><td>with + instrument</td><td>what was used</td><td><span class="en">He cut it with a knife.</span></td></tr>
+<tr><td>by + -ing</td><td>how</td><td><span class="en">You can improve by reading more.</span></td></tr></table>
+<p>by = who / how; with = the tool: <span class="en">broken by a boy with a stone</span>.</p>`},
+ rules:{a:{ru:'by car / bus / train — без артикля; on foot; in my car, on the bus — конкретный транспорт.',en:'by car / bus / train, no article; on foot; in my car, on the bus.'},
+  b:{ru:'by + способ: by email, by card, by hand, by mistake, by chance; in cash.',en:'by + method: by email, by card, by hand, by mistake; in cash.'},
+  c:{ru:'by — кто сделал (автор); with — чем (инструмент).',en:'by — agent; with — instrument.'},
+  d:{ru:'by + -ing — каким способом: by working hard.',en:'by + -ing — how something is done.'}},
+ items:[
+ ['mc','I usually go to work ___ bus.',['by','on','with'],0,'a'],
+ ['mc','We walked. We went ___ foot.',['on','by','with'],0,'a'],
+ ['mc','Can I pay ___ card?',['by','with','on'],0,'b'],
+ ['mc','Sorry, I took your umbrella ___ mistake.',['by','with','on'],0,'b'],
+ ['mc','This picture was painted ___ my sister.',['by','with','from'],0,'c'],
+ ['mc','He opened the box ___ a knife.',['with','by','on'],0,'c'],
+ ['mc','You can learn a lot ___ reading.',['by','with','on'],0,'d'],
+ ['gap','I\'ll send you the documents ___ email.','by','b'],
+ ['gap','We met ___ chance at the airport.','by','b'],
+ ['gap','She went to Sochi ___ train.','by','a'],
+ ['gap','Eat it ___ a spoon, not a fork.','with','c'],
+ ['tr','Я хожу в школу пешком.','I go to school on foot.|I walk to school.','a'],
+ ['tr','Можно заплатить наличными?','Can I pay in cash?|Can I pay cash?|May I pay in cash?|Could I pay in cash?|Can we pay in cash?','b'],
+ ['build','Эту книгу написал Пушкин.','This book was written by Pushkin.','c',['with']],
+ ['fix','I came here by the car.','I came here by car.|I came here in my car.|I came here in the car.','a'],
+ '|',
+ ['mc','She was sitting ___ the bus when I called.',['on','by','with'],0,'a'],
+ ['mc','He lost weight ___ eating less sugar.',['by','with','on'],0,'d'],
+ ['gap','This sweater was made ___ hand.','by','b'],
+ ['gap','He hit the ball ___ his head.','with','c'],
+ ['fix','I go to work with car.','I go to work by car.','a'],
+ ['fix','The letter was written with my boss.','The letter was written by my boss.','c'],
+ ['tr','Я отправлю это по почте.','I will send it by post.|I\'ll send it by post.|I will send it by mail.|I\'ll send it by mail.|I will send it by email.|I\'ll send it by email.','b'],
+ ['dict','We travelled by plane to Moscow and then by train to Kazan.','a'],
+ '|',
+ ['mc','I came ___ my brother\'s car.',['in','by','on'],0,'a'],
+ ['mc','I\'ll call you ___ phone later.',['—','by','with'],0,'b'],
+ ['mc','A song ___ The Beatles is playing.',['by','of','with'],0,'c'],
+ ['mc','You can save money ___ cooking at home.',['by','with','on'],0,'d'],
+ ['mc','She cleaned the table ___ a wet cloth.',['with','by','on'],0,'c'],
+ ['gap','Do you go to school ___ foot or by bus?','on','a'],
+ ['gap','I broke the glass ___ accident.','by','b'],
+ ['gap','The bridge was designed ___ a famous engineer.','by','c'],
+ ['gap','He got the job ___ working very hard.','by','d'],
+ ['gap','We crossed the river ___ boat.','by','a'],
+ ['fix','I paid with cash.','I paid in cash.|I paid cash.','b'],
+ ['tr','Он открыл дверь ключом.','He opened the door with a key.|He opened the door with the key.|He opened the door with his key.|He unlocked the door with a key.','c'],
+ ['build','Я выучил английский, смотря фильмы.','I learned English by watching films.','d',['with']],
+ '|',
+ ['mc','Was this photo taken ___ you?',['by','with','from'],0,'c'],
+ ['mc','We travelled ___ the night train.',['on','by','with'],0,'a'],
+ ['gap','I wrote the address ___ a pencil.','with','c'],
+ ['gap','I knocked over the vase ___ mistake.','by','b'],
+ ['gap','You can relax ___ listening to music.','by','d'],
+ ['gap','Is it far? Can we get there ___ foot?','on','a'],
+ ['fix','The cake was cut by a knife.','The cake was cut with a knife.','c'],
+ ['fix','I go to the office on car.','I go to the office by car.','a'],
+ ['fix','I sent the photos with email.','I sent the photos by email.','b'],
+ ['fix','You can improve your English with reading every day.','You can improve your English by reading every day.','d'],
+ ['tr','Мы познакомились случайно.','We met by chance.|We met by accident.','b'],
+ ['tr','Её убили ножом. (детектив)','She was killed with a knife.','c'],
+ ['dict','The house was built by my grandfather with his own hands.','c'],
+ ['gap','She always goes to work ___ bike.','by','a']],
+ fw:{ru:"Опиши свой обычный день: как ты добираешься (by / on foot), как платишь, как общаешься (by phone, by email), чем пользуешься на работе (with) и как учишь английский (by + -ing).",en:"Describe a usual day: how you travel, how you pay, how you communicate, what tools you use and how you learn English (by + -ing)."}}
+]},
 {lv:'c',ru:'Времена и модальные',en:'Tenses and modals',units:[
 {id:'fut2',ru:'Будущее длительное и совершённое',en:'will be doing / will have done',
  th:{ru:`<p>Две формы будущего, которые смотрят на определённый момент впереди.</p>
@@ -8975,6 +9725,7 @@ const SECTIONS=[
 /* ---- extended reference per topic: full tables, fine points, typical mistakes of Russian speakers (Russian only) ---- */
 /* ---- extended reference per topic: full tables, fine points, typical mistakes of Russian speakers (Russian only) ---- */
 /* ---- extended reference per topic: full tables, fine points, typical mistakes of Russian speakers (Russian only) ---- */
+/* ---- extended reference per topic: full tables, fine points, typical mistakes of Russian speakers (Russian only) ---- */
 const MORE={
 "be1": "<h4>Где в английском нужен be, а в русском глагола нет<\/h4><div class=\"tw\"><table><tr><th>Что сообщаем<\/th><th>Пример<\/th><\/tr><tr><td>кто человек, профессия<\/td><td><span class=\"en\">He is a doctor.<\/span><\/td><\/tr><tr><td>возраст<\/td><td><span class=\"en\">I am twenty-one.<\/span><\/td><\/tr><tr><td>состояние, чувство<\/td><td><span class=\"en\">I am hungry.<\/span> <span class=\"en\">She is afraid.<\/span><\/td><\/tr><tr><td>место<\/td><td><span class=\"en\">They are in Moscow.<\/span><\/td><\/tr><tr><td>погода, время, расстояние<\/td><td><span class=\"en\">It is cold.<\/span> <span class=\"en\">It is five o'clock.<\/span><\/td><\/tr><tr><td>цена<\/td><td><span class=\"en\">It is ten dollars.<\/span><\/td><\/tr><\/table><\/div><h4>Тонкости<\/h4><ul><li><b>you<\/b> всегда с <b>are<\/b>, даже если это один человек: <span class=\"en\">You are my friend.<\/span><\/li><li>Краткая форма возможна и после существительного: <span class=\"en\">Tom's at work.<\/span> <span class=\"en\">My sister's a nurse.<\/span> В разговоре почти всегда говорят кратко, в деловом письме пишут полностью.<\/li><li>В безличных фразах («Холодно», «Поздно») нужно подлежащее <b>it<\/b>: <span class=\"en\">It is late.<\/span><\/li><li>С одной профессией нужен артикль <b>a / an<\/b>: <span class=\"en\">I am an engineer.<\/span> Во множественном числе артикля нет: <span class=\"en\">We are engineers.<\/span><\/li><li>Слова-ловушки: <b>people<\/b>, <b>police<\/b> — множественное число (<span class=\"en\">People are different.<\/span>); <b>news<\/b>, <b>money<\/b> — единственное (<span class=\"en\">The news is good.<\/span>); <b>everybody<\/b>, <b>everyone<\/b> — тоже единственное (<span class=\"en\">Everybody is here.<\/span>).<\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">I student.<\/span><span class=\"en\">I am a student.<\/span><small>глагол нельзя пропускать<\/small><\/li><li><span class=\"bad\">I have 21 years.<\/span><span class=\"en\">I am 21.<\/span><small>возраст — через be<\/small><\/li><li><span class=\"bad\">I am agree.<\/span><span class=\"en\">I agree.<\/span><small>agree — уже глагол, be не нужен<\/small><\/li><li><span class=\"bad\">Cold today.<\/span><span class=\"en\">It is cold today.<\/span><small>нужно подлежащее it<\/small><\/li><li><span class=\"bad\">My parents is at home.<\/span><span class=\"en\">My parents are at home.<\/span><\/li><\/ul>",
 "be2": "<h4>Две краткие формы отрицания<\/h4><div class=\"tw\"><table><tr><th>Сокращаем not<\/th><th>Сокращаем be<\/th><\/tr><tr><td><span class=\"en\">He isn't here.<\/span><\/td><td><span class=\"en\">He's not here.<\/span><\/td><\/tr><tr><td><span class=\"en\">We aren't ready.<\/span><\/td><td><span class=\"en\">We're not ready.<\/span><\/td><\/tr><tr><td>нет<\/td><td><span class=\"en\">I'm not ready.<\/span><\/td><\/tr><\/table><\/div><p>Обе колонки значат одно и то же. С <b>I<\/b> возможен только вариант <b>I'm not<\/b>.<\/p><h4>Краткие ответы<\/h4><ul><li>В ответе «да» форму не сокращают: <span class=\"en\">Yes, I am.<\/span> <span class=\"en\">Yes, she is.<\/span> Варианта «Yes, I'm» не бывает.<\/li><li>В ответе «нет» можно обоими способами: <span class=\"en\">No, she isn't.<\/span> <span class=\"en\">No, she's not.<\/span><\/li><\/ul><h4>Частые вопросы с be<\/h4><div class=\"tw\"><table><tr><td>Вопрос<\/td><td>О чём он<\/td><\/tr><tr><td><span class=\"en\">What is your name?<\/span><\/td><td>имя<\/td><\/tr><tr><td><span class=\"en\">How old are you?<\/span><\/td><td>возраст<\/td><\/tr><tr><td><span class=\"en\">Where are you from?<\/span><\/td><td>откуда ты<\/td><\/tr><tr><td><span class=\"en\">How are you?<\/span><\/td><td>как дела, самочувствие<\/td><\/tr><tr><td><span class=\"en\">What is she like?<\/span><\/td><td>какая она по характеру<\/td><\/tr><tr><td><span class=\"en\">What is it?<\/span> / <span class=\"en\">Who is it?<\/span><\/td><td>что это / кто это<\/td><\/tr><tr><td><span class=\"en\">How much is it?<\/span><\/td><td>цена<\/td><\/tr><\/table><\/div><h4>Вопрос с отрицанием<\/h4><p><span class=\"en\">Isn't it cold?<\/span> — «Разве не холодно?» Так спрашивают, когда ждут согласия или удивлены.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">Where you are from?<\/span><span class=\"en\">Where are you from?<\/span><small>be встаёт перед подлежащим<\/small><\/li><li><span class=\"bad\">You are ready?<\/span><span class=\"en\">Are you ready?<\/span><small>одной интонации в правильной речи мало<\/small><\/li><li><span class=\"bad\">Yes, I'm.<\/span><span class=\"en\">Yes, I am.<\/span><\/li><li><span class=\"bad\">How old you are?<\/span><span class=\"en\">How old are you?<\/span><\/li><li><span class=\"bad\">I amn't sure.<\/span><span class=\"en\">I'm not sure.<\/span><\/li><\/ul>",
@@ -9083,7 +9834,16 @@ const MORE={
 "futbe": "<h4>Насколько скоро и насколько точно<\/h4><div class=\"tw\"><table><tr><th>Конструкция<\/th><th>Оттенок<\/th><\/tr><tr><td><span class=\"en\">be about to<\/span><\/td><td>через секунды, минуты<\/td><\/tr><tr><td><span class=\"en\">be on the point of + -ing<\/span><\/td><td>то же, книжно, часто о решении<\/td><\/tr><tr><td><span class=\"en\">be on the verge of + -ing / сущ.<\/span><\/td><td>на грани: <span class=\"en\">on the verge of tears<\/span><\/td><\/tr><tr><td><span class=\"en\">be due to / be due<\/span><\/td><td>по расписанию, по плану, срок<\/td><\/tr><tr><td><span class=\"en\">be to<\/span><\/td><td>официальный план, приказ, судьба<\/td><\/tr><tr><td><span class=\"en\">be bound to / be sure to<\/span><\/td><td>говорящий уверен<\/td><\/tr><tr><td><span class=\"en\">be likely to / be unlikely to<\/span><\/td><td>вероятно / вряд ли<\/td><\/tr><tr><td><span class=\"en\">be set to<\/span><\/td><td>новости: ожидается<\/td><\/tr><\/table><\/div><h4>be to — оттенки<\/h4><ul><li>План: <span class=\"en\">The minister is to visit Japan.<\/span><\/li><li>Приказ: <span class=\"en\">You are to be here at eight.<\/span> <span class=\"en\">You are not to smoke.<\/span><\/li><li>Судьба (в прошлом): <span class=\"en\">He was never to see her again.<\/span> — Ему больше не суждено было её увидеть.<\/li><\/ul><h4>due<\/h4><ul><li><span class=\"en\">due to + глагол<\/span> — по плану: <span class=\"en\">due to arrive<\/span>.<\/li><li><span class=\"en\">due<\/span> — срок: <span class=\"en\">The rent is due tomorrow.<\/span> <span class=\"en\">The baby is due in May.<\/span><\/li><li><span class=\"en\">due to + сущ.<\/span> — из-за: <span class=\"en\">due to the snow<\/span>.<\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">I was about calling you.<\/span><span class=\"en\">I was about to call you.<\/span><\/li><li><span class=\"bad\">He's bound winning.<\/span><span class=\"en\">He's bound to win.<\/span><\/li><li><span class=\"bad\">She is likely come.<\/span><span class=\"en\">She is likely to come.<\/span><\/li><\/ul>",
 "whatever": "<h4>-ever слова<\/h4><div class=\"tw\"><table><tr><th>Слово<\/th><th>Значение 1: «любой»<\/th><th>Значение 2: «неважно»<\/th><\/tr><tr><td><span class=\"en\">whatever<\/span><\/td><td><span class=\"en\">Eat whatever you like.<\/span><\/td><td><span class=\"en\">Whatever you do, be careful.<\/span><\/td><\/tr><tr><td><span class=\"en\">whoever<\/span><\/td><td><span class=\"en\">Whoever comes first gets a prize.<\/span><\/td><td><span class=\"en\">Whoever calls, I'm out.<\/span><\/td><\/tr><tr><td><span class=\"en\">whichever<\/span><\/td><td><span class=\"en\">Take whichever you like.<\/span><\/td><td><span class=\"en\">Whichever you choose, it's fine.<\/span><\/td><\/tr><tr><td><span class=\"en\">wherever<\/span><\/td><td><span class=\"en\">Sit wherever you want.<\/span><\/td><td><span class=\"en\">Wherever you go, I'll find you.<\/span><\/td><\/tr><tr><td><span class=\"en\">whenever<\/span><\/td><td><span class=\"en\">Come whenever you can.<\/span><\/td><td><span class=\"en\">Whenever I see him, he's busy.<\/span><\/td><\/tr><tr><td><span class=\"en\">however<\/span><\/td><td><span class=\"en\">Do it however you like.<\/span><\/td><td><span class=\"en\">However hard it is, try.<\/span><\/td><\/tr><\/table><\/div><h4>no matter<\/h4><p><span class=\"en\">no matter what / who / which / where / when / how<\/span> = -ever во втором значении: <span class=\"en\">No matter what happens…<\/span><\/p><h4>however — два слова<\/h4><ul><li><span class=\"en\">However hard I try…<\/span> — как бы ни (+ прил. / нареч.).<\/li><li><span class=\"en\">However, I disagree.<\/span> — однако (с запятой).<\/li><\/ul><h4>Разговорное<\/h4><p><span class=\"en\">\"Tea or coffee?\" — \"Whatever.\"<\/span> — «всё равно» (может звучать грубо).<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">Whatever will happen…<\/span><span class=\"en\">Whatever happens…<\/span><\/li><li><span class=\"bad\">Whatever hard I try…<\/span><span class=\"en\">However hard I try…<\/span><\/li><li><span class=\"bad\">No matter what will you say…<\/span><span class=\"en\">No matter what you say…<\/span><\/li><\/ul>",
 "needdoing": "<h4>need + -ing<\/h4><p>Пассивное значение без be: <span class=\"en\">The car needs washing<\/span> = <span class=\"en\">The car needs to be washed<\/span>. Подлежащее — предмет, а не человек.<\/p><div class=\"tw\"><table><tr><th>Человек<\/th><th>Предмет<\/th><\/tr><tr><td><span class=\"en\">I need to repair the roof.<\/span><\/td><td><span class=\"en\">The roof needs repairing.<\/span><\/td><\/tr><tr><td><span class=\"en\">She needs to cut her hair.<\/span><\/td><td><span class=\"en\">Her hair needs cutting.<\/span><\/td><\/tr><\/table><\/div><p>Похожие: <span class=\"en\">want + -ing<\/span> (брит. разг.: <span class=\"en\">The grass wants cutting<\/span>), <span class=\"en\">be worth + -ing<\/span>, <span class=\"en\">require + -ing<\/span>.<\/p><h4>get-пассив<\/h4><div class=\"tw\"><table><tr><th>Где<\/th><th>Примеры<\/th><\/tr><tr><td>неожиданное или плохое<\/td><td><span class=\"en\">got stolen, got broken, got hurt, got killed, got fired, got stuck<\/span><\/td><\/tr><tr><td>результат усилия<\/td><td><span class=\"en\">got promoted, got paid, got elected, got accepted<\/span><\/td><\/tr><tr><td>устойчивые<\/td><td><span class=\"en\">get married, get divorced, get dressed, get lost, get changed<\/span><\/td><\/tr><\/table><\/div><h4>get-пассив и be-пассив<\/h4><ul><li>Get — разговорное, подчёркивает событие: <span class=\"en\">He got hit by a car.<\/span><\/li><li>Be — нейтральное, и для состояния: <span class=\"en\">The shop is closed.<\/span> (не got closed, если о состоянии).<\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">The car needs to wash.<\/span><span class=\"en\">The car needs washing.<\/span><\/li><li><span class=\"bad\">The car needs being washed.<\/span><span class=\"en\">The car needs washing.<\/span><\/li><li><span class=\"bad\">Was he get hurt?<\/span><span class=\"en\">Did he get hurt?<\/span><\/li><\/ul>",
-"quant2": "<h4>Много<\/h4><div class=\"tw\"><table><tr><th>С исчисляемыми<\/th><th>С неисчисляемыми<\/th><th>С любыми<\/th><\/tr><tr><td><span class=\"en\">many, a large number of, a great many, numerous<\/span><\/td><td><span class=\"en\">much, a great deal of, a large amount of<\/span><\/td><td><span class=\"en\">a lot of, lots of, plenty of<\/span><\/td><\/tr><\/table><\/div><h4>Мало и почти нет<\/h4><div class=\"tw\"><table><tr><th><\/th><th>Пример<\/th><\/tr><tr><td><span class=\"en\">few / little<\/span><\/td><td>мало (и это плохо)<\/td><\/tr><tr><td><span class=\"en\">a few / a little<\/span><\/td><td>немного (достаточно)<\/td><\/tr><tr><td><span class=\"en\">hardly any<\/span><\/td><td>почти нет: <span class=\"en\">hardly any time<\/span><\/td><\/tr><tr><td><span class=\"en\">hardly anybody / anything<\/span><\/td><td>почти никто / ничего<\/td><\/tr><tr><td><span class=\"en\">hardly ever<\/span><\/td><td>почти никогда<\/td><\/tr><\/table><\/div><h4>number<\/h4><ul><li><span class=\"en\">a number of<\/span> + мн. ч. + глагол во мн. ч.: <span class=\"en\">A number of people have complained.<\/span><\/li><li><span class=\"en\">the number of<\/span> + мн. ч. + глагол в ед. ч.: <span class=\"en\">The number of complaints has risen.<\/span><\/li><\/ul><h4>less и fewer<\/h4><p><span class=\"en\">less money, less time<\/span> — неисчисляемые; <span class=\"en\">fewer cars, fewer people<\/span> — исчисляемые. В разговоре часто говорят «less people», но в аккуратной речи — fewer.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">hardly no<\/span><span class=\"en\">hardly any<\/span><\/li><li><span class=\"bad\">a great deal of people<\/span><span class=\"en\">a large number of people<\/span><\/li><li><span class=\"bad\">The number of students are…<\/span><span class=\"en\">The number of students is…<\/span><\/li><\/ul>"
+"quant2": "<h4>Много<\/h4><div class=\"tw\"><table><tr><th>С исчисляемыми<\/th><th>С неисчисляемыми<\/th><th>С любыми<\/th><\/tr><tr><td><span class=\"en\">many, a large number of, a great many, numerous<\/span><\/td><td><span class=\"en\">much, a great deal of, a large amount of<\/span><\/td><td><span class=\"en\">a lot of, lots of, plenty of<\/span><\/td><\/tr><\/table><\/div><h4>Мало и почти нет<\/h4><div class=\"tw\"><table><tr><th><\/th><th>Пример<\/th><\/tr><tr><td><span class=\"en\">few / little<\/span><\/td><td>мало (и это плохо)<\/td><\/tr><tr><td><span class=\"en\">a few / a little<\/span><\/td><td>немного (достаточно)<\/td><\/tr><tr><td><span class=\"en\">hardly any<\/span><\/td><td>почти нет: <span class=\"en\">hardly any time<\/span><\/td><\/tr><tr><td><span class=\"en\">hardly anybody / anything<\/span><\/td><td>почти никто / ничего<\/td><\/tr><tr><td><span class=\"en\">hardly ever<\/span><\/td><td>почти никогда<\/td><\/tr><\/table><\/div><h4>number<\/h4><ul><li><span class=\"en\">a number of<\/span> + мн. ч. + глагол во мн. ч.: <span class=\"en\">A number of people have complained.<\/span><\/li><li><span class=\"en\">the number of<\/span> + мн. ч. + глагол в ед. ч.: <span class=\"en\">The number of complaints has risen.<\/span><\/li><\/ul><h4>less и fewer<\/h4><p><span class=\"en\">less money, less time<\/span> — неисчисляемые; <span class=\"en\">fewer cars, fewer people<\/span> — исчисляемые. В разговоре часто говорят «less people», но в аккуратной речи — fewer.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">hardly no<\/span><span class=\"en\">hardly any<\/span><\/li><li><span class=\"bad\">a great deal of people<\/span><span class=\"en\">a large number of people<\/span><\/li><li><span class=\"bad\">The number of students are…<\/span><span class=\"en\">The number of students is…<\/span><\/li><\/ul>",
+"phrud": "<h4>up: оттенки<\/h4><div class=\"tw\"><table><tr><th>Оттенок<\/th><th>Примеры<\/th><\/tr><tr><td>вверх<\/td><td><span class=\"en\">stand up, get up, pick up, look up (в словаре)<\/span><\/td><\/tr><tr><td>до конца, полностью<\/td><td><span class=\"en\">eat up, drink up, use up, tidy up, fill up<\/span><\/td><\/tr><tr><td>появиться<\/td><td><span class=\"en\">turn up, show up, come up<\/span><\/td><\/tr><tr><td>больше<\/td><td><span class=\"en\">turn up, speed up, cheer up<\/span><\/td><\/tr><tr><td>начать<\/td><td><span class=\"en\">set up, take up (хобби)<\/span><\/td><\/tr><\/table><\/div><h4>down: оттенки<\/h4><div class=\"tw\"><table><tr><th>Оттенок<\/th><th>Примеры<\/th><\/tr><tr><td>вниз<\/td><td><span class=\"en\">sit down, lie down, fall down<\/span><\/td><\/tr><tr><td>меньше<\/td><td><span class=\"en\">turn down, slow down, calm down, cut down<\/span><\/td><\/tr><tr><td>на бумагу<\/td><td><span class=\"en\">write down, note down, put down<\/span><\/td><\/tr><tr><td>сломаться, отказать<\/td><td><span class=\"en\">break down, let down (подвести), turn down (отказать)<\/span><\/td><\/tr><\/table><\/div><h4>Порядок слов<\/h4><p>Существительное можно поставить в середину или в конец: <span class=\"en\">pick up the keys / pick the keys up<\/span>. Местоимение — только в середину: <span class=\"en\">pick them up<\/span>.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">pick up it<\/span><span class=\"en\">pick it up<\/span><\/li><li><span class=\"bad\">He was brought by his aunt.<\/span><span class=\"en\">He was brought up by his aunt.<\/span><\/li><li><span class=\"bad\">The car broke up.<\/span><span class=\"en\">The car broke down.<\/span><\/li><\/ul>",
+"phronoff": "<h4>on и off — пары<\/h4><div class=\"tw\"><table><tr><th>on<\/th><th>off<\/th><\/tr><tr><td><span class=\"en\">turn / switch on<\/span><\/td><td><span class=\"en\">turn / switch off<\/span><\/td><\/tr><tr><td><span class=\"en\">put on<\/span> (одежду)<\/td><td><span class=\"en\">take off<\/span> (одежду)<\/td><\/tr><tr><td><span class=\"en\">get on<\/span> (автобус)<\/td><td><span class=\"en\">get off<\/span> (автобус)<\/td><\/tr><tr><td><span class=\"en\">go on / carry on<\/span> — продолжать<\/td><td><span class=\"en\">set off<\/span> — отправиться<\/td><\/tr><\/table><\/div><h4>Ещё off<\/h4><p><span class=\"en\">take off<\/span> — взлететь; <span class=\"en\">call off<\/span> — отменить; <span class=\"en\">put off<\/span> — отложить; <span class=\"en\">show off<\/span> — хвастаться; <span class=\"en\">see off<\/span> — проводить; <span class=\"en\">go off<\/span> — сработать (будильник), испортиться (молоко).<\/p><h4>Ещё on<\/h4><p><span class=\"en\">hold on / hang on<\/span> — подождать; <span class=\"en\">try on<\/span> — примерить; <span class=\"en\">get on (with)<\/span> — ладить; <span class=\"en\">keep on + -ing<\/span> — продолжать.<\/p><h4>Транспорт<\/h4><ul><li><span class=\"en\">get on / off<\/span>: bus, train, plane, metro, ship, bike.<\/li><li><span class=\"en\">get into / out of<\/span>: car, taxi.<\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">Put on it.<\/span><span class=\"en\">Put it on.<\/span><\/li><li><span class=\"bad\">get on the taxi<\/span><span class=\"en\">get into the taxi<\/span><\/li><li><span class=\"bad\">carry on to work<\/span><span class=\"en\">carry on working<\/span><\/li><\/ul>",
+"phrinout": "<h4>in / out<\/h4><div class=\"tw\"><table><tr><th>in<\/th><th>out<\/th><\/tr><tr><td><span class=\"en\">come in, go in<\/span><\/td><td><span class=\"en\">go out, get out<\/span><\/td><\/tr><tr><td><span class=\"en\">check in<\/span><\/td><td><span class=\"en\">check out<\/span><\/td><\/tr><tr><td><span class=\"en\">fill in<\/span> (бланк)<\/td><td><span class=\"en\">fill out<\/span> (то же, американское)<\/td><\/tr><tr><td><span class=\"en\">move in<\/span> — въехать<\/td><td><span class=\"en\">move out<\/span> — съехать<\/td><\/tr><\/table><\/div><h4>out — «узнать», «до конца», «закончиться»<\/h4><p><span class=\"en\">find out, work out, figure out, run out (of), sell out, sort out, point out<\/span>.<\/p><h4>away — «прочь, на место»<\/h4><p><span class=\"en\">go away, run away, throw away, give away, put away, take away<\/span>.<\/p><h4>back — «обратно, в ответ»<\/h4><p><span class=\"en\">come back, go back, get back, give back, pay back, call back, write back, look back<\/span>.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">Throw away it.<\/span><span class=\"en\">Throw it away.<\/span><\/li><li><span class=\"bad\">I ran away of money.<\/span><span class=\"en\">I ran out of money.<\/span><\/li><li><span class=\"bad\">Give me it back.<\/span><span class=\"en\">Give it back to me.<\/span><\/li><\/ul>",
+"vprep2": "<h4>Сводная таблица<\/h4><div class=\"tw\"><table><tr><th>about<\/th><th>of<\/th><th>for<\/th><th>after<\/th><\/tr><tr><td><span class=\"en\">talk, think, worry, complain, know, care, dream<\/span><\/td><td><span class=\"en\">think (мнение), dream, hear, approve<\/span><\/td><td><span class=\"en\">wait, look, ask, pay, apply, search, thank, apologise, blame sb<\/span><\/td><td><span class=\"en\">look, take<\/span><\/td><\/tr><\/table><\/div><h4>Пары с разным смыслом<\/h4><div class=\"tw\"><table><tr><th>Сочетание<\/th><th>Смысл<\/th><\/tr><tr><td><span class=\"en\">think about<\/span><\/td><td>обдумывать<\/td><\/tr><tr><td><span class=\"en\">think of<\/span><\/td><td>мнение; вспомнить; придумать<\/td><\/tr><tr><td><span class=\"en\">hear about<\/span><\/td><td>узнать о событии<\/td><\/tr><tr><td><span class=\"en\">hear of<\/span><\/td><td>слышать о существовании<\/td><\/tr><tr><td><span class=\"en\">hear from<\/span><\/td><td>получить весть<\/td><\/tr><tr><td><span class=\"en\">look for<\/span><\/td><td>искать<\/td><\/tr><tr><td><span class=\"en\">look after<\/span><\/td><td>присматривать<\/td><\/tr><tr><td><span class=\"en\">look at<\/span><\/td><td>смотреть<\/td><\/tr><tr><td><span class=\"en\">care about<\/span><\/td><td>быть небезразличным<\/td><\/tr><tr><td><span class=\"en\">care for<\/span><\/td><td>ухаживать; любить (книжно)<\/td><\/tr><\/table><\/div><h4>Без предлога<\/h4><p><span class=\"en\">discuss the problem<\/span>, <span class=\"en\">ask him<\/span>, <span class=\"en\">phone her<\/span>, <span class=\"en\">answer the question<\/span>, <span class=\"en\">enter the room<\/span>, <span class=\"en\">reach the city<\/span>.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">I'm waiting you.<\/span><span class=\"en\">I'm waiting for you.<\/span><\/li><li><span class=\"bad\">What do you think for it?<\/span><span class=\"en\">What do you think of it?<\/span><\/li><li><span class=\"bad\">She asked for me. (хотела спросить меня)<\/span><span class=\"en\">She asked me.<\/span><\/li><\/ul>",
+"vprep3": "<h4>Сводная таблица<\/h4><div class=\"tw\"><table><tr><th>on<\/th><th>in<\/th><th>with<\/th><th>to<\/th><th>from<\/th><th>into<\/th><\/tr><tr><td><span class=\"en\">depend, rely, count, concentrate, spend, insist, congratulate sb<\/span><\/td><td><span class=\"en\">believe, succeed, specialise, invest, take part<\/span><\/td><td><span class=\"en\">agree, deal, cope, share, argue, provide sb<\/span><\/td><td><span class=\"en\">listen, belong, happen, explain sth, reply, apologise, talk, get used<\/span><\/td><td><span class=\"en\">suffer, recover, protect, prevent, borrow, differ<\/span><\/td><td><span class=\"en\">translate, turn, crash, divide, change<\/span><\/td><\/tr><\/table><\/div><h4>agree<\/h4><ul><li><span class=\"en\">agree with<\/span> + человек / мнение: <span class=\"en\">I agree with you.<\/span><\/li><li><span class=\"en\">agree to<\/span> + предложение: <span class=\"en\">He agreed to the plan.<\/span><\/li><li><span class=\"en\">agree on<\/span> + решение: <span class=\"en\">We agreed on a date.<\/span><\/li><li><span class=\"en\">agree to<\/span> + глагол: <span class=\"en\">She agreed to help.<\/span><\/li><\/ul><h4>explain<\/h4><p><span class=\"en\">Explain it to me.<\/span> — не «explain me». То же с <span class=\"en\">describe, suggest, say<\/span>.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">It depends of you.<\/span><span class=\"en\">It depends on you.<\/span><\/li><li><span class=\"bad\">Listen me.<\/span><span class=\"en\">Listen to me.<\/span><\/li><li><span class=\"bad\">He succeeded to win.<\/span><span class=\"en\">He succeeded in winning.<\/span><\/li><\/ul>",
+"adjprep": "<h4>Сводная таблица<\/h4><div class=\"tw\"><table><tr><th>Предлог<\/th><th>Прилагательные<\/th><\/tr><tr><td><span class=\"en\">at<\/span><\/td><td>good, bad, brilliant, hopeless, surprised, amazed, shocked<\/td><\/tr><tr><td><span class=\"en\">of<\/span><\/td><td>afraid, scared, frightened, proud, fond, tired, sick, jealous, aware, full, capable, short, ashamed<\/td><\/tr><tr><td><span class=\"en\">in<\/span><\/td><td>interested, involved, experienced<\/td><\/tr><tr><td><span class=\"en\">on<\/span><\/td><td>keen, dependent<\/td><\/tr><tr><td><span class=\"en\">with<\/span><\/td><td>angry, annoyed, pleased, satisfied, disappointed, bored, familiar, busy, crowded<\/td><\/tr><tr><td><span class=\"en\">to<\/span><\/td><td>similar, married, kind, nice, polite, rude, used, close, engaged<\/td><\/tr><tr><td><span class=\"en\">for<\/span><\/td><td>famous, responsible, late, ready, sorry (за кого-то), grateful<\/td><\/tr><tr><td><span class=\"en\">about<\/span><\/td><td>worried, excited, upset, sorry (о чём-то), sure, angry (о ситуации)<\/td><\/tr><tr><td><span class=\"en\">from<\/span><\/td><td>different, absent, far<\/td><\/tr><\/table><\/div><h4>Пары<\/h4><ul><li><span class=\"en\">angry with<\/span> человеком — <span class=\"en\">angry about<\/span> ситуацией.<\/li><li><span class=\"en\">sorry for<\/span> кого-то (жалко) — <span class=\"en\">sorry about<\/span> что-то — <span class=\"en\">sorry for doing<\/span> (извиняюсь).<\/li><li><span class=\"en\">good at<\/span> (умею) — <span class=\"en\">good for<\/span> (полезно) — <span class=\"en\">good to<\/span> (добр к).<\/li><\/ul><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">good in English<\/span><span class=\"en\">good at English<\/span><\/li><li><span class=\"bad\">interested about<\/span><span class=\"en\">interested in<\/span><\/li><li><span class=\"bad\">married with<\/span><span class=\"en\">married to<\/span><\/li><\/ul>",
+"nounprep": "<h4>Сводная таблица<\/h4><div class=\"tw\"><table><tr><th>Предлог<\/th><th>Существительные<\/th><\/tr><tr><td><span class=\"en\">for<\/span><\/td><td>reason, demand, need, request, respect, cheque, recipe, room<\/td><\/tr><tr><td><span class=\"en\">of<\/span><\/td><td>cause, advantage, disadvantage, example, photo, picture, map, lack, cost<\/td><\/tr><tr><td><span class=\"en\">in<\/span><\/td><td>increase, decrease, rise, fall, drop, change, interest, difference (in), delay<\/td><\/tr><tr><td><span class=\"en\">to<\/span><\/td><td>solution, answer, key, reply, invitation, attitude, damage, access, visit (to a place)<\/td><\/tr><tr><td><span class=\"en\">with<\/span><\/td><td>relationship, contact, problem, connection<\/td><\/tr><tr><td><span class=\"en\">between<\/span><\/td><td>difference, relationship, connection (двух вещей)<\/td><\/tr><tr><td><span class=\"en\">on<\/span><\/td><td>effect, influence, impact, opinion, tax, advice<\/td><\/tr><\/table><\/div><h4>in и of с числами<\/h4><p><span class=\"en\">a rise in prices<\/span> — в чём; <span class=\"en\">a rise of 5%<\/span> — на сколько; <span class=\"en\">an increase in salary of 10%<\/span>.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">the reason of<\/span><span class=\"en\">the reason for<\/span><\/li><li><span class=\"bad\">the answer for the question<\/span><span class=\"en\">the answer to the question<\/span><\/li><li><span class=\"bad\">damage for the car<\/span><span class=\"en\">damage to the car<\/span><\/li><\/ul>",
+"artgen": "<h4>Три способа сказать «вообще»<\/h4><div class=\"tw\"><table><tr><th>Способ<\/th><th>Пример<\/th><th>Тон<\/th><\/tr><tr><td>мн. число без артикля<\/td><td><span class=\"en\">Tigers are dangerous.<\/span><\/td><td>обычный<\/td><\/tr><tr><td><span class=\"en\">the<\/span> + ед. число<\/td><td><span class=\"en\">The tiger is a dangerous animal.<\/span><\/td><td>научный, книжный<\/td><\/tr><tr><td><span class=\"en\">a<\/span> + ед. число<\/td><td><span class=\"en\">A tiger can run fast.<\/span><\/td><td>«любой тигр»<\/td><\/tr><\/table><\/div><p>Для изобретений чаще <span class=\"en\">the<\/span>: <span class=\"en\">The wheel was invented 5000 years ago.<\/span><\/p><h4>the + прилагательное<\/h4><p><span class=\"en\">the rich, the poor, the young, the old, the elderly, the sick, the injured, the dead, the blind, the deaf, the unemployed, the homeless<\/span> — глагол во мн. числе. Об одном человеке так нельзя: <span class=\"en\">a rich man<\/span>, не «a rich».<\/p><h4>Национальности<\/h4><ul><li>-sh, -ch, -ese, -ss: <span class=\"en\">the British, the French, the Chinese, the Swiss<\/span> — только с the.<\/li><li>Остальные — мн. число: <span class=\"en\">Russians, Americans, Italians<\/span> (можно <span class=\"en\">the Russians<\/span> о народе в целом).<\/li><\/ul><h4>Без артикля<\/h4><p><span class=\"en\">watch TV<\/span>, <span class=\"en\">on TV<\/span>, <span class=\"en\">play football / chess<\/span>, <span class=\"en\">by car<\/span>, <span class=\"en\">at work<\/span>, <span class=\"en\">go to bed<\/span>.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">The rich is<\/span><span class=\"en\">The rich are<\/span><\/li><li><span class=\"bad\">play guitar<\/span><span class=\"en\">play the guitar (в британском), в американском можно без the<\/span><\/li><li><span class=\"bad\">a Chinese invented<\/span><span class=\"en\">the Chinese invented<\/span><\/li><\/ul>",
+"prepby": "<h4>Транспорт<\/h4><div class=\"tw\"><table><tr><th>Способ<\/th><th>Конкретная машина / рейс<\/th><\/tr><tr><td><span class=\"en\">by car<\/span><\/td><td><span class=\"en\">in my car<\/span>, <span class=\"en\">in a taxi<\/span><\/td><\/tr><tr><td><span class=\"en\">by bus / train / plane<\/span><\/td><td><span class=\"en\">on the bus<\/span>, <span class=\"en\">on the 7:15 train<\/span><\/td><\/tr><tr><td><span class=\"en\">on foot<\/span><\/td><td>—<\/td><\/tr><\/table><\/div><h4>by — способ<\/h4><p><span class=\"en\">by email, by phone, by post, by card, by cheque, by hand, by heart (наизусть), by mistake, by accident, by chance, by name<\/span>.<\/p><p>Но: <span class=\"en\">in cash<\/span>, <span class=\"en\">in pencil / in ink<\/span>, <span class=\"en\">on the phone<\/span> (разговаривать), <span class=\"en\">on purpose<\/span> (нарочно).<\/p><h4>by и with<\/h4><div class=\"tw\"><table><tr><th>by<\/th><th>with<\/th><\/tr><tr><td>кто сделал: <span class=\"en\">written by Tolstoy<\/span><\/td><td>чем: <span class=\"en\">written with a pen<\/span><\/td><\/tr><tr><td>как: <span class=\"en\">by working hard<\/span><\/td><td>с чем, с кем: <span class=\"en\">with my friend<\/span><\/td><\/tr><\/table><\/div><h4>by + время и количество<\/h4><p><span class=\"en\">by Friday<\/span> — к пятнице; <span class=\"en\">by 10%<\/span> — на 10%; <span class=\"en\">day by day<\/span>, <span class=\"en\">one by one<\/span>.<\/p><h4>Типичные ошибки<\/h4><ul class=\"errs\"><li><span class=\"bad\">by the car<\/span><span class=\"en\">by car<\/span><\/li><li><span class=\"bad\">with email<\/span><span class=\"en\">by email<\/span><\/li><li><span class=\"bad\">cut by a knife<\/span><span class=\"en\">cut with a knife<\/span><\/li><\/ul>"
 };
 const SOON={a:[],b:[],c:[]};
 const LEVELS=[{id:'a',name:'Elementary',cefr:'A1–A2'},{id:'b',name:'Intermediate',cefr:'B1'},{id:'c',name:'Upper-Int.',cefr:'B2'}];
@@ -9407,6 +10167,20 @@ const TQ={
  ['mc','The number of cars ___ growing this year.',['is','are','were'],0,'quant2:c'],
  ['gap','There\'s hardly ___ milk left.','any','quant2:b'],
  ['fix','Hadn\'t I seen it, I wouldn\'t believe it.',"Had I not seen it, I wouldn't believe it.|If I hadn't seen it, I wouldn't believe it.",'noif:d']],
+'b-prepositions-and-phrasal-verbs':[
+ ['mc','Please write ___ my number.',['down','up','off'],0,'phrud:b'],
+ ['mc','I\'ll pick you ___ at six.',['up','down','on'],0,'phrud:a'],
+ ['mc','Take ___ your shoes, please.',['off','on','out'],0,'phronoff:b'],
+ ['mc','We got ___ the bus at the museum.',['off','out','down'],0,'phronoff:c'],
+ ['mc','I need to find ___ the truth.',['out','in','back'],0,'phrinout:b'],
+ ['mc','I\'ll call you ___ later.',['back','away','out'],0,'phrinout:d'],
+ ['mc','Don\'t worry ___ me.',['about','for','of'],0,'vprep2:a'],
+ ['mc','It depends ___ the weather.',['on','of','from'],0,'vprep3:a'],
+ ['mc','She\'s good ___ maths.',['at','in','on'],0,'adjprep:a'],
+ ['mc','What\'s the reason ___ the delay?',['for','of','to'],0,'nounprep:a'],
+ ['mc','She plays ___ violin.',['the','a','—'],0,'artgen:b'],
+ ['mc','I go to work ___ bus.',['by','on','with'],0,'prepby:a'],
+ ['fix','He opened it by a knife.','He opened it with a knife.','prepby:c']],
 'b-more-practice':[
  ['mc','You will not pass the exam ___ you study harder.',['unless','if','when'],0,'unless:a'],
  ['mc','Unless she ___ now, she will miss the train.',['leaves',"doesn't leave",'will leave'],0,'unless:b'],
@@ -9451,7 +10225,7 @@ SECTIONS.forEach((sec,si)=>{sec.lv=sec.lv||'a';sec.id=sec.lv+'-'+sec.en.toLowerC
   u.steps=[ids.slice(0,half),ids.slice(half,n)];const ends=cuts.slice(1).concat([ids.length]);let from=n;ends.forEach(e=>{if(e>from)u.steps.push(ids.slice(from,e));from=e});
   u.core=Math.min(3,u.steps.length);  /* steps after the core three are extra practice: they never lock the next topic */
   UNITS.push(u)})});
-const WORDS={"be1":[["tired","уставший"],["kitchen","кухня"],["shoes","обувь, туфли"],["wet","мокрый"],["bag","сумка"],["window","окно"],["hungry","голодный"],["neighbour","сосед"],["milk","молоко"],["fridge","холодильник"],["boring","скучный"],["grandparents","бабушка и дедушка"],["nurse","медсестра"],["apple","яблоко"],["pilot","пилот"]],"be2":[["sad","грустный"],["toilet","туалет"],["pocket","карман"],["colour","цвет"],["asleep","спящий (be asleep — спать)"]],"pc1":[["garden","сад"],["cook","готовить; повар"],["dinner","ужин"],["lake","озеро"],["lunch","обед"],["somebody","кто-то"],["quiet","тихий"],["shine","светить, сиять"],["sandwich","бутерброд"],["cartoon","мультфильм"],["homework","домашнее задание"],["snow","снег; идти (о снеге)"],["ring","звонить (о телефоне); кольцо"],["piano","пианино"],["chase","гнаться за"],["wash","мыть, стирать"]],"pc2":[["laugh","смеяться"],["cry","плакать"],["remote","пульт"],["coat","пальто"]],"ps1":[["tennis","теннис"],["boil","кипеть, кипятить"],["guitar","гитара"],["gym","спортзал"],["museum","музей"],["village","деревня"],["rise","подниматься, всходить"],["fix","чинить"],["mum","мама"],["dish","блюдо; dishes — посуда"],["cinema","кинотеатр"],["factory","завод, фабрика"],["teach","преподавать, учить"],["lesson","урок"]],"ps2":[["meat","мясо"],["prefer","предпочитать"],["vegetarian","вегетарианец"]],"pcps":[["soup","суп"],["taste","быть на вкус; вкус"],["climb","лезть, карабкаться"],["curtain","штора"],["laptop","ноутбук"],["umbrella","зонт"],["belong (to)","принадлежать"],["slowly","медленно"]],"hgot":[["pen","ручка"],["headache","головная боль"],["flat","квартира"],["bedroom","спальня"],["bike","велосипед"],["garage","гараж"]],"was":[["ill","больной"],["grandfather","дедушка"],["birthday","день рождения"],["grandmother","бабушка"],["angry","сердитый, злой"],["holiday","отпуск, праздник"],["busy","занятой"],["empty","пустой"],["exam","экзамен"]],"past1":[["taxi","такси"],["cake","торт, пирожное"],["swim","плавать"]],"past2":[["arrive","прибывать, приезжать"],["bread","хлеб"],["lock","запирать; замок"],["alarm","будильник; сигнализация"]],"pastc":[["midnight","полночь"],["afternoon","день (после полудня)"],["entrance","вход"],["cafe","кафе"]],"pastcs":[["wake (up)","просыпаться"],["leg","нога"],["ski","кататься на лыжах"],["jacket","куртка"],["knock","стучать"],["bath","ванна"],["arrive","прибывать, приезжать"],["accident","авария, несчастный случай"],["ticket","билет"]],"pp1":[["passport","паспорт"],["anywhere","где-нибудь, нигде (в отрицании)"],["finger","палец"],["mistake","ошибка"],["expensive","дорогой"],["steal","красть"],["arm","рука (от плеча)"]],"pp2":[["twice","дважды"],["fly","летать"],["plane","самолёт"],["ghost","привидение"],["concert","концерт"]],"gt":[["sky","небо"],["abroad","за границей, за границу"],["careful","осторожный"],["paint","красить; рисовать красками"],["crash","разбиться; авария"],["cloud","облако"],["aunt","тётя"],["mountain","гора"]],"will":[["worry","волноваться"],["promise","обещать"]],"can":[["bird","птица"],["salt","соль"],["noise","шум"],["loud","громкий"]],"must":[["seat","сиденье, место"],["belt","ремень (seat belt — ремень безопасности)"],["smoke","курить; дым"],["forbidden","запрещённый"],["uniform","форма (одежда)"],["boss","начальник"],["dangerous","опасный"],["painting","картина"],["weekday","будний день"],["tie","галстук"],["surprise","сюрприз; удивлять"],["fill (in)","заполнять"]],"should":[["sugar","сахар"],["apply (for)","подавать заявление"],["delicious","очень вкусный"],["suit","костюм"],["apologise","извиняться"],["invite","приглашать"],["vegetables","овощи"]],"there":[["chair","стул"],["shelf","полка"],["restaurant","ресторан"],["supermarket","супермаркет"],["bathroom","ванная"],["storm","буря, гроза"],["pharmacy","аптека"]],"art":[["cheap","дешёвый"],["friendly","дружелюбный"],["architect","архитектор"],["moon","луна"],["honest","честный"],["egg","яйцо"],["bright","яркий"]],"some":[["egg","яйцо"],["cheese","сыр"]],"pron":[["toy","игрушка"],["wag","вилять"],["tail","хвост"],["lend","одалживать (кому-то)"]],"prep":[["map","карта"]],"comp":[["exercise","упражнение; зарядка"],["comfortable","удобный"],["silver","серебро"],["thin","тонкий, худой"],["exciting","захватывающий"],["warm","тёплый"]],"sup":[["intelligent","умный"],["clever","умный"],["meal","еда, приём пищи"],["smart","умный"]],"adv":[["carefully","осторожно, внимательно"],["happily","радостно"],["beautifully","красиво"],["quietly","тихо"],["badly","плохо"],["smell","пахнуть; запах"]],"wh":[["uncle","дядя"],["favourite","любимый"],["square","квадратный; площадь"]],"poss":[["everywhere","везде"],["flower","цветок"],["lovely","милый, чудесный"]],"inf":[["healthy","здоровый"]],"pass":[["invite","приглашать"],["bridge","мост"],["deliver","доставлять"],["flour","мука"],["tower","башня"],["thief","вор"],["zoo","зоопарк"],["thousands (of)","тысячи"],["repair","ремонтировать"],["arrest","арестовать"]],"if1":[["sunny","солнечный"]],"ppc":[["breath","дыхание (out of breath — запыхавшийся)"],["dirty","грязный"]],"pastperf":[["recognise","узнавать"],["realise","понимать, осознавать"],["escape","сбежать"]],"usedto":[["corner","угол"],["shy","застенчивый"],["hike","поход; ходить в поход"]],"fut":[["dentist","зубной врач"],["medicine","лекарство"],["arrange","договориться, устроить"],["programme","программа"]],"habits":[["bake","печь"],["moustache","усы"],["metro","метро"]],"narr":[["enter","входить"],["nervous","нервный, взволнованный"],["disturb","беспокоить, мешать"],["wave","махать рукой; волна"],["anybody","кто-нибудь"],["plate","тарелка"]],"if2":[["lottery","лотерея"],["forecast","прогноз"],["boat","лодка"],["theatre","театр"],["castle","замок"],["wedding","свадьба"]],"if3":[["picnic","пикник"]],"wish":[["upset","расстроенный"],["interrupt","перебивать"],["freeze","замерзать"],["instrument","инструмент (музыкальный)"]],"indq":[["excuse","извинять (Excuse me — извините)"]],"imp":[["afraid","be afraid — бояться"],["knife","нож"],["sharp","острый"],["rude","грубый"],["argue","спорить"]],"tooenough":[["lift","лифт; поднимать"],["mosquito","комар"],["clothes","одежда"],["fail","провалить, не суметь"]],"afew":[["lonely","одинокий"],["bottle","бутылка"],["worried","обеспокоенный"],["patience","терпение"]],"irr":[["strange","странный"],["karaoke","караоке"],["password","пароль"],["kilometre","километр"],["teach","преподавать, учить"],["juice","сок"],["horse","лошадь"]],"refl":[["mirror","зеркало"],["flatmate","сосед по квартире"],["shave","бриться"],["relax","отдыхать, расслабляться"],["concentrate","сосредоточиться"],["noisy","шумный"],["burn","обжечь(ся), гореть"]],"indef":[["mystery","загадка"],["somewhere","где-то, куда-то"],["tasty","вкусный"],["bored","скучающий"],["nowhere","нигде, никуда"]],"one":[["tomato","помидор"],["borrow","брать взаймы"],["pencil","карандаш"],["socks","носки"],["joke","шутка"],["yellow","жёлтый"],["spare","запасной"],["boots","ботинки, сапоги"]],"prepmov":[["tunnel","тоннель"],["jump","прыгать"],["fireplace","камин"],["path","тропинка, дорожка"],["opposite","напротив"],["stairs","лестница"],["playground","детская площадка"],["forest","лес"],["hill","холм"],["fence","забор"],["lamp","лампа"]],"wordord":[["correct","правильный; исправлять"],["pool","бассейн"],["neighbour","сосед"]],"conj":[["brush","чистить (щёткой)"],["tooth","зуб (мн. teeth)"],["oversleep","проспать"],["podcast","подкаст"],["instructions","инструкция"]],"q2":[["strict","строгий"],["rice","рис"],["chocolate","шоколад"]],"verbs":[["yoga","йога"],["barbecue","барбекю, шашлыки"],["photography","фотография (занятие)"]],"deduce":[["exhausted","измотанный"],["thirsty","испытывающий жажду"],["postman","почтальон"],["stick","палка; приклеивать"]],"pass2":[["solve","решать (задачу)"],["bake","печь"]],"able":[["manage","суметь, справиться"],["visitor","посетитель, гость"],["violin","скрипка"],["firefighter","пожарный"],["fluently","свободно, бегло"],["jar","банка"]],"causative":[["barber","парикмахер (мужской)"],["renew","продлевать, обновлять"],["tooth","зуб (мн. teeth)"],["install","устанавливать"],["shorten","укорачивать"],["nail","ноготь; гвоздь"],["redesign","переделывать"],["dye","красить (волосы)"],["roof","крыша"],["document","документ"],["translate","переводить"],["salon","салон"],["furniture","мебель"]],"rel":[["disappear","исчезать"],["upstairs","наверху, наверх"],["prize","приз"],["cousin","двоюродный брат / сестра"],["bark","лаять"]],"ginf":[["sunset","закат"],["petrol","бензин"]],"link":[["in spite of","несмотря на"],["cancel","отменять"],["fog","туман"],["silly","глупый"],["cosy","уютный"],["jam","варенье; пробка (traffic jam)"],["strike","забастовка"]],"sosuch":[["journey","поездка, путешествие"]],"art2":[["sail","плавать под парусом"],["flow","течь"],["prison","тюрьма"],["invent","изобретать"],["ocean","океан"],["stressful","напряжённый, стрессовый"],["orchestra","оркестр"],["kingdom","королевство"]],"phr":[["dictionary","словарь"],["interrupt","перебивать"],["hat","шапка, шляпа"]],"soneither":[["jazz","джаз"],["horror","ужасы (фильм)"]],"quant":[["nor","и не (neither… nor — ни… ни)"],["balcony","балкон"],["retired","на пенсии"],["terrible","ужасный"],["colleague","коллега"],["silent","молчаливый, тихий"],["guest","гость"]],"eding":[["tiring","утомительный"],["shocked","потрясённый"],["surprising","удивительный"],["surprised","удивлённый"],["excited","взволнованный (радостно)"],["confusing","запутанный, непонятный"],["relaxed","расслабленный"],["annoying","раздражающий"],["frightened","испуганный"],["disappointing","разочаровывающий"],["amusing","забавный"],["behaviour","поведение"],["embarrassing","неловкий, стыдный"],["pleased","довольный"],["fascinating","захватывающий"]],"vprep":[["depend (on)","зависеть от"],["proud (of)","гордый"],["draw","рисовать"],["discuss","обсуждать"],["keen (on)","увлечённый чем-то"],["apologise","извиняться"],["ballet","балет"],["spider","паук"]],"unless":[["fail","провалить, не суметь"],["urgent","срочный"],["forgive","прощать"],["apologise","извиняться"]],"itthere":[["wind","ветер"],["sentence","предложение (фраза)"],["windy","ветреный"],["motorway","шоссе, автомагистраль"],["impossible","невозможный"]],"nounnoun":[["shoe","туфля, ботинок"],["cupboard","шкаф (кухонный)"],["newspaper","газета"],["bowl","миска"],["magazine","журнал"],["unexpected","неожиданный"]],"artnames":[["divide","разделять"]],"quite":[["fairly","довольно, достаточно"],["leather","кожаный; кожа"],["wooden","деревянный"],["cottage","домик, коттедж"],["silk","шёлк, шёлковый"],["curly","кудрявый"],["recipe","рецепт"],["blond","светлый (о волосах)"]],"adjto":[["pronounce","произносить"],["ignore","игнорировать"],["bother","беспокоить"],["generous","щедрый"],["handwriting","почерк"]],"requests":[["favour","одолжение (do a favour)"]],"whole":[["balloon","воздушный шар"],["shirt","рубашка"]],"fut2":[["print","печатать"],["robot","робот"],["noon","полдень"],["mortgage","ипотека"]],"pmod":[["shout","кричать"],["wine","вино"]],"rather":[["resident","житель"]],"futpast":[["landlord","хозяин жилья"],["engineering","инженерное дело"]],"pastpc":[["bake","печь"],["grass","трава"]],"mixcond":[["lazy","ленивый"],["confident","уверенный"],["dry","сухой; сушить"],["vase","ваза"],["stubborn","упрямый"],["patient","терпеливый; пациент"]],"ifalt":[["suppose","предполагать"],["candle","свеча"]],"asif":[["millionaire","миллионер"],["blanket","одеяло, плед"],["behave","вести себя"],["treat","обращаться с кем-то"],["depend (on)","зависеть от"],["waitress","официантка"],["angel","ангел"],["mad","сумасшедший"],["torch","фонарик"],["snore","храпеть"],["bear","медведь"],["princess","принцесса"],["marathon","марафон"],["guide","гид"],["deaf","глухой"]],"passrep":[["robber","грабитель"],["injured","раненый"],["fortune","состояние, удача"],["improve","улучшать"],["haunted","с привидениями"],["temper","характер, вспыльчивость"],["sink","тонуть"],["excellent","отличный"],["hire","нанимать"],["resign","уйти в отставку"],["hide","прятаться"],["singer","певец"],["unsafe","небезопасный"]],"repverbs":[["advise","советовать"],["suggest","предлагать"],["deny","отрицать"],["accuse (of)","обвинять в"],["remind","напоминать"],["admit","признавать"],["insist (on)","настаивать на"],["refuse","отказываться"],["warn","предупреждать"],["blame","винить"],["threaten","угрожать"],["encourage","поощрять, подбадривать"],["recommend","рекомендовать"],["delay","задерживать; задержка"],["discount","скидка"]],"ndrel":[["helpful","полезный, готовый помочь"],["polite","вежливый"],["spoil","портить"],["shock","шок"]],"partcl":[["policeman","полицейский"],["bite","кусать"],["stress","стресс"],["hang","висеть, вешать"]],"cleft":[["annoy","раздражать"],["attitude","отношение (к чему-то)"]],"invers":[["hardly","едва, почти не"],["rarely","редко"],["nonsense","чепуха"],["circumstances","обстоятельства"],["score","счёт, результат"],["talent","талант"],["complain","жаловаться"],["steak","стейк"],["actor","актёр"]],"vpat":[["mechanic","механик"],["brake","тормоз"],["shake","трястись"],["earthquake","землетрясение"],["disappear","исчезать"]],"ingexp":[["difficulty","трудность"],["queue","очередь"],["trouble","проблема, беспокойство"],["waste","тратить зря"]],"phr2":[["brilliant","блестящий, отличный"],["get rid of","избавиться от"],["arrogant","высокомерный"],["reply","ответ; отвечать"]],"comp2":[["practise","упражняться"],["slightly","немного, слегка"],["metre","метр"],["salary","зарплата"],["earn","зарабатывать"]],"count2":[["useful","полезный"],["luggage","багаж"],["pair","пара"],["jeans","джинсы"],["progress","успехи, прогресс"],["trousers","брюки"],["shorten","укорачивать"],["scissors","ножницы"],["tight","тесный"]],"link2":[["whereas","тогда как"],["oversleep","проспать"],["owe","быть должным"],["signal","сигнал"],["whisper","шептать"],["calm","спокойный"],["loudly","громко"],["hockey","хоккей"]],"noif":[["reception","ресепшн, стойка администратора"],["require","требовать"]],"futbe":[["unlikely","маловероятный"],["rent","аренда, плата за жильё"],["tears","слёзы"]],"whatever":[["panic","паниковать"],["celebrate","праздновать"]],"needdoing":[["iron","гладить; утюг"],["battery","батарейка, аккумулятор"],["promote","повысить в должности"],["tyre","шина"],["feed","кормить"],["essay","сочинение, эссе"]],"quant2":[["absent","отсутствующий"],["tourist","турист"],["employee","сотрудник"],["voter","избиратель"],["unanswered","без ответа"]]};
+const WORDS={"be1":[["tired","уставший"],["kitchen","кухня"],["shoes","обувь, туфли"],["wet","мокрый"],["bag","сумка"],["window","окно"],["hungry","голодный"],["neighbour","сосед"],["milk","молоко"],["fridge","холодильник"],["boring","скучный"],["grandparents","бабушка и дедушка"],["nurse","медсестра"],["apple","яблоко"],["pilot","пилот"]],"be2":[["sad","грустный"],["toilet","туалет"],["pocket","карман"],["colour","цвет"],["asleep","спящий (be asleep — спать)"]],"pc1":[["garden","сад"],["cook","готовить; повар"],["dinner","ужин"],["lake","озеро"],["lunch","обед"],["somebody","кто-то"],["quiet","тихий"],["shine","светить, сиять"],["sandwich","бутерброд"],["cartoon","мультфильм"],["homework","домашнее задание"],["snow","снег; идти (о снеге)"],["ring","звонить (о телефоне); кольцо"],["piano","пианино"],["chase","гнаться за"],["wash","мыть, стирать"]],"pc2":[["laugh","смеяться"],["cry","плакать"],["remote","пульт"],["coat","пальто"]],"ps1":[["tennis","теннис"],["boil","кипеть, кипятить"],["guitar","гитара"],["gym","спортзал"],["museum","музей"],["village","деревня"],["rise","подниматься, всходить"],["fix","чинить"],["mum","мама"],["dish","блюдо; dishes — посуда"],["cinema","кинотеатр"],["factory","завод, фабрика"],["teach","преподавать, учить"],["lesson","урок"]],"ps2":[["meat","мясо"],["prefer","предпочитать"],["vegetarian","вегетарианец"]],"pcps":[["soup","суп"],["taste","быть на вкус; вкус"],["climb","лезть, карабкаться"],["curtain","штора"],["laptop","ноутбук"],["umbrella","зонт"],["belong (to)","принадлежать"],["slowly","медленно"]],"hgot":[["pen","ручка"],["headache","головная боль"],["flat","квартира"],["bedroom","спальня"],["bike","велосипед"],["garage","гараж"]],"was":[["ill","больной"],["grandfather","дедушка"],["birthday","день рождения"],["grandmother","бабушка"],["angry","сердитый, злой"],["holiday","отпуск, праздник"],["busy","занятой"],["empty","пустой"],["exam","экзамен"]],"past1":[["taxi","такси"],["cake","торт, пирожное"],["swim","плавать"]],"past2":[["arrive","прибывать, приезжать"],["bread","хлеб"],["lock","запирать; замок"],["alarm","будильник; сигнализация"]],"pastc":[["midnight","полночь"],["afternoon","день (после полудня)"],["entrance","вход"],["cafe","кафе"]],"pastcs":[["wake (up)","просыпаться"],["leg","нога"],["ski","кататься на лыжах"],["jacket","куртка"],["knock","стучать"],["bath","ванна"],["arrive","прибывать, приезжать"],["accident","авария, несчастный случай"],["ticket","билет"]],"pp1":[["passport","паспорт"],["anywhere","где-нибудь, нигде (в отрицании)"],["finger","палец"],["mistake","ошибка"],["expensive","дорогой"],["steal","красть"],["arm","рука (от плеча)"]],"pp2":[["twice","дважды"],["fly","летать"],["plane","самолёт"],["ghost","привидение"],["concert","концерт"]],"gt":[["sky","небо"],["abroad","за границей, за границу"],["careful","осторожный"],["paint","красить; рисовать красками"],["crash","разбиться; авария"],["cloud","облако"],["aunt","тётя"],["mountain","гора"]],"will":[["worry","волноваться"],["promise","обещать"]],"can":[["bird","птица"],["salt","соль"],["noise","шум"],["loud","громкий"]],"must":[["seat","сиденье, место"],["belt","ремень (seat belt — ремень безопасности)"],["smoke","курить; дым"],["forbidden","запрещённый"],["uniform","форма (одежда)"],["boss","начальник"],["dangerous","опасный"],["painting","картина"],["weekday","будний день"],["tie","галстук"],["surprise","сюрприз; удивлять"],["fill (in)","заполнять"]],"should":[["sugar","сахар"],["apply (for)","подавать заявление"],["delicious","очень вкусный"],["suit","костюм"],["apologise","извиняться"],["invite","приглашать"],["vegetables","овощи"]],"there":[["chair","стул"],["shelf","полка"],["restaurant","ресторан"],["supermarket","супермаркет"],["bathroom","ванная"],["storm","буря, гроза"],["pharmacy","аптека"]],"art":[["cheap","дешёвый"],["friendly","дружелюбный"],["architect","архитектор"],["moon","луна"],["honest","честный"],["egg","яйцо"],["bright","яркий"]],"some":[["egg","яйцо"],["cheese","сыр"]],"pron":[["toy","игрушка"],["wag","вилять"],["tail","хвост"],["lend","одалживать (кому-то)"]],"prep":[["map","карта"]],"comp":[["exercise","упражнение; зарядка"],["comfortable","удобный"],["silver","серебро"],["thin","тонкий, худой"],["exciting","захватывающий"],["warm","тёплый"]],"sup":[["intelligent","умный"],["clever","умный"],["meal","еда, приём пищи"],["smart","умный"]],"adv":[["carefully","осторожно, внимательно"],["happily","радостно"],["beautifully","красиво"],["quietly","тихо"],["badly","плохо"],["smell","пахнуть; запах"]],"wh":[["uncle","дядя"],["favourite","любимый"],["square","квадратный; площадь"]],"poss":[["everywhere","везде"],["flower","цветок"],["lovely","милый, чудесный"]],"inf":[["healthy","здоровый"]],"pass":[["invite","приглашать"],["bridge","мост"],["deliver","доставлять"],["flour","мука"],["tower","башня"],["thief","вор"],["zoo","зоопарк"],["thousands (of)","тысячи"],["repair","ремонтировать"],["arrest","арестовать"]],"if1":[["sunny","солнечный"]],"ppc":[["breath","дыхание (out of breath — запыхавшийся)"],["dirty","грязный"]],"pastperf":[["recognise","узнавать"],["realise","понимать, осознавать"],["escape","сбежать"]],"usedto":[["corner","угол"],["shy","застенчивый"],["hike","поход; ходить в поход"]],"fut":[["dentist","зубной врач"],["medicine","лекарство"],["arrange","договориться, устроить"],["programme","программа"]],"habits":[["bake","печь"],["moustache","усы"],["metro","метро"]],"narr":[["enter","входить"],["nervous","нервный, взволнованный"],["disturb","беспокоить, мешать"],["wave","махать рукой; волна"],["anybody","кто-нибудь"],["plate","тарелка"]],"if2":[["lottery","лотерея"],["forecast","прогноз"],["boat","лодка"],["theatre","театр"],["castle","замок"],["wedding","свадьба"]],"if3":[["picnic","пикник"]],"wish":[["upset","расстроенный"],["interrupt","перебивать"],["freeze","замерзать"],["instrument","инструмент (музыкальный)"]],"indq":[["excuse","извинять (Excuse me — извините)"]],"imp":[["afraid","be afraid — бояться"],["knife","нож"],["sharp","острый"],["rude","грубый"],["argue","спорить"]],"tooenough":[["lift","лифт; поднимать"],["mosquito","комар"],["clothes","одежда"],["fail","провалить, не суметь"]],"afew":[["lonely","одинокий"],["bottle","бутылка"],["worried","обеспокоенный"],["patience","терпение"]],"irr":[["strange","странный"],["karaoke","караоке"],["password","пароль"],["kilometre","километр"],["teach","преподавать, учить"],["juice","сок"],["horse","лошадь"]],"refl":[["mirror","зеркало"],["flatmate","сосед по квартире"],["shave","бриться"],["relax","отдыхать, расслабляться"],["concentrate","сосредоточиться"],["noisy","шумный"],["burn","обжечь(ся), гореть"]],"indef":[["mystery","загадка"],["somewhere","где-то, куда-то"],["tasty","вкусный"],["bored","скучающий"],["nowhere","нигде, никуда"]],"one":[["tomato","помидор"],["borrow","брать взаймы"],["pencil","карандаш"],["socks","носки"],["joke","шутка"],["yellow","жёлтый"],["spare","запасной"],["boots","ботинки, сапоги"]],"prepmov":[["tunnel","тоннель"],["jump","прыгать"],["fireplace","камин"],["path","тропинка, дорожка"],["opposite","напротив"],["stairs","лестница"],["playground","детская площадка"],["forest","лес"],["hill","холм"],["fence","забор"],["lamp","лампа"]],"wordord":[["correct","правильный; исправлять"],["pool","бассейн"],["neighbour","сосед"]],"conj":[["brush","чистить (щёткой)"],["tooth","зуб (мн. teeth)"],["oversleep","проспать"],["podcast","подкаст"],["instructions","инструкция"]],"q2":[["strict","строгий"],["rice","рис"],["chocolate","шоколад"]],"verbs":[["yoga","йога"],["barbecue","барбекю, шашлыки"],["photography","фотография (занятие)"]],"deduce":[["exhausted","измотанный"],["thirsty","испытывающий жажду"],["postman","почтальон"],["stick","палка; приклеивать"]],"pass2":[["solve","решать (задачу)"],["bake","печь"]],"able":[["manage","суметь, справиться"],["visitor","посетитель, гость"],["violin","скрипка"],["firefighter","пожарный"],["fluently","свободно, бегло"],["jar","банка"]],"causative":[["barber","парикмахер (мужской)"],["renew","продлевать, обновлять"],["tooth","зуб (мн. teeth)"],["install","устанавливать"],["shorten","укорачивать"],["nail","ноготь; гвоздь"],["redesign","переделывать"],["dye","красить (волосы)"],["roof","крыша"],["document","документ"],["translate","переводить"],["salon","салон"],["furniture","мебель"]],"rel":[["disappear","исчезать"],["upstairs","наверху, наверх"],["prize","приз"],["cousin","двоюродный брат / сестра"],["bark","лаять"]],"ginf":[["sunset","закат"],["petrol","бензин"]],"link":[["in spite of","несмотря на"],["cancel","отменять"],["fog","туман"],["silly","глупый"],["cosy","уютный"],["jam","варенье; пробка (traffic jam)"],["strike","забастовка"]],"sosuch":[["journey","поездка, путешествие"]],"art2":[["sail","плавать под парусом"],["flow","течь"],["prison","тюрьма"],["invent","изобретать"],["ocean","океан"],["stressful","напряжённый, стрессовый"],["orchestra","оркестр"],["kingdom","королевство"]],"phr":[["dictionary","словарь"],["interrupt","перебивать"],["hat","шапка, шляпа"]],"soneither":[["jazz","джаз"],["horror","ужасы (фильм)"]],"quant":[["nor","и не (neither… nor — ни… ни)"],["balcony","балкон"],["retired","на пенсии"],["terrible","ужасный"],["colleague","коллега"],["silent","молчаливый, тихий"],["guest","гость"]],"eding":[["tiring","утомительный"],["shocked","потрясённый"],["surprising","удивительный"],["surprised","удивлённый"],["excited","взволнованный (радостно)"],["confusing","запутанный, непонятный"],["relaxed","расслабленный"],["annoying","раздражающий"],["frightened","испуганный"],["disappointing","разочаровывающий"],["amusing","забавный"],["behaviour","поведение"],["embarrassing","неловкий, стыдный"],["pleased","довольный"],["fascinating","захватывающий"]],"vprep":[["depend (on)","зависеть от"],["proud (of)","гордый"],["draw","рисовать"],["discuss","обсуждать"],["keen (on)","увлечённый чем-то"],["apologise","извиняться"],["ballet","балет"],["spider","паук"]],"unless":[["fail","провалить, не суметь"],["urgent","срочный"],["forgive","прощать"],["apologise","извиняться"]],"itthere":[["wind","ветер"],["sentence","предложение (фраза)"],["windy","ветреный"],["motorway","шоссе, автомагистраль"],["impossible","невозможный"]],"nounnoun":[["shoe","туфля, ботинок"],["cupboard","шкаф (кухонный)"],["newspaper","газета"],["bowl","миска"],["magazine","журнал"],["unexpected","неожиданный"]],"artnames":[["divide","разделять"]],"quite":[["fairly","довольно, достаточно"],["leather","кожаный; кожа"],["wooden","деревянный"],["armchair","кресло"],["cottage","домик, коттедж"],["silk","шёлк, шёлковый"],["curly","кудрявый"],["recipe","рецепт"],["blond","светлый (о волосах)"]],"adjto":[["pronounce","произносить"],["ignore","игнорировать"],["bother","беспокоить"],["generous","щедрый"],["handwriting","почерк"]],"requests":[["favour","одолжение (do a favour)"]],"whole":[["balloon","воздушный шар"],["shirt","рубашка"]],"phrud":[["calm","спокойный"],["tidy (up)","прибраться"]],"phronoff":[["switch on / off","включить / выключить"],["scarf","шарф"],["oven","духовка"],["rub","тереть"],["jeans","джинсы"]],"phrinout":[["throw (away)","бросать (выбрасывать)"],["mess","беспорядок"],["noon","полдень"],["charity","благотворительность"],["rubbish","мусор"]],"vprep2":[["haircut","стрижка"],["complain","жаловаться"],["menu","меню"],["childhood","детство"]],"vprep3":[["suffer (from)","страдать от"],["insist (on)","настаивать на"],["translate","переводить"],["rely (on)","полагаться на"],["succeed (in)","преуспеть, суметь"],["flu","грипп"],["stress","стресс"],["reply","ответ; отвечать"],["congratulate (on)","поздравлять с"],["sight","вид, зрение (at first sight — с первого взгляда)"],["specialise (in)","специализироваться на"],["cope (with)","справляться с"],["recover (from)","выздоравливать"],["illness","болезнь"]],"adjprep":[["aware (of)","знающий, осведомлённый"],["capable (of)","способный на"],["jealous (of)","ревнивый, завидующий"],["fond (of)","любящий что-то"],["polite","вежливый"],["familiar (with)","знакомый с"],["delay","задерживать; задержка"]],"nounprep":[["invitation","приглашение"],["solution","решение (проблемы)"],["temperature","температура"],["advantage","преимущество"],["timetable","расписание"],["decrease","снижение"],["pond","пруд"],["battery","батарейка, аккумулятор"],["influence","влияние"],["unemployment","безработица"],["disadvantage","недостаток"]],"artgen":[["loyal","верный"],["the elderly","пожилые люди"],["unemployed","безработный"],["bicycle","велосипед"],["homeless","бездомный"],["drums","барабаны"],["planet","планета"],["useful","полезный"],["light bulb","лампочка"],["blind","слепой"],["finger","палец"],["classical","классический"],["elephant","слон"]],"prepby":[["spoon","ложка"],["fork","вилка"],["cloth","тряпка, ткань"],["vase","ваза"],["improve","улучшать"]],"fut2":[["print","печатать"],["robot","робот"],["mortgage","ипотека"]],"pmod":[["shout","кричать"],["wine","вино"]],"rather":[["resident","житель"]],"futpast":[["landlord","хозяин жилья"],["engineering","инженерное дело"]],"pastpc":[["bake","печь"],["grass","трава"]],"mixcond":[["lazy","ленивый"],["confident","уверенный"],["dry","сухой; сушить"],["stubborn","упрямый"],["patient","терпеливый; пациент"]],"ifalt":[["suppose","предполагать"],["candle","свеча"]],"asif":[["millionaire","миллионер"],["blanket","одеяло, плед"],["behave","вести себя"],["treat","обращаться с кем-то"],["depend (on)","зависеть от"],["waitress","официантка"],["angel","ангел"],["mad","сумасшедший"],["torch","фонарик"],["snore","храпеть"],["bear","медведь"],["princess","принцесса"],["marathon","марафон"],["guide","гид"],["deaf","глухой"]],"passrep":[["robber","грабитель"],["injured","раненый"],["fortune","состояние, удача"],["haunted","с привидениями"],["temper","характер, вспыльчивость"],["sink","тонуть"],["excellent","отличный"],["hire","нанимать"],["resign","уйти в отставку"],["hide","прятаться"],["singer","певец"],["unsafe","небезопасный"]],"repverbs":[["advise","советовать"],["suggest","предлагать"],["deny","отрицать"],["accuse (of)","обвинять в"],["remind","напоминать"],["admit","признавать"],["refuse","отказываться"],["warn","предупреждать"],["blame","винить"],["threaten","угрожать"],["encourage","поощрять, подбадривать"],["recommend","рекомендовать"],["discount","скидка"]],"ndrel":[["helpful","полезный, готовый помочь"],["spoil","портить"],["shock","шок"]],"partcl":[["policeman","полицейский"],["bite","кусать"],["hang","висеть, вешать"]],"cleft":[["annoy","раздражать"],["attitude","отношение (к чему-то)"]],"invers":[["hardly","едва, почти не"],["rarely","редко"],["nonsense","чепуха"],["circumstances","обстоятельства"],["score","счёт, результат"],["talent","талант"],["steak","стейк"],["actor","актёр"]],"vpat":[["mechanic","механик"],["brake","тормоз"],["shake","трястись"],["earthquake","землетрясение"],["disappear","исчезать"]],"ingexp":[["difficulty","трудность"],["queue","очередь"],["trouble","проблема, беспокойство"],["waste","тратить зря"]],"phr2":[["brilliant","блестящий, отличный"],["get rid of","избавиться от"],["arrogant","высокомерный"]],"comp2":[["practise","упражняться"],["slightly","немного, слегка"],["metre","метр"],["salary","зарплата"],["earn","зарабатывать"]],"count2":[["luggage","багаж"],["pair","пара"],["progress","успехи, прогресс"],["trousers","брюки"],["shorten","укорачивать"],["scissors","ножницы"],["tight","тесный"]],"link2":[["whereas","тогда как"],["oversleep","проспать"],["owe","быть должным"],["signal","сигнал"],["whisper","шептать"],["loudly","громко"],["hockey","хоккей"]],"noif":[["reception","ресепшн, стойка администратора"],["require","требовать"]],"futbe":[["unlikely","маловероятный"],["rent","аренда, плата за жильё"],["on the verge of","на грани"],["tears","слёзы"]],"whatever":[["panic","паниковать"],["celebrate","праздновать"]],"needdoing":[["iron","гладить; утюг"],["promote","повысить в должности"],["tyre","шина"],["feed","кормить"],["essay","сочинение, эссе"]],"quant2":[["absent","отсутствующий"],["tourist","турист"],["employee","сотрудник"],["voter","избиратель"],["unanswered","без ответа"]]};
 const UNIT=id=>UNITS.find(u=>u.id===id);
 const NPRACT=ITEMS.size;
 const SIBS=new Map();ITEMS.forEach(it=>{if(it.t==='dict')return;const k=it.u+'|'+it.rule+'|'+it.t;SIBS.has(k)?SIBS.get(k).push(it):SIBS.set(k,[it])});
