@@ -1429,7 +1429,8 @@ function hardNote(l){
   if(!l||l.retell)return '';const cov=coverage([curLesson]),off=LS.get('lx-hardoff',{});
   if(cov.n<150||cov.pct+cov.lpct>=85||off[l.courseId||curLesson])return '';
   const unk=100-cov.pct-cov.lpct,every=Math.max(2,Math.round(100/Math.max(1,unk)));
-  return `<div class="note" id="hardNote">Незнакомо ~${unk}% слов этого текста: примерно каждое ${every}-е слово. Читать так можно, но медленно.${canAsk()?' Можно сначала прочитать короткий пересказ попроще, а потом оригинал.':''}
+  const how=unk>=50?'больше половины слов':unk>=34?'примерно каждое второе-третье слово':`примерно каждое ${every}-е слово`;
+  return `<div class="note" id="hardNote">Незнакомо ~${unk}% слов этого текста: ${how}. Читать так можно, но медленно. Процент растёт по мере того, как ты отмечаешь слова.${canAsk()?' Можно сначала прочитать короткий пересказ попроще, а потом оригинал.':''}
     <div class="row">${canAsk()?'<button class="btn sm" id="retell">Пересказ на уровне B1</button>':''}<button class="btn ghost sm" id="hardOff">Не показывать${l.courseId?' для этой книги':''}</button></div></div>`}
 async function retell(){
   const l=S.lessons.get(curLesson);if(!l)return;const b=$('#retell');b.disabled=true;b.innerHTML='<span class="spin"></span> '+(canAI()?'Пишу пересказ…':'Жду Claude…');
@@ -1477,7 +1478,7 @@ function renderReader(){
   $('#fsUp').onclick=()=>{fs=Math.min(30,fs+2);LS.set('lx-fs',fs);$('#text').style.setProperty('--fs',fs+'px')};
   $('#fsDown').onclick=()=>{fs=Math.max(14,fs-2);LS.set('lx-fs',fs);$('#text').style.setProperty('--fs',fs+'px')};
   document.querySelectorAll('[data-rs]').forEach(b=>b.onclick=()=>{const k=b.dataset.rs,v=b.getAttribute('aria-pressed')!=='true';LS.set(k,v);b.setAttribute('aria-pressed',String(v));stopReading();if(k==='lx-onesent'){oneIdx=-1}applyModes()});
-  $('#rset').ontoggle=()=>LS.set('lx-rset',$('#rset').open);
+  $('#rset').ontoggle=e=>LS.set('lx-rset',e.target.open);
   $('#hideShow').onclick=()=>{revealed.add(curLesson+':'+pageIdx);applyModes()};
   $('#hardOff')&&($('#hardOff').onclick=()=>{const o=LS.get('lx-hardoff',{});o[l.courseId||curLesson]=1;LS.set('lx-hardoff',o);$('#hardNote').remove()});
   $('#retell')&&($('#retell').onclick=retell);
