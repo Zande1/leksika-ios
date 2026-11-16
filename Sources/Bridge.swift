@@ -179,10 +179,26 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
     private func translateWord(_ text: String, context: String, isPhrase: Bool) async throws -> [String: Any] {
         let lemma = isPhrase ? "" : Lemma.of(text, in: context)
         let pos = isPhrase ? "" : WordClass.of(text, in: context)
-        async let apple: String? = try? await withTimeout(4) { try await self.translator.translate(text) }
-        async let google: GoogleResult? = try? await Google.translate(text, dictionary: !isPhrase)
-        let a = await apple
-        let g = await google
+        // The same word in the same role is answered from the cache: no network, works offline.
+        let cacheKey = (isPhrase ? "p|" : "w|") + text.lowercased() + "|" + pos
+        if let hit = TranslationCache.shared.get(cacheKey), let tr = hit["tr"], !tr.isEmpty {
+            return ["tr": tr, "lemma": hit["lemma"] ?? lemma, "pos": pos, "ipa": hit["ipa"] ?? "", "note": ""]
+        }
+
+        var a: String?
+        var g: GoogleResult?
+        if isPhrase {
+            // A phrase needs one translation: the on-device one first, the network only if it fails.
+            a = try? await withTimeout(4) { try await self.translator.translate(text) }
+            if (a ?? "").isEmpty { g = try? await Google.translate(text, dictionary: false) }
+        } else {
+            // A single word needs dictionary meanings by part of speech, which only the online
+            // dictionary gives, so both are asked at once.
+            async let apple: String? = try? await withTimeout(4) { try await self.translator.translate(text) }
+            async let google: GoogleResult? = try? await Google.translate(text, dictionary: true)
+            a = await apple
+            g = await google
+        }
 
         // Dictionary meanings of the same part of speech as in the sentence come first,
         // so a verb in the text is not explained with adjectives and nouns.
@@ -206,17 +222,50 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
             options.append(t)
             if options.count == limit { break }
         }
-        if options.isEmpty { throw URLError(.cannotParseResponse) }
-        let ipa = isPhrase ? "" : ((try? await withTimeout(3) { try await Phonetics.of(lemma.isEmpty ? text : lemma) }) ?? "")
-        return ["tr": options.joined(separator: ", "), "lemma": lemma, "pos": pos, "ipa": ipa, "note": ""]
+        if options.isEmpty { throw TranslateFailure(reason: await Self.failureReason()) }
+        let ipa = isPhrase ? "" : await self.transcription(of: lemma.isEmpty ? text : lemma)
+        let tr = options.joined(separator: ", ")
+        // Cached only when the dictionary answered (or for phrases), so an offline one-word
+        // fallback is not kept forever in place of the fuller dictionary entry.
+        if isPhrase || g != nil {
+            TranslationCache.shared.set(cacheKey, ["tr": tr, "lemma": lemma, "ipa": ipa])
+        }
+        return ["tr": tr, "lemma": lemma, "pos": pos, "ipa": ipa, "note": ""]
+    }
+
+    /// Transcription is looked up once per word and then kept.
+    private func transcription(of word: String) async -> String {
+        let key = "i|" + word.lowercased()
+        if let hit = TranslationCache.shared.get(key)?["ipa"] { return hit }
+        guard let ipa = try? await withTimeout(3, { try await Phonetics.of(word) }) else { return "" }
+        TranslationCache.shared.set(key, ["ipa": ipa])
+        return ipa
     }
 
     private func translateSentence(_ text: String) async throws -> String {
         if let a = try? await withTimeout(10, { try await self.translator.translate(text) }), !a.isEmpty {
             return a
         }
-        let g = try await Google.translate(text, dictionary: false)
-        return g.main
+        do {
+            let g = try await Google.translate(text, dictionary: false)
+            return g.main
+        } catch {
+            throw TranslateFailure(reason: await Self.failureReason())
+        }
+    }
+
+    /// Why nothing could be translated, in words the reader can act on.
+    private static func failureReason() async -> String {
+        let status = await LanguageAvailability().status(
+            from: Locale.Language(identifier: "en"), to: Locale.Language(identifier: "ru"))
+        switch status {
+        case .installed:
+            return "Не получилось перевести. Попробуй ещё раз."
+        case .supported:
+            return "Нет интернета, а офлайн-перевод ещё не загружен. Подключись к сети или скачай языки English и Russian в приложении «Перевод» (Настройки → Перевод → Загруженные языки)."
+        default:
+            return "Офлайн-перевод с английского на русский на этом устройстве недоступен, а интернета нет. Подключись к сети."
+        }
     }
 
     // MARK: Share / save files
@@ -400,6 +449,47 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate {
                 self.lastOfQueue = nil
                 self.queued.removeAll()
                 self.onQueueEnd?(false)
+            }
+        }
+    }
+}
+
+// MARK: - Translation cache
+
+struct TranslateFailure: LocalizedError {
+    let reason: String
+    var errorDescription: String? { reason }
+}
+
+/// Translations and transcriptions already looked up, kept between launches.
+@MainActor
+final class TranslationCache {
+    static let shared = TranslationCache()
+    private var map: [String: [String: String]] = [:]
+    private let url: URL
+    private var saveTask: Task<Void, Never>?
+
+    private init() {
+        let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        url = dir.appendingPathComponent("translations.json")
+        if let data = try? Data(contentsOf: url),
+           let saved = try? JSONSerialization.jsonObject(with: data) as? [String: [String: String]] {
+            map = saved
+        }
+    }
+
+    func get(_ key: String) -> [String: String]? { map[key] }
+
+    func set(_ key: String, _ value: [String: String]) {
+        if map.count > 20000 { map.removeAll() }
+        map[key] = value
+        saveTask?.cancel()
+        saveTask = Task { [weak self] in
+            try? await Task.sleep(nanoseconds: 2_000_000_000)
+            guard !Task.isCancelled, let self else { return }
+            if let data = try? JSONSerialization.data(withJSONObject: self.map) {
+                try? data.write(to: self.url, options: .atomic)
             }
         }
     }

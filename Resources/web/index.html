@@ -759,6 +759,7 @@ function sampleError(e){
   if(c==='rate_limited')return 'Слишком много запросов, попробуй чуть позже.';
   if(c==='session_expired')return 'Нужно заново войти в Claude.';
   if(c==='cancelled')return '';
+  if(c==='translate_failed'&&e.message)return e.message;
   return 'Не получилось, попробуй ещё раз.';
 }
 const canAI=()=>sample&&!sampleOff;
@@ -1484,7 +1485,7 @@ function renderReader(){
   $('#retell')&&($('#retell').onclick=retell);
   $('#oPrev').onclick=()=>oneStep(-1);$('#oNext').onclick=()=>oneStep(1);$('#oPlay').onclick=()=>{const e=oneSent();if(e)speak(e.textContent)};
   $('#oTr').onclick=async()=>{const e=oneSent();if(!e)return;const t=$('#oTrText');t.innerHTML='<span class="spin"></span>';
-    try{if(NATIVE){const r=await NB.call('translateSentence',{text:e.textContent},25000);t.textContent=String(r&&r.tr||'')}else if(canAI()){const r=await sample(`Переведи на русский естественно, без пояснений, только перевод:\n\n${e.textContent}`,{modelTier:'quick'});t.textContent=r.text.trim()}else t.textContent='Перевод доступен в приложении на iPhone или внутри Claude.'}catch(err){t.textContent='Не удалось перевести'}};
+    try{if(NATIVE){const r=await NB.call('translateSentence',{text:e.textContent},25000);t.textContent=String(r&&r.tr||'')}else if(canAI()){const r=await sample(`Переведи на русский естественно, без пояснений, только перевод:\n\n${e.textContent}`,{modelTier:'quick'});t.textContent=r.text.trim()}else t.textContent='Перевод доступен в приложении на iPhone или внутри Claude.'}catch(err){t.textContent=(err&&err.code==='translate_failed'&&err.message)||'Не удалось перевести'}};
   $('#toBook')&&($('#toBook').onclick=()=>{savePos(true);openBook(l.courseId)});
   $('#finish').onclick=finishLesson;
   renderQuiz();
@@ -1680,7 +1681,7 @@ function closeSheet(){if(!sheet)return;if(sheet.ctl)sheet.ctl.abort();
   sheet=null;$('#sheetRoot').innerHTML='';document.body.classList.remove('sheet-open');paintWords();
   /* the sheet can be opened from a flashcard: show the edited translation right away */
   if(view==='cards'&&session){const c=session.cur,w=c&&S.words.get(c.k);
-    if(w&&c.opts&&c.answered===null&&LS.get('lx-dir','en')!=='ru'){const o=c.opts.find(x=>x.ok);if(o)o.t=shortTr(w.tr)}
+    if(w&&c.opts&&c.answered===null&&c.dir!=='ru'){const o=c.opts.find(x=>x.ok);if(o)o.t=shortTr(w.tr)}
     renderCards()}
 }
 /* a context sentence whose every word can be tapped, with the studied word highlighted */
@@ -1909,7 +1910,7 @@ function buildChoice(w,dir){
 let gradeLock=0;
 function renderCards(){
   $('#title').textContent='Карточки';
-  const auto=LS.get('lx-autospeak',true);const dir=LS.get('lx-dir','en');
+  const auto=LS.get('lx-autospeak',true);const dir=LS.get('lx-dir','mix');
   if(!session){
     const due=dueKeys();const learning=learningCount();
     $('#view').innerHTML=`${viewSeg('cards')}<div class="panel" style="align-items:flex-start"><div class="big-num">${due.length}</div><div class="muted">карточек к повторению сейчас</div>
@@ -1917,7 +1918,8 @@ function renderCards(){
       ${!due.length&&learning?'<button class="btn" id="startAhead">Повторить заранее</button>':''}</div></div>
       <div class="panel"><div class="setrow" style="padding:0"><span>Новых карточек в день<div class="d">Сегодня введено ${(S.days[today()]||{}).nw||0}${waitingNew()?`, ждут очереди: ${waitingNew()}`:''}. Остальные новые слова подождут, чтобы повторений не стало больше, чем успеваешь.</div></span>
         <select id="newCap" aria-label="Новых карточек в день">${[10,15,20,30,50,0].map(n=>`<option value="${n}" ${newCap()===n?'selected':''}>${n||'без лимита'}</option>`).join('')}</select></div></div>
-      <div class="panel"><div class="chips"><button class="chip" data-dir="en" aria-pressed="${dir==='en'}">Английский → русский</button><button class="chip" data-dir="ru" aria-pressed="${dir==='ru'}">Русский → английский</button></div>
+      <div class="panel"><div class="chips"><button class="chip" data-dir="mix" aria-pressed="${dir==='mix'}">В обе стороны</button><button class="chip" data-dir="en" aria-pressed="${dir==='en'}">Английский → русский</button><button class="chip" data-dir="ru" aria-pressed="${dir==='ru'}">Русский → английский</button></div>
+      ${dir==='mix'?'<div class="small muted">Новые слова — с английского на русский (узнать). Знакомые — чаще с русского на английский (вспомнить самому): так слово переходит в активный запас.</div>':''}
       <label class="row small"><input type="checkbox" id="autoSp" ${auto?'checked':''}> Автоматически озвучивать слово</label>
       <div class="row small">Голос: ${voiceSelectHtml()}</div></div>
       <div class="note">Как растёт уровень: два правильных ответа подряд (в разные дни) — уровень выше. После уровня 4 слово становится известным ✓ и изредка возвращается на проверку: через 2, 4, 8 месяцев. Ошибка — уровень ниже, и слово вернётся через 10 минут. На уровнях 1–2 выбираешь перевод из четырёх, на 3–4 сначала вспоминаешь сам.</div>
@@ -1939,10 +1941,12 @@ function renderCards(){
   const w=S.words.get(q[i]);if(!w){ss.i++;renderCards();return}
   if(!ss.cur||ss.cur.k!==w.k){
     const st=w.status||1;let mode=st<=2?'choice':'recall';let opts=null;
-    if(mode==='choice'){opts=buildChoice(w,dir==='ru'&&w.tr?'ru':'en');if(!opts)mode='recall'}
-    ss.cur={k:w.k,mode,opts,answered:null,revealed:false};
+    /* mixed direction: new words are recognised (EN→RU), familiar ones are mostly produced (RU→EN) */
+    const cdir=dir==='mix'?(st<=1?'en':Math.random()<(st===2?0.4:0.7)?'ru':'en'):dir;
+    if(mode==='choice'){opts=buildChoice(w,cdir==='ru'&&w.tr?'ru':'en');if(!opts)mode='recall'}
+    ss.cur={k:w.k,mode,opts,answered:null,revealed:false,dir:cdir};
   }
-  const c=ss.cur;const ru=dir==='ru'&&!!w.tr;
+  const c=ss.cur;const ru=c.dir==='ru'&&!!w.tr;
   const word=esc(w.w||w.k);const ctxH=w.ctx?`<div class="ctx" style="text-align:left">${ctxWords(w.ctx,w.w||w.k)}</div>`:'';
   const wordBlock=`<div class="row" style="justify-content:center"><div class="big">${word}</div><button class="icon-btn" id="cSpk" aria-label="Озвучить">${SPK}</button></div>`;
   const trBlock=`<div class="ans">${w.ipa?`<div class="sw-ipa">[${esc(w.ipa)}]</div>`:''}<div class="sw-tr">${esc(w.tr||'— перевод не добавлен')}</div>${w.lemma&&norm(w.lemma)!==w.k&&!w.phrase?`<div class="small muted">словарная форма: ${esc(w.lemma)}</div>`:''}${w.note?`<div class="small muted">${esc(w.note)}</div>`:''}${siblings(w.k).length?`<div class="small muted">эта карточка идёт и за формы: ${siblings(w.k).map(x=>esc(x.w||x.k)).join(', ')}</div>`:''}</div>${exBlock(w)}`;
@@ -1992,7 +1996,7 @@ function renderCards(){
   $('#next')&&($('#next').onclick=()=>{if(Date.now()<gradeLock)return;gradeLock=Date.now()+250;ss.i++;ss.done++;ss.cur=null;renderCards();speakCurrent()});
   $('#knowIt')&&($('#knowIt').onclick=()=>{const cur=S.words.get(c.k);if(!cur)return;saveLinked({...cur,status:5,streak:0,due:Date.now()+60*864e5},siblings(cur.k));ss.learned++;ss.i++;ss.done++;ss.cur=null;renderCards();speakCurrent()});
 }
-function speakCurrent(){const s=session;if(!s||s.i>=s.q.length||LS.get('lx-dir','en')==='ru'||!LS.get('lx-autospeak',true))return;const w=S.words.get(s.q[s.i]);if(w)speak(w.w||w.k)}
+function speakCurrent(){const s=session;if(!s||s.i>=s.q.length||(s.cur&&s.cur.dir==='ru')||!LS.get('lx-autospeak',true))return;const w=S.words.get(s.q[s.i]);if(w)speak(w.w||w.k)}
 function startSession(keys,ahead){keys=oneFormEach(keys);if(!keys.length)return;session={q:keys,i:0,total:keys.length,done:0,again:new Set(),ahead:!!ahead,right:0,wrong:0,up:0,learned:0,cur:null};renderCards();speakCurrent()}
 
 /* ================= progress (real data only) ================= */
