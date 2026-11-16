@@ -33,6 +33,8 @@ targets:
             CFBundleURLSchemes: [leksika]
         LSApplicationQueriesSchemes: [shortcuts]
         UIBackgroundModes: [audio]
+        NSMicrophoneUsageDescription: Микрофон нужен, чтобы записывать твои ответы в заданиях на говорение.
+        NSSpeechRecognitionUsageDescription: Распознавание речи превращает твой записанный ответ в текст, чтобы его можно было проверить.
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
         UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
     settings:

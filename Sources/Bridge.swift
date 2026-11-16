@@ -4,6 +4,7 @@ import AVFoundation
 import NaturalLanguage
 import Translation
 import MediaPlayer
+import Speech
 
 /// Messages from the page: window.webkit.messageHandlers.native.postMessage({id, type, data}).
 /// Replies go back through window.__nb(id, ok, value).
@@ -12,6 +13,7 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
     weak var web: WKWebView?
     let translator: Translator
     let speaker = Speaker()
+    let voiceRecorder = VoiceRecorder()
 
     init(translator: Translator) {
         self.translator = translator
@@ -84,6 +86,28 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
                     self.reply(id, false, ["code": "translate_failed", "message": error.localizedDescription])
                 }
             }
+
+        // Speaking practice: record an answer, then give back what was said as text.
+        case "recStart":
+            speaker.stop()
+            Task { @MainActor in
+                do {
+                    try await self.voiceRecorder.start()
+                    self.reply(id, true, ["ok": true])
+                } catch {
+                    self.reply(id, false, ["code": "rec_failed", "message": error.localizedDescription])
+                }
+            }
+
+        case "recStop":
+            Task { @MainActor in
+                let r = await self.voiceRecorder.stop()
+                self.reply(id, true, ["text": r.text, "seconds": r.seconds])
+            }
+
+        case "recPlay":
+            voiceRecorder.play()
+            reply(id, true, ["ok": true])
 
         case "translateSentence":
             let text = data["text"] as? String ?? ""
@@ -451,6 +475,99 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate {
                 self.onQueueEnd?(false)
             }
         }
+    }
+}
+
+// MARK: - Speaking practice (recording + speech-to-text)
+
+@MainActor
+final class VoiceRecorder {
+    private var recorder: AVAudioRecorder?
+    private var player: AVAudioPlayer?
+    private let url = FileManager.default.temporaryDirectory.appendingPathComponent("speaking.m4a")
+
+    func start() async throws {
+        guard await AVAudioApplication.requestRecordPermission() else {
+            throw TranslateFailure(reason: "Нет доступа к микрофону. Разреши его: Настройки → Лексика → Микрофон.")
+        }
+        player?.stop()
+        let session = AVAudioSession.sharedInstance()
+        try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker])
+        try session.setActive(true)
+        let settings: [String: Any] = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 44100,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
+        ]
+        let rec = try AVAudioRecorder(url: url, settings: settings)
+        guard rec.record() else {
+            throw TranslateFailure(reason: "Не получилось начать запись.")
+        }
+        recorder = rec
+    }
+
+    func stop() async -> (text: String, seconds: Double) {
+        guard let rec = recorder else { return ("", 0) }
+        let seconds = rec.currentTime
+        rec.stop()
+        recorder = nil
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .spokenAudio, options: [.duckOthers])
+        let file = url
+        let text = (try? await withTimeout(45) { await Transcriber.text(of: file) }) ?? ""
+        return (text, seconds)
+    }
+
+    func play() {
+        try? AVAudioSession.sharedInstance().setActive(true)
+        player = try? AVAudioPlayer(contentsOf: url)
+        player?.play()
+    }
+}
+
+/// Used so a recognition callback that fires twice resumes the waiting task only once.
+final class ResumeOnce: @unchecked Sendable {
+    private let lock = NSLock()
+    private var used = false
+    func claim() -> Bool {
+        lock.lock(); defer { lock.unlock() }
+        if used { return false }
+        used = true
+        return true
+    }
+}
+
+enum Transcriber {
+    static func authorized() async -> Bool {
+        await withCheckedContinuation { (c: CheckedContinuation<Bool, Never>) in
+            SFSpeechRecognizer.requestAuthorization { status in
+                c.resume(returning: status == .authorized)
+            }
+        }
+    }
+
+    /// English text of the recording; empty when recognition is unavailable or not allowed.
+    static func text(of url: URL) async -> String {
+        guard await authorized(),
+              let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US")),
+              recognizer.isAvailable else { return "" }
+        let request = SFSpeechURLRecognitionRequest(url: url)
+        request.shouldReportPartialResults = false
+        request.addsPunctuation = true
+        // On the phone itself there is no one-minute limit, and it works offline.
+        if recognizer.supportsOnDeviceRecognition { request.requiresOnDeviceRecognition = true }
+        let once = ResumeOnce()
+        let text = await withCheckedContinuation { (c: CheckedContinuation<String, Never>) in
+            recognizer.recognitionTask(with: request) { result, error in
+                if let result, result.isFinal {
+                    if once.claim() { c.resume(returning: result.bestTranscription.formattedString) }
+                } else if error != nil {
+                    if once.claim() { c.resume(returning: "") }
+                }
+            }
+        }
+        withExtendedLifetime(recognizer) {}
+        return text
     }
 }
 
