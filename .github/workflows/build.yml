@@ -29,8 +29,12 @@ jobs:
           set -o pipefail
           xcodebuild -project Leksika.xcodeproj -scheme Leksika -configuration Release \
             -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build \
-            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build 2>&1 | tee build.log | grep -E "error:|warning: .*Swift|BUILD (SUCCEEDED|FAILED)" || true
-          test -d build/Build/Products/Release-iphoneos/Leksika.app
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build > build.log 2>&1 || BUILD_FAILED=1
+          grep -E "error:|BUILD (SUCCEEDED|FAILED)" build.log || true
+          if [ -n "$BUILD_FAILED" ]; then echo "::error::xcodebuild failed"; exit 1; fi
+          APP=build/Build/Products/Release-iphoneos/Leksika.app
+          test -f "$APP/Info.plist" || { echo "::error::Info.plist missing in app bundle"; exit 1; }
+          test -f "$APP/Leksika" || { echo "::error::app binary missing"; exit 1; }
 
       - name: Package IPA
         run: |

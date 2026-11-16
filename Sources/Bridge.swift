@@ -332,18 +332,18 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate {
         synth.delegate = self
         let center = MPRemoteCommandCenter.shared()
         center.pauseCommand.addTarget { [weak self] _ in
-            guard let self, self.synth.isSpeaking else { return .noActionableEvent }
+            guard let self, self.synth.isSpeaking else { return .commandFailed }
             self.synth.pauseSpeaking(at: .word)
             return .success
         }
         center.playCommand.addTarget { [weak self] _ in
-            guard let self, self.synth.isPaused else { return .noActionableEvent }
+            guard let self, self.synth.isPaused else { return .commandFailed }
             self.synth.continueSpeaking()
             return .success
         }
         center.togglePlayPauseCommand.addTarget { [weak self] _ in
-            guard let self else { return .noActionableEvent }
-            if self.synth.isPaused { self.synth.continueSpeaking() } else if self.synth.isSpeaking { self.synth.pauseSpeaking(at: .word) } else { return .noActionableEvent }
+            guard let self else { return .commandFailed }
+            if self.synth.isPaused { self.synth.continueSpeaking() } else if self.synth.isSpeaking { self.synth.pauseSpeaking(at: .word) } else { return .commandFailed }
             return .success
         }
         // .playback lets speech play even when the silent switch is on.
