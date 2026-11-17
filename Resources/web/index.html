@@ -1086,7 +1086,10 @@ function renderToday(){
   document.querySelectorAll('[data-ai]').forEach(b=>b.onclick=()=>{LS.set('lx-ai',b.dataset.ai);renderToday()});
   document.querySelectorAll('[data-sw]').forEach(b=>b.onclick=()=>{LS.set(b.dataset.sw,b.getAttribute('aria-pressed')!=='true');renderToday()});
   $('#scTest')&&($('#scTest').onclick=async()=>{const r=$('#scRes');r.innerHTML='<span class="spin"></span> Жду ответ…';
-    try{const t=await askClaude('Это проверка связи из приложения для изучения английского. Ответь одной короткой фразой по-русски, что связь работает.');r.textContent='Работает: '+t.slice(0,120)}
+    /* a code word shows the question really reached the assistant, not just that the shortcut ran */
+    try{const t=await askClaude('Это проверка связи из приложения для изучения английского. Ответь ровно одним словом: LEKSIKA-OK');
+      if(/LEKSIKA[-\s]?OK/i.test(t))r.textContent='Работает: вопрос дошёл, ответ вернулся.';
+      else r.innerHTML=`Команда запускается, но вопрос до ${AI_NAME()} не доходит — он ответил: «${esc(t.slice(0,80))}…». Открой команду «${scName()}» → внизу ⓘ → включи «Показывать в меню "Поделиться"». Вверху появится блок «Получать входные данные» — оставь в нём «Текст». Затем в поле запроса удали «Ввод команды» и вставь его заново как переменную из строки над клавиатурой.`}
     catch(e){r.textContent=claudeError(e)||'Не получилось'}});
 }
 let pend=false;
