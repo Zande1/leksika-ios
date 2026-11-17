@@ -79,6 +79,9 @@ body.in-session nav.tabs{display:none}
 .unit .ru{font-size:13.5px;color:var(--ink);opacity:.8}
 .unit .sub{font-size:12.5px;color:var(--muted)}
 .sayq{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.cue{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}.cue ul{margin:6px 0 0;padding-left:20px}
+.hist summary{cursor:pointer}.hist .fb{margin-top:8px}
+#clock.pct{font-variant-numeric:tabular-nums}
 .unit .core{display:inline-block;font-size:11px;font-weight:700;color:var(--accent,#2f6fed);border:1px solid currentColor;border-radius:6px;padding:0 5px;margin-left:6px;vertical-align:2px}
 .corenote{font-size:12.5px;color:var(--muted);margin:2px 2px 0}
 .unit .dots{display:flex;gap:4px}
@@ -17258,6 +17261,254 @@ document.addEventListener('click',e=>{const w=e.target.closest('.tw');if(!w)retu
   let box=w.closest('.q,.right');if(box){box=box.cloneNode(true);box.querySelectorAll('.blank').forEach(b=>b.replaceWith('…'))}const ctx=box?box.textContent.replace(/\s+/g,' ').replace(/\([^)]*\)\s*$/,'').trim():'';
   showTr(w.textContent,ctx)});
 
+/* ================= IELTS practice: question bank (original questions in the exam's style) ================= */
+const IELTS_P1=[
+ {t:'Work or studies',q:['Do you work or are you a student?','What do you like most about your job or studies?','Is there anything you would like to change about it?','Do you think you will do the same work in five years?']},
+ {t:'Home town',q:['Where is your home town?','What do you like about living there?','Has it changed much since you were a child?','Would you recommend it to tourists? Why?']},
+ {t:'Home',q:['Do you live in a house or a flat?','Which room do you spend the most time in?','What would you like to change in your home?','Do you plan to live there for a long time?']},
+ {t:'Weekends',q:['How do you usually spend your weekends?','Did you spend weekends differently as a child?','Do you prefer busy or quiet weekends?','What did you do last weekend?']},
+ {t:'Food',q:['What kind of food do you like?','Do you cook at home?','Is there any food you didn\'t like as a child but like now?','Do you prefer eating at home or eating out?']},
+ {t:'Music',q:['What kind of music do you listen to?','When do you usually listen to music?','Have you ever learned to play an instrument?','Do you think music is important for children?']},
+ {t:'Reading',q:['Do you like reading?','What did you read as a child?','Do you prefer paper books or e-books?','Is there a book you would like to read again?']},
+ {t:'Sport and exercise',q:['Do you do any sport?','What sports are popular in your country?','Did you do more sport when you were younger?','Would you like to try a new sport?']},
+ {t:'Technology',q:['How often do you use your phone?','What apps do you use most?','Could you live without the internet for a week?','Has technology changed the way you study or work?']},
+ {t:'Weather',q:['What\'s the weather like in your city?','What\'s your favourite season?','Does the weather affect your mood?','Would you like to live in a hotter or colder place?']},
+ {t:'Travel',q:['Do you like travelling?','Where did you go on your last trip?','Do you prefer travelling alone or with others?','Where would you like to go in the future?']},
+ {t:'Friends',q:['Do you have many close friends?','How often do you see your friends?','What do you usually do together?','Is it easy to make new friends as an adult?']},
+ {t:'Shopping',q:['Do you enjoy shopping?','Do you prefer shopping online or in shops?','What was the last thing you bought?','Do you think people buy too many things these days?']},
+ {t:'Sleep',q:['How many hours do you usually sleep?','Do you ever have a nap during the day?','What do you do if you can\'t sleep?','Did you sleep more when you were younger?']}
+];
+const IELTS_P2=[
+ {c:'Describe a skill you learned that you are proud of.',p:['what the skill is','when and how you learned it','how difficult it was','and explain why you are proud of it'],
+  p3:['Which skills are most useful for young people today?','Is it better to learn skills from a teacher or by yourself?','Will people need different skills in the future?']},
+ {c:'Describe a place in your city where you like to spend time.',p:['where it is','how often you go there','what you do there','and explain why you like it'],
+  p3:['Why do people need public spaces like parks?','How have cities changed in the last twenty years?','Should governments spend more money on parks or on roads?']},
+ {c:'Describe a person who has influenced you.',p:['who this person is','how you know them','what they did','and explain how they influenced you'],
+  p3:['Who influences young people more: parents or friends?','Are famous people good role models?','How do teachers influence their students?']},
+ {c:'Describe a time when you helped someone.',p:['who you helped','what the situation was','how you helped','and explain how you felt about it'],
+  p3:['Why do some people like helping others?','Should children be taught to help others at school?','Do people help their neighbours less than in the past?']},
+ {c:'Describe a piece of technology you find useful.',p:['what it is','when you started using it','how you use it','and explain why it is useful to you'],
+  p3:['Has technology made people more or less social?','What technology do you think will change our lives most in the future?','Should children\'s use of technology be limited?']},
+ {c:'Describe a journey you remember well.',p:['where you went','who you went with','what happened','and explain why you remember it'],
+  p3:['Why do people enjoy travelling?','Is travelling today easier than in the past?','What are the effects of tourism on local people?']},
+ {c:'Describe a book or film that made you think.',p:['what it was','when you read or saw it','what it was about','and explain why it made you think'],
+  p3:['Do people read less than they used to?','Are films a good way to learn about history?','Should schools teach more literature?']},
+ {c:'Describe a goal you would like to achieve.',p:['what the goal is','why you set it','what you are doing to achieve it','and explain how you will feel when you achieve it'],
+  p3:['Is it important to set goals in life?','Why do some people give up on their goals?','Do young people today have different goals from their parents?']},
+ {c:'Describe a time when you were very busy.',p:['when it was','why you were busy','what you had to do','and explain how you managed'],
+  p3:['Why are people so busy these days?','Is it possible to have a good work-life balance?','Should companies allow people to work fewer hours?']},
+ {c:'Describe a celebration you enjoyed.',p:['what the celebration was','where it took place','who was there','and explain why you enjoyed it'],
+  p3:['Why are celebrations important in families?','Have traditional celebrations changed in your country?','Do people spend too much money on celebrations?']},
+ {c:'Describe a time when you had to make an important decision.',p:['what the decision was','when you made it','what you considered','and explain whether it was the right decision'],
+  p3:['What decisions do young people find most difficult?','Should parents make decisions for their teenage children?','Is it better to decide quickly or to take your time?']},
+ {c:'Describe something you bought that you were happy with.',p:['what it was','where you bought it','how much it cost','and explain why you were happy with it'],
+  p3:['Why do people buy things they don\'t need?','How has advertising changed?','Is online shopping good for the economy?']},
+ {c:'Describe a teacher you remember.',p:['who the teacher was','what subject they taught','what they were like','and explain why you remember them'],
+  p3:['What makes a good teacher?','Will online learning replace teachers?','Should teachers be paid more?']},
+ {c:'Describe a time when you learned something from a mistake.',p:['what the mistake was','when it happened','what you did afterwards','and explain what you learned'],
+  p3:['Why are some people afraid of making mistakes?','Should schools punish mistakes or encourage them?','Do adults learn from mistakes as well as children?']},
+ {c:'Describe a job you would like to do in the future.',p:['what the job is','what skills it needs','how you could get it','and explain why you would like to do it'],
+  p3:['What jobs will disappear in the future?','Is salary the most important thing in a job?','Should young people choose a job they love or one that pays well?']},
+ {c:'Describe an outdoor activity you enjoy.',p:['what the activity is','where you do it','who you do it with','and explain why you enjoy it'],
+  p3:['Do children spend enough time outdoors?','Why do people in cities like outdoor activities?','How can governments encourage people to be more active?']}
+];
+const IELTS_W2=[
+ 'Some people believe that university education should be free for everyone. Others think students should pay for their studies. Discuss both views and give your own opinion.',
+ 'In many countries, more and more people are choosing to work from home. Do the advantages of this trend outweigh the disadvantages?',
+ 'Some people think that children should start learning a foreign language at primary school. Others believe they should start in secondary school. Discuss both views and give your opinion.',
+ 'Many cities are becoming more crowded and expensive to live in. What are the causes of this problem, and what solutions can you suggest?',
+ 'Some people say that the best way to improve public health is to increase the number of sports facilities. Others believe this would have little effect. Discuss both views and give your opinion.',
+ 'Artificial intelligence will soon replace many jobs. To what extent do you agree or disagree?',
+ 'Some people think that governments should spend more money on public transport rather than on building new roads. To what extent do you agree or disagree?',
+ 'Young people today spend too much time on social media. What problems does this cause, and how can they be solved?',
+ 'Some people believe that it is better to work for a large company, while others prefer to work for a small business. Discuss both views and give your own opinion.',
+ 'Tourism brings many benefits to a country, but it can also cause problems. Do the advantages outweigh the disadvantages?',
+ 'Some people think that the main purpose of schools is to prepare children for work. Others believe schools should help children develop as individuals. Discuss both views and give your opinion.',
+ 'In many countries, people are living longer. What problems does this create, and what can be done about them?',
+ 'It is more important for governments to protect the environment than to support economic growth. To what extent do you agree or disagree?',
+ 'Some people believe that famous athletes and entertainers earn too much money. To what extent do you agree or disagree?',
+ 'More and more people are buying goods online instead of in shops. Is this a positive or negative development?',
+ 'Some people think that children should be given homework every day, while others believe they should have no homework at all. Discuss both views and give your opinion.',
+ 'Many people believe that the internet has made it easier for people to learn. Others say it has made learning more difficult. Discuss both views and give your own opinion.',
+ 'Plastic waste is a growing problem around the world. What are the causes of this problem, and what measures could be taken to reduce it?',
+ 'Some people prefer to live in a big city, while others prefer the countryside. Discuss the advantages of both and give your own opinion.',
+ 'Some people believe that all young people should do a year of community service after leaving school. To what extent do you agree or disagree?'
+];
+
+/* ================= IELTS practice: mock speaking test and timed essay ================= */
+let MOCK=null,IT=0;
+const mmss=s=>{s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+const nWords=t=>(String(t).trim().match(/[A-Za-z0-9'’-]+/g)||[]).length;
+const scoreOf=t=>{const m=String(t).match(/Оценка:\s*([0-9](?:[.,][05])?)/);return m?m[1].replace(',','.'):''};
+
+/* one recorder for the exam screens: on iPhone it also returns text, in a browser only audio */
+const REC={on:false,t0:0,mr:null,chunks:[],audio:null,
+  async start(){
+    if(MH)await nativeCall('recStart',{},15000);
+    else if(navigator.mediaDevices&&window.MediaRecorder){const st=await navigator.mediaDevices.getUserMedia({audio:true});this.chunks=[];this.mr=new MediaRecorder(st);this.mr.ondataavailable=e=>this.chunks.push(e.data);this.mr.start()}
+    else throw new Error('no-mic');
+    this.on=true;this.t0=Date.now()},
+  async stop(){
+    if(!this.on)return {text:'',sec:0};this.on=false;const sec=Math.round((Date.now()-this.t0)/1000);let text='';
+    try{if(MH){const r=await nativeCall('recStop',{},70000);text=String(r&&r.text||'').trim()}
+      else if(this.mr){const mr=this.mr;await new Promise(res=>{mr.onstop=res;mr.stop()});mr.stream.getTracks().forEach(t=>t.stop());this.audio=new Audio(URL.createObjectURL(new Blob(this.chunks,{type:mr.mimeType})))}}catch(e){}
+    return {text,sec}},
+  play(){if(MH)nativeCall('recPlay',{},5000).catch(()=>{});else if(this.audio){this.audio.currentTime=0;this.audio.play()}}
+};
+
+function newMock(){
+  const st=[];shuffle(IELTS_P1).slice(0,2).forEach(t=>t.q.slice(0,3).forEach(q=>st.push({part:1,topic:t.t,q})));
+  const c=shuffle(IELTS_P2)[0];st.push({part:2,card:c});c.p3.forEach(q=>st.push({part:3,q}));
+  MOCK={steps:st,i:0,ans:[],phase:'q',notes:'',spoke:-1};
+}
+function mockText(){
+  return MOCK.steps.map((s,i)=>{const a=MOCK.ans[i]||{};
+    return `Part ${s.part}${s.part===2?' (карточка)':''}: ${s.part===2?s.card.c+' — '+s.card.p.join('; '):s.q}\nОтвет (${a.sec||0} сек): ${a.text||'(нет текста)'}`}).join('\n\n')}
+function mockPrompt(){
+  return `Ты опытный экзаменатор IELTS Speaking. Ниже — пробный экзамен ученика (родной язык русский). Ответы — автоматическая расшифровка речи: возможны ошибки распознавания и нет пунктуации, за это не снижай. Произношение по тексту оценить нельзя — так и скажи одной фразой. Учитывай длительность: в Part 1 нормально 15–30 секунд, в Part 2 — 1,5–2 минуты, в Part 3 — 30–60 секунд.
+
+${mockText()}
+
+Ответь по-русски, без markdown, в таком порядке:
+Первая строка строго: Оценка: X.X (средняя по трём критериям, шаг 0.5)
+Fluency and Coherence — балл и 1–2 фразы почему.
+Lexical Resource — балл и 1–2 фразы почему.
+Grammatical Range and Accuracy — балл и 1–2 фразы почему.
+Главные ошибки — до 8 строк «было → стало — почему».
+Как звучало бы на балл выше — перепиши по-английски один его ответ из Part 3.
+Что тренировать в первую очередь — 3 пункта.`}
+function essayPrompt(w){
+  const n=nWords(w.text),min=Math.round((Date.now()-w.start)/60000);
+  return `Ты опытный экзаменатор IELTS Writing. Оцени эссе Task 2 по официальным критериям: Task Response, Coherence and Cohesion, Lexical Resource, Grammatical Range and Accuracy. Ученик — русскоязычный.
+Тема: ${w.prompt}
+Эссе (${n} слов, писал ${min} мин):
+${w.text}
+
+Ответь по-русски, без markdown:
+Первая строка строго: Оценка: X.X (шаг 0.5)
+По каждому из четырёх критериев — балл и 1–2 фразы почему. Если меньше 250 слов — учти это и скажи.
+Ошибки — до 12 строк «было → стало — почему».
+Улучшенный вариант одного абзаца — по-английски.
+3 совета для следующего эссе.`}
+function saveMock(rec){S.mocks=S.mocks||[];S.mocks.unshift(rec);S.mocks=S.mocks.slice(0,20);save()}
+function copyOut(text,note){
+  const ok=()=>{note.textContent='Скопировано — вставь в чат с Claude.'},fail=()=>{note.textContent='Не получилось скопировать.'};
+  try{navigator.clipboard.writeText(text).then(ok,fail)}catch(e){fail()}
+  if(MH)post('share',{filename:'ielts-'+dayKey()+'.txt',data:text});
+}
+/* Claude's verdict: shown, saved to history, and the copy button stays as a fallback */
+async function judge(prompt,rec,box,btn){
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span> Claude проверяет… (до пары минут)';
+  try{const fb=await askClaude(prompt);rec.fb=fb;rec.score=scoreOf(fb);saveMock(rec);
+    box.innerHTML=`<div class="fb">${esc(fb)}</div>`;btn.hidden=true;return true}
+  catch(e){box.innerHTML=`<div class="small">${esc(claudeErr(e))}</div>`;btn.disabled=false;btn.textContent='Попробовать ещё раз';return false}
+}
+
+function renderIelts(){
+  clearInterval(IT);
+  const arg=view.arg;$('#title').textContent=arg==='speak'?'IELTS Speaking':arg==='write'?'IELTS Writing':'Пробный IELTS';
+  if(arg==='speak')return renderMock();
+  if(arg==='write')return renderEssay();
+  const hist=(S.mocks||[]).map((m,i)=>`<details class="panel hist"><summary><b>${m.type==='speak'?'Speaking':'Writing'}</b> · ${esc(m.at)}${m.score?` · <b>${esc(m.score)}</b>`:' · без оценки'}</summary>
+    <div class="small muted">${esc(m.topic||'')}</div>${m.fb?`<div class="fb">${esc(m.fb)}</div>`:''}${m.text?`<details><summary class="small">Мой ответ</summary><div class="fb">${esc(m.text)}</div></details>`:''}</details>`).join('');
+  $('#view').innerHTML=`<div class="panel"><b>Speaking — пробный экзамен</b>
+      <div class="small muted">Около 12 минут, как на настоящем экзамене. Part 1 — 6 вопросов о тебе, Part 2 — карточка: минута на подготовку и до двух минут монолога, Part 3 — 3 вопроса для рассуждения. Каждый ответ записывается${MH?' и превращается в текст':''}.</div>
+      <button class="btn primary" id="goSpeak">${MOCK&&MOCK.i<MOCK.steps.length?'Продолжить экзамен':'Начать'}</button></div>
+    <div class="panel"><b>Writing — эссе Task 2</b>
+      <div class="small muted">Тема как на экзамене, 40 минут, не меньше 250 слов. Таймер не останавливает — просто показывает, сколько осталось.</div>
+      <button class="btn primary" id="goWrite">${S.wcur?'Продолжить эссе':'Начать'}</button></div>
+    <div class="small muted">${canClaude()?'Оценку ставит Claude по официальным критериям IELTS. Это ориентир, а не настоящий балл.':'Чтобы получить оценку прямо здесь, подключи Claude в настройках Лексики. Без этого ответы можно скопировать и вставить в чат с Claude.'}</div>
+    ${hist?`<div class="sec-title">Мои попытки</div>${hist}`:''}`;
+  $('#goSpeak').onclick=()=>{if(!MOCK||MOCK.i>=MOCK.steps.length)newMock();go('ielts','speak')};
+  $('#goWrite').onclick=()=>go('ielts','write');
+}
+
+function renderMock(){
+  if(!MOCK)newMock();
+  const M=MOCK,n=M.steps.length;
+  if(M.i>=n)return renderMockEnd();
+  const s=M.steps[M.i],a=M.ans[M.i],num=M.steps.filter((x,k)=>x.part===s.part&&k<=M.i).length,tot=M.steps.filter(x=>x.part===s.part).length;
+  const lim=s.part===1?60:s.part===2?120:120;
+  let h=`<div class="panel"><div class="small muted">Part ${s.part}${s.part!==2?` · вопрос ${num} из ${tot}`:''}${s.topic?' · '+esc(s.topic):''}</div><div class="bar"><i style="width:${Math.round(M.i/n*100)}%"></i></div>`;
+  if(s.part===2){
+    h+=`<div class="cue"><div class="en"><b>${esc(s.card.c)}</b></div><div class="small">You should say:</div><ul>${s.card.p.map(x=>`<li class="en">${esc(x)}</li>`).join('')}</ul></div>`;
+    if(M.phase==='q'&&!a)h+=`<div class="small muted">Минута на подготовку: запиши 5–7 слов-опор, не предложения. Потом говори до двух минут.</div>
+      <div class="row" style="gap:10px;align-items:center"><span class="pct" id="clock">1:00</span><button class="btn" id="skipPrep">Готов, начать говорить</button></div>
+      <textarea class="inp" id="notes" rows="3" placeholder="Заметки (видишь только ты)">${esc(M.notes)}</textarea>`;
+  }else h+=`<div class="q en" style="font-size:1.15em"><b>${esc(s.q)}</b></div>`;
+  if(s.part!==2||M.phase==='rec'||a){
+    if(s.part===2&&M.notes)h+=`<div class="small muted">Заметки: ${esc(M.notes)}</div>`;
+    h+=`<div class="row" style="gap:10px;align-items:center;flex-wrap:wrap"><button class="btn primary" id="mRec">${REC.on?'Стоп':a?'Записать заново':'Ответить'}</button><span id="clock" class="muted small"></span>${a&&a.sec?`<button class="btn" id="mPlay">Прослушать</button>`:''}</div>
+      <div class="small muted">${s.part===1?'2–3 предложения, около 20–30 секунд.':s.part===2?'Говори до двух минут — запись остановится сама. Хорошо, если получится хотя бы 1,5 минуты.':'Мнение → причина → пример, около 40–60 секунд.'}</div>`;
+    if(a){
+      h+=a.text?`<div class="fb" id="mText">${esc(a.text)}</div><div class="small muted">${a.sec} сек · ${nWords(a.text)} слов</div>`
+        :`<div class="small muted">${MH?'Текст не распознан.':'В браузере текст не распознаётся.'} Можешь коротко напечатать, что сказал, — так ответ можно будет оценить.</div><textarea class="inp" id="mType" rows="3" placeholder="Что я сказал(а)…">${esc(a.typed||'')}</textarea>`;
+      h+=`<button class="btn primary big" id="mNext">${M.i+1<n?'Следующий вопрос':'Закончить экзамен'}</button>`;
+    }
+  }
+  h+=`</div><button class="linkbtn" id="mQuit">Начать экзамен заново</button>`;
+  $('#view').innerHTML=h;
+  if(!a&&!REC.on&&M.spoke!==M.i&&CAN_SPEAK){M.spoke=M.i;speak(s.part===2?s.card.c:s.q)}
+  const clock=$('#clock');
+  if(s.part===2&&M.phase==='q'&&!a){
+    M.prepEnd=M.prepEnd||Date.now()+60000;
+    const tick=()=>{const left=(M.prepEnd-Date.now())/1000;if(!$('#clock'))return clearInterval(IT);$('#clock').textContent=mmss(left);if(left<=0){clearInterval(IT);startPart2()}};
+    tick();IT=setInterval(tick,500);
+    $('#notes').oninput=e=>{M.notes=e.target.value};
+    $('#skipPrep').onclick=startPart2;
+  }
+  if(REC.on){const tick=()=>{const t=(Date.now()-REC.t0)/1000;if(!$('#clock'))return clearInterval(IT);$('#clock').textContent=s.part===2?'осталось '+mmss(lim-t):mmss(t);if(t>=lim)stopAns()};tick();IT=setInterval(tick,500)}
+  $('#mRec')&&($('#mRec').onclick=()=>REC.on?stopAns():startAns());
+  $('#mPlay')&&($('#mPlay').onclick=()=>REC.play());
+  $('#mType')&&($('#mType').oninput=e=>{M.ans[M.i].typed=e.target.value});
+  $('#mNext')&&($('#mNext').onclick=()=>{M.i++;M.phase='q';M.prepEnd=0;render();scrollTo(0,0)});
+  $('#mQuit').onclick=()=>{if(REC.on)REC.stop();newMock();render()};
+}
+function startPart2(){if(!MOCK)return;MOCK.phase='rec';startAns()}
+async function startAns(){
+  try{await REC.start()}catch(e){tip(esc((e&&e.message&&/[а-я]/i.test(e.message)&&e.message)||'Не получилось включить микрофон. Проверь разрешение на доступ к нему.'));render();return}
+  render();
+}
+async function stopAns(){
+  clearInterval(IT);const b=$('#mRec');if(b){b.disabled=true;b.innerHTML='<span class="spin"></span> Обрабатываю…'}
+  const r=await REC.stop();MOCK.ans[MOCK.i]={text:r.text,sec:r.sec};render();
+}
+function renderMockEnd(){
+  const M=MOCK;M.ans.forEach(a=>{if(a&&!a.text&&a.typed)a.text=a.typed.trim()});
+  const total=M.ans.reduce((x,a)=>x+(a&&a.sec||0),0),missing=M.steps.filter((s,i)=>!(M.ans[i]&&M.ans[i].text)).length;
+  const rec={type:'speak',at:dayKey(),topic:M.steps.find(s=>s.part===2).card.c,text:mockText()};
+  $('#view').innerHTML=`<div class="panel"><b>Экзамен окончен</b><div class="small muted">Ты говорил(а) ${mmss(total)} · ${M.ans.reduce((x,a)=>x+nWords(a&&a.text||''),0)} слов${missing?` · без текста: ${missing} ${plural(missing,'ответ','ответа','ответов')}`:''}</div>
+    ${canClaude()?`<button class="btn primary" id="mJudge">Оценить с Claude</button>`:''}<div id="mFb"></div>
+    <div class="row"><button class="btn" id="mCopy">Скопировать для Claude</button><span class="small muted" id="mNote"></span></div></div>
+    <details class="panel"><summary>Мои ответы</summary><div class="fb">${esc(mockText())}</div></details>
+    <button class="btn" id="mNew">Новый экзамен</button>`;
+  $('#mJudge')&&($('#mJudge').onclick=()=>judge(mockPrompt(),rec,$('#mFb'),$('#mJudge')));
+  $('#mCopy').onclick=()=>copyOut(mockPrompt(),$('#mNote'));
+  $('#mNew').onclick=()=>{newMock();go('ielts','speak')};
+}
+
+function renderEssay(){
+  if(!S.wcur){const done=new Set((S.mocks||[]).filter(m=>m.type==='write').map(m=>m.topic));const fresh=IELTS_W2.filter(p=>!done.has(p));S.wcur={prompt:shuffle(fresh.length?fresh:IELTS_W2)[0],start:Date.now(),text:''};save()}
+  const w=S.wcur;
+  $('#view').innerHTML=`<div class="panel"><div class="small muted">Writing Task 2 · минимум 250 слов · 40 минут</div>
+    <div class="q en"><b>${esc(w.prompt)}</b></div>
+    <div class="row" style="justify-content:space-between"><span class="small" id="wLeft"></span><span class="small" id="wCount"></span></div>
+    <textarea class="inp" id="wText" rows="16" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Пиши здесь. Сохраняется само.">${esc(w.text)}</textarea>
+    ${canClaude()?`<button class="btn primary" id="wJudge">Сдать на оценку Claude</button>`:''}<div id="wFb"></div>
+    <div class="row"><button class="btn" id="wCopy">Скопировать для Claude</button><span class="small muted" id="wNote"></span></div>
+    <button class="linkbtn" id="wNew">Другая тема</button></div>`;
+  const cnt=()=>{const n=nWords($('#wText').value);$('#wCount').innerHTML=`<b>${n}</b> ${plural(n,'слово','слова','слов')}${n<250?' · нужно ещё '+(250-n):' ✓'}`};
+  const left=()=>{const l=40*60-(Date.now()-w.start)/1000;if(!$('#wLeft'))return clearInterval(IT);$('#wLeft').innerHTML=l>0?`Осталось <b>${mmss(l)}</b>`:`<b>Время вышло</b> (${mmss(-l)} сверх)`};
+  cnt();left();IT=setInterval(left,1000);
+  $('#wText').oninput=e=>{w.text=e.target.value;cnt();save()};
+  const rec=()=>({type:'write',at:dayKey(),topic:w.prompt,text:w.text});
+  $('#wJudge')&&($('#wJudge').onclick=async()=>{if(nWords(w.text)<50){tip('Напиши хотя бы несколько абзацев.');return}
+    const r=rec();if(await judge(essayPrompt(w),r,$('#wFb'),$('#wJudge'))){S.wcur=null;save();$('#wNew').textContent='Новое эссе'}});
+  $('#wCopy').onclick=()=>copyOut(essayPrompt(w),$('#wNote'));
+  /* no confirm(): the app's web view has no dialogs, so the first tap only asks */
+  $('#wNew').onclick=e=>{const b=e.target;if(S.wcur&&nWords(S.wcur.text)>30&&!b.dataset.sure){b.dataset.sure=1;b.textContent='Текст этого эссе пропадёт. Нажми ещё раз, чтобы взять другую тему';return}S.wcur=null;save();render()};
+}
+
 /* ================= views ================= */
 let view={name:'course'},session=null;
 const SPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
@@ -17268,15 +17519,17 @@ document.querySelector('nav.tabs').addEventListener('click',e=>{const b=e.target
 
 function render(){
   document.body.classList.toggle('in-session',!!session);
-  document.querySelectorAll('nav.tabs [data-go]').forEach(b=>{const on=b.dataset.go===view.name||(view.name==='unit'&&b.dataset.go==='course');on?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current')});
+  document.querySelectorAll('nav.tabs [data-go]').forEach(b=>{const on=b.dataset.go===view.name||((view.name==='unit'||view.name==='ielts')&&b.dataset.go==='course');on?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current')});
   const due=dueIds().length,bd=$('#dueBadge');bd.hidden=!due;bd.textContent=due>99?'99+':due;
   const back=$('#backBtn');back.innerHTML=BACK;$('#topActions').innerHTML='';
+  if(view.name!=='ielts'){clearInterval(IT);if(REC.on)REC.stop()}
   if(session){$('header.top').hidden=true;return renderSession()}
   $('header.top').hidden=false;
   if(view.name==='unit'){back.hidden=false;back.setAttribute('aria-label','К курсу');back.onclick=()=>go('course')}
+  else if(view.name==='ielts'){back.hidden=false;back.setAttribute('aria-label','Назад');back.onclick=()=>{if(REC.on)REC.stop();go(view.arg?'ielts':'course')}}
   else if(EMB){back.hidden=false;back.setAttribute('aria-label','Назад в Лексику');back.onclick=()=>{saveNow();PARENT.__closeGrammar()}}
   else back.hidden=true;
-  ({course:renderCourse,unit:renderUnit,review:renderReview,stats:renderStats,settings:renderSettings})[view.name]();
+  ({course:renderCourse,unit:renderUnit,review:renderReview,stats:renderStats,settings:renderSettings,ielts:renderIelts})[view.name]();
 }
 
 function renderCourse(){
@@ -17291,6 +17544,7 @@ function renderCourse(){
   const due=dueIds().length;
   if(mine.some(u=>CORE.has(u.id)))h+=`<div class="corenote">Пометка «главное» — самые нужные темы уровня. Они открыты сразу: если времени мало, начни с них.</div>`;
   if(due)h+=`<button class="btn primary big" id="revBtn">Повторить: ${due} ${plural(due,'задание','задания','заданий')}</button>`;
+  if('cde'.includes(S.lv)){const last=(S.mocks||[]).find(m=>m.score);h+=`<button class="unit ielts" id="ieltsBtn"><span class="num">⏱</span><span><span class="tt">Пробный экзамен IELTS</span><br><span class="ru">Speaking с записью и эссе на время — с оценкой Claude</span>${last?`<br><span class="sub">Последняя оценка: ${esc(last.score)} (${last.type==='speak'?'Speaking':'Writing'}, ${esc(last.at)})</span>`:''}</span></button>`}
   const testCard=(key,units,title,ru,n)=>{const open=units.every(unitDone),t=S.tests[key];
     return `<button class="unit test ${t&&t.best>=PASS?'done':''} ${open?'':'locked'}" data-test="${key}" ${open?'':'disabled'}>
       <span class="num">${t&&t.best>=PASS?'✓':'T'}</span><span><span class="tt">${title}</span><br><span class="ru">${esc(ru)}</span><br>
@@ -17318,6 +17572,7 @@ function renderCourse(){
     const lv=key.slice(6),us=lvUnits(lv),n=levelTestSize(lv);
     startTest(key,us,n,'Final test',SECTIONS.filter(x=>x.lv===lv).flatMap(x=>TQ[x.id]||[]),Math.max(0,n-us.length))});
   $('#revBtn')&&($('#revBtn').onclick=startReview);
+  $('#ieltsBtn')&&($('#ieltsBtn').onclick=()=>go('ielts'));
   document.querySelectorAll('.unit[data-u]').forEach(b=>b.onclick=()=>go('unit',b.dataset.u));
 }
 
