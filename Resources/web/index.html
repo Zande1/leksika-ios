@@ -765,19 +765,27 @@ function sampleError(e){
 const canAI=()=>sample&&!sampleOff;
 const canTr=()=>NATIVE||canAI();
 /* ---- Claude on the iPhone: the app runs the user's shortcut «Лексика Claude» and gets the answer back ---- */
-const SC_NAME='Лексика Claude';
+const AI_NAME=()=>NATIVE&&LS.get('lx-ai','claude')==='chatgpt'?'ChatGPT':'Claude';
+const scName=()=>'Лексика '+AI_NAME();
+/* the assistant can be ChatGPT instead of Claude (chosen in Лексика's settings): every text on screen then names it */
+function aiRename(root){if(AI_NAME()==='Claude'||!root)return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;
+  while((n=w.nextNode())){const p=n.parentElement;if(n.nodeValue.includes('Claude')&&p&&p.tagName!=='TEXTAREA'&&!p.closest('[data-keep-ai]'))n.nodeValue=n.nodeValue.replace(/Claude/g,'ChatGPT')}}
+new MutationObserver(ms=>{if(AI_NAME()==='Claude')return;for(const m of ms){if(m.type==='characterData')aiRename(m.target.parentNode);else m.addedNodes.forEach(x=>x.nodeType===3?aiRename(x.parentNode):x.nodeType===1&&aiRename(x))}})
+  .observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+
 const canClaude=()=>NATIVE&&LS.get('lx-claude',false);
 const canAsk=()=>canAI()||canClaude();
 let claudePend=null;
 function askClaude(prompt){return new Promise((res,rej)=>{const p={rej};claudePend=p;
   const done=()=>{if(claudePend===p)claudePend=null};
-  NB.call('claude',{prompt,shortcut:SC_NAME},240000).then(v=>{done();res(String(v||'').trim())},e=>{done();rej(e)});
+  NB.call('claude',{prompt,shortcut:scName()},240000).then(v=>{done();res(String(v||'').trim())},e=>{done();rej(e)});
   toast('Жду ответ Claude…','Отменить',()=>{if(claudePend===p){claudePend=null;rej({code:'cancelled_shortcut'})}},8000)})}
 /* back in the app with no answer: the shortcut did not call back, so stop waiting */
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&claudePend){const p=claudePend;setTimeout(()=>{if(claudePend===p){claudePend=null;p.rej({code:'timeout'})}},20000)}});
 function claudeError(e){const c=e&&e.code;
   if(c==='no_shortcuts')return 'Не удалось открыть «Команды».';
-  if(c==='shortcut_error')return `Команда «${SC_NAME}» не сработала${e.message?': '+e.message:''}. Проверь, что она есть и называется именно так.`;
+  if(c==='shortcut_error')return `Команда «${scName()}» не сработала${e.message?': '+e.message:''}. Проверь, что она есть и называется именно так.`;
   if(c==='cancelled_shortcut')return 'Запрос отменён.';
   if(c==='empty')return 'Claude ничего не вернул. Проверь, что в конце команды стоит «Остановить и вывести».';
   if(c==='timeout')return 'Ответ не пришёл. Если команда открылась, проверь её шаги в настройках на экране «Сегодня».';
@@ -1062,17 +1070,20 @@ function renderToday(){
     <div class="panel keep-open"><h2>Настройки</h2>
       <div class="setrow" style="flex-direction:column;align-items:stretch;gap:8px"><span>Оформление</span><div class="viewseg">${[['auto','Системное'],['light','Светлое'],['dark','Тёмное']].map(([k,n])=>`<button data-th="${k}" aria-pressed="${LS.get('lx-theme','auto')===k}">${n}</button>`).join('')}</div></div>
       <div class="setrow"><span>«Далее» отмечает синие слова известными<div class="d">Как в LingQ. Выключи, если хочешь отмечать слова только вручную.</div></span><button class="sw" data-sw="lx-autoknown" aria-pressed="${autoKnown()}" aria-label="Отмечать синие слова известными"></button></div>
-      ${NATIVE?`<div class="setrow"><span>Объяснения и тексты через Claude<div class="d">Кнопка «Объяснить» в карточке слова, проверка письма в грамматике и «Сгенерировать» в текстах. Запросы идут по твоей подписке Claude через приложение «Команды».</div></span><button class="sw" data-sw="lx-claude" aria-pressed="${canClaude()}" aria-label="Объяснения через Claude"></button></div>
-      ${canClaude()?`<div class="note sc-help"><b>Один раз создай команду</b><ol>
+      ${NATIVE?`<div class="setrow" data-keep-ai><span>Объяснения и тексты через ИИ<div class="d">Кнопка «Объяснить» в карточке слова, проверка письма и разбор ошибок в грамматике, пробный экзамен и «Сгенерировать» в текстах. Запросы идут по твоей подписке через приложение «Команды».</div></span><button class="sw" data-sw="lx-claude" aria-pressed="${canClaude()}" aria-label="Объяснения через ИИ"></button></div>
+      ${canClaude()?`<div class="setrow" data-keep-ai style="flex-direction:column;align-items:stretch;gap:8px"><span>Чей ассистент<div class="d">Нужна подписка или бесплатный аккаунт и приложение на iPhone.</div></span><div class="viewseg">${[['claude','Claude'],['chatgpt','ChatGPT']].map(([k,n])=>`<button data-ai="${k}" aria-pressed="${LS.get('lx-ai','claude')===k}">${n}</button>`).join('')}</div></div>
+      <div class="note sc-help" data-keep-ai><b>Один раз создай команду</b><ol>
         <li>Открой «Команды» → «+» (новая команда).</li>
-        <li>Назови её точно: <b>${SC_NAME}</b>.</li>
-        <li>Добавь действие Claude <b>«Ask Claude»</b> и в поле запроса поставь переменную <b>«Ввод команды»</b>.</li>
-        <li>Добавь действие <b>«Остановить и вывести»</b> и выбери в нём ответ Claude.</li>
+        <li>Назови её точно: <b>${scName()}</b>.</li>
+        ${AI_NAME()==='ChatGPT'?`<li>Добавь действие из приложения ChatGPT <b>«Ask ChatGPT»</b> и в поле сообщения поставь переменную <b>«Ввод команды»</b>. Если у действия есть переключатель открытия приложения или продолжения чата — выключи их.</li>
+        <li>Добавь действие <b>«Остановить и вывести»</b> и выбери в нём ответ ChatGPT.</li>`:`<li>Добавь действие Claude <b>«Ask Claude»</b> и в поле запроса поставь переменную <b>«Ввод команды»</b>.</li>
+        <li>Добавь действие <b>«Остановить и вывести»</b> и выбери в нём ответ Claude.</li>`}
       </ol><div class="row"><button class="btn sm" id="scTest">Проверить связь</button><span class="small muted" id="scRes"></span></div></div>`:''}`:''}
       <div class="setrow"><span>Нажатие на слово сразу добавляет его в изучаемые<div class="d">Если выключить, слово добавится, только когда выберешь ему уровень.</div></span><button class="sw" data-sw="lx-autolingq" aria-pressed="${autoLingq()}" aria-label="Сразу добавлять слово в изучаемые"></button></div>
     </div>`;
   document.querySelectorAll('[data-next]').forEach(b=>b.onclick=()=>{const k=b.dataset.next;if(k==='grammar'){const gt=document.getElementById('gramTab');if(gt)gt.click()}else location.hash=k});
   document.querySelectorAll('[data-th]').forEach(b=>b.onclick=()=>{LS.set('lx-theme',b.dataset.th);applyTheme();renderToday()});
+  document.querySelectorAll('[data-ai]').forEach(b=>b.onclick=()=>{LS.set('lx-ai',b.dataset.ai);renderToday()});
   document.querySelectorAll('[data-sw]').forEach(b=>b.onclick=()=>{LS.set(b.dataset.sw,b.getAttribute('aria-pressed')!=='true');renderToday()});
   $('#scTest')&&($('#scTest').onclick=async()=>{const r=$('#scRes');r.innerHTML='<span class="spin"></span> Жду ответ…';
     try{const t=await askClaude('Это проверка связи из приложения для изучения английского. Ответь одной короткой фразой по-русски, что связь работает.');r.textContent='Работает: '+t.slice(0,120)}

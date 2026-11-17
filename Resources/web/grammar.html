@@ -17339,7 +17339,15 @@ document.addEventListener('click',e=>{const t=e.target.closest('.en');if(t)speak
 const TB={seq:9000000,cb:new Map(),cache:new Map()};
 (function(){try{const w=EMB?PARENT:window,orig=w.__nb;
   w.__nb=(id,ok,val)=>{const c=TB.cb.get(id);if(c){TB.cb.delete(id);ok?c.res(val):c.rej(val);return}if(typeof orig==='function')orig(id,ok,val)}}catch(e){}})();
-const SC_NAME='Лексика Claude';
+const AI_NAME=()=>!SAMPLE&&LS.get('lx-ai','claude')==='chatgpt'?'ChatGPT':'Claude';
+const scName=()=>'Лексика '+AI_NAME();
+/* the assistant can be ChatGPT instead of Claude (chosen in Лексика's settings): every text on screen then names it */
+function aiRename(root){if(AI_NAME()==='Claude'||!root)return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;
+  while((n=w.nextNode())){const p=n.parentElement;if(n.nodeValue.includes('Claude')&&p&&p.tagName!=='TEXTAREA'&&!p.closest('[data-keep-ai]'))n.nodeValue=n.nodeValue.replace(/Claude/g,'ChatGPT')}}
+new MutationObserver(ms=>{if(AI_NAME()==='Claude')return;for(const m of ms){if(m.type==='characterData')aiRename(m.target.parentNode);else m.addedNodes.forEach(x=>x.nodeType===3?aiRename(x.parentNode):x.nodeType===1&&aiRename(x))}})
+  .observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+
 /* in the iPhone app Claude is reached through the user's shortcut; on the web page inside Claude, directly */
 let SAMPLE=null;
 try{if(window.claude&&window.claude.use)window.claude.use('sample').then(s=>{if(s){SAMPLE=s;try{render()}catch(e){}}}).catch(()=>{})}catch(e){}
@@ -17347,13 +17355,13 @@ const canClaude=()=>!!SAMPLE||(!!MH&&LS.get('lx-claude',false));
 let claudePend=null;
 function askClaude(prompt){if(SAMPLE)return SAMPLE(prompt).then(r=>String(r&&r.text||'').trim());
   return new Promise((res,rej)=>{const p={rej};claudePend=p;const done=()=>{if(claudePend===p)claudePend=null};
-    nativeCall('claude',{prompt,shortcut:SC_NAME},240000).then(v=>{done();res(String(v||'').trim())},e=>{done();rej(e)})})}
+    nativeCall('claude',{prompt,shortcut:scName()},240000).then(v=>{done();res(String(v||'').trim())},e=>{done();rej(e)})})}
 /* back in the app with no answer: the shortcut did not call back, so stop waiting */
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&claudePend){const p=claudePend;setTimeout(()=>{if(claudePend===p){claudePend=null;p.rej({code:'timeout'})}},20000)}});
 function claudeErr(e){const c=e&&e.code;
   if(c==='not_granted'||c==='sampling_disabled'){SAMPLE=null;return 'Доступ к Claude не разрешён для этой страницы.'}
   if(c==='rate_limited')return 'Слишком много запросов, попробуй чуть позже.';
-  if(c==='shortcut_error')return `Команда «${SC_NAME}» не сработала. Как её создать — в «Лексике» на экране «Сегодня», в настройках.`;
+  if(c==='shortcut_error')return `Команда «${scName()}» не сработала. Как её создать — в «Лексике» на экране «Сегодня», в настройках.`;
   if(c==='empty')return 'Claude ничего не вернул. Проверь, что в конце команды стоит «Остановить и вывести».';
   if(c==='cancelled_shortcut')return 'Запрос отменён.';
   if(c==='timeout')return 'Ответ не пришёл: команда не вернула результат. Попробуй ещё раз.';
