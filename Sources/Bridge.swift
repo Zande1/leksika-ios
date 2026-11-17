@@ -593,6 +593,29 @@ final class ResumeOnce: @unchecked Sendable {
     }
 }
 
+/// Joins the utterances of one recording. A new utterance is recognised by its first word starting
+/// later than the current one's first word and the text no longer continuing the previous one.
+final class UtteranceCollector: @unchecked Sendable {
+    private let lock = NSLock()
+    private var done: [String] = []
+    private var current = ""
+    private var start: TimeInterval = -1
+    func update(_ t: SFTranscription) {
+        lock.lock(); defer { lock.unlock() }
+        let text = t.formattedString.trimmingCharacters(in: .whitespacesAndNewlines)
+        let first = t.segments.first?.timestamp ?? 0
+        if !current.isEmpty, first > start + 0.3,
+           !text.lowercased().hasPrefix(String(current.lowercased().prefix(8))) {
+            done.append(current)
+        }
+        if !text.isEmpty { current = text; start = first }
+    }
+    var text: String {
+        lock.lock(); defer { lock.unlock() }
+        return (done + (current.isEmpty ? [] : [current])).joined(separator: " ")
+    }
+}
+
 /// Holds a recognition task so a timeout can cancel it.
 final class RecognitionBox: @unchecked Sendable {
     private let lock = NSLock()
@@ -636,19 +659,24 @@ enum Transcriber {
     }
 
     /// nil when recognition failed.
+    /// iOS splits a long recording into utterances at pauses and the final result carries only the last one,
+    /// so partial results are watched and every finished utterance is kept.
     private static func run(_ recognizer: SFSpeechRecognizer, _ url: URL, onDevice: Bool) async -> String? {
         let request = SFSpeechURLRecognitionRequest(url: url)
-        request.shouldReportPartialResults = false
+        request.shouldReportPartialResults = true
         request.addsPunctuation = true
         request.requiresOnDeviceRecognition = onDevice
-        let once = ResumeOnce(), box = RecognitionBox()
+        let once = ResumeOnce(), box = RecognitionBox(), acc = UtteranceCollector()
         let result: String? = await withTaskCancellationHandler {
             await withCheckedContinuation { (c: CheckedContinuation<String?, Never>) in
                 box.set(recognizer.recognitionTask(with: request) { result, error in
-                    if let result, result.isFinal {
-                        if once.claim() { c.resume(returning: result.bestTranscription.formattedString) }
-                    } else if error != nil {
-                        if once.claim() { c.resume(returning: nil) }
+                    if let result {
+                        acc.update(result.bestTranscription)
+                        if result.isFinal, once.claim() { c.resume(returning: acc.text) }
+                    }
+                    if error != nil, once.claim() {
+                        let t = acc.text
+                        c.resume(returning: t.isEmpty ? nil : t)
                     }
                 })
             }
