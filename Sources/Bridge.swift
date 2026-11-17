@@ -53,6 +53,8 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
             reply(id, true, found)
 
         case "speak":
+            // Speech during a recording would end up in the answer.
+            if voiceRecorder.isRecording { reply(id, false, ["code": "recording"]); break }
             let text = data["text"] as? String ?? ""
             let rate = (data["rate"] as? NSNumber)?.doubleValue ?? 0.9
             speaker.speak(text: text, rate: rate, voiceId: data["voice"] as? String) { [weak self] finished in
@@ -63,6 +65,7 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
             speaker.stop()
 
         case "speakQueue":
+            if voiceRecorder.isRecording { break }
             let raw = data["items"] as? [[String: Any]] ?? []
             let items: [(Int, String)] = raw.compactMap { item in
                 guard let i = (item["i"] as? NSNumber)?.intValue, let t = item["text"] as? String else { return nil }
@@ -102,12 +105,13 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
         case "recStop":
             Task { @MainActor in
                 let r = await self.voiceRecorder.stop()
-                self.reply(id, true, ["text": r.text, "seconds": r.seconds])
+                self.reply(id, true, ["text": r.text, "seconds": r.seconds, "reason": r.reason])
             }
 
         case "recPlay":
-            voiceRecorder.play()
-            reply(id, true, ["ok": true])
+            speaker.stop()
+            let played = voiceRecorder.play()
+            reply(id, played, played ? ["ok": true] : ["code": "no_recording"])
 
         case "translateSentence":
             let text = data["text"] as? String ?? ""
@@ -308,7 +312,11 @@ final class Bridge: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKUI
             pop.sourceView = w
             pop.sourceRect = CGRect(x: w.bounds.midX, y: w.bounds.midY, width: 1, height: 1)
         }
-        topViewController()?.present(vc, animated: true)
+        // Without a free screen to show the sheet on, answer now so the page doesn't wait forever.
+        guard let top = topViewController(), top.presentedViewController == nil, !top.isBeingDismissed else {
+            reply(id, false, ["code": "no_presenter"]); return
+        }
+        top.present(vc, animated: true)
     }
 
     private func topViewController() -> UIViewController? {
@@ -480,20 +488,55 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate {
 
 // MARK: - Speaking practice (recording + speech-to-text)
 
+/// What came out of a recording: the text, how long it was, and why the text is empty if it is.
+struct Transcript: Sendable {
+    var text: String
+    var reason: String
+}
+
 @MainActor
 final class VoiceRecorder {
     private var recorder: AVAudioRecorder?
     private var player: AVAudioPlayer?
-    private let url = FileManager.default.temporaryDirectory.appendingPathComponent("speaking.m4a")
+    /// A new file per recording, so a new answer never overwrites one that is still being transcribed.
+    private var url = FileManager.default.temporaryDirectory.appendingPathComponent("speaking.m4a")
+    private var transcribing = 0
+    private var interruptions: NSObjectProtocol?
+
+    var isRecording: Bool { recorder?.isRecording == true }
+
+    init() {
+        // A phone call or Siri pauses the recorder; carry on recording into the same file when it ends.
+        interruptions = NotificationCenter.default.addObserver(forName: AVAudioSession.interruptionNotification,
+                                                               object: nil, queue: .main) { [weak self] note in
+            guard let raw = note.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt,
+                  AVAudioSession.InterruptionType(rawValue: raw) == .ended else { return }
+            MainActor.assumeIsolated {
+                guard let self, let rec = self.recorder, !rec.isRecording else { return }
+                try? AVAudioSession.sharedInstance().setActive(true)
+                rec.record()
+            }
+        }
+    }
 
     func start() async throws {
-        guard await AVAudioApplication.requestRecordPermission() else {
-            throw TranslateFailure(reason: "Нет доступа к микрофону. Разреши его: Настройки → Лексика → Микрофон.")
+        let denied = "Нет доступа к микрофону. Разреши его: Настройки → Лексика → Микрофон."
+        switch AVAudioApplication.shared.recordPermission {
+        case .granted: break
+        case .denied: throw TranslateFailure(reason: denied)
+        default:
+            guard await AVAudioApplication.requestRecordPermission() else { throw TranslateFailure(reason: denied) }
         }
-        player?.stop()
+        // Ask for speech recognition now, not after the answer.
+        _ = await Transcriber.authorized()
+        // After the awaits: a second tap or an orphaned recording is stopped here.
+        recorder?.stop(); recorder = nil
+        player?.stop(); player = nil
         let session = AVAudioSession.sharedInstance()
         try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker])
         try session.setActive(true)
+        if transcribing == 0 { try? FileManager.default.removeItem(at: url) }
+        url = FileManager.default.temporaryDirectory.appendingPathComponent("speaking-\(UUID().uuidString).m4a")
         let settings: [String: Any] = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 44100,
@@ -501,27 +544,40 @@ final class VoiceRecorder {
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
         ]
         let rec = try AVAudioRecorder(url: url, settings: settings)
-        guard rec.record() else {
+        // Hard cap of six minutes in case the page never asks to stop.
+        guard rec.record(forDuration: 360) else {
             throw TranslateFailure(reason: "Не получилось начать запись.")
         }
         recorder = rec
     }
 
-    func stop() async -> (text: String, seconds: Double) {
-        guard let rec = recorder else { return ("", 0) }
+    func stop() async -> (text: String, seconds: Double, reason: String) {
+        guard let rec = recorder else { return ("", 0, "not_recording") }
         let seconds = rec.currentTime
         rec.stop()
         recorder = nil
-        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .spokenAudio, options: [.duckOthers])
+        // Let music or podcasts that the recording stopped play again.
+        let session = AVAudioSession.sharedInstance()
+        try? session.setActive(false, options: .notifyOthersOnDeactivation)
+        try? session.setCategory(.playback, mode: .spokenAudio, options: [.duckOthers])
         let file = url
-        let text = (try? await withTimeout(45) { await Transcriber.text(of: file) }) ?? ""
-        return (text, seconds)
+        transcribing += 1
+        let t = (try? await withTimeout(90) { await Transcriber.text(of: file) }) ?? Transcript(text: "", reason: "timeout")
+        transcribing -= 1
+        if file != url { try? FileManager.default.removeItem(at: file) }
+        return (t.text, seconds, t.reason)
     }
 
-    func play() {
-        try? AVAudioSession.sharedInstance().setActive(true)
-        player = try? AVAudioPlayer(contentsOf: url)
-        player?.play()
+    /// Plays the last answer; false while recording or when there is nothing to play.
+    func play() -> Bool {
+        guard recorder == nil, FileManager.default.fileExists(atPath: url.path) else { return false }
+        let session = AVAudioSession.sharedInstance()
+        try? session.setCategory(.playback, mode: .spokenAudio, options: [.duckOthers])
+        try? session.setActive(true)
+        player?.stop()
+        guard let p = try? AVAudioPlayer(contentsOf: url) else { return false }
+        player = p
+        return p.play()
     }
 }
 
@@ -537,37 +593,68 @@ final class ResumeOnce: @unchecked Sendable {
     }
 }
 
+/// Holds a recognition task so a timeout can cancel it.
+final class RecognitionBox: @unchecked Sendable {
+    private let lock = NSLock()
+    private var task: SFSpeechRecognitionTask?
+    private var cancelled = false
+    func set(_ t: SFSpeechRecognitionTask) {
+        lock.lock(); task = t; let c = cancelled; lock.unlock()
+        if c { t.cancel() }
+    }
+    func cancel() {
+        lock.lock(); cancelled = true; let t = task; lock.unlock()
+        t?.cancel()
+    }
+}
+
 enum Transcriber {
     static func authorized() async -> Bool {
-        await withCheckedContinuation { (c: CheckedContinuation<Bool, Never>) in
-            SFSpeechRecognizer.requestAuthorization { status in
-                c.resume(returning: status == .authorized)
+        switch SFSpeechRecognizer.authorizationStatus() {
+        case .authorized: return true
+        case .denied, .restricted: return false
+        default:
+            return await withCheckedContinuation { (c: CheckedContinuation<Bool, Never>) in
+                SFSpeechRecognizer.requestAuthorization { status in c.resume(returning: status == .authorized) }
             }
         }
     }
 
-    /// English text of the recording; empty when recognition is unavailable or not allowed.
-    static func text(of url: URL) async -> String {
-        guard await authorized(),
-              let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US")),
-              recognizer.isAvailable else { return "" }
+    /// English text of the recording. The phone's own model is tried first (offline, no length limit);
+    /// when it is missing — common on a phone set to Russian — Apple's server is used (needs internet, about a minute of audio).
+    static func text(of url: URL) async -> Transcript {
+        guard await authorized() else { return Transcript(text: "", reason: "speech_denied") }
+        guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US")) else {
+            return Transcript(text: "", reason: "unavailable")
+        }
+        if recognizer.supportsOnDeviceRecognition, let t = await run(recognizer, url, onDevice: true), !t.isEmpty {
+            return Transcript(text: t, reason: "")
+        }
+        guard recognizer.isAvailable else { return Transcript(text: "", reason: "unavailable") }
+        if let t = await run(recognizer, url, onDevice: false) { return Transcript(text: t, reason: t.isEmpty ? "empty" : "") }
+        return Transcript(text: "", reason: "failed")
+    }
+
+    /// nil when recognition failed.
+    private static func run(_ recognizer: SFSpeechRecognizer, _ url: URL, onDevice: Bool) async -> String? {
         let request = SFSpeechURLRecognitionRequest(url: url)
         request.shouldReportPartialResults = false
         request.addsPunctuation = true
-        // On the phone itself there is no one-minute limit, and it works offline.
-        if recognizer.supportsOnDeviceRecognition { request.requiresOnDeviceRecognition = true }
-        let once = ResumeOnce()
-        let text = await withCheckedContinuation { (c: CheckedContinuation<String, Never>) in
-            recognizer.recognitionTask(with: request) { result, error in
-                if let result, result.isFinal {
-                    if once.claim() { c.resume(returning: result.bestTranscription.formattedString) }
-                } else if error != nil {
-                    if once.claim() { c.resume(returning: "") }
-                }
+        request.requiresOnDeviceRecognition = onDevice
+        let once = ResumeOnce(), box = RecognitionBox()
+        let result: String? = await withTaskCancellationHandler {
+            await withCheckedContinuation { (c: CheckedContinuation<String?, Never>) in
+                box.set(recognizer.recognitionTask(with: request) { result, error in
+                    if let result, result.isFinal {
+                        if once.claim() { c.resume(returning: result.bestTranscription.formattedString) }
+                    } else if error != nil {
+                        if once.claim() { c.resume(returning: nil) }
+                    }
+                })
             }
-        }
+        } onCancel: { box.cancel() }
         withExtendedLifetime(recognizer) {}
-        return text
+        return result
     }
 }
 
@@ -773,12 +860,14 @@ func withTimeout<T: Sendable>(_ seconds: Double, _ operation: @escaping @Sendabl
     let gate = OnceGate<T>()
     return try await withCheckedThrowingContinuation { (c: CheckedContinuation<T, Error>) in
         gate.arm(c)
-        Task {
+        let work = Task {
             do { gate.finish(.success(try await operation())) } catch { gate.finish(.failure(error)) }
         }
         Task {
             try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
             gate.finish(.failure(URLError(.timedOut)))
+            // Lets the operation stop its own work (e.g. a speech-recognition task).
+            work.cancel()
         }
     }
 }

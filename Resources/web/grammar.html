@@ -17383,28 +17383,22 @@ function speakPanel(u){
     ${canClaude()?`<button class="btn" id="sayCheck" ${saved&&saved.t?'':'hidden'}>Разобрать с Claude</button>`:''}<div id="sayFb">${saved&&saved.fb?`<div class="fb">${esc(saved.fb)}</div>`:''}</div></div>`}
 function bindSpeak(u){
   const btn=$('#recBtn');if(!btn)return;
-  let on=false,t0=0,timer=0,mr=null,chunks=[],audio=null;
-  const clock=()=>{const s=Math.floor((Date.now()-t0)/1000);$('#recT')&&($('#recT').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0'))};
+  let timer=0;
+  const clock=()=>{const s=Math.floor((Date.now()-REC.t0)/1000);$('#recT')&&($('#recT').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0'))};
   const fail=m=>{$('#recOut').innerHTML=`<div class="small">${esc(m)}</div>`};
   btn.onclick=async()=>{
-    if(!on){
-      try{
-        if(MH)await nativeCall('recStart',{},15000);
-        else if(navigator.mediaDevices&&window.MediaRecorder){const st=await navigator.mediaDevices.getUserMedia({audio:true});chunks=[];mr=new MediaRecorder(st);mr.ondataavailable=e=>chunks.push(e.data);mr.start()}
-      }catch(e){fail((e&&e.message&&/[а-я]/i.test(e.message)&&e.message)||'Не получилось включить микрофон. Проверь разрешение на доступ к нему.');return}
-      on=true;t0=Date.now();clock();timer=setInterval(clock,500);btn.textContent='Стоп';$('#recPlay').hidden=true;return}
-    on=false;clearInterval(timer);btn.disabled=true;btn.innerHTML='<span class="spin"></span> Обрабатываю…';
-    let text='',sec=Math.round((Date.now()-t0)/1000);
-    try{
-      if(MH){const r=await nativeCall('recStop',{},70000);text=String(r&&r.text||'').trim()}
-      else if(mr){await new Promise(res=>{mr.onstop=res;mr.stop()});mr.stream.getTracks().forEach(t=>t.stop());audio=new Audio(URL.createObjectURL(new Blob(chunks,{type:mr.mimeType})))}
-    }catch(e){}
-    btn.disabled=false;btn.textContent='Записать ещё раз';if(MH||audio)$('#recPlay').hidden=false;
+    if(!REC.on){
+      btn.disabled=true;
+      try{await REC.start()}catch(e){btn.disabled=false;fail((e&&e.message&&/[а-я]/i.test(e.message)&&e.message)||'Не получилось включить микрофон. Проверь разрешение на доступ к нему.');return}
+      btn.disabled=false;clock();timer=setInterval(()=>{if(!$('#recT')||!REC.on)return clearInterval(timer);clock()},500);btn.textContent='Стоп';$('#recPlay').hidden=true;return}
+    clearInterval(timer);btn.disabled=true;btn.innerHTML='<span class="spin"></span> Обрабатываю…';
+    const r=await REC.stop(),text=r.text,sec=r.sec;
+    btn.disabled=false;btn.textContent='Записать ещё раз';if(MH||REC.audio)$('#recPlay').hidden=false;
     if(text){S.say=S.say||{};S.say[u.id]={t:text,at:dayKey(),sec};save();
       const wpm=sec>5?Math.round(text.split(/\s+/).length*60/sec):0;
       $('#recOut').innerHTML=`<div class="small muted">Вот что получилось${wpm?` · около ${wpm} слов в минуту`:''}:</div><div class="fb">${esc(text)}</div>`;$('#sayCheck')&&($('#sayCheck').hidden=false)}
-    else $('#recOut').innerHTML=`<div class="small muted">${MH?'Текст распознать не получилось. Прослушай запись и попробуй ещё раз, чуть громче и ближе к телефону.':'Запись готова — прослушай себя.'}</div>`};
-  $('#recPlay').onclick=()=>{if(MH)nativeCall('recPlay',{},5000).catch(()=>{});else if(audio){audio.currentTime=0;audio.play()}};
+    else $('#recOut').innerHTML=`<div class="small muted">${MH?recWhy(r.reason):'Запись готова — прослушай себя.'}</div>`};
+  $('#recPlay').onclick=()=>REC.play();
   $('#sayCheck')&&($('#sayCheck').onclick=async()=>{const rec=(S.say||{})[u.id];if(!rec||!rec.t)return;const b=$('#sayCheck'),box=$('#sayFb');b.disabled=true;b.innerHTML='<span class="spin"></span> Жду Claude…';
     try{const fb=await askClaude(`Ты преподаватель английского и экзаменатор IELTS Speaking. Ученик (родной язык русский, уровень ${CEFRL(u.lv)}) отвечал устно по теме «${u.en}». ${u.say?'Вопросы: '+u.say.map(q=>Array.isArray(q)?q[0]:q).join(' / '):'Задание: '+((u.fw&&u.fw.ru)||'')}
 Расшифровка его ответа (сделана автоматически, отдельные слова могут быть распознаны неверно; говорил ${rec.sec||'?'} секунд):
@@ -17520,17 +17514,24 @@ const nWords=t=>(String(t).trim().match(/[A-Za-z0-9'’-]+/g)||[]).length;
 const scoreOf=t=>{const m=String(t).match(/Оценка:\s*([0-9](?:[.,][05])?)/);return m?m[1].replace(',','.'):''};
 
 /* one recorder for the exam screens: on iPhone it also returns text, in a browser only audio */
+/* why a recording came back without text, in words the learner can act on */
+const RECWHY={speech_denied:'Распознавание речи выключено для Лексики. Включи: Настройки → Лексика → Распознавание речи.',
+  unavailable:'Распознавание английской речи сейчас недоступно. Нужен интернет — или офлайн-модель: добавь английскую клавиатуру и включи диктовку (Настройки → Основные → Клавиатура).',
+  failed:'Не получилось распознать речь. Без интернета нужна офлайн-модель: добавь английскую клавиатуру и включи диктовку. Запись можно прослушать.',
+  timeout:'Распознавание заняло слишком много времени. Проверь интернет или отвечай короче.',
+  empty:'В записи не нашлось речи. Попробуй ещё раз, ближе к телефону.'};
+const recWhy=r=>RECWHY[r]||'Текст распознать не получилось. Прослушай запись и попробуй ещё раз, чуть громче и ближе к телефону.';
 const REC={on:false,t0:0,mr:null,chunks:[],audio:null,
   async start(){
-    if(MH)await nativeCall('recStart',{},15000);
+    if(MH)await nativeCall('recStart',{},60000);
     else if(navigator.mediaDevices&&window.MediaRecorder){const st=await navigator.mediaDevices.getUserMedia({audio:true});this.chunks=[];this.mr=new MediaRecorder(st);this.mr.ondataavailable=e=>this.chunks.push(e.data);this.mr.start()}
     else throw new Error('no-mic');
     this.on=true;this.t0=Date.now()},
   async stop(){
-    if(!this.on)return {text:'',sec:0};this.on=false;const sec=Math.round((Date.now()-this.t0)/1000);let text='';
-    try{if(MH){const r=await nativeCall('recStop',{},70000);text=String(r&&r.text||'').trim()}
+    if(!this.on)return {text:'',sec:0,reason:''};this.on=false;const sec=Math.round((Date.now()-this.t0)/1000);let text='',reason='';
+    try{if(MH){const r=await nativeCall('recStop',{},100000);text=String(r&&r.text||'').trim();reason=String(r&&r.reason||'')}
       else if(this.mr){const mr=this.mr;await new Promise(res=>{mr.onstop=res;mr.stop()});mr.stream.getTracks().forEach(t=>t.stop());this.audio=new Audio(URL.createObjectURL(new Blob(this.chunks,{type:mr.mimeType})))}}catch(e){}
-    return {text,sec}},
+    return {text,sec,reason}},
   play(){if(MH)nativeCall('recPlay',{},5000).catch(()=>{});else if(this.audio){this.audio.currentTime=0;this.audio.play()}}
 };
 
@@ -17620,7 +17621,7 @@ function renderMock(){
       <div class="small muted">${s.part===1?'2–3 предложения, около 20–30 секунд.':s.part===2?'Говори до двух минут — запись остановится сама. Хорошо, если получится хотя бы 1,5 минуты.':'Мнение → причина → пример, около 40–60 секунд.'}</div>`;
     if(a){
       h+=a.text?`<div class="fb" id="mText">${esc(a.text)}</div><div class="small muted">${a.sec} сек · ${nWords(a.text)} слов</div>`
-        :`<div class="small muted">${MH?'Текст не распознан.':'В браузере текст не распознаётся.'} Можешь коротко напечатать, что сказал, — так ответ можно будет оценить.</div><textarea class="inp" id="mType" rows="3" placeholder="Что я сказал(а)…">${esc(a.typed||'')}</textarea>`;
+        :`<div class="small muted">${MH?esc(recWhy(a.reason)):'В браузере текст не распознаётся.'} Можешь коротко напечатать, что сказал, — так ответ можно будет оценить.</div><textarea class="inp" id="mType" rows="3" placeholder="Что я сказал(а)…">${esc(a.typed||'')}</textarea>`;
       h+=`<button class="btn primary big" id="mNext">${M.i+1<n?'Следующий вопрос':'Закончить экзамен'}</button>`;
     }
   }
@@ -17649,7 +17650,7 @@ async function startAns(){
 }
 async function stopAns(){
   clearInterval(IT);const b=$('#mRec');if(b){b.disabled=true;b.innerHTML='<span class="spin"></span> Обрабатываю…'}
-  const r=await REC.stop();MOCK.ans[MOCK.i]={text:r.text,sec:r.sec};render();
+  const r=await REC.stop();MOCK.ans[MOCK.i]={text:r.text,sec:r.sec,reason:r.reason};render();
 }
 function renderMockEnd(){
   const M=MOCK;M.ans.forEach(a=>{if(a&&!a.text&&a.typed)a.text=a.typed.trim()});
