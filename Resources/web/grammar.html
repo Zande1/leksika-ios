@@ -18141,7 +18141,13 @@ ${list}
     catch(e){$('#tAns').innerHTML=`<div class="small">${esc(claudeErr(e))}</div>`;b.disabled=false;b.textContent='Разобрать ошибки с Claude'}});
 }
 /* oldest first, but mixed across topics: shuffle the 45 oldest and take 15 */
-function startReview(){const d=shuffle(dueIds().slice(0,45)).slice(0,15);if(d.length)startSession({kind:'review',q:d})}
+function startReview(){
+  const d=shuffle(dueIds().slice(0,45)).slice(0,15);
+  /* few items due: top the session up to 10 with the weakest items already met, one per rule, so it is never just 2 questions */
+  if(d.length<10){const rules=new Set(d.map(id=>{const it=ITEMS.get(id);return it.u+'|'+it.rule}));
+    const weak=shuffle(Object.keys(S.items).filter(id=>ITEMS.has(id)&&!d.includes(id))).sort((a,b)=>((S.items[b].w||0)-(S.items[b].r||0))-((S.items[a].w||0)-(S.items[a].r||0))||(S.items[a].b||0)-(S.items[b].b||0));
+    for(const id of weak){if(d.length>=10)break;const it=ITEMS.get(id),k=it.u+'|'+it.rule;if(rules.has(k))continue;rules.add(k);d.push(id)}}
+  if(d.length)startSession({kind:'review',q:shuffle(d)})}
 function startExtra(){
   const seen=Object.keys(S.items).filter(id=>ITEMS.has(id));
   const w=shuffle(seen).sort((a,b)=>(S.items[b].w||0)-(S.items[b].r||0)-((S.items[a].w||0)-(S.items[a].r||0)));
@@ -18226,7 +18232,9 @@ function grade(it,ok,typo,given,shown){
   if(!first)return;
   ok?s.right++:s.wrong++;if(typo)s.typos++;
   const t=dayKey(),rec=S.items[it.id]||(S.items[it.id]={b:0,d:t,r:0,w:0}),wasDue=rec.d<=t||!(rec.r+rec.w);
-  if(ok){rec.r++;if(wasDue){rec.b=Math.min(rec.b+1,IV.length-1);rec.d=addDays(IV[rec.b])}}
+  if(ok){rec.r++;if(wasDue){rec.b=Math.min(rec.b+1,IV.length-1);rec.d=addDays(IV[rec.b])}
+    /* the rule was just shown to be known: its other items due today move to their own next date (they are other sentences on the same rule) */
+    if(wasDue&&s.kind==='review'){const k=it.u+'|'+it.rule;for(const [id,o] of Object.entries(S.items)){if(id===it.id||o.d>t||!ITEMS.has(id)||s.q.includes(id))continue;const x=ITEMS.get(id);if(x.u+'|'+x.rule===k)o.d=addDays(IV[Math.max(1,o.b||0)])}}}
   else{rec.w++;rec.b=0;rec.d=addDays(1);S.log.push({id:(shown||it).id,g:String(given||'').slice(0,120),at:t});if(S.log.length>150)S.log=S.log.slice(-150)}
   const d=dayRec();d.n++;if(ok)d.ok++;d.sec+=Math.min(90,Math.round((Date.now()-s.state.shown)/1000));
   if(d.n===S.goal)tip('Дневная цель выполнена: '+S.goal+' ответов.',4000);
